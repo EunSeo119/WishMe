@@ -12,13 +12,13 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "personalLetter")
+@Table(name = "myletter")
 public class MyLetter extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "personal_letter_seq", unique = true, nullable = false)
-    private Long personalLetterSeq;
+    @Column(name = "my_letter_seq", unique = true, nullable = false)
+    private Long myLetterSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_user")
