@@ -1,8 +1,8 @@
-package com.wishme.bichnali.myLetter.domain;
+package com.wishme.myLetter.myLetter.domain;
 
-import com.wishme.bichnali.asset.domain.Asset;
-import com.wishme.bichnali.common.domain.BaseTimeEntity;
-import com.wishme.bichnali.user.domain.User;
+import com.wishme.myLetter.asset.domain.Asset;
+import com.wishme.myLetter.common.domain.BaseTimeEntity;
+import com.wishme.myLetter.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
