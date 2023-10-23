@@ -1,4 +1,4 @@
-package com.wishme.bichnali.asset.domain;
+package com.wishme.asset.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;

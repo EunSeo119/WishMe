@@ -1,4 +1,4 @@
-package com.wishme.bichnali.user.domain;
+package com.wishme.user.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

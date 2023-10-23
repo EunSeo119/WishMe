@@ -1,9 +1,10 @@
-package com.wishme.bichnali.myLetter.domain;
+package com.wishme.myLetter.domain;
 
-import com.wishme.bichnali.asset.domain.Asset;
-import com.wishme.bichnali.common.domain.BaseTimeEntity;
-import com.wishme.bichnali.user.domain.User;
+import com.wishme.asset.domain.Asset;
+import com.wishme.common.domain.BaseTimeEntity;
+import com.wishme.user.domain.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -39,5 +40,15 @@ public class MyLetter extends BaseTimeEntity {
 
     @Column(name = "is_public", nullable = false, columnDefinition = "TINYINT(1) default 0")
     private Boolean isPublic;
+
+    @Builder
+    public MyLetter (User fromUser, Asset assetSeq, String content, String nickname, Long toUser, boolean isPublic){
+        this.fromUser = fromUser;
+        this.assetSeq = assetSeq;
+        this.content = content;
+        this.nickname = nickname;
+        this.toUser = toUser;
+        this.isPublic = isPublic;
+    }
 
 }
