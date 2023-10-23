@@ -1,10 +1,10 @@
-package com.wishme.bichnali;
+package com.wishme.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BichnaliApplicationTests {
+class UserApplicationTests {
 
 	@Test
 	void contextLoads() {
