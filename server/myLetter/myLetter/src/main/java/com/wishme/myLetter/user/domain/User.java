@@ -1,4 +1,4 @@
-package com.wishme.bichnali.user.domain;
+package com.wishme.myLetter.user.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-@Table(name = "USER")
+@Table(name = "user")
 public class User {
 
     @Id
