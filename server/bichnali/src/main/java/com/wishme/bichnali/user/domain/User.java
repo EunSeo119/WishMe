@@ -21,6 +21,6 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(name = "user_nickname", unique = true, nullable = false)
+    @Column(name = "user_nickname", nullable = false)
     private String userNickname;
 }
