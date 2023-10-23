@@ -1,4 +1,4 @@
-package com.wishme.bichnali.personalLetter.domain;
+package com.wishme.bichnali.myLetter.domain;
 
 import com.wishme.bichnali.asset.domain.Asset;
 import com.wishme.bichnali.common.domain.BaseTimeEntity;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "personalLetter")
-public class PersonalLetter extends BaseTimeEntity {
+public class MyLetter extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
