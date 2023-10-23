@@ -1,10 +1,10 @@
-package com.wishme.bichnali;
+package com.wishme.myLetter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BichnaliApplicationTests {
+class MyLetterApplicationTests {
 
 	@Test
 	void contextLoads() {
