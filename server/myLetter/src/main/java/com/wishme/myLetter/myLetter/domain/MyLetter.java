@@ -17,16 +17,16 @@ public class MyLetter extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "my_letter_seq", unique = true, nullable = false)
+    @Column(name = "my_letter_seq", unique = true)
     private Long myLetterSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_user")
-    private User fromUser;
+    @JoinColumn(name = "to_user", nullable = false)
+    private User toUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "asset_seq")
-    private Asset assetSeq;
+    @JoinColumn(name = "asset_seq", nullable = false)
+    private Asset asset;
 
     @Column(columnDefinition = "text", nullable = false)
     private String content;
@@ -34,10 +34,12 @@ public class MyLetter extends BaseTimeEntity {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(name = "to_user")
-    private Long toUser;
+    @Column(name = "from_user")
+    private Long fromUser;
 
     @Column(name = "is_public", nullable = false, columnDefinition = "TINYINT(1) default 0")
     private Boolean isPublic;
 
+    @OneToOne(mappedBy = "myLetter")
+    private Reply reply;
 }
