@@ -4,6 +4,7 @@ import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.common.domain.BaseTimeEntity;
 import com.wishme.myLetter.user.domain.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,7 @@ public class MyLetter extends BaseTimeEntity {
     private User toUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "asset_seq", nullable = false)
+    @JoinColumn(name = "asset", nullable = false)
     private Asset asset;
 
     @Column(columnDefinition = "text", nullable = false)
@@ -37,9 +38,21 @@ public class MyLetter extends BaseTimeEntity {
     @Column(name = "from_user")
     private Long fromUser;
 
-    @Column(name = "is_public", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    @Column(name = "is_public", nullable = false, columnDefinition = "TINYINT(1) default 1")
     private Boolean isPublic;
 
     @OneToOne(mappedBy = "myLetter")
     private Reply reply;
+
+    @Builder
+    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String nickname, Long fromUser, Boolean isPublic, Reply reply) {
+        this.myLetterSeq = myLetterSeq;
+        this.toUser = toUser;
+        this.asset = asset;
+        this.content = content;
+        this.nickname = nickname;
+        this.fromUser = fromUser;
+        this.isPublic = isPublic;
+        this.reply = reply;
+    }
 }

@@ -1,13 +1,16 @@
 package com.wishme.myLetter.myLetter.controller;
 
+import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.service.MyLetterService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +30,14 @@ public class MyLetterController {
                 .body(myLetterService.getMyLetterAssets());
     }
 
+    /**
+     * 개인 편지 저장하기
+     */
+    @PostMapping("/write")
+    public ResponseEntity<?> saveLetter(@Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) throws IOException {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(myLetterService.saveLetter(saveMyLetterRequestDto));
+    }
 
 }

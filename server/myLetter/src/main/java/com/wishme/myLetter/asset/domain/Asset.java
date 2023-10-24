@@ -29,4 +29,7 @@ public class Asset {
 
     @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
     private List<SchoolLetter> schoolLetters = new ArrayList<>();
+
+    @Column(name = "type", nullable = false)
+    private char type;
 }
