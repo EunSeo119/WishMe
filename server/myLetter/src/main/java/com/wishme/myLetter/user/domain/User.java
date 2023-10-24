@@ -1,26 +1,32 @@
-package com.wishme.user.domain;
+package com.wishme.myLetter.user.domain;
 
+import com.wishme.myLetter.myLetter.domain.MyLetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-@Table(name = "USER")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_seq", unique = true, nullable = false)
+    @Column(name = "user_seq", unique = true)
     private Long userSeq;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
     @Column(name = "user_nickname", nullable = false)
     private String userNickname;
+
+    @OneToMany(mappedBy = "toUser")
+    private List<MyLetter> myLetters = new ArrayList<>();
 }
