@@ -4,23 +4,25 @@ services:
     container_name: myletter_mysqldb
     restart: always #혹시 종료되면 다시 실행
     volumes:
-      - ./data/mysqlData:/var/lib/mysql
+      - ./data/mysqlLetterData:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - MYSQL_ROOT_PASSWORD=root1234
-      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - MYSQL_DATABASE=wishme
     ports:
       - "3306:3306"
     networks :
-     - my-network
+      - my-network
   schoolletter_mysqldb: # 이것만 변경가능하고 나머지는 키워드 -> 도커 컴포즈에 실행될 프로세스의 이름
     image: mysql:latest
     container_name: schoolletter_mysqldb
     restart: always #혹시 종료되면 다시 실행
     volumes:
-      - ./data/mysqlData:/var/lib/mysql
+      - ./data/mysqlSchoolData:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - MYSQL_ROOT_PASSWORD=root1234
-      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - MYSQL_DATABASE=wishme
     ports:
       - "3307:3306"
     networks :
@@ -31,10 +33,11 @@ services:
     container_name: user_mysqldb
     restart: always #혹시 종료되면 다시 실행
     volumes:
-      - ./data/mysqlData:/var/lib/mysql
+      - ./data/mysqlUserData:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
-      - MYSQL_ROOT_PASSWORD=root1234
-      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - MYSQL_DATABASE=wishme
     ports:
       - "3308:3306"
     networks :
@@ -51,7 +54,7 @@ services:
     ports:
       - "9997:8080"
     networks :
-     - my-network
+      - my-network
   user_server:
     container_name: user_server
     environment:
@@ -76,7 +79,7 @@ services:
     networks:
       - my-network
 
-    
+
 networks :
   my-network:
     external:
