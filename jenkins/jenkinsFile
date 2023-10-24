@@ -22,9 +22,9 @@ pipeline {
         stage('Application') {
             steps {
                 // application.yml 파일을 복사합니다.
-                sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/wishMe/workspace/server/user/src/main/resources/'
-                sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/wishMe/workspace/server/myLetter/src/main/resources/'
-                sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/wishMe/workspace/server/schoolLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/user/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/myLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/schoolLetter/src/main/resources/'
             }
         }
 
