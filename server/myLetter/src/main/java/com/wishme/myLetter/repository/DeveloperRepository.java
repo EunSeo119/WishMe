@@ -11,6 +11,6 @@ import java.util.List;
 public interface DeveloperRepository extends JpaRepository<MyLetter, Long> {
 
     // 받는 사람으로 개인편지 조회
-    List<MyLetter> findByFromUser(User user);
+    List<MyLetter> findByToUser(User user);
 
 }

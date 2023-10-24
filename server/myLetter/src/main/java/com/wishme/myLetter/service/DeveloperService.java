@@ -3,6 +3,7 @@ package com.wishme.myLetter.service;
 import com.wishme.myLetter.domain.MyLetter;
 import com.wishme.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.dto.response.AllDeveloperLetterResponseDto;
+import com.wishme.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.repository.DeveloperRepository;
 import com.wishme.user.domain.User;
 import com.wishme.user.repository.UserRepository;
@@ -33,7 +34,7 @@ public class DeveloperService {
                     .assetSeq(writeDeveloperLetterRequestDto.getAssetSeq())
                     .content(writeDeveloperLetterRequestDto.getContent())
                     .nickname(writeDeveloperLetterRequestDto.getNickname())
-                    .toUser(Long.parseLong(authentication.getName()))
+                    .fromUser(Long.parseLong(authentication.getName()))
                     .isPublic(true)
                     .build();
             developerRepository.save(myLetter);
@@ -45,7 +46,7 @@ public class DeveloperService {
     // 개발자 책상 확인
     public List<AllDeveloperLetterResponseDto> allDeveloperLetter(){
         User admin = userRepository.findById(1L).orElse(null);
-        List<MyLetter> myLetters = developerRepository.findByFromUser(admin);
+        List<MyLetter> myLetters = developerRepository.findByToUser(admin);
 
         if(admin != null){
             List<AllDeveloperLetterResponseDto> developerLetterResponseDtos = new ArrayList<>();
@@ -63,4 +64,20 @@ public class DeveloperService {
         }
     }
 
+    // 개발자 편지 상세 조회
+    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId){
+        MyLetter myLetter = developerRepository.findById(myLetterId).orElse(null);
+        if(myLetter != null){
+            OneDeveloperLetterResponseDto oneDeveloperLetterResponseDto = OneDeveloperLetterResponseDto.builder()
+                    .assetSeq(myLetter.getAssetSeq().getAssetSeq())
+                    .content(myLetter.getContent())
+                    .nickname(myLetter.getNickname())
+                    .fromUser(myLetter.getFromUser())
+                    .createAt(myLetter.getCreateAt())
+                    .build();
+            return oneDeveloperLetterResponseDto;
+        }else{
+            throw new IllegalArgumentException("개별자 편지 상세 조회 실패");
+        }
+    }
 }
