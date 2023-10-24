@@ -1,6 +1,8 @@
 package com.wishme.user.user.model.service;
 
+import com.wishme.user.domain.School;
 import com.wishme.user.domain.User;
+import com.wishme.user.school.model.repository.SchoolRepository;
 import com.wishme.user.user.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,6 +22,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final SchoolRepository schoolRepository;
 
     @Override
     public ResponseEntity<?> modifyNickname(Map<String, String> request, Long userSeq) {
@@ -49,6 +53,9 @@ public class UserServiceImpl implements UserService {
         
         try {
             User user = userRepository.findByUserSeq(userSeq);
+            String userSchoolSeq = request.get("userSchoolSeq");
+
+            user.setUserSchoolSeq(Long.parseLong(userSchoolSeq));
             
             resultMap.put("message", "학교 등록 성공");
             status = HttpStatus.OK;
@@ -68,6 +75,9 @@ public class UserServiceImpl implements UserService {
         
         try {
             User user = userRepository.findByUserSeq(userSeq);
+            String userSchoolSeq = request.get("userSchoolSeq");
+
+            user.setUserSchoolSeq(Long.parseLong(userSchoolSeq));
             
             resultMap.put("message", "학교 수정 성공");
             status = HttpStatus.OK;
@@ -86,7 +96,10 @@ public class UserServiceImpl implements UserService {
         HttpStatus status = null;
         
         try {
-            
+            String schoolName = request.get("schoolName");
+            List<School> schools = schoolRepository.findAllBySchoolName(schoolName);
+
+            resultMap.put("data", schools);
             resultMap.put("message", "학교 검색 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {

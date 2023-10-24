@@ -26,6 +26,9 @@ public class User {
     @Column(name = "user_nickname", nullable = false)
     private String userNickname;
 
+    @Column(name = "user_school_seq")
+    private Long userSchoolSeq;
+
     @OneToMany(mappedBy = "toUser")
     private List<MyLetter> myLetters = new ArrayList<>();
 }
