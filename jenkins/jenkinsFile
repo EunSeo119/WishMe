@@ -9,8 +9,6 @@ pipeline {
                     checkout([$class: 'GitSCM',
                    branches: [[name: 'develop']],
                    userRemoteConfigs: [[url: 'https://lab.ssafy.com/s09-final/S09P31B105.git', credentialsId: 'wnstj7788']]])
-
-
                 }
             }
 
@@ -27,9 +25,9 @@ pipeline {
         stage('Application') {
             steps {
                 // application.yml 파일을 복사합니다.
-                sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/workspace/server/user/src/main/resources/'
-                sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/workspace/server/myLetter/src/main/resources/'
-                sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/workspace/server/schoolLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/wishMe/workspace/server/user/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/wishMe/workspace/server/myLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/wishMe/workspace/server/schoolLetter/src/main/resources/'
             }
         }
 
