@@ -1,7 +1,7 @@
-package com.wishme.myLetter.repository;
+package com.wishme.myLetter.myLetter.repository;
 
-import com.wishme.myLetter.domain.MyLetter;
-import com.wishme.user.domain.User;
+import com.wishme.myLetter.myLetter.domain.MyLetter;
+import com.wishme.myLetter.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

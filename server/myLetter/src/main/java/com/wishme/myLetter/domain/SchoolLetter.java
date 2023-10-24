@@ -1,4 +1,4 @@
-package com.wishme.domain;
+package com.wishme.myLetter.domain;
 
 
 import com.wishme.myLetter.asset.domain.Asset;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -1,4 +1,4 @@
-package com.wishme.myLetter.dto.response;
+package com.wishme.myLetter.myLetter.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

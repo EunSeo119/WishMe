@@ -1,4 +1,4 @@
-package com.wishme.domain;
+package com.wishme.myLetter.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

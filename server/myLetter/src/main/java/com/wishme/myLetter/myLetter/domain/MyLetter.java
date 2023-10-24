@@ -1,10 +1,11 @@
 package com.wishme.myLetter.myLetter.domain;
 
-import com.wishme.domain.BaseTimeEntity;
-import com.wishme.domain.Reply;
+import com.wishme.myLetter.domain.BaseTimeEntity;
+import com.wishme.myLetter.domain.Reply;
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.user.domain.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -43,5 +44,15 @@ public class MyLetter extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "myLetter")
     private Reply reply;
+
+    @Builder
+    public MyLetter (User toUser, Asset assetSeq, String content, String nickname, Long fromUser, boolean isPublic){
+        this.toUser = toUser;
+        this.asset = assetSeq;
+        this.content = content;
+        this.nickname = nickname;
+        this.fromUser = fromUser;
+        this.isPublic = isPublic;
+    }
 
 }

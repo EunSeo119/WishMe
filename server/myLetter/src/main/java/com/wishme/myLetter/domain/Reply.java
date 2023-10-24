@@ -1,5 +1,6 @@
-package com.wishme.domain;
+package com.wishme.myLetter.domain;
 
+import com.wishme.myLetter.myLetter.domain.MyLetter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

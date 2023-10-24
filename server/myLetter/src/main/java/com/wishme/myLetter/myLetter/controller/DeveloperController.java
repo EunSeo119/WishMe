@@ -1,7 +1,7 @@
-package com.wishme.myLetter.controller;
+package com.wishme.myLetter.myLetter.controller;
 
-import com.wishme.myLetter.dto.request.WriteDeveloperLetterRequestDto;
-import com.wishme.myLetter.service.DeveloperService;
+import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
+import com.wishme.myLetter.myLetter.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +38,9 @@ public class DeveloperController {
 
     //API 3. 개발자 편지 상세 조회
     @GetMapping("/one/{myLetterId}")
-    public ResponseEntity<?> oneDeveloperLetter(@PathVariable("myLetterId") Long myLetterId){
+    public ResponseEntity<?> oneDeveloperLetter(Authentication authentication, @PathVariable("myLetterId") Long myLetterId){
         try{
-            return ResponseEntity.ok(developerService.oneDeveloperLetter(myLetterId));
+            return ResponseEntity.ok(developerService.oneDeveloperLetter(authentication, myLetterId));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 상세 조회 실패");
         }

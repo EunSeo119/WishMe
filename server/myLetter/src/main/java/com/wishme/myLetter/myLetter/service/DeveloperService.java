@@ -1,12 +1,14 @@
-package com.wishme.myLetter.service;
+package com.wishme.myLetter.myLetter.service;
 
-import com.wishme.myLetter.domain.MyLetter;
-import com.wishme.myLetter.dto.request.WriteDeveloperLetterRequestDto;
-import com.wishme.myLetter.dto.response.AllDeveloperLetterResponseDto;
-import com.wishme.myLetter.dto.response.OneDeveloperLetterResponseDto;
-import com.wishme.myLetter.repository.DeveloperRepository;
-import com.wishme.user.domain.User;
-import com.wishme.user.repository.UserRepository;
+import com.wishme.myLetter.asset.domain.Asset;
+import com.wishme.myLetter.asset.repository.AssetRepository;
+import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
+import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
+import com.wishme.myLetter.myLetter.domain.MyLetter;
+import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
+import com.wishme.myLetter.user.domain.User;
+import com.wishme.myLetter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -22,20 +24,22 @@ public class DeveloperService {
 
     private final DeveloperRepository developerRepository;
     private final UserRepository userRepository;
+    private final AssetRepository assetRepository;
 
     // 개발자 편지 작성
     public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto){
 
         User admin = userRepository.findById(1L).orElse(null);
+        Asset asset = assetRepository.findById(writeDeveloperLetterRequestDto.getAssetSeq()).orElse(null);
 
-        if(admin != null){
+        if(admin != null && asset != null){
             MyLetter myLetter = MyLetter.builder()
-                    .fromUser(admin)
-                    .assetSeq(writeDeveloperLetterRequestDto.getAssetSeq())
+                    .toUser(admin)
+                    .assetSeq(asset)
                     .content(writeDeveloperLetterRequestDto.getContent())
                     .nickname(writeDeveloperLetterRequestDto.getNickname())
                     .fromUser(Long.parseLong(authentication.getName()))
-                    .isPublic(true)
+                    .isPublic(writeDeveloperLetterRequestDto.isPublic())
                     .build();
             developerRepository.save(myLetter);
         }else{
@@ -53,7 +57,7 @@ public class DeveloperService {
             for(MyLetter myLetter : myLetters){
                 AllDeveloperLetterResponseDto result = AllDeveloperLetterResponseDto.builder()
                         .myLetterSeq(myLetter.getMyLetterSeq())
-                        .assetSeq(myLetter.getAssetSeq().getAssetSeq())
+                        .assetSeq(myLetter.getAsset().getAssetSeq())
                         .nickname(myLetter.getNickname())
                         .build();
                 developerLetterResponseDtos.add(result);
@@ -65,17 +69,16 @@ public class DeveloperService {
     }
 
     // 개발자 편지 상세 조회
-    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId){
+    public OneDeveloperLetterResponseDto oneDeveloperLetter(Authentication authentication, Long myLetterId){
         MyLetter myLetter = developerRepository.findById(myLetterId).orElse(null);
-        if(myLetter != null){
-            OneDeveloperLetterResponseDto oneDeveloperLetterResponseDto = OneDeveloperLetterResponseDto.builder()
-                    .assetSeq(myLetter.getAssetSeq().getAssetSeq())
+        if(myLetter != null && myLetter.getIsPublic()){
+            return OneDeveloperLetterResponseDto.builder()
+                    .assetSeq(myLetter.getAsset().getAssetSeq())
                     .content(myLetter.getContent())
                     .nickname(myLetter.getNickname())
                     .fromUser(myLetter.getFromUser())
                     .createAt(myLetter.getCreateAt())
                     .build();
-            return oneDeveloperLetterResponseDto;
         }else{
             throw new IllegalArgumentException("개별자 편지 상세 조회 실패");
         }
