@@ -8,7 +8,7 @@ pipeline {
                     // GitHub 자격 증명을 사용하여 Git 저장소에서 가져옵니다.
                     checkout([$class: 'GitSCM',
                    branches: [[name: 'develop']],
-                   userRemoteConfigs: [[url: 'https://lab.ssafy.com/s09-final/S09P31B105.git', credentialsId: 'wnstj7788']])
+                   userRemoteConfigs: [[url: 'https://lab.ssafy.com/s09-final/S09P31B105.git', credentialsId: 'wnstj7788']]])
 
 
                 }
