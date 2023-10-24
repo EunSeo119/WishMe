@@ -6,7 +6,7 @@ pipeline {
             steps {
                 git branch: 'develop',
                 url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
-                credentialsId: 'daeun_token'
+                credentialsId: '10218'
             }
 
             post {
