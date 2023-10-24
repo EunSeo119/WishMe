@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,16 @@ public class DeveloperController {
             return ResponseEntity.status(HttpStatus.OK).build();
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 작성 실패");
+        }
+    }
+
+    // API 2. 개발자 책상 확인
+    @GetMapping("/all")
+    public ResponseEntity<?> allDeveloperLetter(){
+        try{
+            return ResponseEntity.ok(developerService.allDeveloperLetter());
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 전체 조회 실패");
         }
     }
 
