@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -38,6 +38,16 @@ public class MyLetterController {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(myLetterService.saveLetter(saveMyLetterRequestDto));
+    }
+
+    /**
+     * 내 개인 편지 리스트 확인하기
+     */
+    @GetMapping("/all")
+    public ResponseEntity<?> getMyLetterList(Authentication authentication, @RequestParam(value = "page") int page) throws Exception {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(myLetterService.getMyLetterList(authentication, page));
     }
 
 }

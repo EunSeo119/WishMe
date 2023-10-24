@@ -26,7 +26,7 @@ public class MyLetter extends BaseTimeEntity {
     private User toUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "asset", nullable = false)
+    @JoinColumn(name = "asset_seq", nullable = false)
     private Asset asset;
 
     @Column(columnDefinition = "text", nullable = false)

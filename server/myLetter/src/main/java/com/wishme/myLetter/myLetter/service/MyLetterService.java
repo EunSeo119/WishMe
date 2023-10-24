@@ -4,17 +4,21 @@ import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterAssetResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.MyLetterResponseDto;
 import com.wishme.myLetter.myLetter.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -60,5 +64,34 @@ public class MyLetterService {
 
         MyLetter save = myLetterRepository.save(myLetter);
         return save.getMyLetterSeq();
+    }
+
+    public List<MyLetterResponseDto> getMyLetterList(Authentication authentication, int page) {
+        // 시큐리티 설정 후 수정
+        User toUser = userRepository.findByEmail("eun@naver.com")
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+        // 9개씩 페이징 처리해줌
+        PageRequest pageRequest = PageRequest.of(page-1, 9);
+
+        List<MyLetter> myLetters = myLetterRepository.findAllByToUser(toUser, pageRequest);
+
+        List<MyLetterResponseDto> result = new ArrayList<>();
+
+        for(MyLetter letter : myLetters) {
+            Asset myAsset = assetRepository.findByAssetSeqAndType(letter.getAsset().getAssetSeq(), 'M')
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
+
+            MyLetterResponseDto myLetterResponseDto = MyLetterResponseDto.builder()
+                    .myLetterSeq(letter.getMyLetterSeq())
+                    .nickname(letter.getNickname())
+                    .assetSeq(myAsset.getAssetSeq())
+                    .isPublic(letter.getIsPublic())
+                    .build();
+
+            result.add(myLetterResponseDto);
+        }
+
+        return result;
     }
 }
