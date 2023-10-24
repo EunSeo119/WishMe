@@ -4,10 +4,12 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+
     username: root
 #    url: jdbc:mysql://user_mysqldb:3308/wishme?autoReconnect=true
     url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
     password: ssafy
+
 
   mvc:
     pathmatch:
