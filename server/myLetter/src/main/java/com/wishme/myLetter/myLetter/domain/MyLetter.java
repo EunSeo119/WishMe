@@ -46,13 +46,14 @@ public class MyLetter extends BaseTimeEntity {
     private Reply reply;
 
     @Builder
-    public MyLetter (User toUser, Asset assetSeq, String content, String nickname, Long fromUser, boolean isPublic){
+    public MyLetter (User toUser, Asset assetSeq, String content, String nickname, Long fromUser, boolean isPublic, Reply reply){
         this.toUser = toUser;
         this.asset = assetSeq;
         this.content = content;
         this.nickname = nickname;
         this.fromUser = fromUser;
         this.isPublic = isPublic;
+        this.reply = reply;
     }
 
 }
