@@ -69,19 +69,17 @@ pipeline {
 //             '''
 //             }
 //         }
-
-        post {
-            success {
-                echo "SSH and Docker commands succeeded"
-            }
-            failure {
-             echo "SSH and Docker commands failed"
-            }
-         }
-}
-
-
-    }
+//
+//         post {
+//             success {
+//                 echo "SSH and Docker commands succeeded"
+//             }
+//             failure {
+//              echo "SSH and Docker commands failed"
+//             }
+//          }
+// }
+//     }
 
     post {
         always{
