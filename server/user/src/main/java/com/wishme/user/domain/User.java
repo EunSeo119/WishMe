@@ -1,9 +1,8 @@
-package com.wishme.myLetter.user.domain;
+package com.wishme.user.domain;
 
-import com.wishme.myLetter.myLetter.domain.MyLetter;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,8 +10,8 @@ import java.util.List;
 
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@Getter @Setter
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
 
@@ -29,6 +28,9 @@ public class User {
 
     @Column(name = "user_school_seq")
     private Long userSchoolSeq;
+
+    @Column(name = "uuid")
+    private String uuid;
 
     @OneToMany(mappedBy = "toUser")
     private List<MyLetter> myLetters = new ArrayList<>();
