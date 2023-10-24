@@ -6,9 +6,10 @@ pipeline {
             steps {
                 script {
                     // GitHub 자격 증명을 사용하여 Git 저장소에서 가져옵니다.
-                    checkout([$class: 'GitSCM',
-                        branches: [[name: 'develop']],
-                        userRemoteConfigs: [[url: 'http://k9b105.p.ssafy.io:8080/project/wishMe', credentialsId: 'wishme']])
+                  checkout([$class: 'GitSCM',
+                      branches: [[name: 'develop']],
+                      userRemoteConfigs: [[url: 'http://k9b105.p.ssafy.io:8080/project/wishMe', credentialsId: 'wishme']])
+
                 }
             }
 
