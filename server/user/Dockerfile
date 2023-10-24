@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11
 
-COPY ./backend-0.0.1-SNAPSHOT.jar backend-0.0.1-SNAPSHOT.jar
+COPY ./build/libs/user-0.0.1-SNAPSHOT.jar backend-0.0.1-SNAPSHOT.jar
 
 EXPOSE 9998
 
