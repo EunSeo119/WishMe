@@ -1,0 +1,22 @@
+server:
+  port: '8080'
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+#    url: jdbc:mysql://user_mysqldb:3308/wishme?autoReconnect=true
+    url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
+    password: ssafy
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: 'true'
+
