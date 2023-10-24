@@ -2,22 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Prepare') {
-            steps {
-                git branch: 'develop',
-                url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
-                credentialsId: 'daeun_token'
-            }
+        // stage('Prepare') {
+        //    steps {
+        //        git branch: 'develop',
+        //        url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
+        //        credentialsId: 'daeun_token'
+        //    }
 
-            post {
-                success {
-                    echo "Successfully Cloned Repository"
-                }
-                failure {
-                    echo "Failed to Clone Repository"
-                }
-            }
-        }
+        //    post {
+        //        success {
+        //            echo "Successfully Cloned Repository"
+        //        }
+        //       failure {
+        //            echo "Failed to Clone Repository"
+        //        }
+        //    }
+        //}
 
         stage('Application') {
             steps {
