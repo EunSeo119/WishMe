@@ -1,0 +1,86 @@
+services:
+  myletter_mysqldb: # 이것만 변경가능하고 나머지는 키워드 -> 도커 컴포즈에 실행될 프로세스의 이름
+    image: mysql:latest
+    container_name: myletter_mysqldb
+    restart: always #혹시 종료되면 다시 실행
+    volumes:
+      - ./data/mysqlLetterData:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - MYSQL_DATABASE=wishme
+    ports:
+      - "3306:3306"
+    networks :
+      - my-network
+  schoolletter_mysqldb: # 이것만 변경가능하고 나머지는 키워드 -> 도커 컴포즈에 실행될 프로세스의 이름
+    image: mysql:latest
+    container_name: schoolletter_mysqldb
+    restart: always #혹시 종료되면 다시 실행
+    volumes:
+      - ./data/mysqlSchoolData:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - MYSQL_DATABASE=wishme
+    ports:
+      - "3307:3306"
+    networks :
+      - my-network
+
+  user_mysqldb: # 이것만 변경가능하고 나머지는 키워드 -> 도커 컴포즈에 실행될 프로세스의 이름
+    image: mysql:latest
+    container_name: user_mysqldb
+    restart: always #혹시 종료되면 다시 실행
+    volumes:
+      - ./data/mysqlUserData:/var/lib/mysql
+      - ./data/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - MYSQL_DATABASE=wishme
+    ports:
+      - "3308:3306"
+    networks :
+      - my-network
+
+
+  myletter_server:
+    container_name: myletter_server
+    environment:
+      - TZ=Asia/Seoul
+    build:
+      context: ./server/myletter
+      dockerfile: Dockerfile
+    ports:
+      - "9997:8080"
+    networks :
+      - my-network
+  user_server:
+    container_name: user_server
+    environment:
+      - TZ=Asia/Seoul
+    build:
+      context: ./server/user
+      dockerfile: Dockerfile
+    ports:
+      - "9998:8080"
+    networks :
+      - my-network
+
+  school_server:
+    container_name: school_server
+    environment:
+      - TZ=Asia/Seoul
+    build:
+      context: ./server/user
+      dockerfile: Dockerfile
+    ports:
+      - "9999:8080"
+    networks:
+      - my-network
+
+
+networks :
+  my-network:
+    external:
+      name: my-network
