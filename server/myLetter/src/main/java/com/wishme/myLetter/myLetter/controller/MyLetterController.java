@@ -34,7 +34,7 @@ public class MyLetterController {
      * 개인 편지 저장하기
      */
     @PostMapping("/write")
-    public ResponseEntity<?> saveLetter(@Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) throws IOException {
+    public ResponseEntity<?> saveLetter(@Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(myLetterService.saveLetter(saveMyLetterRequestDto));
@@ -44,10 +44,20 @@ public class MyLetterController {
      * 내 개인 편지 리스트 확인하기
      */
     @GetMapping("/all")
-    public ResponseEntity<?> getMyLetterList(Authentication authentication, @RequestParam(value = "page") int page) throws Exception {
+    public ResponseEntity<?> getMyLetterList(Authentication authentication, @RequestParam(value = "page") int page) {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(myLetterService.getMyLetterList(authentication, page));
+    }
+
+    /**
+     * 내 개인 편지 내용 확인하기
+     */
+    @GetMapping("/detail/{myLetterSeq}")
+    public ResponseEntity<?> getMyLetterDetail(Authentication authentication, @PathVariable("myLetterSeq") Long myLetterSeq) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(myLetterService.getMyLetterDetail(authentication, myLetterSeq));
     }
 
 }

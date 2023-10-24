@@ -32,8 +32,8 @@ public class MyLetter extends BaseTimeEntity {
     @Column(columnDefinition = "text", nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String nickname;
+    @Column(name = "from_user_nickname", nullable = false)
+    private String fromUserNickname;
 
     @Column(name = "from_user")
     private Long fromUser;
@@ -45,12 +45,12 @@ public class MyLetter extends BaseTimeEntity {
     private Reply reply;
 
     @Builder
-    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String nickname, Long fromUser, Boolean isPublic, Reply reply) {
+    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply) {
         this.myLetterSeq = myLetterSeq;
         this.toUser = toUser;
         this.asset = asset;
         this.content = content;
-        this.nickname = nickname;
+        this.fromUserNickname = fromUserNickname;
         this.fromUser = fromUser;
         this.isPublic = isPublic;
         this.reply = reply;
