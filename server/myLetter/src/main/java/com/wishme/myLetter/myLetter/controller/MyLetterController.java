@@ -41,13 +41,14 @@ public class MyLetterController {
     }
 
     /**
-     * 내 개인 편지 리스트 확인하기
+     * 개인 편지 리스트 확인하기
      */
-    @GetMapping("/all")
-    public ResponseEntity<?> getMyLetterList(Authentication authentication, @RequestParam(value = "page") int page) {
+    @GetMapping("/all/{userUuid}")
+    public ResponseEntity<?> getMyLetterList(Authentication authentication,
+                                             @PathVariable("userUuid") String userUuid, @RequestParam(value = "page") int page) {
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(myLetterService.getMyLetterList(authentication, page));
+                .body(myLetterService.getMyLetterList(authentication, userUuid, page));
     }
 
     /**
