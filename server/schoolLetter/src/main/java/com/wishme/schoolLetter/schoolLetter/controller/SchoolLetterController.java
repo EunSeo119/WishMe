@@ -25,15 +25,16 @@ public class SchoolLetterController {
     private final SchoolLetterService schoolLetterService;
 
     //칠판에서 에셋 목록 확인
-    @GetMapping("/all/{schoolId}")
-    public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolId") Integer schoolId){
+    @GetMapping("/all/{schoolId}/{page}")
+    public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolId") Integer schoolId,
+                                                         @PathVariable("page") Integer page){
 
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         System.out.println("schoolId= "+schoolId);
 
-        List<SchoolLetterBoardListResponseDto> schoolLetterList = schoolLetterService.getSchoolLetterList(schoolId);
+        List<SchoolLetterBoardListResponseDto> schoolLetterList = schoolLetterService.getSchoolLetterList(schoolId,page);
         resultMap.put("schoolLetterList", schoolLetterList);
         status = HttpStatus.ACCEPTED;
 
@@ -83,8 +84,10 @@ public class SchoolLetterController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
+        System.out.println("에셋 목록 확인");
         try {
             List<Asset> schoolAssertList = schoolLetterService.getAssetList();
+            resultMap.put("schoolAssertList", schoolAssertList);
             status = HttpStatus.ACCEPTED;
 
         }catch (IllegalArgumentException e){
