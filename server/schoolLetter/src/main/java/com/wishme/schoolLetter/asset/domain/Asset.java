@@ -1,4 +1,4 @@
-package com.wishme.schoolLetter.asset.domain.domain;
+package com.wishme.schoolLetter.asset.domain;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,4 +19,13 @@ public class Asset {
 
     @Column(name = "asset_img", unique = true, nullable = false)
     private String assetImg;
+
+//    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
+//    private List<MyLetter> myLetters = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
+//    private List<SchoolLetter> schoolLetters = new ArrayList<>();
+
+    @Column(name = "type", nullable = false)
+    private char type;
 }

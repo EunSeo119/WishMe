@@ -1,7 +1,9 @@
 package com.wishme.schoolLetter.schoolLetter.domain;
 
 
-import com.wishme.schoolLetter.asset.domain.domain.Asset;
+import com.wishme.schoolLetter.asset.domain.Asset;
+import com.wishme.schoolLetter.school.domian.School;
+import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,6 +38,7 @@ public class SchoolLetter {
     private String nickname;
 
     @Column(name = "create_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
     @Builder
@@ -46,6 +49,13 @@ public class SchoolLetter {
         this.content = content;
         this.nickname = nickname;
         this.createAt = createAt;
+    }
+
+    public SchoolLetter(SchoolLetterWriteRequestDto writeDto, School school, Asset asset) {
+        this.school = school;
+        this.assetSeq = asset;
+        this.content = writeDto.getContent();
+        this.nickname = writeDto.getNickname();
     }
 
 }

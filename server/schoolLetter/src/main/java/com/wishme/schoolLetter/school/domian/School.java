@@ -1,4 +1,4 @@
-package com.wishme.schoolLetter.schoolLetter.domain;
+package com.wishme.schoolLetter.school.domian;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,10 +15,10 @@ public class School {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
+    @Column(name = "school_seq", unique = true, nullable = false)
     private Integer schoolSeq;
 
-    @Column( nullable = false)
+    @Column(name = "school_name", nullable = false)
     private String schoolName;
 
     @Column(nullable = false)

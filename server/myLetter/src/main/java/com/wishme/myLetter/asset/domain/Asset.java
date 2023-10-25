@@ -33,4 +33,8 @@ public class Asset {
     @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
     private List<SchoolLetter> schoolLetters = new ArrayList<>();
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 208bf6878666c67370ddcf1b3376a0a7401fd005
