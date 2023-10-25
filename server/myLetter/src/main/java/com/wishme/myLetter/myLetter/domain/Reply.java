@@ -47,3 +47,4 @@ public class Reply extends BaseTimeEntity {
         this.color = color;
     }
 }
+

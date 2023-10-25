@@ -130,14 +130,12 @@ public class MyLetterService {
             throw new RuntimeException("열람할 권한이 없습니다.");
         }
 
-        MyLetterDetailResponseDto myLetterDetailResponseDto = MyLetterDetailResponseDto.builder()
+        return MyLetterDetailResponseDto.builder()
                 .myLetterSeq(myletter.getMyLetterSeq())
-                .toUserNickname(checkUser.getUserNickname())
+                .toUserNickname(checkUser.getFromUserNickname())
                 .content(myletter.getContent())
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
                 .build();
-
-        return myLetterDetailResponseDto;
     }
 }
