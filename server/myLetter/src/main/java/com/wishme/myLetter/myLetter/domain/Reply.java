@@ -33,3 +33,4 @@ public class Reply extends BaseTimeEntity {
     @Column(name = "from_user_nickname", nullable = false)
     private String fromUserNickname;
 }
+
