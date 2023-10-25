@@ -3,6 +3,8 @@ package com.wishme.myLetter.myLetter.controller;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.service.DeveloperService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -28,9 +30,9 @@ public class DeveloperController {
 
     // API 2. 개발자 책상 확인
     @GetMapping("/all")
-    public ResponseEntity<?> allDeveloperLetter(){
+    public ResponseEntity<?> allDeveloperLetter(@PageableDefault(size=9)Pageable pageable){
         try{
-            return ResponseEntity.ok(developerService.allDeveloperLetter());
+            return ResponseEntity.ok(developerService.allDeveloperLetter(pageable));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 전체 조회 실패");
         }
