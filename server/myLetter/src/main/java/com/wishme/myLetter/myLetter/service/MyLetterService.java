@@ -6,7 +6,7 @@ import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterAssetResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterResponseDto;
-import com.wishme.myLetter.myLetter.repository.AssetRepository;
+import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,7 +47,7 @@ public class MyLetterService {
 
     @Transactional
     public Long saveLetter(SaveMyLetterRequestDto saveMyLetterRequestDto) {
-        User toUser = userRepository.findByUserSeq(saveMyLetterRequestDto.getToUser())
+        User toUser = userRepository.findByUserSeq(saveMyLetterRequestDto.getToUserSeq())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다. 해당 유저에게 편지를 쓸 수 없습니다.", 1));
 
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
