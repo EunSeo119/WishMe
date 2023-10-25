@@ -1,13 +1,13 @@
-package com.wishme.myLetter.domain;
+package com.wishme.user.domain;
 
 
-import com.wishme.myLetter.asset.domain.Asset;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

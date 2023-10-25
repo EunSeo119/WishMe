@@ -1,7 +1,7 @@
 package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
-import com.wishme.myLetter.asset.repository.AssetRepository;
+import com.wishme.myLetter.myLetter.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
@@ -35,9 +35,9 @@ public class DeveloperService {
         if(admin != null && asset != null){
             MyLetter myLetter = MyLetter.builder()
                     .toUser(admin)
-                    .assetSeq(asset)
+                    .asset(asset)
                     .content(writeDeveloperLetterRequestDto.getContent())
-                    .nickname(writeDeveloperLetterRequestDto.getNickname())
+                    .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
                     .fromUser(Long.parseLong(authentication.getName()))
                     .isPublic(writeDeveloperLetterRequestDto.isPublic())
                     .build();
@@ -58,7 +58,7 @@ public class DeveloperService {
                 AllDeveloperLetterResponseDto result = AllDeveloperLetterResponseDto.builder()
                         .myLetterSeq(myLetter.getMyLetterSeq())
                         .assetSeq(myLetter.getAsset().getAssetSeq())
-                        .nickname(myLetter.getNickname())
+                        .nickname(myLetter.getFromUserNickname())
                         .build();
                 developerLetterResponseDtos.add(result);
             }
@@ -75,7 +75,7 @@ public class DeveloperService {
             return OneDeveloperLetterResponseDto.builder()
                     .assetSeq(myLetter.getAsset().getAssetSeq())
                     .content(myLetter.getContent())
-                    .nickname(myLetter.getNickname())
+                    .nickname(myLetter.getFromUserNickname())
                     .fromUser(myLetter.getFromUser())
                     .createAt(myLetter.getCreateAt())
                     .build();

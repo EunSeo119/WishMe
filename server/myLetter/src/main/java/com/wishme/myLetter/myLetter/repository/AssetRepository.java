@@ -1,9 +1,11 @@
-package com.wishme.myLetter.asset.repository;
+package com.wishme.myLetter.myLetter.repository;
 
 import com.wishme.myLetter.asset.domain.Asset;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
 public interface AssetRepository extends JpaRepository<Asset, Long> {
+
+    List<Asset> findAllByOrderByAssetSeq();
 }

@@ -1,14 +1,12 @@
-package com.wishme.schoolLetter.schoolLetter.domain;
+package com.wishme.myLetter.school.domain;
 
-
-import com.wishme.schoolLetter.asset.domain.domain.Asset;
+import com.wishme.myLetter.asset.domain.Asset;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,16 +16,16 @@ public class SchoolLetter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "school_letter_seq", unique = true, nullable = false)
+    @Column(name = "school_letter_seq", unique = true)
     private Long schoolLetterSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_seq")
+    @JoinColumn(name = "school_seq", nullable = false)
     private School school;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "asset_seq")
-    private Asset assetSeq;
+    @JoinColumn(name = "asset_seq", nullable = false)
+    private Asset asset;
 
     @Column(columnDefinition = "text", nullable = false)
     private String content;
@@ -35,17 +33,13 @@ public class SchoolLetter {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(name = "create_at")
-    private Date createAt;
-
     @Builder
-    public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt) {
+    public SchoolLetter(Long schoolLetterSeq, School school, Asset asset, String content, String nickname) {
         this.schoolLetterSeq = schoolLetterSeq;
         this.school = school;
-        this.assetSeq = assetSeq;
+        this.asset = asset;
         this.content = content;
         this.nickname = nickname;
-        this.createAt = createAt;
     }
 
 }
