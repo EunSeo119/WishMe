@@ -4,22 +4,26 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                git branch: 'develop',
-                url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
-                credentialsId: 'daeun_token' // GitLab Credential ID
+                script {
+                    // Git Clone 스텝
+                    git branch: 'develop',
+                    url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
+                    credentialsId: 'daeun_token' // GitLab Credential ID
+                }
             }
             post {
                 success {
-                     sh 'echo "Successfully Cloned Repository"'
-                 }
-                 failure {
-                     sh 'echo "Failed to Clone Repository"'
-                 }
+                    echo "Successfully Cloned Repository"
+                }
+                failure {
+                    echo "Failed to Clone Repository"
+                }
             }
         }
+
         stage('Application') {
             steps {
-                // application.yml 파일을 복사합니다.
+                // application.yml 파일 복사
                 sh 'cp /var/jenkins_home/workspace/applicationFile/user/application.yml /var/jenkins_home/workspace/wishMe/server/user/src/main/resources/'
                 sh 'cp /var/jenkins_home/workspace/applicationFile/myLetter/application.yml /var/jenkins_home/workspace/wishMe/server/myLetter/src/main/resources/'
                 sh 'cp /var/jenkins_home/workspace/applicationFile/schoolLetter/application.yml /var/jenkins_home/workspace/wishMe/server/schoolLetter/src/main/resources/'
@@ -28,7 +32,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Gradle Wrapper의 절대 경로를 사용하여 빌드 명령을 실행합니다.
+                // Gradle 빌드
                 dir('/var/jenkins_home/workspace/wishMe/server/user/') {
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
@@ -42,24 +46,33 @@ pipeline {
                     sh './gradlew clean build'
                 }
             }
+        }
 
-             post {
-                 success {
-                     echo "Build Succeeded"
-                 }
-                 failure {
-                     echo "Build Failed"
-                 }
-             }
+        stage('ssh-docker') {
+            steps {
+                script {
+                    sh """
+                    ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/myLetter/build/libs/myLetter-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/myLetter" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/user/build/libs/user-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/user" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/schoolLetter/build/libs/schoolLetter-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/schoolLetter" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"cd /home/ubuntu/docker && sudo docker compose -f docker-compose.yml up --build -d"
+
+                    """
+                }
+            }
         }
     }
 
-//    post {
-//        always {
-//           cleanWs()
-//       }
-//       success {
-//           deleteDir()
-//       }
-//    }
+    post {
+        success {
+            echo "SSH and Docker commands succeeded"
+        }
+        failure {
+            echo "SSH and Docker commands failed"
+        }
+    }
 }
