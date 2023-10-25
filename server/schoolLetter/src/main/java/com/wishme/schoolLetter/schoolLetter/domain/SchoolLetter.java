@@ -1,8 +1,11 @@
 package com.wishme.schoolLetter.schoolLetter.domain;
 
 
-import com.wishme.schoolLetter.asset.domain.domain.Asset;
+import com.wishme.schoolLetter.asset.domain.Asset;
+import com.wishme.schoolLetter.school.domian.School;
+import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteRequestDto;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +24,7 @@ public class SchoolLetter {
     private Long schoolLetterSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_name")
+    @JoinColumn(name = "school_seq")
     private School school;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,5 +38,28 @@ public class SchoolLetter {
     private String nickname;
 
     @Column(name = "create_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
+
+    @PrePersist
+    public void prePersist() {
+        createAt = new Date();
+    }
+    @Builder
+    public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt) {
+        this.schoolLetterSeq = schoolLetterSeq;
+        this.school = school;
+        this.assetSeq = assetSeq;
+        this.content = content;
+        this.nickname = nickname;
+        this.createAt = createAt;
+    }
+
+    public SchoolLetter(SchoolLetterWriteRequestDto writeDto, School school, Asset asset) {
+        this.school = school;
+        this.assetSeq = asset;
+        this.content = writeDto.getContent();
+        this.nickname = writeDto.getNickname();
+    }
+
 }
