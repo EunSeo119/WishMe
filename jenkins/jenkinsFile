@@ -17,6 +17,49 @@ pipeline {
                  }
             }
         }
-        
+        stage('Application') {
+            steps {
+                // application.yml 파일을 복사합니다.
+                sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/user/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/myLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/schoolLetter/src/main/resources/'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Gradle Wrapper의 절대 경로를 사용하여 빌드 명령을 실행합니다.
+                dir('/var/jenkins_home/workspace/server/user/') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build'
+                }
+                dir('/var/jenkins_home/workspace/server/myLetter/') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build'
+                }
+                dir('/var/jenkins_home/workspace/wishme/schoolLetter/') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build'
+                }
+            }
+
+             post {
+                 success {
+                     echo "Build Succeeded"
+                 }
+                 failure {
+                     echo "Build Failed"
+                 }
+             }
+        }
     }
+
+//    post {
+//        always {
+//           cleanWs()
+//       }
+//       success {
+//           deleteDir()
+//       }
+//    }
 }
