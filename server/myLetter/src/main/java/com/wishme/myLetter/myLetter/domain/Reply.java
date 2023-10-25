@@ -32,8 +32,5 @@ public class Reply extends BaseTimeEntity {
 
     @Column(name = "from_user_nickname", nullable = false)
     private String fromUserNickname;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 208bf6878666c67370ddcf1b3376a0a7401fd005
+

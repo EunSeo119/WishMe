@@ -55,8 +55,4 @@ public class MyLetter extends BaseTimeEntity {
         this.isPublic = isPublic;
         this.reply = reply;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 208bf6878666c67370ddcf1b3376a0a7401fd005
