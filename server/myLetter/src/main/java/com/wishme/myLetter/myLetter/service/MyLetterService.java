@@ -126,7 +126,7 @@ public class MyLetterService {
         User checkUser = userRepository.findByEmail("eun@naver.com")
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        if(!myletter.getToUser().equals(checkUser)) {
+        if(!myletter.getToUser().equals(checkUser) && !myletter.getIsPublic()) {
             throw new RuntimeException("열람할 권한이 없습니다.");
         }
 

@@ -52,7 +52,7 @@ public class MyLetterController {
     }
 
     /**
-     * 내 개인 편지 내용 확인하기
+     * 개인 편지 내용 확인하기
      */
     @GetMapping("/detail/{myLetterSeq}")
     public ResponseEntity<?> getMyLetterDetail(Authentication authentication, @PathVariable("myLetterSeq") Long myLetterSeq) {
