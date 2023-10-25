@@ -1,45 +1,43 @@
 pipeline {
     agent any
-
+    
     stages {
-        stage('Prepare') {
+        stage('Git Clone') {
             steps {
                 git branch: 'develop',
                 url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
-                credentialsId: '10218'
+                credentialsId: 'daeun_token' // GitLab Credential ID
             }
-
             post {
                 success {
-                    echo "Successfully Cloned Repository"
-                }
-                failure {
-                    echo "Failed to Clone Repository"
-                }
+                     sh 'echo "Successfully Cloned Repository"'
+                 }
+                 failure {
+                     sh 'echo "Failed to Clone Repository"'
+                 }
             }
         }
-
         stage('Application') {
             steps {
                 // application.yml 파일을 복사합니다.
-                sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/user/src/main/resources/'
-                sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/myLetter/src/main/resources/'
-                sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/wishMe/workspace/wishMe/server/schoolLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/applicationFile/user/application.yml /var/jenkins_home/workspace/wishMe/server/user/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/applicationFile/myLetter/application.yml /var/jenkins_home/workspace/wishMe/server/myLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/applicationFile/schoolLetter/application.yml /var/jenkins_home/workspace/wishMe/server/schoolLetter/src/main/resources/'
             }
         }
 
         stage('Build') {
             steps {
                 // Gradle Wrapper의 절대 경로를 사용하여 빌드 명령을 실행합니다.
-                dir('/var/jenkins_home/workspace/server/user/') {
+                dir('/var/jenkins_home/workspace/wishMe/server/user/') {
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
                 }
-                dir('/var/jenkins_home/workspace/server/myLetter/') {
+                dir('/var/jenkins_home/workspace/wishMe/server/myLetter/') {
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
                 }
-                dir('/var/jenkins_home/workspace/wishme/schoolLetter/') {
+                dir('/var/jenkins_home/workspace/wishMe/server/schoolLetter/') {
                     sh 'chmod +x gradlew'
                     sh './gradlew clean build'
                 }
@@ -56,116 +54,12 @@ pipeline {
         }
     }
 
-    post {
-        always {
-           cleanWs()
-       }
-       success {
-           deleteDir()
-       }
-    }
-}
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-// pipeline {
-//     agent any
-//
-//     stages {
-//         stage('Prepare') {
-//             steps {
-//                 script {
-//                     // GitHub 자격 증명을 사용하여 Git 저장소에서 가져옵니다.
-//                     checkout([$class: 'GitSCM',
-//                         branches: [[name: 'develop']],
-//                         userRemoteConfigs: [[url: 'http://k9b105.p.ssafy.io:8080/project/wishMe', credentialsId: 'wishme']]])
-//                 }
-//             }
-//
-//             post {
-//                 success {
-//                     echo "Successfully Cloned Repository"
-//                 }
-//                 failure {
-//                     echo "Failed to Clone Repository"
-//                 }
-//             }
-//         }
-//
-//         stage('Application') {
-//             steps {
-//                 // application.yml 파일을 복사합니다.
-//                 sh 'cp /var/jenkins_home/workspace/user/application.yml /var/jenkins_home/workspace/server/user/src/main/resources/'
-//                 sh 'cp /var/jenkins_home/workspace/myLetter/application.yml /var/jenkins_home/workspace/server/myLetter/src/main/resources/'
-//                 sh 'cp /var/jenkins_home/workspace/schoolLetter/application.yml /var/jenkins_home/workspace/server/schoolLetter/src/main/resources/'
-//             }
-//         }
-//
-//         stage('Build') {
-//             steps {
-//                 // Gradle Wrapper의 절대 경로를 사용하여 빌드 명령을 실행합니다.
-//                 dir('/var/jenkins_home/workspace/server/user/') {
-//                     sh 'chmod +x gradlew'
-//                     sh './gradlew clean build'
-//                 }
-//                 dir('/var/jenkins_home/workspace/server/myLetter/') {
-//                     sh 'chmod +x gradlew'
-//                     sh './gradlew clean build'
-//                 }
-//                 dir('/var/jenkins_home/workspace/wishme/schoolLetter/') {
-//                     sh 'chmod +x gradlew'
-//                     sh './gradlew clean build'
-//                 }
-//             }
-//
-//              post {
-//                  success {
-//                      echo "Build Succeeded"
-//                  }
-//                  failure {
-//                      echo "Build Failed"
-//                  }
-//              }
-//
-//         }
-//
-// //         stage('ssh-docker') {
-// //             steps {
-// //                 script {
-// //             sh '''
-// //                 ssh -i /var/jenkins_home/workspace/YPL.pem ubuntu@3.37.247.224 \
-// //                 "sudo docker cp special_jenkins:/var/jenkins_home/workspace/yummy/BE/build/libs/backend-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/BE/ && \
-// //                 cd /home/ubuntu/docker && sudo docker-compose -f docker-compose.yml up --build -d"
-// //             '''
-// //             }
-// //         }
-// //
-// //         post {
-// //             success {
-// //                 echo "SSH and Docker commands succeeded"
-// //             }
-// //             failure {
-// //              echo "SSH and Docker commands failed"
-// //             }
-// //          }
-// // }
-// //     }
-//
-//     post {
-//         always{
-//            cleanWs()
-//        }
-//        success{
-//            deleteDir()
-//        }
+//    post {
+//        always {
+//           cleanWs()
+//       }
+//       success {
+//           deleteDir()
+//       }
 //    }
-//
-//
-// }
+}

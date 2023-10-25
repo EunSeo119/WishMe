@@ -1,5 +1,4 @@
-package com.wishme.myLetter.common.domain;
-
+package com.wishme.myLetter.domain;
 
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 public abstract class BaseTimeEntity {
 
     @CreationTimestamp
-    @Column(name ="create_at",updatable = false)
+    @Column(name = "create_at", updatable = false)
     private LocalDateTime createAt;
 }
 
