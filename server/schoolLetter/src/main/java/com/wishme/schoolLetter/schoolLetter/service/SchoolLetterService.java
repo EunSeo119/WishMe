@@ -12,6 +12,10 @@ import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterDetailRespo
 import com.wishme.schoolLetter.schoolLetter.repository.SchoolLetterRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,9 +30,12 @@ public class SchoolLetterService {
     private final SchoolLetterRepository schoolLetterRepository;
     private final AssetRepository assetRepository;
     private final SchoolRepository schoolRepository;
-    public List<SchoolLetterBoardListResponseDto> getSchoolLetterList(Integer schoolId) {
+    public List<SchoolLetterBoardListResponseDto> getSchoolLetterList(Integer schoolId, Integer page) {
 
-        List<SchoolLetter> schoolLetterList = schoolLetterRepository.findAllBySchoolSchoolSeq(schoolId);
+        int pageSize = 12; // 한 페이지당 12개의 학교편지
+        Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
+        Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolSeq(schoolId, pageable);
+        List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
         List<SchoolLetterBoardListResponseDto> schoolLetterResponseDtoList = new ArrayList<>();
 
         if (schoolLetterList != null && schoolLetterList.size() > 0) {
