@@ -41,6 +41,10 @@ public class SchoolLetter {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    @PrePersist
+    public void prePersist() {
+        createAt = new Date();
+    }
     @Builder
     public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt) {
         this.schoolLetterSeq = schoolLetterSeq;
