@@ -26,7 +26,7 @@ public class SaveMyLetterRequestDto {
     private Boolean isPublic;
 
     @NotNull(message = "toUser은 빈값이 올 수 없습니다")
-    private Long toUser;
+    private Long toUserSeq;
 
     // 얘는 추후에 시큐리티가 구현 완료되면 '@AuthenticationPrincipal UserDetails userDetails' 로 대체해주기
     private Long fromUser;
