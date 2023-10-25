@@ -1,9 +1,18 @@
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import MainPage from "./pages/mainPage";
+import DeskPage from "./pages/deskPage";
+import School from "./pages/schoolPage";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />}></Route>
+        <Route path="/desk" element={<DeskPage />}></Route>
+        <Route path="/school" element={<School />}></Route>
+      </Routes>
+    </>
   );
 }
 
