@@ -35,4 +35,10 @@ public class User {
 
     @OneToMany(mappedBy = "toUser")
     private List<MyLetter> myLetters = new ArrayList<>();
+
+    public User(String email, String userNickname, String uuid) {
+        this.email = email;
+        this.fromUserNickname = userNickname;
+        this.uuid = uuid;
+    }
 }

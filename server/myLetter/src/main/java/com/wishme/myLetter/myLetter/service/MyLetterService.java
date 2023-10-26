@@ -75,7 +75,7 @@ public class MyLetterService {
         long totalLetterCount = myLetterRepository.countByToUser(toUser);
 
         // 회원일 때 자기 책상인지 남의 책상인지 확인
-        if(authentication != null) {
+        if(authentication.getName() != null) {
             // 시큐리티 설정 후 수정
             User requestUser = userRepository.findByEmail("eun@naver.com")
                     .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
