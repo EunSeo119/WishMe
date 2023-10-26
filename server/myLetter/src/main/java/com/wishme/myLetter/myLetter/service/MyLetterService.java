@@ -110,7 +110,7 @@ public class MyLetterService {
                 .isMine(isMine)
                 .totalLetterCount(totalLetterCount)
                 .toUserSeq(toUser.getUserSeq())
-                .toUserNickname(toUser.getUserNickname())
+                .toUserNickname(toUser.getFromUserNickname())
                 .myLetterResponseDtoList(myLetterResponseDtoList)
                 .build();
 
