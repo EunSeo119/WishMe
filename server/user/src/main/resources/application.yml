@@ -1,15 +1,18 @@
 server:
   port: '8080'
 
+jwt:
+  secret:
+    key: 317b2233e8aa1297bc74518b94cce19aad62efe74d14383cdd405fee0ec97104858373be289477a8d17635608b4c39a832a08cb227f2c8c8871fd3f7fd0ae44d
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-    username: root
+    username: wishmeuserdb
+    url: jdbc:mysql://localhost:3306/wishme
 #    url: jdbc:mysql://user_mysqldb:3308/wishme?autoReconnect=true
-    url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
-    password: ssafy
-
+#    url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
+    password: m2RhHKBXDIiTB-DuWL7D$WAg+
 
   mvc:
     pathmatch:
@@ -22,3 +25,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: 'true'
 
+oauth:
+  kakao:
+    CLIENT_ID: 6b52e292c4e4a438a0b8b8ff3c407630
+    CLIENT_SECRET: cbJsvL3W9WRF26WKGLkCD4yZDUDmrvAB
