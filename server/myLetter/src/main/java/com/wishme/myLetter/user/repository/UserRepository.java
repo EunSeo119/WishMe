@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUserSeq(Long assetSeq);
 
     Optional<User> findByEmail(String email);
+
+    Optional<User> findByUuid(String uuid);
 }
