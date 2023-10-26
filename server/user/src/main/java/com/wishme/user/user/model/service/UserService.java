@@ -7,7 +7,6 @@ import java.util.Map;
 
 @Service
 public interface UserService {
-
     ResponseEntity<?> modifyNickname(Map<String, String> request, Long userSeq);
     ResponseEntity<?> registerSchool(Map<String, String> request, Long userSeq);
     ResponseEntity<?> modifySchool(Map<String, String> request, Long userSeq);

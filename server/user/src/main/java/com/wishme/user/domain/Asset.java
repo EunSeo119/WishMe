@@ -22,9 +22,13 @@ public class Asset {
     @Column(name = "asset_img", nullable = false)
     private String assetImg;
 
-    @OneToMany(mappedBy = "asset")
+    @Column(name = "type", nullable = false)
+    private char type;
+
+    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
     private List<MyLetter> myLetters = new ArrayList<>();
 
-    @OneToMany(mappedBy = "asset")
+    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
     private List<SchoolLetter> schoolLetters = new ArrayList<>();
+
 }
