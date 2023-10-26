@@ -1,13 +1,22 @@
+.bg {
+  /* width: 443px; */
+  /* min-width: 414px; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+}
 .schoolName {
   position: absolute;
   left: 50%;
   top: 11%;
   transform: translate(-50%, 0);
-  font-family: 'Inter';
+  font-family: 'omyu_pretty';
   font-style: normal;
-  font-weight: 600;
-  font-size: 15px;
-  display: flex;
+  font-weight: 300;
+  font-size: 22px;
+  /* display: flex; */
   align-items: center;
   text-align: center;
   color: #000000;
@@ -35,4 +44,40 @@
 .gridItem img {
   width: 100%;
   height: auto;
+}
+
+.title {
+  font-family: 'omyu_pretty';
+  text-align: center;
+  padding: 50px;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+  /* margin-top: 50px; */
+}
+.main {
+  /* position: absolute; */
+  height: 80%;
+}
+.btn {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.mySchoolBtn {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 10px;
+  margin: 0 20px 10px;
+  /* width: 100%; */
 }
