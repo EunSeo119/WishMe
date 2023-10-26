@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/mainPage'
 import DeskPage from './pages/deskPage'
-import SchoolPage from './pages/schoolPage'
+import SchoolPage from './pages/schoolPage/schoolPage'
 import style from './app.module.css'
 
 function App() {
