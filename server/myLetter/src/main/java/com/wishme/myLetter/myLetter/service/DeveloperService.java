@@ -1,7 +1,7 @@
 package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
-import com.wishme.myLetter.myLetter.repository.AssetRepository;
+import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
@@ -10,6 +10,8 @@ import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,9 +50,9 @@ public class DeveloperService {
     }
 
     // 개발자 책상 확인
-    public List<AllDeveloperLetterResponseDto> allDeveloperLetter(){
+    public List<AllDeveloperLetterResponseDto> allDeveloperLetter(Pageable pageable){
         User admin = userRepository.findById(1L).orElse(null);
-        List<MyLetter> myLetters = developerRepository.findByToUser(admin);
+        Page<MyLetter> myLetters = developerRepository.findAllDeveloperLetter(pageable, admin);
 
         if(admin != null){
             List<AllDeveloperLetterResponseDto> developerLetterResponseDtos = new ArrayList<>();
