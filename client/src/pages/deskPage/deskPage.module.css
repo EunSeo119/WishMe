@@ -1,0 +1,96 @@
+body{
+    margin: 0;
+}
+
+.deskPage{
+    max-width: 443px;
+    width: 100%;
+    height: 100vh;
+    margin: auto auto;
+    position: absolute;
+    /* background-image: url("https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.PNG");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top -60px; */
+}
+
+.bg{
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    z-index: -9999;
+    position: absolute;
+}
+
+/* 칠판부분 */
+.board {
+    height: 30%;
+}
+
+.title {
+    font-family: 'omyu_pretty';
+    /* font-family: 'skybori'; */
+    font-size: 25px;
+    text-align: center;
+    padding-top: 20%;
+    /* margin-top: 50px; */
+}
+
+/* 책상 부분 */
+.desk {
+    height: 50%;
+}
+
+.gridContainer {
+    left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
+    transform: translateX(-50%);
+    top: 29%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 85%;
+    position: absolute;
+    height: 30%;
+  }
+  .gridItem {
+    margin: 0 5px; /* 상하 0, 좌우 1px의 마진 설정 */
+    display: inline-block;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .gridItem img {
+    width: 90%;
+    height: auto;
+  }
+
+/* 버튼 부분 */
+.btn {
+    height: 20%;
+}
+
+.cheerUpBtn {
+    font-family: 'omyu_pretty';
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #176124;
+    border-radius: 10px;
+    background-color: #176124;
+    padding: 13px;
+    margin: 0px 20px 10px;
+}
+
+.myDeskBtn {
+    font-family: 'omyu_pretty';
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #176124;
+    border-radius: 10px;
+    background-color: #176124;
+    padding: 13px;
+    margin: 0px 20px;
+}

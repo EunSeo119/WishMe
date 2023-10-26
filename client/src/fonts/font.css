@@ -4,3 +4,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'skybori';
+    src: url('./SKYBORI.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
