@@ -1,8 +1,8 @@
-body{
+body {
     margin: 0;
 }
 
-.deskPage{
+.deskPage {
     /* background-color: black; */
     max-width: 443px;
     /* min-width: 414px; */
@@ -49,6 +49,10 @@ body{
 /* 버튼 부분 */
 .btn {
     height: 20%;
+}
+
+.link {
+    text-decoration: none;
 }
 
 .cheerUpBtn {
