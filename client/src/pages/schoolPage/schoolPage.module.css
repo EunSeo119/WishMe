@@ -1,0 +1,38 @@
+.schoolName {
+  position: absolute;
+  left: 50%;
+  top: 11%;
+  transform: translate(-50%, 0);
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+.gridContainer {
+  left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
+  transform: translateX(-50%);
+  top: 22%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 80%;
+  position: absolute;
+  height: 50%;
+}
+.gridItem {
+  margin: 0 5px; /* 상하 0, 좌우 1px의 마진 설정 */
+  display: inline-block;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridItem img {
+  width: 100%;
+  height: auto;
+}
