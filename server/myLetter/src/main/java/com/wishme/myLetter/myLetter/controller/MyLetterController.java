@@ -1,13 +1,16 @@
 package com.wishme.myLetter.myLetter.controller;
 
+import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.service.MyLetterService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +30,35 @@ public class MyLetterController {
                 .body(myLetterService.getMyLetterAssets());
     }
 
+    /**
+     * 개인 편지 저장하기
+     */
+    @PostMapping("/write")
+    public ResponseEntity<?> saveLetter(@Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(myLetterService.saveLetter(saveMyLetterRequestDto));
+    }
+
+    /**
+     * 개인 편지 리스트 확인하기
+     */
+    @GetMapping("/all/{userUuid}")
+    public ResponseEntity<?> getMyLetterList(Authentication authentication,
+                                             @PathVariable("userUuid") String userUuid, @RequestParam(value = "page") int page) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(myLetterService.getMyLetterList(authentication, userUuid, page));
+    }
+
+    /**
+     * 개인 편지 내용 확인하기
+     */
+    @GetMapping("/detail/{myLetterSeq}")
+    public ResponseEntity<?> getMyLetterDetail(Authentication authentication, @PathVariable("myLetterSeq") Long myLetterSeq) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(myLetterService.getMyLetterDetail(authentication, myLetterSeq));
+    }
 
 }
