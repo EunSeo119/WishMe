@@ -29,13 +29,11 @@ public class SchoolLetterController {
     public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolId") Integer schoolId,
                                                          @PathVariable("page") Integer page){
 
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> resultMap =null;
         HttpStatus status = null;
 
         System.out.println("schoolId= "+schoolId);
-
-        List<SchoolLetterBoardListResponseDto> schoolLetterList = schoolLetterService.getSchoolLetterList(schoolId,page);
-        resultMap.put("schoolLetterList", schoolLetterList);
+        resultMap = schoolLetterService.getSchoolLetterList(schoolId,page);
         status = HttpStatus.ACCEPTED;
 
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
