@@ -1,4 +1,4 @@
-const School = () => {
+const SchoolPage = () => {
 
     return (
         <div>
@@ -7,4 +7,4 @@ const School = () => {
     );
 };
 
-export default School;
+export default SchoolPage;
