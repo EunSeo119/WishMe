@@ -1,0 +1,80 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Git Clone') {
+            steps {
+                script {
+                    // Git Clone 스텝
+                    git branch: 'develop',
+                    url: 'https://lab.ssafy.com/s09-final/S09P31B105.git',
+                    credentialsId: 'daeun_token' // GitLab Credential ID
+                }
+            }
+            post {
+                success {
+                    echo "Successfully Cloned Repository"
+                }
+                failure {
+                    echo "Failed to Clone Repository"
+                }
+            }
+        }
+
+        stage('Application') {
+            steps {
+                // application.yml 파일 복사
+                sh 'cp /var/jenkins_home/workspace/applicationFile/user/application.yml /var/jenkins_home/workspace/wishMe/server/user/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/applicationFile/myLetter/application.yml /var/jenkins_home/workspace/wishMe/server/myLetter/src/main/resources/'
+                sh 'cp /var/jenkins_home/workspace/applicationFile/schoolLetter/application.yml /var/jenkins_home/workspace/wishMe/server/schoolLetter/src/main/resources/'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Gradle 빌드
+                dir('/var/jenkins_home/workspace/wishMe/server/user/') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build'
+                }
+                dir('/var/jenkins_home/workspace/wishMe/server/myLetter/') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build'
+                }
+                dir('/var/jenkins_home/workspace/wishMe/server/schoolLetter/') {
+                    sh 'chmod +x gradlew'
+                    sh './gradlew clean build'
+                }
+            }
+        }
+
+        stage('ssh-docker') {
+            steps {
+                script {
+                    sh """
+                    ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/myLetter/build/libs/myLetter-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/myLetter" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/user/build/libs/user-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/user" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/schoolLetter/build/libs/schoolLetter-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/schoolLetter" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/client /home/ubuntu/docker" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"cd /home/ubuntu/docker && sudo docker compose -f docker-compose.yml up --build -d"
+
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "SSH and Docker commands succeeded"
+        }
+        failure {
+            echo "SSH and Docker commands failed"
+        }
+    }
+}
