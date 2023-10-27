@@ -1,0 +1,43 @@
+body {
+  background-color: #daf1de;
+}
+
+.icon {
+  /* position: absolute; */
+  /* top: 11%; */
+  /* transform: translateY(-50%); */
+}
+.schoolName {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+
+.title {
+  margin-top: 3%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  /* align-items: center; */
+  text-align: center;
+  color: #000000;
+}

@@ -7,7 +7,7 @@ const DeskPage = () => {
       <div className={style.board}>
         <div className={style.title}>
           <b>{}수능대박</b>님의 책상에
-          <br></br>
+          <br />
           <b>{}246개</b>의 응원이 왔어요!
         </div>
       </div>
