@@ -11,3 +11,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'zcoolk';
+    src: url('./ZCOOLKuaiLe-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'armata';
+    src: url('./Armata-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
