@@ -3,6 +3,7 @@ package com.wishme.myLetter.myLetter.service;
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
+import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
@@ -50,21 +51,28 @@ public class DeveloperService {
     }
 
     // 개발자 책상 확인
-    public List<AllDeveloperLetterResponseDto> allDeveloperLetter(Pageable pageable){
+    public AllDeveloperLetterListResponseDto allDeveloperLetter(Pageable pageable){
         User admin = userRepository.findById(1L).orElse(null);
         Page<MyLetter> myLetters = developerRepository.findAllDeveloperLetter(pageable, admin);
 
         if(admin != null){
+            // 9개씩 담기
             List<AllDeveloperLetterResponseDto> developerLetterResponseDtos = new ArrayList<>();
             for(MyLetter myLetter : myLetters){
                 AllDeveloperLetterResponseDto result = AllDeveloperLetterResponseDto.builder()
                         .myLetterSeq(myLetter.getMyLetterSeq())
                         .assetSeq(myLetter.getAsset().getAssetSeq())
-                        .nickname(myLetter.getFromUserNickname())
+                        .fromUserNickname(myLetter.getFromUserNickname())
+                        .isPublic(myLetter.getIsPublic())
                         .build();
                 developerLetterResponseDtos.add(result);
             }
-            return developerLetterResponseDtos;
+            // 총 편지 수, 총 페이지 수, 페이지 당 편지
+            return AllDeveloperLetterListResponseDto.builder()
+                    .totalLetters(myLetters.getNumberOfElements())
+                    .totalPages(myLetters.getTotalPages())
+                    .lettersPerPage(developerLetterResponseDtos)
+                    .build();
         }else{
             throw new IllegalArgumentException("개별자 편지 전체 조회 실패");
         }
