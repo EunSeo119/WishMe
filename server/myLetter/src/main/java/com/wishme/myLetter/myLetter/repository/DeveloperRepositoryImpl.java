@@ -23,12 +23,13 @@ public class DeveloperRepositoryImpl implements DeveloperRepositoryCustom{
         TypedQuery<MyLetter> query = em.createQuery(jpql, MyLetter.class)
                 .setParameter("user", user);
 
-        int total = query.getResultList().size();   // 전체 결과 수
+        int totalCnt = query.getResultList().size();   // 전체 결과 수
+
         query.setFirstResult((int) pageable.getOffset());
         query.setMaxResults(pageable.getPageSize());
 
         List<MyLetter> result = query.getResultList();
 
-        return new PageImpl<>(result, pageable, total);
+        return new PageImpl<>(result, pageable, totalCnt);
     }
 }
