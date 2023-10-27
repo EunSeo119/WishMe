@@ -54,7 +54,7 @@
 .gridItem img {
     max-width: 90%;
     /* 이미지 크기를 줄였습니다. */
-    max-height: 90%;
+    /* max-height: 90%; */
     object-fit: contain;
 }
 
@@ -80,15 +80,14 @@
 }
 
 .gridItem {
-    /* ... 나머지 스타일 생략 ... */
     transition: transform 0.3s ease;
     /* 애니메이션 효과 추가 */
 }
 
 .gridItem:hover {
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
     /* hover 시 크기 확대 */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
     /* 그림자 강조 */
 }
 
@@ -112,7 +111,5 @@
 
 .title {
     font-size: 28px;
-    /* 폰트 크기를 조금 더 크게 조절 */
     margin-bottom: 40px;
-    /* 간격을 조절 */
 }
