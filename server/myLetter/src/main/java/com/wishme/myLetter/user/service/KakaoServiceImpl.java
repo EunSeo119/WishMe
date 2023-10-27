@@ -1,14 +1,15 @@
-package com.wishme.user.user.model.service;
+package com.wishme.myLetter.user.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wishme.user.domain.User;
-import com.wishme.user.user.model.dto.request.KakaoUserInfoDto;
-import com.wishme.user.user.model.repository.UserRepository;
-import com.wishme.user.util.JwtUtil;
-import com.wishme.user.util.KakaoUtil;
+import com.wishme.myLetter.user.domain.User;
+import com.wishme.myLetter.user.dto.request.KakaoUserInfoDto;
+import com.wishme.myLetter.user.repository.UserRepository;
+import com.wishme.myLetter.util.JwtUtil;
+import com.wishme.myLetter.util.KakaoUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class KakaoServiceImpl implements KakaoService {
 
     @Value("{jwt.secret.key}")
     private String secretKey;
+
     private final KakaoUtil kakaoUtil;
     private final UserRepository userRepository;
 
@@ -40,7 +42,9 @@ public class KakaoServiceImpl implements KakaoService {
         KakaoUserInfoDto kakaoUserInfoDto = kakaoUtil.getKakaoUserInfo(accessToken);
 
         // 3. 카카오 ID로 회원가입 처리
-        User user = userRepository.findByEmail(kakaoUserInfoDto.getEmail());
+        User user = userRepository.findByEmail(kakaoUserInfoDto.getEmail())
+                .orElse(null);
+
         if (user == null) {
             // 회원가입
             String email = kakaoUserInfoDto.getEmail();

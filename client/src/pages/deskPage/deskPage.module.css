@@ -1,5 +1,6 @@
 body{
     width: 100vw;
+
     margin: 0;
     /* text-align: center; */
     background-color: #EDF4EF;
@@ -49,7 +50,8 @@ body{
 }
 
 .gridContainer {
-    left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
+    left: 50%;
+    /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
     transform: translateX(-50%);
     top: 29%;
     display: grid;
@@ -58,20 +60,26 @@ body{
     width: 85%;
     position: absolute;
     height: 30%;
-  }
-  .gridItem {
-    margin: 0 5px; /* 상하 0, 좌우 1px의 마진 설정 */
+}
+
+.gridItem {
+    margin: 0 5px;
+    /* 상하 0, 좌우 1px의 마진 설정 */
     display: inline-block;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .gridItem img {
+}
+
+.gridItem img {
     width: 90%;
     height: auto;
-  }
+}
+
+.link {
+    text-decoration: none;
+}
 
 /* 버튼 부분 */
 .btn {

@@ -1,4 +1,4 @@
-package com.wishme.user.util;
+package com.wishme.myLetter.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -10,6 +10,7 @@ public class JwtUtil {
 
     // token valid time : 30 minutes
     private final long TOKEN_VALID_TIME = 30 * 60 * 1000L;
+
 
     public String createJwt(String userSeq, String secretKey) {
         Claims claims = Jwts.claims();

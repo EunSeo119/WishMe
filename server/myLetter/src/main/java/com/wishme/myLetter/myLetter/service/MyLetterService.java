@@ -47,7 +47,7 @@ public class MyLetterService {
     }
 
     @Transactional
-    public Long saveLetter(SaveMyLetterRequestDto saveMyLetterRequestDto) {
+    public Long saveLetter(Authentication authentication, SaveMyLetterRequestDto saveMyLetterRequestDto) {
         User toUser = userRepository.findByUserSeq(saveMyLetterRequestDto.getToUserSeq())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다. 해당 유저에게 편지를 쓸 수 없습니다.", 1));
 
@@ -59,7 +59,7 @@ public class MyLetterService {
                 .asset(myAsset)
                 .content(saveMyLetterRequestDto.getContent())
                 .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
-                .fromUser(saveMyLetterRequestDto.getFromUser()) // 시큐리티 적용되면 수정
+                .fromUser(Long.valueOf(authentication.getName()))
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
                 .build();
 
@@ -75,9 +75,8 @@ public class MyLetterService {
         long totalLetterCount = myLetterRepository.countByToUser(toUser);
 
         // 회원일 때 자기 책상인지 남의 책상인지 확인
-        if(authentication != null) {
-            // 시큐리티 설정 후 수정
-            User requestUser = userRepository.findByEmail("eun@naver.com")
+        if(authentication.getName() != null) {
+            User requestUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
                     .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
             if(toUser.equals(requestUser)) {
@@ -122,8 +121,7 @@ public class MyLetterService {
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
-        // 시큐리티 설정 후 수정
-        User checkUser = userRepository.findByEmail("eun@naver.com")
+        User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
         if(!myletter.getToUser().equals(checkUser) && !myletter.getIsPublic()) {
