@@ -13,4 +13,6 @@ public interface MyLetterRepository extends JpaRepository<MyLetter, Long> {
     List<MyLetter> findAllByToUser(User toUser, Pageable pageable);
 
     Optional<MyLetter> findByMyLetterSeq(Long myLetterSeq);
+
+    long countByToUser(User toUser);
 }

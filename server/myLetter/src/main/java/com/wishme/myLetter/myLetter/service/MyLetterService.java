@@ -5,8 +5,9 @@ import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterAssetResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.MyLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyLetterResponseDto;
-import com.wishme.myLetter.myLetter.repository.AssetRepository;
+import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
@@ -19,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,7 +48,7 @@ public class MyLetterService {
 
     @Transactional
     public Long saveLetter(SaveMyLetterRequestDto saveMyLetterRequestDto) {
-        User toUser = userRepository.findByUserSeq(saveMyLetterRequestDto.getToUser())
+        User toUser = userRepository.findByUserSeq(saveMyLetterRequestDto.getToUserSeq())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다. 해당 유저에게 편지를 쓸 수 없습니다.", 1));
 
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
@@ -67,17 +67,30 @@ public class MyLetterService {
         return save.getMyLetterSeq();
     }
 
-    public List<MyLetterResponseDto> getMyLetterList(Authentication authentication, int page) {
-        // 시큐리티 설정 후 수정
-        User toUser = userRepository.findByEmail("eun@naver.com")
+    public MyLetterListResponseDto getMyLetterList(Authentication authentication, String userUuid, int page) {
+        User toUser = userRepository.findByUuid(userUuid)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+        boolean isMine = false;
+        long totalLetterCount = myLetterRepository.countByToUser(toUser);
+
+        // 회원일 때 자기 책상인지 남의 책상인지 확인
+        if(authentication != null) {
+            // 시큐리티 설정 후 수정
+            User requestUser = userRepository.findByEmail("eun@naver.com")
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+            if(toUser.equals(requestUser)) {
+                isMine = true;
+            }
+        }
 
         // 9개씩 페이징 처리해줌
         PageRequest pageRequest = PageRequest.of(page-1, 9);
 
         List<MyLetter> myLetters = myLetterRepository.findAllByToUser(toUser, pageRequest);
 
-        List<MyLetterResponseDto> result = new ArrayList<>();
+        List<MyLetterResponseDto> myLetterResponseDtoList = new ArrayList<>();
 
         for(MyLetter letter : myLetters) {
             Asset myAsset = assetRepository.findByAssetSeqAndType(letter.getAsset().getAssetSeq(), 'M')
@@ -90,10 +103,18 @@ public class MyLetterService {
                     .isPublic(letter.getIsPublic())
                     .build();
 
-            result.add(myLetterResponseDto);
+            myLetterResponseDtoList.add(myLetterResponseDto);
         }
 
-        return result;
+        MyLetterListResponseDto myLetterListResponseDto = MyLetterListResponseDto.builder()
+                .isMine(isMine)
+                .totalLetterCount(totalLetterCount)
+                .toUserSeq(toUser.getUserSeq())
+                .toUserNickname(toUser.getFromUserNickname())
+                .myLetterResponseDtoList(myLetterResponseDtoList)
+                .build();
+
+        return myLetterListResponseDto;
     }
 
     public MyLetterDetailResponseDto getMyLetterDetail(Authentication authentication, Long myLetterSeq) {
@@ -105,7 +126,7 @@ public class MyLetterService {
         User checkUser = userRepository.findByEmail("eun@naver.com")
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        if(!myletter.getToUser().equals(checkUser)) {
+        if(!myletter.getToUser().equals(checkUser) && !myletter.getIsPublic()) {
             throw new RuntimeException("열람할 권한이 없습니다.");
         }
 

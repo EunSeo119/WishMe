@@ -19,7 +19,7 @@ public class DeveloperController {
 
     // API 1. 개발자 편지 작성
     @PostMapping("/write")
-    public ResponseEntity<?> writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto){
+    public ResponseEntity<?> writeDeveloperLetter(Authentication authentication, @RequestBody WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto){
         try{
             developerService.writeDeveloperLetter(authentication, writeDeveloperLetterRequestDto);
             return ResponseEntity.status(HttpStatus.OK).build();

@@ -1,4 +1,4 @@
-package com.wishme.myLetter.myLetter.repository;
+package com.wishme.myLetter.asset.repository;
 
 import com.wishme.myLetter.asset.domain.Asset;
 import org.springframework.data.jpa.repository.JpaRepository;
