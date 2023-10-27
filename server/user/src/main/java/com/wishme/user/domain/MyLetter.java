@@ -1,6 +1,7 @@
 package com.wishme.user.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,16 +29,27 @@ public class MyLetter extends BaseTimeEntity {
     @Column(columnDefinition = "text", nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String nickname;
+    @Column(name = "from_user_nickname", nullable = false)
+    private String fromUserNickname;
 
     @Column(name = "from_user")
     private Long fromUser;
 
-    @Column(name = "is_public", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    @Column(name = "is_public", nullable = false, columnDefinition = "TINYINT(1) default 1")
     private Boolean isPublic;
 
     @OneToOne(mappedBy = "myLetter")
     private Reply reply;
 
+    @Builder
+    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply) {
+        this.myLetterSeq = myLetterSeq;
+        this.toUser = toUser;
+        this.asset = asset;
+        this.content = content;
+        this.fromUserNickname = fromUserNickname;
+        this.fromUser = fromUser;
+        this.isPublic = isPublic;
+        this.reply = reply;
+    }
 }

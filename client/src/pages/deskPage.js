@@ -22,7 +22,14 @@ const DeskPage = () => {
                 </div>
             </div>
         </div>
-    );
-};
+      </div >
+      <div className={style.desk}></div>
+      <div className={style.btn}>
+        <div className={style.cheerUpBtn}>응원하기</div>
+        <div className={style.myDeskBtn}>내 책상 보기</div>
+      </div>
+    </div >
+  )
+}
 
-export default DeskPage;
+export default DeskPage
