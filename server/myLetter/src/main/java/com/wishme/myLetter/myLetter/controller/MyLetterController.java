@@ -34,10 +34,11 @@ public class MyLetterController {
      * 개인 편지 저장하기
      */
     @PostMapping("/write")
-    public ResponseEntity<?> saveLetter(@Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) {
+    public ResponseEntity<?> saveLetter(Authentication authentication,
+                                        @Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(myLetterService.saveLetter(saveMyLetterRequestDto));
+                .body(myLetterService.saveLetter(authentication, saveMyLetterRequestDto));
     }
 
     /**

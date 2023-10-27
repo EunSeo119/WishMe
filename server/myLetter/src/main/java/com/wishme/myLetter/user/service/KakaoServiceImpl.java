@@ -26,8 +26,8 @@ import java.util.UUID;
 @Slf4j
 public class KakaoServiceImpl implements KakaoService {
 
-    @Value("${jwt.secret.key}")
-    private String jwtSecretKey;
+    @Value("{jwt.secret.key}")
+    private String secretKey;
 
     private final KakaoUtil kakaoUtil;
     private final UserRepository userRepository;
@@ -62,7 +62,7 @@ public class KakaoServiceImpl implements KakaoService {
         try {
             // 4. 로그인 처리 & Response Header 에 JWT 추가
             Map<String, Object> data = new HashMap<>();
-            data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), jwtSecretKey));
+            data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), secretKey));
 
             resultMap.put("data", data);
             resultMap.put("message", "로그인 성공");
