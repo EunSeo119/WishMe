@@ -17,16 +17,15 @@
 
 .title {
     font-size: 55px;
-    font-family: 'zcoolk';
+    /* font-family: 'kalam-Reqular'; */
+    font-family: 'Yeongdeok Sea';
     text-align: center;
-    /* background-color: red; */
 }
 
 .subTitle {
     font-size: 30px;
-    font-family: 'zcoolk';
+    font-family: 'Yeongdeok Sea';
     text-align: right;
-    /* background-color: blue; */
     padding-right: 25px;
 }
 
