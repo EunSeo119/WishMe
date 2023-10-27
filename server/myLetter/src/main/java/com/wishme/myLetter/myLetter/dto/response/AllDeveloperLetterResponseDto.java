@@ -15,8 +15,10 @@ public class AllDeveloperLetterResponseDto {
     private Long myLetterSeq;
     // 에셋 일련번호
     private Long assetSeq;
-    // 닉네임
-    private String nickname;
+    // 보내는 사람 닉네임
+    private String fromUserNickname;
+    // 공개여부
+    private boolean isPublic;
 
 
 }

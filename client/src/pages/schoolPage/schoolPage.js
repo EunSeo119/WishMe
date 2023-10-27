@@ -30,23 +30,32 @@ const SchoolPage = () => {
   }, [page])
 
   return (
-    <div className={style.app}>
-      <img
-        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/schoolBackground.PNG"
-        className={style.bg}
-      />
-      <div className={styleSchool.schoolName}>
-        {schoolName}에<br></br>
-        {totalCount}개의 응원이 왔어요!
-      </div>
+    <div>
+      <div className={styleSchool.main}>
+        <img
+          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/schoolBackground.PNG"
+          className={styleSchool.bg}
+        />
+        <div className={styleSchool.schoolName}>
+          <b>{schoolName}</b>에
+          <b>
+            <br></br>
+            {totalCount}
+          </b>
+          개의 응원이 왔어요!
+        </div>
 
-      {/* 격자 레이아웃 */}
-      <div className={styleSchool.gridContainer}>
-        {schoolLetter.slice(0, 12).map((letter, index) => (
-          <div key={index} className={styleSchool.gridItem}>
-            <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/school/1.png" />
-          </div>
-        ))}
+        <div className={styleSchool.gridContainer}>
+          {schoolLetter.slice(0, 12).map((letter, index) => (
+            <div key={index} className={styleSchool.gridItem}>
+              <img src={`${letter.assetImg}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={styleSchool.btn}>
+        <div className={styleSchool.mySchoolBtn}>응원하기</div>
+        <div className={styleSchool.mySchoolBtn}>내 책상 보기</div>
       </div>
     </div>
   )

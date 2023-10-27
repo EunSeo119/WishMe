@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,7 +32,9 @@ public class SchoolLetterService {
     private final SchoolLetterRepository schoolLetterRepository;
     private final AssetRepository assetRepository;
     private final SchoolRepository schoolRepository;
-    public List<SchoolLetterBoardListResponseDto> getSchoolLetterList(Integer schoolId, Integer page) {
+    public Map<String, Object> getSchoolLetterList(Integer schoolId, Integer page) {
+
+        Map<String, Object> resultMap = new HashMap<>();
 
         int pageSize = 12; // 한 페이지당 12개의 학교편지
         Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
@@ -49,7 +53,15 @@ public class SchoolLetterService {
                 );
             }
         }
-        return schoolLetterResponseDtoList;
+
+        School school = schoolRepository.findBySchoolSeq(schoolId)
+                .orElseThrow(IllegalArgumentException::new);
+        resultMap.put("schoolLetterList", schoolLetterResponseDtoList);
+        resultMap.put("schoolName", school.getSchoolName());
+        resultMap.put("totalCount", schoolLetterPage.getTotalElements());
+        resultMap.put("totalPage", schoolLetterPage.getTotalPages());
+
+        return resultMap;
     }
 
 

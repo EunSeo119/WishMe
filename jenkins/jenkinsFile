@@ -59,6 +59,8 @@ ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
 ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
 "sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/server/schoolLetter/build/libs/schoolLetter-0.0.1-SNAPSHOT.jar /home/ubuntu/docker/server/schoolLetter" 
 ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
+"sudo docker cp special_jenkins:/var/jenkins_home/workspace/wishMe/client /home/ubuntu/docker" 
+ssh -i /var/jenkins_home/workspace/K9B105T.pem ubuntu@172.17.0.1 \
 "cd /home/ubuntu/docker && sudo docker compose -f docker-compose.yml up --build -d"
 
                     """
