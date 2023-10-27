@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/mainPage'
-import DeskPage from './pages/deskPage'
+import DeskPage from './pages/deskPage/deskPage'
 import SchoolPage from './pages/schoolPage/schoolPage'
 import SchooLetterDetaillPage from './pages/schoolPage/schoolLetterDetail'
 import SchooLetterAssetList from './pages/schoolPage/schoolLetterAssetList'
