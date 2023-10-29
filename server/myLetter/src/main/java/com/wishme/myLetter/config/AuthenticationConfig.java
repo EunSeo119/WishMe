@@ -1,6 +1,5 @@
-package com.wishme.user.config;
+package com.wishme.myLetter.config;
 
-import com.wishme.user.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class AuthenticationConfig {
-
-    private final UserService userService;
 
     @Value("{jwt.secret.key}")
     private String JwtSecretKey;
@@ -38,7 +35,7 @@ public class AuthenticationConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtFilter(userService, JwtSecretKey), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(JwtSecretKey), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }
