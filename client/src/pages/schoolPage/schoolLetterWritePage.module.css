@@ -1,0 +1,121 @@
+body {
+  background-color: #daf1de;
+  max-width: 443px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* left: 50%;
+  transform: translate(-50%, 0); */
+}
+.schoolName {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+.title {
+  margin-top: 3%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  /* align-items: center; */
+  text-align: center;
+  color: #000000;
+}
+nickname {
+  border-radius: 10px;
+  transform: translateX(-50%);
+  max-width: 443px;
+}
+
+.nicknameInput {
+  position: absolute;
+  height: 4%;
+  top: 16%;
+  padding: 10px;
+  /* margin: 0 20px 10px; */
+  background: #ffffff;
+  border: none;
+  border-radius: 10px;
+  transform: translateX(-50%);
+  left: 50%;
+  width: 80%;
+}
+.nicknameInput::placeholder {
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 19px;
+  color: #9f9f9f;
+}
+
+.nicknameInput:not(:placeholder-shown) {
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+}
+.letterImg {
+  top: 26%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* height: 60%; */
+  /* width: 80vw; */
+  /* height: 50vh; */
+}
+
+.canvas {
+  position: absolute;
+  top: 10%; /* Canvas의 위치를 조정하지 않음 */
+  height: auto;
+  /* left: 0; */
+  /* background-color: #176124; */
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.btn {
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 443px;
+}
+
+.mySchoolBtn {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 10px;
+  margin: 0 20px 10px;
+  /* width: 100%; */
+}

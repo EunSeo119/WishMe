@@ -1,20 +1,49 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styleSchool from './schoolPage.module.css' // CSS 모듈을 import
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Slider from 'react-slick'
+import { useNavigate } from 'react-router-dom'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io' // IoIosArrowForward를 import
 
 const SchoolPage = () => {
   const [page, setPage] = useState(1)
+  const [schoolId, setSchoolId] = useState(1)
   const [schoolName, setSchoolName] = useState('')
   const [totalCount, setTotalCount] = useState(0)
   const [schoolLetter, setSchoolLetter] = useState([])
   const [totalPage, setTotalPage] = useState(1)
+  const navigate = useNavigate()
 
-  var url = 'http://localhost:8082/'
+  //   const settings = {
+  //     dots: true,
+  //     infinite: false,
+  //     speed: 500,
+  //     slidesToShow: 1,
+  //     slidesToScroll: 1,
+  //     afterChange: (current) => {
+  //       changePage(current + 1)
+  //     }
+  //   }
+
+  const changePage = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPage) {
+      setPage(newPage)
+    }
+  }
+
+  const handleLetterClick = (letterId) => {
+    navigate(`/schoolLetterDetail/${letterId}`)
+  }
+
+  const letterWriteClick = (schoolId) => {
+    navigate(`/schoolLetterAssetList/${schoolId}`)
+  }
 
   useEffect(() => {
     axios
-      //여기 학교변경해야함,,, 어케 해야하지?
-      .get(`/api/school/letter/all/1/${page}`)
+      .get(`/api/school/letter/all/${schoolId}/${page}`)
       .then((response) => {
         const data = response.data
         console.log(data)
@@ -45,15 +74,47 @@ const SchoolPage = () => {
         </div>
 
         <div className={styleSchool.gridContainer}>
-          {schoolLetter.slice(0, 12).map((letter, index) => (
-            <div key={index} className={styleSchool.gridItem}>
-              <img src={`${letter.assetImg}`} />
-            </div>
-          ))}
+          <div
+            className={`${styleSchool.arrowIcon} ${
+              page === 1 ? styleSchool.disabledArrow : ''
+            }`}
+            onClick={() => {
+              if (page > 1) {
+                changePage(page - 1)
+              }
+            }}
+          >
+            <IoIosArrowBack />
+          </div>
+          <div className={styleSchool.gridItemContainer}>
+            {schoolLetter.slice(0, 12).map((letter, index) => (
+              <div
+                key={index}
+                className={styleSchool.gridItem}
+                onClick={() => handleLetterClick(letter.schoolLetterSeq)}
+              >
+                <img src={`${letter.assetImg}`} />
+              </div>
+            ))}
+          </div>
+          <div
+            className={`${styleSchool.arrowIcon} ${
+              page === totalPage ? styleSchool.disabledArrow : ''
+            }`}
+            onClick={() => changePage(page + 1)}
+          >
+            <IoIosArrowForward />
+          </div>
         </div>
+        {/* 여기가 끝 */}
       </div>
       <div className={styleSchool.btn}>
-        <div className={styleSchool.mySchoolBtn}>응원하기</div>
+        <div
+          className={styleSchool.mySchoolBtn}
+          onClick={() => letterWriteClick(schoolId)}
+        >
+          응원하기
+        </div>
         <div className={styleSchool.mySchoolBtn}>내 책상 보기</div>
       </div>
     </div>

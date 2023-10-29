@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import styles from "./writeDeskLetter.module.css";
-import styleApp from '../../app.module.css'
+import style from "./writeDeskLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 const WriteDeskLetter = () => {
     const { assetSeq } = useParams();
@@ -11,6 +11,8 @@ const WriteDeskLetter = () => {
     const [content, setContent] = useState("");
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
+
     const navigate = useNavigate();
 
     const handleSave = () => {
@@ -60,71 +62,74 @@ const WriteDeskLetter = () => {
     };
 
     return (
-        <div className={styleApp.app}>
-            <div className={styles.container}>
-                <div className={styles.navigation}>
-                    <Link to="/desk/selectAsset" className={styles.backLink}>{'<- 이전으로'}</Link>
-                </div>
-                <h1 className={styles.title}>응원의 말을 남겨주세요!</h1>
+        <div className={style.body}>
+            <div className={style.navigation}>
+                <IoIosArrowBack />
+                <Link to="/desk/selectAsset" className={style.backLink}>이전으로</Link>
+            </div>
+            <p className={style.title}>응원의 말을 남겨주세요!</p>
 
+            <div >
                 <input
-                    className={styles.nicknameInput}
+                    className={style.nicknameInput}
                     placeholder="닉네임을 입력해주세요."
                     type="text"
                     value={nickname}
                     onChange={e => setNickname(e.target.value)}
                 />
+            </div>
 
-                <div className={styles.letterContainer}>
+            <div className={style.letterContainer}>
 
-                    <textarea
-                        className={styles.contentTextarea}
-                        placeholder="응원의 글을 적어주세요."
-                        value={content}
-                        onChange={e => setContent(e.target.value)}
-                    />
+                <textarea
+                    className={style.contentTextarea}
+                    placeholder="응원의 글을 적어주세요."
+                    value={content}
+                    onChange={e => setContent(e.target.value)}
+                />
 
-                    <div className={styles.radioGroup}>
-                        <div className={styles.radioItem}>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="visibility"
-                                    checked={isPublic}
-                                    onChange={() => setIsPublic(true)}
-                                />
-                                공개
-                            </label>
-                        </div>
-                        <div className={styles.radioItem}>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="visibility"
-                                    checked={!isPublic}
-                                    onChange={() => setIsPublic(false)}
-                                />
-                                비공개
-                            </label>
-                        </div>
+                <div className={style.radioGroup}>
+                    <div className={selectedButton === 'public' ? style.selectedButton : style.radioItem}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="visibility"
+                                checked={isPublic}
+                                onChange={() => { setIsPublic(true); setSelectedButton('public'); }}
+                            />
+                            공개
+                        </label>
+                    </div>
+                    <div className={selectedButton === 'private' ? style.selectedButton : style.radioItem}>
+                        <label >
+                            <input
+                                type="radio"
+                                name="visibility"
+                                checked={!isPublic}
+                                onChange={() => { setIsPublic(false); setSelectedButton('private'); }}
+                            />
+                            비공개
+                        </label>
                     </div>
                 </div>
-                <button className={styles.submitButton} onClick={handleSubmit}>응원 남기기</button>
-
-                {showModal && (
-                    <Modal closeModal={closeModal} handleModalConfirm={handleModalConfirm} />
-                )}
             </div>
-        </div >
+            <div className={style.btn}>
+                <button className={style.submitButton} onClick={handleSubmit}>응원 남기기</button>
+            </div>
+
+            {showModal && (
+                <Modal closeModal={closeModal} handleModalConfirm={handleModalConfirm} />
+            )}
+        </div>
     );
 };
 
 const Modal = ({ closeModal, handleModalConfirm }) => {
     return (
-        <div className={styles.modalOverlay}>
-            <div className={styles.modalContent}>
+        <div className={style.modalOverlay}>
+            <div className={style.modalContent}>
                 <p>등록하면 수정할 수 없습니다.</p>
-                <div className={styles.modalButtons}>
+                <div className={style.modalButtons}>
                     <button onClick={closeModal}>뒤로</button>
                     <button onClick={() => {
                         handleModalConfirm();
