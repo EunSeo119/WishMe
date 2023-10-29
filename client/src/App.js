@@ -1,11 +1,11 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import MainPage from './pages/mainPage'
-import DeskPage from './pages/deskPage/deskPage'
-import SchoolPage from './pages/schoolPage/schoolPage'
-import SelectDeskAsset from './pages/deskLetter/selectDeskAsset'
-import WriteDeskLetter from './pages/deskLetter/writeDeskLetter'
-import style from './app.module.css'
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import MainPage from "./pages/mainPage/mainPage";
+import DeskPage from "./pages/deskPage/deskPage";
+import SchoolPage from "./pages/schoolPage/schoolPage";
+import SelectDeskAsset from "./pages/deskLetter/selectDeskAsset";
+import WriteDeskLetter from "./pages/deskLetter/writeDeskLetter";
+import style from "./app.module.css";
 
 function App() {
   return (
