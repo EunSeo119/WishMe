@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import style from '../../app.module.css'
 import axios from 'axios'
 import styleSchool from './schoolPage.module.css' // CSS 모듈을 import
 

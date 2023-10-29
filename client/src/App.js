@@ -19,7 +19,7 @@ function App() {
         <Route path="/school" element={<SchoolPage />}></Route>
       </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
