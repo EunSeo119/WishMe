@@ -10,6 +10,7 @@
   left: 50%;
   transform: translate(-50%, 0);
 }
+
 .schoolName {
   position: absolute;
   left: 50%;
@@ -24,8 +25,10 @@
   text-align: center;
   color: #000000;
 }
+
 .gridContainer {
-  left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
+  left: 50%;
+  /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
   transform: translateX(-50%);
   top: 22%;
   /* display: grid; */
@@ -85,10 +88,12 @@
   color: #000000;
   /* margin-top: 50px; */
 }
+
 .main {
   /* position: absolute; */
   height: 80%;
 }
+
 .btn {
   position: absolute;
   top: 80%;

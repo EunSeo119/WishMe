@@ -1,9 +1,7 @@
-package com.wishme.user.config;
+package com.wishme.myLetter.config;
 
-import com.wishme.user.user.model.service.UserService;
-import com.wishme.user.util.JwtUtil;
+import com.wishme.myLetter.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,12 +21,10 @@ import java.util.List;
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 
-    private final UserService userService;
     private final String JwtSecretKey;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("authorization:{}", authorization);
 

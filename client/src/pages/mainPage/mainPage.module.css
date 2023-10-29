@@ -1,0 +1,15 @@
+.bg {
+    background-color: #DAF1DE;
+    height: 100vh;
+    width: 100vw;
+}
+
+.title {
+    font-size: 50px;
+    text-align: center;
+}
+
+.subTitle {
+    font-size: 20px;
+    text-align: right;
+}
