@@ -1,6 +1,5 @@
-.bg {
-  /* width: 443px; */
-  /* min-width: 414px; */
+body {
+  background-color: #daf1de;
   max-width: 443px;
   width: 100vw;
   height: 100vh;
@@ -9,31 +8,53 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
+  /* left: 50%;
+  transform: translate(-50%, 0); */
 }
 
+.icon {
+  /* position: absolute; */
+  /* top: 11%; */
+  /* transform: translateY(-50%); */
+}
 .schoolName {
+  height: 10%;
+  display: flex;
+  align-items: center;
   position: absolute;
-  left: 50%;
-  top: 10.8%;
-  transform: translate(-50%, 0);
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
   font-family: 'omyu_pretty';
   font-style: normal;
   font-weight: 300;
-  font-size: 21px;
-  /* display: flex; */
+  font-size: 22px;
   align-items: center;
   text-align: center;
   color: #000000;
 }
 
+.title {
+  margin-top: 3%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  /* align-items: center; */
+  text-align: center;
+  color: #000000;
+}
 .gridContainer {
-  left: 50%;
-  /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
+  left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
   transform: translateX(-50%);
-  top: 22%;
-  /* display: grid; */
-  /* grid-template-columns: repeat(3, 1fr); */
-  /* grid-template-rows: repeat(4, 1fr); */
+  top: 25.5%;
   width: 100%;
   position: absolute;
   height: 50%;
@@ -41,7 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 443px;
+  margin: 0;
 }
 .gridItemContainer {
   display: flex; /* 수평으로 그리드 아이템을 배치합니다. */
@@ -55,21 +76,41 @@
 .arrowIcon {
   font-size: 24px;
   cursor: pointer;
+  margin: 0;
 }
 .disabledArrow {
   font-size: 24px;
   color: #ccc;
   cursor: not-allowed;
+  margin: 0;
 }
 
-.gridItem {
-  margin: 20px 5px; /* 상하 0, 좌우 1px의 마진 설정 */
+/* .gridItem {
+  margin: 20px 5px;
   display: inline-block;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+} */
+
+.gridItem {
+  margin: 7px 5px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid #ccc; */
+  min-height: 100px;
+  /* width: 100%; */
+  background: rgba(89, 172, 130, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+.gridItem img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .gridItem img {
@@ -77,26 +118,9 @@
   height: auto;
 }
 
-.title {
-  font-family: 'omyu_pretty';
-  text-align: center;
-  padding: 50px;
-  font-size: 19px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #000000;
-  /* margin-top: 50px; */
-}
-
-.main {
-  /* position: absolute; */
-  height: 80%;
-}
-
 .btn {
   position: absolute;
-  top: 80%;
+  top: 88%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;

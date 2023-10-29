@@ -1,3 +1,17 @@
+body {
+    background-color: #daf1de;
+    max-width: 443px;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    z-index: -9999;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    /* left: 50%;
+    transform: translate(-50%, 0); */
+}
+
 .container {
     display: flex;
     flex-direction: column;
@@ -11,7 +25,7 @@
 
 .letterContainer {
     background: url('https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png');
-    background-size: cover;
+    background-size: 87%;
     background-repeat: no-repeat;
     width: 100%;
     height: 550px;
@@ -19,17 +33,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px 20px;
+    padding: 5% 5%;
     box-sizing: border-box;
     position: relative;
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    top: 26%;
+    position: absolute;
+    left: 6%;
+    /* transform: translate(-50%, 0); */
 }
 
 .title {
-    font-size: 18px;
-    font-weight: bold;
+    margin-top: 12%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    font-family: 'omyu_pretty';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
     text-align: center;
-    margin-bottom: 5px;
+    color: #000000;
 }
 
 .description {
@@ -54,10 +80,12 @@
     background: transparent;
     resize: none;
     overflow: auto;
-    height: 100%;
+    height: 86%;
     line-height: 1.5;
-    width: 80%;
+    width: 63%;
     outline: none;
+    transform: translateX(-11%);
+    font-family: 'omyu_pretty';
 }
 
 .radioGroup {
@@ -68,17 +96,16 @@
 }
 
 .submitButton {
-    background-color: #176124;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 15px;
+    font-family: 'omyu_pretty';
+    font-size: 30px;
+    color: #fff;
     text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    margin: 20px auto;
-    cursor: pointer;
+    border: 1px solid #176124;
+    border-radius: 10px;
+    background-color: #176124;
+    padding: 10px;
+    margin: 0 20px 10px;
+    /* width: 100%; */
 }
 
 .navigation {
@@ -112,4 +139,128 @@
     display: flex;
     gap: 10px;
     margin-top: 15px;
+}
+
+.navigation {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 5%;
+    /* top: 3%; */
+    /* transform: translate(-50%, 0); */
+    font-family: 'omyu_pretty';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+}
+
+.backLink {
+    color: #000;
+    /* 이전 링크의 텍스트 색상 */
+    text-decoration: none;
+}
+
+.nicknameInput {
+    position: absolute;
+    height: 4%;
+    top: 16%;
+    padding: 10px;
+    /* margin: 0 20px 10px; */
+    background: #ffffff;
+    border: none;
+    border-radius: 10px;
+    transform: translateX(-50%);
+    left: 50%;
+    width: 80%;
+}
+
+.nicknameInput::placeholder {
+    font-family: 'omyu_pretty';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 19px;
+    color: #9f9f9f;
+}
+
+.nicknameInput:not(:placeholder-shown) {
+    font-family: 'omyu_pretty';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.btn {
+    position: absolute;
+    top: 88%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.radioGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1px;
+    transform: translateY(-296%) translateX(-8%);
+}
+
+.radioItem {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.radioItem input[type="radio"] {
+    display: none;
+}
+
+.selectedButton input[type="radio"] {
+    display: none;
+}
+
+.radioItem label {
+    padding: 10px 15px;
+    background-color: #F6F6F6;
+    border: 1px solid #E5E5E5;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+    font-family: 'omyu_pretty';
+    font-size: 15px;
+    text-align: center;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 20px 10px;
+}
+
+.selectedButton label {
+    padding: 10px 15px;
+    background-color: #176124;
+    border: 1px solid #E5E5E5;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+    font-family: 'omyu_pretty';
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    /* border: 1px solid #176124; */
+    border-radius: 10px;
+    background-color: #cccccc;
+    padding: 10px;
+    margin: 0 20px 10px;
+}
+
+.radioItem label:hover {
+    background-color: #E5E5E5;
 }
