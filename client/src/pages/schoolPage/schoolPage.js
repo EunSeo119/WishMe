@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import { useNavigate } from 'react-router-dom'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io' // IoIosArrowForward를 import
 
 const SchoolPage = () => {
   const [page, setPage] = useState(1)
@@ -15,16 +16,16 @@ const SchoolPage = () => {
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
 
-  const settings = {
-    dots: true, // 페이지 번호 표시
-    infinite: false, // 무한 루프 비활성화
-    speed: 500, // 애니메이션 속도
-    slidesToShow: 1, // 한 번에 표시되는 슬라이드 수
-    slidesToScroll: 1, // 한 번에 스크롤되는 슬라이드 수
-    afterChange: (current) => {
-      changePage(current + 1) // 현재 슬라이드 위치에서 페이지 번호 계산
-    }
-  }
+  //   const settings = {
+  //     dots: true,
+  //     infinite: false,
+  //     speed: 500,
+  //     slidesToShow: 1,
+  //     slidesToScroll: 1,
+  //     afterChange: (current) => {
+  //       changePage(current + 1)
+  //     }
+  //   }
 
   const changePage = (newPage) => {
     if (newPage >= 1 && newPage <= totalPage) {
@@ -73,16 +74,39 @@ const SchoolPage = () => {
         </div>
 
         <div className={styleSchool.gridContainer}>
-          {schoolLetter.slice(0, 12).map((letter, index) => (
-            <div
-              key={index}
-              className={styleSchool.gridItem}
-              onClick={() => handleLetterClick(letter.schoolLetterSeq)}
-            >
-              <img src={`${letter.assetImg}`} />
-            </div>
-          ))}
+          <div
+            className={`${styleSchool.arrowIcon} ${
+              page === 1 ? styleSchool.disabledArrow : ''
+            }`}
+            onClick={() => {
+              if (page > 1) {
+                changePage(page - 1)
+              }
+            }}
+          >
+            <IoIosArrowBack />
+          </div>
+          <div className={styleSchool.gridItemContainer}>
+            {schoolLetter.slice(0, 12).map((letter, index) => (
+              <div
+                key={index}
+                className={styleSchool.gridItem}
+                onClick={() => handleLetterClick(letter.schoolLetterSeq)}
+              >
+                <img src={`${letter.assetImg}`} />
+              </div>
+            ))}
+          </div>
+          <div
+            className={`${styleSchool.arrowIcon} ${
+              page === totalPage ? styleSchool.disabledArrow : ''
+            }`}
+            onClick={() => changePage(page + 1)}
+          >
+            <IoIosArrowForward />
+          </div>
         </div>
+        {/* 여기가 끝 */}
       </div>
       <div className={styleSchool.btn}>
         <div

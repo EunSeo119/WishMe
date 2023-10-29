@@ -5,6 +5,7 @@ import DeskPage from './pages/deskPage/deskPage'
 import SchoolPage from './pages/schoolPage/schoolPage'
 import SchooLetterDetaillPage from './pages/schoolPage/schoolLetterDetail'
 import SchooLetterAssetList from './pages/schoolPage/schoolLetterAssetList'
+import SchooLetterWritePage from './pages/schoolPage/schoolLetterWritePage'
 
 import style from './app.module.css'
 
@@ -23,6 +24,10 @@ function App() {
         <Route
           path="/schoolLetterAssetList/:schoolId"
           element={<SchooLetterAssetList />}
+        />
+        <Route
+          path="/schoolLetterWritePage/:assetId"
+          element={<SchooLetterWritePage />}
         />
       </Routes>
     </div>

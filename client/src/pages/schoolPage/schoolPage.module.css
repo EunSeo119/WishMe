@@ -1,21 +1,24 @@
 .bg {
   /* width: 443px; */
   /* min-width: 414px; */
+  max-width: 443px;
   width: 100vw;
   height: 100vh;
   margin: 0;
   z-index: -9999;
   position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 .schoolName {
   position: absolute;
   left: 50%;
-  top: 11%;
+  top: 10.8%;
   transform: translate(-50%, 0);
   font-family: 'omyu_pretty';
   font-style: normal;
   font-weight: 300;
-  font-size: 22px;
+  font-size: 21px;
   /* display: flex; */
   align-items: center;
   text-align: center;
@@ -25,20 +28,45 @@
   left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
   transform: translateX(-50%);
   top: 22%;
+  /* display: grid; */
+  /* grid-template-columns: repeat(3, 1fr); */
+  /* grid-template-rows: repeat(4, 1fr); */
+  width: 100%;
+  position: absolute;
+  height: 50%;
+  /* background-color: #000000; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 443px;
+}
+.gridItemContainer {
+  display: flex; /* 수평으로 그리드 아이템을 배치합니다. */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  width: 80%;
-  position: absolute;
-  height: 50%;
+  width: 100%;
+  align-items: center;
 }
+
+.arrowIcon {
+  font-size: 24px;
+  cursor: pointer;
+}
+.disabledArrow {
+  font-size: 24px;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
 .gridItem {
-  margin: 0 5px; /* 상하 0, 좌우 1px의 마진 설정 */
+  margin: 20px 5px; /* 상하 0, 좌우 1px의 마진 설정 */
   display: inline-block;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .gridItem img {
@@ -67,6 +95,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
+  max-width: 443px;
 }
 
 .mySchoolBtn {
