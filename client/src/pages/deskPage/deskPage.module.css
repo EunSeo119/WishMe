@@ -1,6 +1,6 @@
 body {
-  /* width: 100vw; */
-  max-width: 443px;
+  width: 100vw;
+  /* max-width: 443px; */
   margin: 0;
   /* text-align: center; */
   background-color: #edf4ef;
@@ -21,8 +21,8 @@ body {
 }
 
 .bg {
-  max-width: 443px;
   width: 100vw;
+  max-width: 443px;
   height: 100vh;
   margin: 0;
   z-index: -9999;
@@ -94,7 +94,7 @@ body {
   border-radius: 10px;
   background-color: #176124;
   padding: 13px;
-  margin: auto 20px;
+  margin: 65px 20px 0;
 }
 
 .cheerUpBtn {
