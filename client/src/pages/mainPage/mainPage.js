@@ -4,7 +4,7 @@ import '../../fonts/font.css';
 const MainPage = () => {
 
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-    const REDIRECT_URI = 'http://localhost:8080/kakao/callback';
+    const REDIRECT_URI = 'http://localhost:3000/kakao/callback';
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const kakaoLogin = () => {
