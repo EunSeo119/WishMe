@@ -42,13 +42,16 @@ const DeskPage = () => {
 
   useEffect(() => {
     const AccessToken = localStorage.getItem("AccessToken");
+    const headers = {};
+
+    if (AccessToken) {
+      headers.Authorization = `Bearer ${AccessToken}`;
+    }
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `http://localhost:8081/api/my/letter/all/${deskUuid}?page=${currentPage}`,
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
+      url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${currentPage}`,
+      headers,
     })
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
       .then((response) => {
@@ -70,7 +73,7 @@ const DeskPage = () => {
     <div className={styleApp.app}>
       <div className={style.deskPage}>
         <img
-          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.PNG"
+          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
           className={styleApp.bg}
         />
         <div className={style.board}>
@@ -99,6 +102,7 @@ const DeskPage = () => {
               <div key={index} className={style.gridItem}>
                 {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} />
+                <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
               </div>
             ))}
           </div>
