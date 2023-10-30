@@ -5,8 +5,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router";
 import ShareURLModal from "../../Modal/shareURLModal";
+import { useParams } from 'react-router-dom';
 
 const DeskPage = () => {
+  const { deskUuid } = useParams();
   const [page, setPage] = useState(1);
   // const [deskUuid, setDeskUuid] = useState("");
   const [isMine, setIsMine] = useState(false);
@@ -29,10 +31,10 @@ const DeskPage = () => {
 
   useEffect(() => {
     const AccessToken = localStorage.getItem("AccessToken");
-    const DeskUuid = localStorage.getItem("deskUuid");
+    // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `http://localhost:8080/api/my/letter/all/${DeskUuid}?page=${page}`,
+      url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${page}`,
       headers: {
         Authorization: `Bearer ${AccessToken}`,
       },
@@ -44,7 +46,7 @@ const DeskPage = () => {
         setDeskName(data.toUserNickname);
         setTotalCount(data.totalLetterCount);
         setDeskLetter(data.myLetterResponseDtoList);
-        setIsMine(data.isMine);
+        setIsMine(data.mine);
         // setTotalPage(data.totalPage)
       })
       .catch((error) => {
@@ -86,7 +88,7 @@ const DeskPage = () => {
             </>
           ) : (
             <>
-              <Link to="/desk/selectAsset" className={style.link}>
+              <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
                 <div className={style.cheerUpBtn} onClick={() => navigate("/")}>
                   응원하기
                 </div>
