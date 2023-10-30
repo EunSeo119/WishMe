@@ -48,7 +48,7 @@ public class MyLetterService {
 
     @Transactional
     public Long saveLetter(Authentication authentication, SaveMyLetterRequestDto saveMyLetterRequestDto) {
-        User toUser = userRepository.findByUserSeq(saveMyLetterRequestDto.getToUserSeq())
+        User toUser = userRepository.findByUuid(saveMyLetterRequestDto.getToUserUuid())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다. 해당 유저에게 편지를 쓸 수 없습니다.", 1));
 
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
