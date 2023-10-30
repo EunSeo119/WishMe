@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import styleMain from "./mainPage.module.css"
 
 const KakaoRedirectPage = () => {
 
@@ -19,7 +20,7 @@ const KakaoRedirectPage = () => {
     }, []);
 
     return (
-        <div>
+        <div className={styleMain.loadingPage}>
             로그인 중 ...
         </div>
     );
