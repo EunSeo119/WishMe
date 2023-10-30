@@ -10,7 +10,7 @@ const KakaoRedirectPage = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/users/login?code=' + code)
         .then((res) => {
-            console.log(res.data);
+            localStorage.setItem('token', res.data.data.token)
             navigate(`/desk/${res.data.data.uuid}`);
         });
     }, []);
