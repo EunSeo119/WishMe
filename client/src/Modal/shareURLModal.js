@@ -8,7 +8,8 @@ const { Kakao } = window;
 function ShareURLModal({ isOpen, onClose }) {
   const realUrl = "http://k9b205.p.ssafy.io";
   const localUrl = window.location.href;
-  const SHARE_URL_KEY = process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY;
+  const SHARE_URL_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  // const deskUuid = localStorage.getItem('deskUuid');
 
   useEffect(() => {
     Kakao.cleanup();
@@ -18,6 +19,7 @@ function ShareURLModal({ isOpen, onClose }) {
     console.log(Kakao.isInitialized());
   }, []);
 
+  // 카카오톡 공유하기
   const shareKakao = () => {
     Kakao.Share.sendDefault({
       objectType: "feed",
@@ -40,6 +42,16 @@ function ShareURLModal({ isOpen, onClose }) {
     });
   };
 
+  // 페이지 URL 공유하기
+  const copyClipboard = async (pageURL) => {
+    try {
+      await navigator.clipboard.writeText(pageURL);
+      alert("클립보드에 링크가 복사되었어요!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -59,7 +71,7 @@ function ShareURLModal({ isOpen, onClose }) {
         >
           카카오톡 공유하기
         </div>
-        <div className={style.LinkBtn}>링크 복사하기</div>
+        <div className={style.LinkBtn} onClick={() => copyClipboard(`${window.location.href}`)}>링크 복사하기</div>
       </div>
     </div>
   );
