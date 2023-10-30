@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 @EnableJpaRepositories
 public interface SchoolRepository extends JpaRepository<School, Integer> {
-    List<School> findAllBySchoolName(String schoolName);
+    List<School> findAllBySchoolNameLike(String schoolName);
     School findBySchoolSeq(int schoolSeq);
 }

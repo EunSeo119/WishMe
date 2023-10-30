@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         
         try {
             String schoolName = request.get("schoolName");
-            List<School> schools = schoolRepository.findAllBySchoolName(schoolName);
+            List<School> schools = schoolRepository.findAllBySchoolNameLike("%" + schoolName + "%");
 
             resultMap.put("data", schools);
             resultMap.put("message", "학교 검색 성공");
