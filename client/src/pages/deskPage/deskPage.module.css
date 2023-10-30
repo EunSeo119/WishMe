@@ -95,6 +95,7 @@ body {
   background-color: #176124;
   padding: 13px;
   margin: 65px 20px 0;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .cheerUpBtn {
@@ -107,6 +108,7 @@ body {
   background-color: #176124;
   padding: 13px;
   margin: 0px 20px 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .myDeskBtn {
@@ -119,4 +121,5 @@ body {
   background-color: #176124;
   padding: 13px;
   margin: 0px 20px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
