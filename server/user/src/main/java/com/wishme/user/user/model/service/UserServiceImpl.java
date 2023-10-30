@@ -110,4 +110,32 @@ public class UserServiceImpl implements UserService {
         
         return new ResponseEntity<>(resultMap, status);
     }
+
+    @Override
+    public ResponseEntity<?> getUserInfo(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            User user = userRepository.findByUserSeq(userSeq);
+            School school = schoolRepository.findBySchoolSeq(user.getUserSchoolSeq());
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("userNickname", user.getUserNickname());
+            data.put("schoolSeq", user.getUserSchoolSeq());
+            data.put("schoolName", school.getSchoolName());
+
+            resultMap.put("data", data);
+            resultMap.put("message", "유저 정보 조회 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "유저 정보 조회 실패");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+
 }

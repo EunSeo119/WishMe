@@ -14,15 +14,15 @@ public class MyLetterResponseDto {
 
     private String fromUserNickname;
 
-    private Long assetSeq;
+    private String assetImg;
 
     private Boolean isPublic;
 
     @Builder
-    public MyLetterResponseDto(Long myLetterSeq, String fromUserNickname, Long assetSeq, Boolean isPublic) {
+    public MyLetterResponseDto(Long myLetterSeq, String fromUserNickname, String assetImg, Boolean isPublic) {
         this.myLetterSeq = myLetterSeq;
         this.fromUserNickname = fromUserNickname;
-        this.assetSeq = assetSeq;
+        this.assetImg = assetImg;
         this.isPublic = isPublic;
     }
 }
