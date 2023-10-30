@@ -11,7 +11,7 @@ const KakaoRedirectPage = () => {
     useEffect(() => {
         axios.get('http://localhost:8080/api/users/login?code=' + code)
         .then((res) => {
-            localStorage.setItem('Accesstoken', res.data.data.token)
+            localStorage.setItem('AccessToken', res.data.data.token)
             localStorage.setItem('myUuid', res.data.data.uuid)
             localStorage.setItem('deskUuid', res.data.data.uuid);
             navigate(`/desk/${res.data.data.uuid}`);
