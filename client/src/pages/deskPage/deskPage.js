@@ -96,35 +96,6 @@ const DeskPage = () => {
           )}
         </div>
       </div>
-      <div className={style.desk}>
-        <div className={style.gridContainer}>
-          {deskLetter.slice(0, 9).map((letter, index) => (
-            <div key={index} className={style.gridItem}>
-              {/* <img src={`${letter.assetImg}`} /> */}
-              <img src={`${letter}`} />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className={style.btn}>
-        {isMine ? (
-          <>
-            <div className={style.shareBtn} onClick={openModal}>
-              공유하기
-            </div>
-            <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
-          </>
-        ) : (
-          <>
-            <Link to="/desk/selectAsset" className={style.link}>
-              <div className={style.cheerUpBtn} onClick={() => navigate("/")}>
-                응원하기
-              </div>
-            </Link>
-            <div className={style.myDeskBtn}>내 책상 보기</div>
-          </>
-        )}
-      </div>
     </div>
     // </div>
   );
