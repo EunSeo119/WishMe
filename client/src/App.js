@@ -17,10 +17,10 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
-        <Route path="/desk" element={<DeskPage />}></Route>
-        <Route path="/desk/selectAsset" element={<SelectDeskAsset />} />
+        <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
+        <Route path="/desk/:deskUuid/selectAsset" element={<SelectDeskAsset />} />
         <Route
-          path="/desk/writeLetter/:assetSeq"
+          path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
         {/* 추가 */}

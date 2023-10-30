@@ -5,14 +5,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router";
 import ShareURLModal from "../../Modal/shareURLModal";
+import { useParams } from 'react-router-dom';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+
 
 const DeskPage = () => {
+  const { deskUuid } = useParams();
   const [page, setPage] = useState(1);
   // const [deskUuid, setDeskUuid] = useState("");
   const [isMine, setIsMine] = useState(false);
   const [deskName, setDeskName] = useState("test");
   const [totalCount, setTotalCount] = useState(0);
   const [deskLetter, setDeskLetter] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1)
   // const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate();
 
@@ -25,14 +31,21 @@ const DeskPage = () => {
     setIsModalOpen(false);
   };
 
+  const changePage = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPage) {
+      setCurrentPage(newPage);
+    }
+  };
+
+
   // var url = 'http://localhost:8082/'
 
   useEffect(() => {
     const AccessToken = localStorage.getItem("AccessToken");
-    const DeskUuid = localStorage.getItem("deskUuid");
+    // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `http://localhost:8080/api/my/letter/all/${DeskUuid}?page=${page}`,
+      url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${currentPage}`,
       headers: {
         Authorization: `Bearer ${AccessToken}`,
       },
@@ -40,17 +53,18 @@ const DeskPage = () => {
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
       .then((response) => {
         const data = response.data;
-        console.log(data);
+        console.log(data.myLetterResponseDtoList.length);
         setDeskName(data.toUserNickname);
         setTotalCount(data.totalLetterCount);
         setDeskLetter(data.myLetterResponseDtoList);
-        setIsMine(data.isMine);
+        setIsMine(data.mine);
+        setTotalPage(Math.ceil(data.totalLetterCount / 9));
         // setTotalPage(data.totalPage)
       })
       .catch((error) => {
         console.error("API 요청 중 오류 발생:", error);
       });
-  }, [page]);
+  }, [currentPage, deskUuid]);
 
   return (
     <div className={styleApp.app}>
@@ -67,6 +81,19 @@ const DeskPage = () => {
           </div>
         </div>
         <div className={style.desk}>
+
+          <div
+            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : ''
+              }`}
+            onClick={() => {
+              if (currentPage > 1) {
+                changePage(currentPage - 1)
+              }
+            }}
+          >
+            <IoIosArrowBack />
+          </div>
+
           <div className={style.gridContainer}>
             {deskLetter.slice(0, 9).map((letter, index) => (
               <div key={index} className={style.gridItem}>
@@ -75,6 +102,16 @@ const DeskPage = () => {
               </div>
             ))}
           </div>
+
+          <div
+            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : ''
+              }`}
+            onClick={() => changePage(currentPage + 1)}
+          >
+            <IoIosArrowForward />
+          </div>
+
+
         </div>
         <div className={style.btn}>
           {isMine ? (
@@ -86,7 +123,7 @@ const DeskPage = () => {
             </>
           ) : (
             <>
-              <Link to="/desk/selectAsset" className={style.link}>
+              <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
                 <div className={style.cheerUpBtn} onClick={() => navigate("/")}>
                   응원하기
                 </div>

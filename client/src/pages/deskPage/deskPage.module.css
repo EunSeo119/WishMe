@@ -120,3 +120,16 @@ body {
   padding: 13px;
   margin: 0px 20px;
 }
+
+.arrowIcon {
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.disabledArrow {
+  font-size: 24px;
+  color: #ccc;
+  cursor: not-allowed;
+  margin: 0;
+}
