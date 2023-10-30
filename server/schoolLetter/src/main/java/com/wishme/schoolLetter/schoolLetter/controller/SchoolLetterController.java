@@ -24,7 +24,7 @@ public class SchoolLetterController {
 
     private final SchoolLetterService schoolLetterService;
 
-    //칠판에서 에셋 목록 확인
+    //칠판 조회
     @GetMapping("/all/{schoolId}/{page}")
     public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolId") Integer schoolId,
                                                          @PathVariable("page") Integer page){
@@ -32,7 +32,7 @@ public class SchoolLetterController {
         Map<String, Object> resultMap =null;
         HttpStatus status = null;
 
-        System.out.println("schoolId= "+schoolId);
+//        System.out.println("schoolId= "+schoolId);
         resultMap = schoolLetterService.getSchoolLetterList(schoolId,page);
         status = HttpStatus.ACCEPTED;
 
@@ -40,7 +40,20 @@ public class SchoolLetterController {
     }
 
 
+    //uuid로 칠판 조회
+    @GetMapping("/allByUUID/{schoolUUID}/{page}")
+    public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolUUID") String schoolUUID,
+                                                         @PathVariable("page") Integer page){
 
+        Map<String, Object> resultMap =null;
+        HttpStatus status = null;
+
+//        System.out.println("schoolId= "+schoolId);
+        resultMap = schoolLetterService.getSchoolLetterListBuSchoolUUID(schoolUUID,page);
+        status = HttpStatus.ACCEPTED;
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
     //학교 편지 상세 조회
     @GetMapping("/one/{letterId}")
     public ResponseEntity<Map<String, Object>> schoolLetterDetail(@PathVariable("letterId") Long schoolLetterId){

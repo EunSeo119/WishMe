@@ -19,4 +19,5 @@ public interface SchoolLetterRepository extends JpaRepository<SchoolLetter, Inte
     @Query("SELECT sl FROM SchoolLetter sl WHERE sl.school.schoolSeq = :schoolSeq ORDER BY sl.createAt DESC")
     Page<SchoolLetter> findSchoolLettersBySchoolSeq(@Param("schoolSeq") Integer schoolSeq, Pageable pageable);
 
- }
+    Page<SchoolLetter> findSchoolLettersBySchoolUuid(String schoolUUID, Pageable pageable);
+}
