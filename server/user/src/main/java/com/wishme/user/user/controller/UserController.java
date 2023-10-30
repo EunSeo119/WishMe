@@ -25,10 +25,10 @@ public class UserController {
         return kakaoService.login(code, response);
     }
 
-    // API 2. 닉네임 수정
-    @PutMapping("/nickname")
-    public ResponseEntity<?> modifyNickname(@RequestBody Map<String, String> request, Authentication authentication) {
-        return userService.modifyNickname(request, Long.parseLong(authentication.getName()));
+    // API 2. 회원정보 수정
+    @PutMapping("/modify")
+    public ResponseEntity<?> modifyUserInfo(@RequestBody Map<String, String> request, Authentication authentication) {
+        return userService.modifyUserInfo(request, Long.parseLong(authentication.getName()));
     }
 
     // API 3. 학교 등록
@@ -37,19 +37,13 @@ public class UserController {
         return userService.registerSchool(request, Long.parseLong(authentication.getName()));
     }
 
-    // API 4. 학교 수정
-    @PutMapping("/school")
-    public ResponseEntity<?> modifySchool(@RequestBody Map<String, String> request, Authentication authentication) {
-        return userService.modifySchool(request, Long.parseLong(authentication.getName()));
-    }
-
-    // API 5. 학교 검색
+    // API 4. 학교 검색
     @GetMapping("/school")
     public ResponseEntity<?> searchSchool(@RequestBody Map<String, String> request) {
         return userService.searchSchool(request);
     }
 
-    // API 6. 유저 정보 조회
+    // API 5. 유저 정보 조회
     @GetMapping
     public ResponseEntity<?> getUserInfo(Authentication authentication) {
         return userService.getUserInfo(Long.parseLong(authentication.getName()));
