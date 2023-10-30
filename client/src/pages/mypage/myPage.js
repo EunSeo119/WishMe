@@ -8,7 +8,8 @@ const MyPage  = () => {
     const [schoolName, setSchoolName] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [tempDeskName, setTempDeskName] = useState("");
-    const [tempSchoolName, setTempSchoolName] = useState("");
+    const [tempSchoolName, setTempSchoolName] = useState(1);
+    const [userSchoolSeq, setUserSchoolSeq] = useState(1);
 
     // 값 수정
     const changeNickname = (e) => {
@@ -20,33 +21,59 @@ const MyPage  = () => {
 
     // 수정하기 버튼 활성화
     const editClick = () => {
-        setTempDeskName(deskName);
         setIsEditing(true);
     }
 
     const saveClick = () => {
+
+        setTempDeskName(deskName);
         setIsEditing(false);
 
-        const updatedData = {
-            deskName: tempDeskName,
-            schoolName: schoolName,
-        };
+        // SchoolSeq 찾기
+        axios.get(`http://localhost:8080/api/users/school?schoolName=${tempSchoolName}`)
+        .then((res) => {
+            setUserSchoolSeq(res.data.data.userSchoolSeq);
 
-        const AccessToken = localStorage.getItem("AccessToken");
-
-        axios({
-            method: "put",
-            url: `http://localhost:8080/api/users/modify`,
-            headers: {
-              Authorization: `Bearer ${AccessToken}`,
-            },
-            data: updatedData,
-        }).then((response) => {
-            console.log("회원정보 수정: ", response);
-        }).catch((error) => {
-            console.error("API 요청 중 오류 발생:", error);
-        });
+            const updatedData = {
+                userNickname: tempDeskName,
+                userSchoolSeq: userSchoolSeq,
+            };
+    
+            const AccessToken = localStorage.getItem("AccessToken");
+    
+            axios({
+                method: "put",
+                url: `http://localhost:8080/api/users/modify`,
+                headers: {
+                  Authorization: `Bearer ${AccessToken}`,
+                },
+                data: updatedData,
+            }).then((response) => {
+                console.log("회원정보 수정: ", response);
+            }).catch((error) => {
+                console.error("API 요청 중 오류 발생:", error);
+            });
+        })
     };
+
+    // 학교 찾기
+    const [schoolList, setSchoolList] = useState([]);
+    const [selectedSchool, setSelectedSchool] = useState("");
+
+
+    const searchSchool = () => {
+        axios.get(`http://localhost:8080/api/users/school?schoolName=${tempSchoolName}`)
+        .then((res) => {
+            setSchoolList(res.data.data);
+        })
+        .catch((error) => {
+            console.log("검색 중 오류 발생: " + error);
+        })
+    }
+
+    const selectSchool = (schoolName) => {
+        setSelectedSchool(schoolName);
+    }
 
     useEffect(() => {
         const AccessToken = localStorage.getItem("AccessToken");
@@ -88,8 +115,15 @@ const MyPage  = () => {
                     <div>학교</div>
                         {isEditing ? (
                         <>
-                            <input type="text" value={schoolName} onChange={changeSchool} />
-                            <div className={style.searchBtn}>검색</div>
+                            <input type="text" value={schoolName} onChange={changeSchool} placeholder="학교 검색" />
+                            <div className={style.searchBtn} onClick={searchSchool}>검색</div>
+                            <ul>
+                                {schoolList.map((school) => (
+                                <li key={school.id} onClick={() => selectSchool(school.name)}>
+                                    {school.name}
+                                </li>
+                                ))}
+                            </ul>
                         </>
                         ) : (
                         <input type="text" value={schoolName} style={{ color: 'gray', backgroundColor: '#edf4ef', width: '80%', width: '240px'}} readOnly />
