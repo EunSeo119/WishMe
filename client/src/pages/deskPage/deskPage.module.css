@@ -123,3 +123,16 @@ body {
   margin: 0px 20px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
+
+.arrowIcon {
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.disabledArrow {
+  font-size: 24px;
+  color: #ccc;
+  cursor: not-allowed;
+  margin: 0;
+}
