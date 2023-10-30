@@ -45,7 +45,6 @@ const SelectDeskAsset = () => {
     const navigate = useNavigate();  // useNavigate 초기화
 
     const handleNextButtonClick = () => {
-        console.log("cc", selectedAssetSeq)
         if (selectedAssetSeq) {
             // 선택된 assetSeq 값을 사용하여 writeDeskLetter 페이지로 이동
             navigate(`/desk/${deskUuid}/writeLetter/${selectedAssetSeq}`);
@@ -85,7 +84,7 @@ const SelectDeskAsset = () => {
         <div className={style.body}>
             <div className={style.navigation}>
                 <IoIosArrowBack className={style.icon} />
-                <Link to="/desk" className={style.backLink}>이전으로</Link>
+                <Link to={`/desk/${deskUuid}`} className={style.backLink}>이전으로</Link>
             </div>
             <p className={style.title}>선물을 선택해주세요!</p>
             <div className={style.gridContainer}>
