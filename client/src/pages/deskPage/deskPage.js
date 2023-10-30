@@ -34,11 +34,7 @@ const DeskPage = () => {
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-<<<<<<< HEAD
-      url: `http://localhost:8081/api/my/letter/all/${DeskUuid}?page=${page}`,
-=======
       url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${page}`,
->>>>>>> b8f045ccc4f68d709be70f7f6ec3ce7f61d7bada
       headers: {
         Authorization: `Bearer ${AccessToken}`,
       },
