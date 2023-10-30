@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추
 import style from "./selectDeskAsset.module.css";
 import axios from 'axios';  // axios import
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { useParams } from 'react-router-dom';
 
 const SelectDeskAsset = () => {
     const [selected, setSelected] = useState(null);
@@ -11,6 +12,7 @@ const SelectDeskAsset = () => {
     const [assetInfo, setAssetInfo] = useState([]); // 상태 초기화 변경
     const [selectedAssetSeq, setSelectedAssetSeq] = useState(null); // 선택된 이미지의 assetSeq 값을 저장하는 상태
     const [totalPage, setTotalPage] = useState(1)
+    const { deskUuid } = useParams();
 
     const changePage = (newPage) => {
         console.log(totalPage)
@@ -43,10 +45,9 @@ const SelectDeskAsset = () => {
     const navigate = useNavigate();  // useNavigate 초기화
 
     const handleNextButtonClick = () => {
-        console.log("cc", selectedAssetSeq)
         if (selectedAssetSeq) {
             // 선택된 assetSeq 값을 사용하여 writeDeskLetter 페이지로 이동
-            navigate(`/desk/writeLetter/${selectedAssetSeq}`);
+            navigate(`/desk/${deskUuid}/writeLetter/${selectedAssetSeq}`);
         } else {
             alert("선물을 선택해주세요.");
         }
@@ -83,7 +84,7 @@ const SelectDeskAsset = () => {
         <div className={style.body}>
             <div className={style.navigation}>
                 <IoIosArrowBack className={style.icon} />
-                <Link to="/desk" className={style.backLink}>이전으로</Link>
+                <Link to={`/desk/${deskUuid}`} className={style.backLink}>이전으로</Link>
             </div>
             <p className={style.title}>선물을 선택해주세요!</p>
             <div className={style.gridContainer}>

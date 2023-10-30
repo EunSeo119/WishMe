@@ -9,10 +9,13 @@ const KakaoRedirectPage = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/users/login?code=' + code)
-        .then((res) => {
-            localStorage.setItem('token', res.data.data.token)
-            navigate(`/desk/${res.data.data.uuid}`);
-        });
+            .then((res) => {
+                localStorage.setItem('AccessToken', res.data.data.token)
+                // localStorage.setItem('deskUuid', res.data.data.uuid)
+                // localStorage.setItem('deskUserSeq', res.data.data.userSeq)
+                // navigate(`/desk`);
+                navigate(`/desk/${res.data.data.uuid}`);
+            });
     }, []);
 
     return (
