@@ -48,6 +48,11 @@ public class MyLetterService {
 
     @Transactional
     public Long saveLetter(Authentication authentication, SaveMyLetterRequestDto saveMyLetterRequestDto) {
+        Long fromUserSeq = null;
+        if(authentication != null) {
+            fromUserSeq = Long.valueOf(authentication.getName());
+        }
+
         User toUser = userRepository.findByUuid(saveMyLetterRequestDto.getToUserUuid())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다. 해당 유저에게 편지를 쓸 수 없습니다.", 1));
 
@@ -59,7 +64,7 @@ public class MyLetterService {
                 .asset(myAsset)
                 .content(saveMyLetterRequestDto.getContent())
                 .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
-                .fromUser(Long.valueOf(authentication.getName()))
+                .fromUser(fromUserSeq)
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
                 .build();
 
@@ -75,7 +80,7 @@ public class MyLetterService {
         long totalLetterCount = myLetterRepository.countByToUser(toUser);
 
         // 회원일 때 자기 책상인지 남의 책상인지 확인
-        if(authentication.getName() != null) {
+        if(authentication != null) {
             User requestUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
                     .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
