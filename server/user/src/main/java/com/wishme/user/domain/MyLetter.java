@@ -1,5 +1,9 @@
 package com.wishme.user.domain;
 
+import com.wishme.user.domain.Asset;
+import com.wishme.user.domain.BaseTimeEntity;
+import com.wishme.user.domain.Reply;
+import com.wishme.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -8,23 +8,17 @@ import ShareURLModal from "../../Modal/shareURLModal";
 
 const DeskPage = () => {
   const [page, setPage] = useState(1);
-  const [userUuid, setUserUuid] = useState(1);
+  const [deskUuid, setDeskUuid] = useState(1);
   const [isMine, setIsMine] = useState(true);
   const [deskName, setDeskName] = useState("test");
   const [totalCount, setTotalCount] = useState(0);
-  const [deskLetter, setDeskLetter] = useState([
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/찹쌀떡.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/엿.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/딱풀.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/초콜릿.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/휴지.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/포크.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/찹쌀떡.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/엿.png",
-    "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/asset/desk/휴지.png",
-  ]);
-  // const [totalPage, setTotalPage] = useState(1)
+  const [deskLetter, setDeskLetter] = useState([]);
+  // const [totalPage, setTotalPage] = useState(1);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setDeskUuid(localStorage.getItem('deskUuid')); // 원하는 값으로 변경
+  }, []);
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,7 +33,7 @@ const DeskPage = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/my/letter/all/${userUuid}?page=${page}`)
+      .get(`http://localhost:8081/api/my/letter/all/${deskUuid}?page=${page}`)
       .then((response) => {
         const data = response.data;
         console.log(data);
@@ -52,7 +46,7 @@ const DeskPage = () => {
       .catch((error) => {
         console.error("API 요청 중 오류 발생:", error);
       });
-  }, [userUuid, page]);
+  }, [deskUuid, page]);
 
   return (
     // <div className={styleApp.app}>
@@ -63,9 +57,9 @@ const DeskPage = () => {
       />
       <div className={style.board}>
         <div className={style.title}>
-          <b>{}수능대박2</b>님의 책상에
+          <b>{deskName}</b>님의 책상에
           <br />
-          <b>{}246개</b>의 응원이 왔어요!
+          <b>{totalCount}</b>의 응원이 왔어요!
         </div>
       </div>
       <div className={style.desk}>
