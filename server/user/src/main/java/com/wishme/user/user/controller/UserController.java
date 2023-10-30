@@ -48,4 +48,10 @@ public class UserController {
     public ResponseEntity<?> searchSchool(@RequestBody Map<String, String> request) {
         return userService.searchSchool(request);
     }
+
+    // API 6. 유저 정보 조회
+    @GetMapping
+    public ResponseEntity<?> getUserInfo(Authentication authentication) {
+        return userService.getUserInfo(Long.parseLong(authentication.getName()));
+    }
 }

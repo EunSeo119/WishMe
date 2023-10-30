@@ -11,4 +11,5 @@ public interface UserService {
     ResponseEntity<?> registerSchool(Map<String, String> request, Long userSeq);
     ResponseEntity<?> modifySchool(Map<String, String> request, Long userSeq);
     ResponseEntity<?> searchSchool(Map<String, String> request);
+    ResponseEntity<?> getUserInfo(Long userSeq);
 }
