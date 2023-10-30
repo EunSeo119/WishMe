@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.findByUserSeq(userSeq);
             String userSchoolSeq = request.get("userSchoolSeq");
 
-            user.setUserSchoolSeq(Long.parseLong(userSchoolSeq));
+            user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
             
             resultMap.put("message", "학교 등록 성공");
             status = HttpStatus.OK;
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.findByUserSeq(userSeq);
             String userSchoolSeq = request.get("userSchoolSeq");
 
-            user.setUserSchoolSeq(Long.parseLong(userSchoolSeq));
+            user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
             
             resultMap.put("message", "학교 수정 성공");
             status = HttpStatus.OK;
