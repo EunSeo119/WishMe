@@ -98,7 +98,7 @@ public class MyLetterService {
             MyLetterResponseDto myLetterResponseDto = MyLetterResponseDto.builder()
                     .myLetterSeq(letter.getMyLetterSeq())
                     .fromUserNickname(letter.getFromUserNickname())
-                    .assetSeq(myAsset.getAssetSeq())
+                    .assetImg(myAsset.getAssetImg())
                     .isPublic(letter.getIsPublic())
                     .build();
 
