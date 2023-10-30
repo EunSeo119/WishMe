@@ -24,12 +24,15 @@ const SelectDeskAsset = () => {
     useEffect(() => {
         // 백엔드 API 호출하여 이미지 URL 가져오기
         const AccessToken = localStorage.getItem("AccessToken");
+        const headers = {};
+
+        if (AccessToken) {
+            headers.Authorization = `Bearer ${AccessToken}`;
+        }
         axios({
             method: "get",
             url: `http://localhost:8080/api/my/letter/assets`,
-            headers: {
-                Authorization: `Bearer ${AccessToken}`,
-            },
+            headers
         })
 
             .then(response => {
