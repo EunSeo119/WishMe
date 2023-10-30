@@ -10,14 +10,6 @@ const KakaoRedirectPage = () => {
 
     useEffect(() => {
         axios.get('http://localhost:8080/api/users/login?code=' + code)
-<<<<<<< HEAD
-        .then((res) => {
-            localStorage.setItem('AccessToken', res.data.data.token)
-            localStorage.setItem('myUuid', res.data.data.uuid)
-            localStorage.setItem('deskUuid', res.data.data.uuid);
-            navigate(`/desk/${res.data.data.uuid}`);
-        });
-=======
             .then((res) => {
                 localStorage.setItem('AccessToken', res.data.data.token)
                 // localStorage.setItem('deskUuid', res.data.data.uuid)
@@ -25,7 +17,6 @@ const KakaoRedirectPage = () => {
                 // navigate(`/desk`);
                 navigate(`/desk/${res.data.data.uuid}`);
             });
->>>>>>> b8f045ccc4f68d709be70f7f6ec3ce7f61d7bada
     }, []);
 
     return (
