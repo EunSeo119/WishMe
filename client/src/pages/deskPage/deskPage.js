@@ -37,6 +37,32 @@ const DeskPage = () => {
     }
   };
 
+  // '내 책상 보기' 버튼 클릭 시 처리
+  const handleMyDeskClick = () => {
+    const AccessToken = localStorage.getItem("AccessToken");
+    if (AccessToken) {
+      // AccessToken이 있으면 내 책상 페이지로 이동
+      axios({
+        method: "get",
+        url: `http://localhost:8080/api/my/letter/loginUserUuid`,
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+      })
+        // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
+        .then((response) => {
+          const data = response.data;
+          navigate(`/desk/${data.loginUserUuid}`);
+        })
+        .catch((error) => {
+          console.error("API 요청 중 오류 발생:", error);
+        });
+    } else {
+      // AccessToken이 없으면 로그인 페이지로 이동
+      navigate(`/`);
+    }
+  };
+
 
   // var url = 'http://localhost:8082/'
 
@@ -132,7 +158,9 @@ const DeskPage = () => {
                   응원하기
                 </div>
               </Link>
-              <div className={style.myDeskBtn}>내 책상 보기</div>
+              <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
+                내 책상 보기
+              </div>
             </>
           )}
         </div>
