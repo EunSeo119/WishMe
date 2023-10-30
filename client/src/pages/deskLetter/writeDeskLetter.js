@@ -6,12 +6,13 @@ import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 const WriteDeskLetter = () => {
-    const { assetSeq } = useParams();
+    const { assetSeq, deskUuid } = useParams();
     const [nickname, setNickname] = useState("");
     const [content, setContent] = useState("");
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
+    // const { deskUuid } = useParams();
 
     const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const WriteDeskLetter = () => {
             fromUserNickname: nickname,
             content: content,
             isPublic: isPublic ? 1 : 0,
-            toUserSeq: localStorage.getItem("deskUserSeq") // 향후 필요에 따라 변경하시면 됩니다.
+            toUserUuid: deskUuid // 향후 필요에 따라 변경하시면 됩니다.
         };
 
         const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
@@ -46,7 +47,8 @@ const WriteDeskLetter = () => {
     const handleModalConfirm = () => {
         handleSave();
         setShowModal(false);
-        navigate('/desk');
+        // navigate('/desk');
+        navigate(`/desk/${deskUuid}`);
     };
 
     const handleModalCancel = () => {
