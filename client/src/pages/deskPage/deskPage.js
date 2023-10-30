@@ -30,7 +30,6 @@ const DeskPage = () => {
   useEffect(() => {
     const AccessToken = localStorage.getItem("AccessToken");
     const DeskUuid = localStorage.getItem("deskUuid");
-    console.log(AccessToken);
     axios({
       method: "get",
       url: `http://localhost:8081/api/my/letter/all/${DeskUuid}?page=${page}`,
