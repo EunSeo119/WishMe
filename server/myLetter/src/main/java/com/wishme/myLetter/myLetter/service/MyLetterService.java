@@ -3,10 +3,7 @@ package com.wishme.myLetter.myLetter.service;
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterAssetResponseDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterListResponseDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.*;
 import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
@@ -119,6 +116,16 @@ public class MyLetterService {
                 .build();
 
         return myLetterListResponseDto;
+    }
+
+    public LoginUserUuidResponseDto getUserUuid(Authentication authentication) {
+        User user = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+        LoginUserUuidResponseDto loginUserUuidResponseDto = LoginUserUuidResponseDto.builder()
+                .loginUserUuid(user.getUuid())
+                .build();
+        return loginUserUuidResponseDto;
     }
 
     public MyLetterDetailResponseDto getMyLetterDetail(Authentication authentication, Long myLetterSeq) {
