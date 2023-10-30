@@ -118,12 +118,17 @@ public class UserServiceImpl implements UserService {
 
         try {
             User user = userRepository.findByUserSeq(userSeq);
-            School school = schoolRepository.findBySchoolSeq(user.getUserSchoolSeq());
 
             Map<String, Object> data = new HashMap<>();
             data.put("userNickname", user.getUserNickname());
-            data.put("schoolSeq", user.getUserSchoolSeq());
-            data.put("schoolName", school.getSchoolName());
+
+            if (user.getUserSchoolSeq() == null) {
+                data.put("schoolName", "선택 안함");
+            } else {
+                School school = schoolRepository.findBySchoolSeq(user.getUserSchoolSeq());
+                data.put("schoolSeq", user.getUserSchoolSeq());
+                data.put("schoolName", school.getSchoolName());
+            }
 
             resultMap.put("data", data);
             resultMap.put("message", "유저 정보 조회 성공");
@@ -136,6 +141,4 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseEntity<>(resultMap, status);
     }
-
-
 }
