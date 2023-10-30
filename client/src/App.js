@@ -20,9 +20,13 @@ function App() {
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
         <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
+<<<<<<< HEAD
         <Route path="/desk/selectAsset" element={<SelectDeskAsset />} />
+=======
+        <Route path="/desk/:deskUuid/selectAsset" element={<SelectDeskAsset />} />
+>>>>>>> b8f045ccc4f68d709be70f7f6ec3ce7f61d7bada
         <Route
-          path="/desk/writeLetter/:assetSeq"
+          path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
         {/* 추가 */}
