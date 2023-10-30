@@ -4,6 +4,7 @@ import axios from 'axios';
 import style from "./writeDeskLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+// import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
 
 const WriteDeskLetter = () => {
     const { assetSeq, deskUuid } = useParams();
@@ -16,40 +17,48 @@ const WriteDeskLetter = () => {
 
     const navigate = useNavigate();
 
-    const handleSave = () => {
-        const data = {
-            assetSeq: Number(assetSeq),
-            fromUserNickname: nickname,
-            content: content,
-            isPublic: isPublic ? 1 : 0,
-            toUserUuid: deskUuid // 향후 필요에 따라 변경하시면 됩니다.
-        };
+    const handleSave = async () => {
+        try {
+            const data = {
+                assetSeq: Number(assetSeq),
+                fromUserNickname: nickname,
+                content: content,
+                isPublic: isPublic ? 1 : 0,
+                toUserUuid: deskUuid // 향후 필요에 따라 변경하시면 됩니다.
+            };
 
-        const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
 
-        axios({
-            method: "post",
-            url: 'http://localhost:8080/api/my/letter/write',
-            headers: {
-                Authorization: `Bearer ${AccessToken}`,
-            },
-            data: data
-        })
-            .then(response => {
-                alert("응원이 성공적으로 등록되었습니다.");
-            })
-            .catch(error => {
-                alert("응원 등록에 실패했습니다.");
-                console.error("응원 등록 에러", error);
+            const response = await axios({
+                method: "post",
+                url: 'http://localhost:8080/api/my/letter/write',
+                headers: {
+                    Authorization: `Bearer ${AccessToken}`,
+                },
+                data: data
             });
+
+            alert("응원이 성공적으로 등록되었습니다.");
+            return response.data; // API 응답 데이터 반환
+        } catch (error) {
+            alert("응원 등록에 실패했습니다.");
+            console.error("응원 등록 에러", error);
+            throw error; // 예외를 다시 던져서 상위에서 처리할 수 있도록 함
+        }
     };
 
-    const handleModalConfirm = () => {
-        handleSave();
-        setShowModal(false);
-        // navigate('/desk');
-        navigate(`/desk/${deskUuid}`);
+    const handleModalConfirm = async () => {
+        try {
+            await handleSave(); // handleSave 함수가 비동기 함수로 가정
+            setShowModal(false);
+            navigate(`/desk/${deskUuid}`);
+        } catch (error) {
+            // handleSave 함수에서 예외 처리를 하고 있다면 이 곳에서 추가 처리
+            console.error('handleSave 함수에서 오류 발생:', error);
+        }
     };
+
+
 
     const handleModalCancel = () => {
         setShowModal(false);
@@ -67,7 +76,7 @@ const WriteDeskLetter = () => {
         <div className={style.body}>
             <div className={style.navigation}>
                 <IoIosArrowBack />
-                <Link to="/desk/selectAsset" className={style.backLink}>이전으로</Link>
+                <Link to={`/desk/${deskUuid}/selectAsset`} className={style.backLink}>이전으로</Link>
             </div>
             <p className={style.title}>응원의 말을 남겨주세요!</p>
 
