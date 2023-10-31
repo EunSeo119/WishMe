@@ -89,7 +89,11 @@ const SchooLetterAssetList = () => {
                   setSelectedItemIndex(index)
                 }}
               >
-                <img src={asset.assetImg} alt={`Asset ${index}`} />
+                <img
+                  crossOrigin="anonymous"
+                  src={asset.assetImg}
+                  alt={`Asset ${index}`}
+                />
               </div>
             ))}
           {page > schoolAssetList.length / 12 &&
