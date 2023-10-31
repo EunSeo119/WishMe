@@ -1,6 +1,7 @@
 package com.wishme.user.user.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
 import com.wishme.user.user.model.service.KakaoService;
 import com.wishme.user.user.model.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +39,9 @@ public class UserController {
     }
 
     // API 4. 학교 검색
-    @GetMapping("/school")
-    public ResponseEntity<?> searchSchool(@RequestParam("schoolName") String schoolName) {
-        return userService.searchSchool(schoolName);
+    @PostMapping("/search/school")
+    public ResponseEntity<?> searchSchool(@RequestBody SearchSchoolRequestDto searchSchoolRequestDto) {
+        return userService.searchSchool(searchSchoolRequestDto);
     }
 
     // API 5. 유저 정보 조회
