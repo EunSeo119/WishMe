@@ -10,6 +10,7 @@ const MyPage = () => {
     const [tempDeskName, setTempDeskName] = useState("");
     const [tempSchoolName, setTempSchoolName] = useState(1);
     const [userSchoolSeq, setUserSchoolSeq] = useState(1);
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
     // 값 수정
     const changeNickname = (e) => {
@@ -30,7 +31,7 @@ const MyPage = () => {
         setIsEditing(false);
 
         // SchoolSeq 찾기
-        axios.get(`https://wishme.co.kr/api/users/school?schoolName=${tempSchoolName}`)
+        axios.get(`${SERVER_URL}/api/users/school?schoolName=${tempSchoolName}`)
             .then((res) => {
                 setUserSchoolSeq(res.data.data.userSchoolSeq);
 
@@ -43,7 +44,7 @@ const MyPage = () => {
 
                 axios({
                     method: "put",
-                    url: `https://wishme.co.kr/api/users/modify`,
+                    url: `${SERVER_URL}/api/users/modify`,
                     headers: {
                         Authorization: `Bearer ${AccessToken}`,
                     },
@@ -62,7 +63,7 @@ const MyPage = () => {
 
 
     const searchSchool = () => {
-        axios.get(`https://wishme.co.kr/api/users/school?schoolName=${tempSchoolName}`)
+        axios.get(`${SERVER_URL}/api/users/school?schoolName=${tempSchoolName}`)
             .then((res) => {
                 setSchoolList(res.data.data);
             })
@@ -79,7 +80,7 @@ const MyPage = () => {
         const AccessToken = localStorage.getItem("AccessToken");
         axios({
             method: "get",
-            url: `https://wishme.co.kr/api/users`,
+            url: `${SERVER_URL}/api/users`,
             headers: {
                 Authorization: `Bearer ${AccessToken}`,
             },
