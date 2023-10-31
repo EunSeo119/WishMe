@@ -27,8 +27,9 @@ const MyPage = () => {
 
     const saveClick = () => {
 
-        setTempDeskName(deskName);
         setIsEditing(false);
+
+        setDeskName(tempDeskName);
 
         // SchoolSeq 찾기
         axios.get(`${SERVER_URL}/api/users/school?schoolName=${tempSchoolName}`)
@@ -63,13 +64,18 @@ const MyPage = () => {
 
 
     const searchSchool = () => {
-        axios.get(`${SERVER_URL}/api/users/school?schoolName=${tempSchoolName}`)
-            .then((res) => {
+        axios({
+            method: "post",
+            url: `${SERVER_URL}/api/users/school`,
+            data: {
+                schoolName: tempSchoolName
+            }.then((res) => {
                 setSchoolList(res.data.data);
             })
             .catch((error) => {
                 console.log("검색 중 오류 발생: " + error);
             })
+        })
     }
 
     const selectSchool = (schoolName) => {
@@ -116,7 +122,7 @@ const MyPage = () => {
                     <div>학교</div>
                     {isEditing ? (
                         <>
-                            <input type="text" value={schoolName} onChange={changeSchool} placeholder="학교 검색" />
+                            <input type="text" value={tempSchoolName} onChange={changeSchool} placeholder="학교 검색" />
                             <div className={style.searchBtn} onClick={searchSchool}>검색</div>
                             <ul>
                                 {schoolList.map((school) => (
