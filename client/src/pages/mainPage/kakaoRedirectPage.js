@@ -12,7 +12,9 @@ const KakaoRedirectPage = () => {
     useEffect(() => {
         axios.get(`${SERVER_URL}/api/users/login?code=${code}`)
             .then((res) => {
-                localStorage.setItem('AccessToken', res.data.data.token)
+                // const token = {AccessToken: res.data.data.token, expires: new Date().getTime() + 60*1000*1000}
+                // localStorage.setItem('AccessToken', JSON.stringify(token));
+                localStorage.setItem('AccessToken', res.data.data.token);
                 // localStorage.setItem('deskUuid', res.data.data.uuid)
                 // localStorage.setItem('deskUserSeq', res.data.data.userSeq)
                 // navigate(`/desk`);
