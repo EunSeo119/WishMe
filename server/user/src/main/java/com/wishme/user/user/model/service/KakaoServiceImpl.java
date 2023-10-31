@@ -59,6 +59,8 @@ public class KakaoServiceImpl implements KakaoService {
             // 4. 로그인 처리 & Response Header 에 JWT 추가
             Map<String, Object> data = new HashMap<>();
             data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), secretKey));
+            data.put("userSeq", user.getUserSeq());
+            data.put("uuid", user.getUuid());
 
             resultMap.put("data", data);
             resultMap.put("message", "로그인 성공");
