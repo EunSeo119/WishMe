@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -18,4 +19,13 @@ public class SchoolService {
         return schoolRepository.findBySchoolNameContaining(schoolName);
     }
 
+    @Transactional
+    public String setAllocatedSchoolUUID() {
+        List<School> schools = schoolRepository.findAll();
+        for (School school : schools) {
+            String uuid = UUID.randomUUID().toString();
+            school.setUuid(uuid);
+        }
+        return schools.get(0).getUuid();
+    }
 }

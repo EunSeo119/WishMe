@@ -1,9 +1,6 @@
 package com.wishme.schoolLetter.school.domian;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -23,6 +20,10 @@ public class School {
 
     @Column(nullable = false)
     private String region;
+
+    @Column(name = "uuid")
+    @Setter
+    private String uuid;
 
     @Builder
     public School(Integer schoolSeq, String schoolName, String region) {

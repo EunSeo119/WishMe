@@ -50,9 +50,8 @@ const DeskPage = () => {
         },
       })
         // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
-        .then((response) => {
-          const data = response.data;
-          navigate(`/desk/${data.loginUserUuid}`);
+        .then((res) => {
+          navigate(`/desk/${res.loginUserUuid}`);
         })
         .catch((error) => {
           console.error("API 요청 중 오류 발생:", error);
@@ -76,7 +75,7 @@ const DeskPage = () => {
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `http://localhost:8081/api/my/letter/all/${deskUuid}?page=${currentPage}`,
+      url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${currentPage}`,
       headers,
     })
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)

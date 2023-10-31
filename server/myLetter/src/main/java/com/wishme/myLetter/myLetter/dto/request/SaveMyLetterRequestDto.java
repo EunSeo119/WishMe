@@ -1,7 +1,5 @@
 package com.wishme.myLetter.myLetter.dto.request;
 
-import com.wishme.myLetter.asset.domain.Asset;
-import com.wishme.myLetter.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +23,6 @@ public class SaveMyLetterRequestDto {
     @NotNull(message = "isPublic은 빈값이 올 수 없습니다")
     private Boolean isPublic;
 
-    @NotNull(message = "toUser은 빈값이 올 수 없습니다")
-    private Long toUserSeq;
+    @NotBlank(message = "toUserUuid은 빈값이 올 수 없습니다")
+    private String toUserUuid;
 }
