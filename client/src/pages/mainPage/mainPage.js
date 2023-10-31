@@ -18,7 +18,7 @@ const MainPage = () => {
             <div className={styleMain.topbox}>
                 <div className={styleMain.title}>
                     Wish Me
-                    <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/clover.png" width="85px" />
+                    <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/clover.png" width="85px" crossOrigin="anonymous" />
                 </div>
                 <div className={styleMain.subTitle}>
                     나의 행운을 빌어줘
@@ -26,7 +26,7 @@ const MainPage = () => {
             </div>
             <div className={styleMain.bottombox}>
                 <div className={styleMain.kakao} onClick={kakaoLogin}>
-                    <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/kakao_login_medium_wide.png"></img>
+                    <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/kakao_login_medium_wide.png" crossOrigin="anonymous"></img>
                 </div>
                 <div className={styleMain.nologin}>
                     로그인하지 않고 이용하기
