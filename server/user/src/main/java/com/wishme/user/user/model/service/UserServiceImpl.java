@@ -25,21 +25,23 @@ public class UserServiceImpl implements UserService {
     private final SchoolRepository schoolRepository;
 
     @Override
-    public ResponseEntity<?> modifyNickname(Map<String, String> request, Long userSeq) {
+    public ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
             User user = userRepository.findByUserSeq(userSeq);
             String newUserNickname = request.get("userNickname");
+            String userSchoolSeq = request.get("userSchoolSeq");
 
             user.setUserNickname(newUserNickname);
+            user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
 
-            resultMap.put("message", "닉네임 변경 성공");
+            resultMap.put("message", "유저정보 변경 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("error", e.getMessage());
-            resultMap.put("message", "닉네임 변경 실패");
+            resultMap.put("message", "유저정보 변경 실패");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
@@ -55,7 +57,7 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.findByUserSeq(userSeq);
             String userSchoolSeq = request.get("userSchoolSeq");
 
-            user.setUserSchoolSeq(Long.parseLong(userSchoolSeq));
+            user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
             
             resultMap.put("message", "학교 등록 성공");
             status = HttpStatus.OK;
@@ -69,35 +71,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> modifySchool(Map<String, String> request, Long userSeq) {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
-        
-        try {
-            User user = userRepository.findByUserSeq(userSeq);
-            String userSchoolSeq = request.get("userSchoolSeq");
-
-            user.setUserSchoolSeq(Long.parseLong(userSchoolSeq));
-            
-            resultMap.put("message", "학교 수정 성공");
-            status = HttpStatus.OK;
-        } catch (Exception e) {
-            resultMap.put("error", e.getMessage());
-            resultMap.put("message", "학교 수정 실패");
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        
-        return new ResponseEntity<>(resultMap, status); 
-    }
-
-    @Override
     public ResponseEntity<?> searchSchool(Map<String, String> request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         
         try {
             String schoolName = request.get("schoolName");
-            List<School> schools = schoolRepository.findAllBySchoolName(schoolName);
+            List<School> schools = schoolRepository.findAllBySchoolNameLike("%" + schoolName + "%");
 
             resultMap.put("data", schools);
             resultMap.put("message", "학교 검색 성공");
@@ -108,6 +88,37 @@ public class UserServiceImpl implements UserService {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @Override
+    public ResponseEntity<?> getUserInfo(Long userSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            User user = userRepository.findByUserSeq(userSeq);
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("userNickname", user.getUserNickname());
+
+            if (user.getUserSchoolSeq() == null) {
+                data.put("schoolName", "선택 안함");
+            } else {
+                School school = schoolRepository.findBySchoolSeq(user.getUserSchoolSeq());
+                data.put("schoolSeq", user.getUserSchoolSeq());
+                data.put("schoolName", school.getSchoolName());
+            }
+
+            resultMap.put("data", data);
+            resultMap.put("message", "유저 정보 조회 성공");
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "유저 정보 조회 실패");
+            resultMap.put("error", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
         return new ResponseEntity<>(resultMap, status);
     }
 }

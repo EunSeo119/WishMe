@@ -2,6 +2,7 @@ package com.wishme.schoolLetter.schoolLetter.controller;
 
 import com.wishme.schoolLetter.asset.domain.Asset;
 import com.wishme.schoolLetter.asset.dto.response.AssetResponseDto;
+import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteByUuidRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterBoardListResponseDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterDetailResponseDto;
@@ -24,7 +25,7 @@ public class SchoolLetterController {
 
     private final SchoolLetterService schoolLetterService;
 
-    //칠판에서 에셋 목록 확인
+    //칠판 조회
     @GetMapping("/all/{schoolId}/{page}")
     public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolId") Integer schoolId,
                                                          @PathVariable("page") Integer page){
@@ -32,7 +33,7 @@ public class SchoolLetterController {
         Map<String, Object> resultMap =null;
         HttpStatus status = null;
 
-        System.out.println("schoolId= "+schoolId);
+//        System.out.println("schoolId= "+schoolId);
         resultMap = schoolLetterService.getSchoolLetterList(schoolId,page);
         status = HttpStatus.ACCEPTED;
 
@@ -40,7 +41,20 @@ public class SchoolLetterController {
     }
 
 
+    //uuid로 칠판 조회
+    @GetMapping("/allByUUID/{schoolUUID}/{page}")
+    public ResponseEntity<Map<String, Object>> boardList(@PathVariable("schoolUUID") String schoolUUID,
+                                                         @PathVariable("page") Integer page){
 
+        Map<String, Object> resultMap =null;
+        HttpStatus status = null;
+
+//        System.out.println("schoolId= "+schoolId);
+        resultMap = schoolLetterService.getSchoolLetterListBuSchoolUUID(schoolUUID,page);
+        status = HttpStatus.ACCEPTED;
+
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
     //학교 편지 상세 조회
     @GetMapping("/one/{letterId}")
     public ResponseEntity<Map<String, Object>> schoolLetterDetail(@PathVariable("letterId") Long schoolLetterId){
@@ -75,6 +89,23 @@ public class SchoolLetterController {
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
+
+    @PostMapping("/write/uuid")
+    public ResponseEntity<Map<String, Object>> writeSchoolLetterByUuid(@RequestBody SchoolLetterWriteByUuidRequestDto writeDto) {
+
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status = null;
+
+        try {
+            Long schoolLetterId = schoolLetterService.writeSchoolLetterByUuid(writeDto);
+            if(schoolLetterId == null) throw new IllegalArgumentException();
+            status = HttpStatus.ACCEPTED;
+        }catch (IllegalArgumentException e){
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    }
+
 
     //학교 편지 에셋 목록
     @GetMapping("/assets")
