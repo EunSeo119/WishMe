@@ -62,4 +62,11 @@ public class SchoolLetter {
         this.nickname = writeDto.getNickname();
     }
 
+    public SchoolLetter(String content,String nickname, School school, Asset asset) {
+        this.school = school;
+        this.assetSeq = asset;
+        this.content = content;
+        this.nickname = nickname;
+    }
+
 }

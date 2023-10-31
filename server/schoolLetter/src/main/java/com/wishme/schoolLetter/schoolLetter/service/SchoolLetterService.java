@@ -6,6 +6,7 @@ import com.wishme.schoolLetter.asset.repository.AssetRepository;
 import com.wishme.schoolLetter.school.domian.School;
 import com.wishme.schoolLetter.school.repository.SchoolRepository;
 import com.wishme.schoolLetter.schoolLetter.domain.SchoolLetter;
+import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteByUuidRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterBoardListResponseDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterDetailResponseDto;
@@ -99,4 +100,53 @@ public class SchoolLetterService {
         return  assetRepository.findByType(type);
     }
 
+    public Map<String, Object> getSchoolLetterListBuSchoolUUID(String schoolUUID, Integer page) {
+        Map<String, Object> resultMap = new HashMap<>();
+
+        int pageSize = 12; // 한 페이지당 12개의 학교편지
+        Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
+        Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolUuid(schoolUUID, pageable);
+        List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
+        System.out.println("============================================");
+        System.out.println(schoolLetterList.size());
+        System.out.println("============================================");
+        List<SchoolLetterBoardListResponseDto> schoolLetterResponseDtoList = new ArrayList<>();
+
+        if (schoolLetterList != null && schoolLetterList.size() > 0) {
+            for (SchoolLetter schoolLetter : schoolLetterList) {
+                schoolLetterResponseDtoList.add(
+                        SchoolLetterBoardListResponseDto.builder()
+                                .schoolLetterSeq(schoolLetter.getSchoolLetterSeq())
+                                .assetSeq(schoolLetter.getAssetSeq().getAssetSeq())
+                                .assetImg(schoolLetter.getAssetSeq().getAssetImg())
+                                .build()
+                );
+            }
+        }
+
+        School school = schoolRepository.findByUuid(schoolUUID)
+                .orElseThrow(IllegalArgumentException::new);
+        resultMap.put("schoolLetterList", schoolLetterResponseDtoList);
+        resultMap.put("schoolName", school.getSchoolName());
+        resultMap.put("totalCount", schoolLetterPage.getTotalElements());
+        resultMap.put("totalPage", schoolLetterPage.getTotalPages());
+        resultMap.put("schoolId", school.getSchoolSeq());
+
+        return resultMap;
+
+    }
+
+    @Transactional
+    public Long writeSchoolLetterByUuid(SchoolLetterWriteByUuidRequestDto writeDto) {
+
+        School school = schoolRepository.findByUuid(writeDto.getUuid())
+                .orElseThrow(IllegalArgumentException::new);
+        Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
+                .orElseThrow(IllegalArgumentException::new);
+
+        SchoolLetter schoolLetter = new SchoolLetter(writeDto.getContent(), writeDto.getNickname(), school, asset);
+        schoolLetter = schoolLetterRepository.save(schoolLetter);
+
+        return schoolLetter.getSchoolLetterSeq();
+    }
 }

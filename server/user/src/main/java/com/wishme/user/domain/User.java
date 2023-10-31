@@ -27,7 +27,7 @@ public class User {
     private String userNickname;
 
     @Column(name = "user_school_seq")
-    private Long userSchoolSeq;
+    private Integer userSchoolSeq;
 
     @Column(name = "uuid")
     private String uuid;
