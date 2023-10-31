@@ -3,10 +3,7 @@ package com.wishme.myLetter.myLetter.service;
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterAssetResponseDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterListResponseDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.*;
 import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
@@ -48,6 +45,11 @@ public class MyLetterService {
 
     @Transactional
     public Long saveLetter(Authentication authentication, SaveMyLetterRequestDto saveMyLetterRequestDto) {
+        Long fromUserSeq = null;
+        if(authentication != null) {
+            fromUserSeq = Long.valueOf(authentication.getName());
+        }
+
         User toUser = userRepository.findByUuid(saveMyLetterRequestDto.getToUserUuid())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다. 해당 유저에게 편지를 쓸 수 없습니다.", 1));
 
@@ -59,7 +61,7 @@ public class MyLetterService {
                 .asset(myAsset)
                 .content(saveMyLetterRequestDto.getContent())
                 .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
-                .fromUser(Long.valueOf(authentication.getName()))
+                .fromUser(fromUserSeq)
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
                 .build();
 
@@ -75,7 +77,7 @@ public class MyLetterService {
         long totalLetterCount = myLetterRepository.countByToUser(toUser);
 
         // 회원일 때 자기 책상인지 남의 책상인지 확인
-        if(authentication.getName() != null) {
+        if(authentication != null) {
             User requestUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
                     .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
@@ -114,6 +116,16 @@ public class MyLetterService {
                 .build();
 
         return myLetterListResponseDto;
+    }
+
+    public LoginUserUuidResponseDto getUserUuid(Authentication authentication) {
+        User user = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+        LoginUserUuidResponseDto loginUserUuidResponseDto = LoginUserUuidResponseDto.builder()
+                .loginUserUuid(user.getUuid())
+                .build();
+        return loginUserUuidResponseDto;
     }
 
     public MyLetterDetailResponseDto getMyLetterDetail(Authentication authentication, Long myLetterSeq) {
