@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io' // IoIosArrowForward를 import
 import ShareURLModal from '../../Modal/shareURLModal'
+import Header from '../../Common/Header'
 
 const SchoolPage = () => {
   const [page, setPage] = useState(1)
@@ -97,7 +98,7 @@ const SchoolPage = () => {
         })
     } else {
       // AccessToken이 없으면 로그인 페이지로 이동
-      alert('로그인페이지로 이동')
+      // alert('로그인페이지로 이동')
       navigate(`/`)
     }
   }
@@ -133,6 +134,12 @@ const SchoolPage = () => {
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/schoolBackground.png"
           className={styleSchool.bg}
         />
+
+        {/* 헤더 */}
+        <div className={styleSchool.header}>
+          <Header />
+        </div>
+        {/* 급훈문구 */}
         <div className={styleSchool.schoolName}>
           <b>{schoolName}</b>에
           <b>
@@ -142,6 +149,7 @@ const SchoolPage = () => {
           개의 응원이 왔어요!
         </div>
 
+        {/* 편지 에셋 목록 */}
         <div className={styleSchool.gridContainer}>
           <div
             className={`${styleSchool.arrowIcon} ${
@@ -162,11 +170,7 @@ const SchoolPage = () => {
                 className={styleSchool.gridItem}
                 onClick={() => handleLetterClick(letter.schoolLetterSeq)}
               >
-                <img
-                  crossorigin="anonymous"
-                  // crossOrigin="anonymous"
-                  src={`${letter.assetImg}`}
-                />
+                <img crossorigin="anonymous" src={`${letter.assetImg}`} />
               </div>
             ))}
           </div>
@@ -206,6 +210,7 @@ const SchoolPage = () => {
           )}
         </div>
       </div>
+      {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
         <div
           className={styleSchool.mySchoolBtn}
