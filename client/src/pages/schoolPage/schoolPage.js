@@ -162,7 +162,7 @@ const SchoolPage = () => {
                 className={styleSchool.gridItem}
                 onClick={() => handleLetterClick(letter.schoolLetterSeq)}
               >
-                <img src={`${letter.assetImg}`} />
+                <img crossOrigin="anonymous" src={`${letter.assetImg}`} />
               </div>
             ))}
           </div>
