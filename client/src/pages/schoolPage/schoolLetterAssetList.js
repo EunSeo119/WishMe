@@ -34,6 +34,8 @@ const SchooLetterAssetList = () => {
     console.log(totalPage)
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage)
+      assetClick('')
+      setSelectedItemIndex('')
     }
   }
 
