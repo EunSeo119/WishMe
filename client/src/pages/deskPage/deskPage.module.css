@@ -1,3 +1,23 @@
+.app {
+  /* background-color: black; */
+  max-width: 443px;
+  /* min-width: 414px; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  /* border: 1px solid black; */
+}
+
+.bg {
+  max-width: 443px;
+  /* min-width: 414px; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+}
+
 body {
   width: 100vw;
   /* max-width: 443px; */

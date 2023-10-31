@@ -1,5 +1,5 @@
 import style from "./deskPage.module.css";
-import styleApp from "../../app.module.css";
+// import styleApp from "../../app.module.css";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -96,11 +96,11 @@ const DeskPage = () => {
   }, [currentPage, deskUuid]);
 
   return (
-    <div className={styleApp.app}>
+    <div className={style.app}>
       <div className={style.deskPage}>
         <img
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
-          className={styleApp.bg}
+          className={style.bg}
         />
         <div className={style.board}>
           <div className={style.title}>
