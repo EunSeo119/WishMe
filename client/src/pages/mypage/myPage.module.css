@@ -1,11 +1,11 @@
 .body {
-    height: 100vh;
+  height: 100vh;
 }
 
 /* 타이틀 부분 */
 .title {
-    font-family: "omyu_pretty";
-    height: 20%;
+  font-family: 'omyu_pretty';
+  height: 20%;
   font-size: 30px;
   text-align: left;
   padding-top: 20%;
@@ -14,81 +14,81 @@
 
 /* 폼 입력 부분 */
 .form {
-    height: 58%;
-    font-family: "omyu_pretty";
-    margin-left: 30px;
+  height: 58%;
+  font-family: 'omyu_pretty';
+  margin-left: 30px;
 }
 
 .form input:focus {
-    outline: none;
+  outline: none;
 }
 
 .nickname {
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .nickname div:nth-child(1) {
-    width: 20%;
-    font-size: 25px;
-    text-align: center;
-    margin-right: 10px;
+  width: 20%;
+  font-size: 25px;
+  text-align: center;
+  margin-right: 10px;
 }
 
 .nickname input {
-    width: 80%;
-    width: 240px;
-    height: 35px;
-    border: 1px solid rgb(247, 247, 247);
-    border-radius: 5px;
+  width: 80%;
+  width: 240px;
+  height: 35px;
+  border: 1px solid rgb(247, 247, 247);
+  border-radius: 5px;
 }
 
 .school {
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .school div:nth-child(1) {
-    width: 20%;
-    font-size: 25px;
-    text-align: center;
-    margin-right: 10px;
+  width: 20%;
+  font-size: 25px;
+  text-align: center;
+  margin-right: 10px;
 }
 
 .school input {
-    width: 50%;
-    width: 200px;
-    height: 35px;
-    border: 1px solid rgb(247, 247, 247);
-    border-radius: 5px;
-    margin-right: 10px;
+  width: 50%;
+  width: 200px;
+  height: 35px;
+  border: 1px solid rgb(247, 247, 247);
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 .searchBtn {
-    width: 20%;
-    font-size: 15px;
-    display: flex;
-    width: 45px;
-    height: 35px;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #176124;
-    background-color: #176124;
-    padding: auto 2px;
-    color: #fff;
+  width: 20%;
+  font-size: 15px;
+  display: flex;
+  width: 45px;
+  height: 35px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #176124;
+  background-color: #176124;
+  padding: auto 2px;
+  color: #fff;
 }
 
 /* 버튼 부분 */
 .btn {
-    height: 10%;
+  height: 10%;
 }
 
 .modifyBtn {
-    font-family: "omyu_pretty";
+  font-family: 'omyu_pretty';
   font-size: 25px;
   color: #fff;
   text-align: center;
@@ -97,11 +97,11 @@
   background-color: #176124;
   padding: 13px;
   margin: 0px 20px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .completeBtn {
-  font-family: "omyu_pretty";
+  font-family: 'omyu_pretty';
   font-size: 25px;
   color: #176124;
   text-align: center;
@@ -110,5 +110,5 @@
   background-color: #fff;
   padding: 13px;
   margin: 0px 20px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
