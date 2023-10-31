@@ -48,7 +48,9 @@ const SchoolPage = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/school/letter/allByUUID/${schoolUuid}/${page}`)
+      .get(
+        `https://wishme.co.kr/api/school/letter/allByUUID/${schoolUuid}/${page}`
+      )
       // .get(
       //   `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
       // )
@@ -71,6 +73,7 @@ const SchoolPage = () => {
     <div>
       <div className={styleSchool.main}>
         <img
+          crossOrigin="anonymous"
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/schoolBackground.png"
           className={styleSchool.bg}
         />
@@ -103,7 +106,7 @@ const SchoolPage = () => {
                 className={styleSchool.gridItem}
                 onClick={() => handleLetterClick(letter.schoolLetterSeq)}
               >
-                <img src={`${letter.assetImg}`} />
+                <img crossOrigin="anonymous" src={`${letter.assetImg}`} />
               </div>
             ))}
           </div>
