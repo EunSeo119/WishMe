@@ -28,5 +28,5 @@ spring:
 
 oauth:
   kakao:
-    CLIENT_ID: 6b52e292c4e4a438a0b8b8ff3c407630
+    CLIENT_ID: 387062eebd5664d04e85b2d4f021b9ef
     CLIENT_SECRET: cbJsvL3W9WRF26WKGLkCD4yZDUDmrvAB
