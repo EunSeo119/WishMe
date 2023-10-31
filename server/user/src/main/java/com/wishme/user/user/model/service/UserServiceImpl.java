@@ -3,6 +3,7 @@ package com.wishme.user.user.model.service;
 import com.wishme.user.domain.School;
 import com.wishme.user.domain.User;
 import com.wishme.user.school.model.repository.SchoolRepository;
+import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
 import com.wishme.user.user.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,10 +74,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> searchSchool(String schoolName) {
+    public ResponseEntity<?> searchSchool(SearchSchoolRequestDto searchSchoolRequestDto) {
+        String schoolName = searchSchoolRequestDto.getSchoolName();
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
-        
+
         try {
             List<School> schools = schoolRepository.findAllBySchoolNameLike("%" + schoolName + "%");
 
