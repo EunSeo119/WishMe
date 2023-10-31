@@ -156,11 +156,25 @@ const DeskPage = () => {
             </>
           ) : (
             <>
-              <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
-                <div className={style.cheerUpBtn} onClick={() => navigate("/")}>
-                  응원하기
-                </div>
-              </Link>
+              {
+              localStorage.getItem("AccessToken") ? (
+                <>
+                  <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
+                    <div className={style.cheerUpBtn}>
+                      응원하기
+                    </div>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to={`/desk/${deskUuid}/checkLogin`} className={style.link}>
+                    <div className={style.cheerUpBtn}>
+                      응원하기
+                    </div>
+                  </Link>
+                </>
+              )
+            }
               <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
                 내 책상 보기
               </div>

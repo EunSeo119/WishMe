@@ -5,6 +5,7 @@ import MyPage from './pages/mypage/myPage'
 import KakaoRedirectPage from './pages/mainPage/kakaoRedirectPage'
 import DeskPage from './pages/deskPage/deskPage'
 import SchoolPage from './pages/schoolPage/schoolPage'
+import CheckDeskLogin from './pages/deskLetter/checkDeskLogin'
 import SelectDeskAsset from './pages/deskLetter/selectDeskAsset'
 import WriteDeskLetter from './pages/deskLetter/writeDeskLetter'
 import SchooLetterDetaillPage from './pages/schoolPage/schoolLetterDetail'
@@ -20,6 +21,10 @@ function App() {
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
         <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
+        <Route
+          path="/desk/:deskUuid/checkLogin"
+          element={<CheckDeskLogin />}
+        />
         <Route
           path="/desk/:deskUuid/selectAsset"
           element={<SelectDeskAsset />}
