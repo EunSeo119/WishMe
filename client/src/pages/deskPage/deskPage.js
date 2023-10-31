@@ -51,9 +51,8 @@ const DeskPage = () => {
         },
       })
         // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
-        .then((response) => {
-          const data = response.data;
-          navigate(`/desk/${data.loginUserUuid}`);
+        .then((res) => {
+          navigate(`/desk/${res.loginUserUuid}`);
         })
         .catch((error) => {
           console.error("API 요청 중 오류 발생:", error);
