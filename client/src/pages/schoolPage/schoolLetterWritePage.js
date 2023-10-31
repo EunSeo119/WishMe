@@ -46,8 +46,8 @@ const SchooLetterWritePage = () => {
   const letterWriteNextClick = () => {
     navigate(`/schoolLetterDetail/${selectAsset}`)
   }
-  const goPre = (assetId) => {
-    setSelectAsset(assetId)
+  const goPre = () => {
+    navigate(`/schoolLetterAssetList/${schoolUuid}`)
   }
 
   const changePage = (newPage) => {
