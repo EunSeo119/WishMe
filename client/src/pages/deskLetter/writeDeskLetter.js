@@ -123,7 +123,7 @@ const WriteDeskLetter = () => {
                                 checked={isPublic}
                                 onChange={() => { setIsPublic(true); setSelectedButton('public'); }}
                             />
-                            공개
+                            전체공개
                         </label>
                     </div>
                     <div className={selectedButton === 'private' ? style.selectedButton : style.radioItem}>
