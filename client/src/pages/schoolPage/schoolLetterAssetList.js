@@ -26,8 +26,8 @@ const SchooLetterAssetList = () => {
       alert('문구를 선택해주세요!')
     }
   }
-  const goPre = (assetId) => {
-    setSelectAsset(assetId)
+  const goPre = () => {
+    navigate(`/school/${schoolUuid}`)
   }
 
   const changePage = (newPage) => {
@@ -90,7 +90,7 @@ const SchooLetterAssetList = () => {
                 }}
               >
                 <img
-                  crossOrigin="anonymous"
+                  crossorigin="anonymous"
                   src={asset.assetImg}
                   alt={`Asset ${index}`}
                 />

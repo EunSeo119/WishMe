@@ -29,7 +29,6 @@ public class AuthenticationConfig {
                 .cors().and()
                 .authorizeRequests()
                 .antMatchers("/api/users/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/**").authenticated()

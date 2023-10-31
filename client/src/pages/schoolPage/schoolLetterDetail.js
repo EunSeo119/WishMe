@@ -8,7 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 const SchoolLetterDetail = () => {
   const { schoolUuid, letterId } = useParams()
   const [nickname, setNickname] = useState('')
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState('test')
   const [schoolName, setSchoolName] = useState('')
 
   const navigate = useNavigate()
@@ -27,7 +27,7 @@ const SchoolLetterDetail = () => {
       .catch((error) => {
         console.error('API 요청 중 오류 발생:', error)
       })
-  }, [])
+  }, [content])
 
   const goPre = () => {
     navigate(`/school/${schoolUuid}`)
@@ -40,7 +40,7 @@ const SchoolLetterDetail = () => {
         이전으로
       </div>
       <div className={style.title}>응원의 말을 확인하세요!</div>
-      <div className={style.letterImg}>
+      <div className={style.letterImgBack}>
         <img
           crossOrigin="anonymous"
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png"

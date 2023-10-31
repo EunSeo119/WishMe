@@ -29,11 +29,13 @@ body {
 }
 .title {
   margin-top: 3%;
-  height: 20%;
+  height: 10%;
   display: flex;
   align-items: center;
   position: absolute;
   left: 5%;
+  top: 5%;
+
   /* top: 3%; */
   /* transform: translate(-50%, 0); */
   font-family: 'omyu_pretty';
@@ -137,4 +139,11 @@ nickname {
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 16%;
+}
+
+.letterImgBack {
+  top: 26%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
