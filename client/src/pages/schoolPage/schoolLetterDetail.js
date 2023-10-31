@@ -15,7 +15,7 @@ const SchoolLetterDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/school/letter/one/${letterId}`)
+      .get(`https://wishme.co.kr/api/school/letter/one/${letterId}`)
       // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
@@ -41,7 +41,10 @@ const SchoolLetterDetail = () => {
       </div>
       <div className={style.title}>응원의 말을 확인하세요!</div>
       <div className={style.letterImg}>
-        <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png" />
+        <img
+          crossOrigin="anonymous"
+          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png"
+        />
         <div className={style.letterPrefix}>To. {schoolName}</div>
         <textarea
           className={style.contentTextarea}
