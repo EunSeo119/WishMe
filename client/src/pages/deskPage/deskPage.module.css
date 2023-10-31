@@ -34,6 +34,7 @@ body {
   height: 100vh;
   margin: auto auto;
   position: absolute;
+  
   /* background-image: url("https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.PNG");
     background-repeat: no-repeat;
     background-size: cover;
@@ -66,6 +67,8 @@ body {
 /* 책상 부분 */
 .desk {
   height: 50%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .gridContainer {
@@ -86,7 +89,7 @@ body {
   /* 상하 0, 좌우 1px의 마진 설정 */
   display: inline-block;
   position: relative;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
 }
@@ -147,14 +150,14 @@ body {
 .arrowIcon {
   font-size: 24px;
   cursor: pointer;
-  margin: 0;
+  margin-top: 40%;
 }
 
 .disabledArrow {
   font-size: 24px;
   color: #ccc;
   cursor: not-allowed;
-  margin: 0;
+  margin-top: 40%;
 }
 
 .nickname {
@@ -162,6 +165,9 @@ body {
   /* font-family: 'skybori'; */
   font-size: 15px;
   text-align: center;
+  margin: 0;
+  position: relative;
+  top: -10%;
   /* padding-top: 20%; */
   /* margin-top: 50px; */
 }
