@@ -50,3 +50,31 @@
     font-size: 20px;
     margin-top: 30px;
 }
+
+.sidebar {
+    z-index: 5;
+    padding: 12px;
+    border-radius: 15px 0 0 15px;
+    background-color: #e7e4e1;
+    height: 100%;
+    width: 55%;
+    right: -55%;
+    top: 0;
+    position: fixed;
+    transition: 0.5s ease;
+}
+
+.sidebar.open {
+    right: 0;
+    transition: 0.5s ease;
+}
+
+.menu {
+    margin: 30px 8px;
+}
+
+.exitMenu {
+    position: absolute;
+    bottom: 26px;
+    font-size: 0.8rem;
+}
