@@ -9,7 +9,6 @@ const MainPage = () => {
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const kakaoLogin = () => {
-        console.log(kakaoURL);
         window.location.href = kakaoURL;
     };
 
