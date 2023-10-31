@@ -119,9 +119,7 @@ public class SchoolLetterService {
         Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
         Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolUuid(schoolUUID, pageable);
         List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
-        System.out.println("============================================");
         System.out.println(schoolLetterList.size());
-        System.out.println("============================================");
         List<SchoolLetterBoardListResponseDto> schoolLetterResponseDtoList = new ArrayList<>();
 
         if (schoolLetterList != null && schoolLetterList.size() > 0) {
@@ -156,16 +154,11 @@ public class SchoolLetterService {
         Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
                 .orElseThrow(IllegalArgumentException::new);
 
-        System.out.println("==========공개키============");
-        System.out.println(publicKeyBase);
         //base64된 공개키를 가져옴
         PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
 
         //공개키로 암호화
         String encryptedContent = RSAUtil.encryptRSA(writeDto.getContent(), puKey);
-        System.out.println("==========이에 암호화된 메시지============");
-        System.out.println(encryptedContent);
-
 
         SchoolLetter schoolLetter = new SchoolLetter(encryptedContent, writeDto.getNickname(), school, asset);
         schoolLetter = schoolLetterRepository.save(schoolLetter);
