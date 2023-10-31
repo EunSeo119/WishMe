@@ -44,7 +44,7 @@ const DeskPage = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: "get",
-        url: `http://localhost:8080/api/my/letter/loginUserUuid`,
+        url: `https://wishme.co.kr/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
         },
@@ -76,7 +76,7 @@ const DeskPage = () => {
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${currentPage}`,
+      url: `https://wishme.co.kr/api/my/letter/all/${deskUuid}?page=${currentPage}`,
       headers,
     })
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
