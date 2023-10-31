@@ -48,9 +48,10 @@ const SchoolPage = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
-      )
+      .get(`/api/school/letter/allByUUID/${schoolUuid}/${page}`)
+      // .get(
+      //   `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
+      // )
       .then((response) => {
         const data = response.data
         console.log(data)

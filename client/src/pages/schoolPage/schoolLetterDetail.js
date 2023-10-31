@@ -15,7 +15,8 @@ const SchoolLetterDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
+      .get(`/api/school/letter/one/${letterId}`)
+      // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
         console.log(data)
@@ -38,7 +39,7 @@ const SchoolLetterDetail = () => {
         <IoIosArrowBack className={style.icon} />
         이전으로
       </div>
-      <div className={style.title}>응원의 말을 남겨주세요!</div>
+      <div className={style.title}>응원의 말을 확인하세요!</div>
       <div className={style.letterImg}>
         <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png" />
         <div className={style.letterPrefix}>To. {schoolName}</div>

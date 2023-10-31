@@ -71,12 +71,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> searchSchool(Map<String, String> request) {
+    public ResponseEntity<?> searchSchool(String schoolName) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         
         try {
-            String schoolName = request.get("schoolName");
             List<School> schools = schoolRepository.findAllBySchoolNameLike("%" + schoolName + "%");
 
             resultMap.put("data", schools);
