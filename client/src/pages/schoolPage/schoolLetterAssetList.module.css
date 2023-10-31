@@ -56,6 +56,7 @@ body {
   transform: translateX(-50%);
   top: 25.5%;
   width: 100%;
+  /* height: 50%; */
   position: absolute;
   height: 50%;
   /* background-color: #000000; */
@@ -127,6 +128,9 @@ body {
   max-width: 443px;
 }
 
+.selectAsset {
+  border: 2px solid #176124; /* 테두리 스타일 추가, 원하는 스타일로 변경 가능 */
+}
 .mySchoolBtn {
   font-family: 'omyu_pretty';
   font-size: 30px;

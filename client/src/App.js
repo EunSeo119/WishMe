@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/mainPage/mainPage'
+import MyPage from './pages/mypage/myPage'
 import KakaoRedirectPage from './pages/mainPage/kakaoRedirectPage'
 import DeskPage from './pages/deskPage/deskPage'
 import SchoolPage from './pages/schoolPage/schoolPage'
@@ -16,25 +17,29 @@ function App() {
     <div className={style.app}>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
         <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
-        <Route path="/desk/:deskUuid/selectAsset" element={<SelectDeskAsset />} />
+        <Route
+          path="/desk/:deskUuid/selectAsset"
+          element={<SelectDeskAsset />}
+        />
         <Route
           path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
         {/* 추가 */}
-        <Route path="/school" element={<SchoolPage />}></Route>
+        <Route path="/school/:schoolUuid" element={<SchoolPage />}></Route>
         <Route
           path="/schoolLetterDetail/:letterId"
           element={<SchooLetterDetaillPage />}
         />
         <Route
-          path="/schoolLetterAssetList/:schoolId"
+          path="/schoolLetterAssetList/:schoolUuid"
           element={<SchooLetterAssetList />}
         />
         <Route
-          path="/schoolLetterWritePage/:assetId"
+          path="/schoolLetterWritePage/:assetId/:schoolUuid"
           element={<SchooLetterWritePage />}
         />
       </Routes>
