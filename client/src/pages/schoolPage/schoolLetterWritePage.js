@@ -19,7 +19,7 @@ const SchooLetterWritePage = () => {
   const clickWriteLetter = () => {
     if (nickname && content) {
       axios
-        .post(`/api/school/letter/write/uuid`, {
+        .post(`https://wishme.co.kr/api/school/letter/write/uuid`, {
           uuid: schoolUuid,
           assetSeq: assetId,
           content: content,
@@ -95,7 +95,10 @@ const SchooLetterWritePage = () => {
         />
       </div>
       <div className={style.letterImg}>
-        <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png" />
+        <img
+          crossOrigin="anonymous"
+          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png"
+        />
         <textarea
           className={style.contentTextarea}
           placeholder="응원의 글을 적어주세요."

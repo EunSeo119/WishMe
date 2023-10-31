@@ -5,9 +5,6 @@ module.exports = function (app) {
     '/api',
     createProxyMiddleware({
       target: 'https:/wishme.co.kr',
-      pathRewrite: {
-        '^/school': ''
-      },
       changeOrigin: true
     })
   )
