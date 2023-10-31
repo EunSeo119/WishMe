@@ -21,6 +21,7 @@ const DeskPage = () => {
   const [totalPage, setTotalPage] = useState(1)
   // const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate();
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +45,7 @@ const DeskPage = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: "get",
-        url: `https://wishme.co.kr/api/my/letter/loginUserUuid`,
+        url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
         },
@@ -76,7 +77,7 @@ const DeskPage = () => {
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `https://wishme.co.kr/api/my/letter/all/${deskUuid}?page=${currentPage}`,
+      url: `${SERVER_URL}/api/my/letter/all/${deskUuid}?page=${currentPage}`,
       headers,
     })
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
@@ -91,6 +92,7 @@ const DeskPage = () => {
         // setTotalPage(data.totalPage)
       })
       .catch((error) => {
+        console.log(SERVER_URL)
         console.error("API 요청 중 오류 발생:", error);
       });
   }, [currentPage, deskUuid]);
