@@ -4,10 +4,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:8080',
-      pathRewrite: {
-        '^/school': ''
-      },
+      target: 'https:/wishme.co.kr',
       changeOrigin: true
     })
   )

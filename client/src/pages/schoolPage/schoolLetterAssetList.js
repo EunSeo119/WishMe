@@ -39,7 +39,7 @@ const SchooLetterAssetList = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/school/letter/assets`)
+      .get(`https://wishme.co.kr/api/school/letter/assets`)
       // .get(`http://localhost:8082/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
@@ -89,7 +89,11 @@ const SchooLetterAssetList = () => {
                   setSelectedItemIndex(index)
                 }}
               >
-                <img src={asset.assetImg} alt={`Asset ${index}`} />
+                <img
+                  crossOrigin="anonymous"
+                  src={asset.assetImg}
+                  alt={`Asset ${index}`}
+                />
               </div>
             ))}
           {page > schoolAssetList.length / 12 &&
