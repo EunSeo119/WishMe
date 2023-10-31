@@ -9,9 +9,10 @@ const SchooLetterAssetList = () => {
   const [schoolAssetList, setSchoolAssetList] = useState([])
   const [page, setPage] = useState(1)
   const [totalPage, setTotalPage] = useState(1)
-  const [selectAsset, setSelectAsset] = useState(1)
+  const [selectAsset, setSelectAsset] = useState()
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null)
 
-  const { schoolId } = useParams()
+  const { schoolUuid } = useParams()
   const navigate = useNavigate()
 
   const assetClick = (assetId) => {
@@ -19,7 +20,11 @@ const SchooLetterAssetList = () => {
   }
 
   const letterWriteNextClick = () => {
-    navigate(`/schoolLetterWritePage/${selectAsset}`)
+    if (selectAsset) {
+      navigate(`/schoolLetterWritePage/${selectAsset}/${schoolUuid}`)
+    } else {
+      alert('문구를 선택해주세요!')
+    }
   }
   const goPre = (assetId) => {
     setSelectAsset(assetId)
@@ -34,7 +39,7 @@ const SchooLetterAssetList = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/school/letter/assets`)
+      .get(`http://localhost:8082/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
         console.log(data)
@@ -46,7 +51,7 @@ const SchooLetterAssetList = () => {
       .catch((error) => {
         console.error('API 요청 중 오류 발생:', error)
       })
-  }, [schoolId])
+  }, [schoolUuid])
 
   return (
     <div className={style.body}>
@@ -71,24 +76,30 @@ const SchooLetterAssetList = () => {
 
         <div className={style.gridItemContainer}>
           {schoolAssetList
-            .slice((page - 1) * 12, page * 12)
+            .slice((page - 1) * 12, (page - 1) * 12 + 12)
             .map((asset, index) => (
               <div
                 key={index}
-                className={style.gridItem}
-                onClick={() => assetClick(asset.assetSeq)}
+                className={`${style.gridItem} ${
+                  index === selectedItemIndex ? style.selectAsset : ''
+                }`}
+                onClick={() => {
+                  assetClick(asset.assetSeq)
+                  setSelectedItemIndex(index)
+                }}
               >
                 <img src={asset.assetImg} alt={`Asset ${index}`} />
               </div>
             ))}
-          {Array.from({ length: 12 - (schoolAssetList.length % 12) }).map(
-            (_, index) => (
-              <div
-                key={schoolAssetList.length + index}
-                className={style.gridItem}
-              ></div>
-            )
-          )}
+          {page > schoolAssetList.length / 12 &&
+            Array.from({ length: 12 - (schoolAssetList.length % 12) }).map(
+              (_, index) => (
+                <div
+                  key={schoolAssetList.length + index}
+                  className={style.gridItem}
+                ></div>
+              )
+            )}
         </div>
         <div
           className={`${style.arrowIcon} ${

@@ -119,3 +119,22 @@ nickname {
   margin: 0 20px 10px;
   /* width: 100%; */
 }
+.contentTextarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  resize: none;
+  overflow: auto;
+  height: 70%;
+  line-height: 1.5;
+  width: 80%;
+  outline: none;
+  font-family: 'omyu_pretty';
+  /* background-color: #176124; */
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 16%;
+}
