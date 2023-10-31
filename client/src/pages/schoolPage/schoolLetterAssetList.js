@@ -90,7 +90,7 @@ const SchooLetterAssetList = () => {
                 }}
               >
                 <img
-                  // crossOrigin="anonymous"
+                  crossorigin="anonymous"
                   src={asset.assetImg}
                   alt={`Asset ${index}`}
                 />
