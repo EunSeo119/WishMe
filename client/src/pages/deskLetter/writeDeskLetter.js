@@ -36,7 +36,7 @@ const WriteDeskLetter = () => {
 
             const response = await axios({
                 method: "post",
-                url: 'http://localhost:8080/api/my/letter/write',
+                url: 'https://wishme.co.kr/api/my/letter/write',
                 headers,
                 data: data
             });
