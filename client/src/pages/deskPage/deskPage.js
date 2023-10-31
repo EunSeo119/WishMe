@@ -103,6 +103,7 @@ const DeskPage = () => {
         <img
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
           className={style.bg}
+          crossOrigin="anonymous"
         />
         <div className={style.board}>
           <div className={style.title}>
@@ -129,7 +130,7 @@ const DeskPage = () => {
             {deskLetter.slice(0, 9).map((letter, index) => (
               <div key={index} className={style.gridItem}>
                 {/* <img src={`${letter.assetImg}`} /> */}
-                <img src={`${letter.assetImg}`} />
+                <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
               </div>
             ))}
