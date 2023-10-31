@@ -8,8 +8,8 @@ const MyPage  = () => {
     const [schoolName, setSchoolName] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [tempDeskName, setTempDeskName] = useState("");
-    const [tempSchoolName, setTempSchoolName] = useState(1);
-    const [userSchoolSeq, setUserSchoolSeq] = useState(1);
+    const [tempSchoolName, setTempSchoolName] = useState(null);
+    const [userSchoolSeq, setUserSchoolSeq] = useState(null);
 
     // 값 수정
     const changeNickname = (e) => {
@@ -65,6 +65,7 @@ const MyPage  = () => {
         axios.get(`http://localhost:8080/api/users/school?schoolName=${tempSchoolName}`)
         .then((res) => {
             setSchoolList(res.data.data);
+            console.log(res.data.data);
         })
         .catch((error) => {
             console.log("검색 중 오류 발생: " + error);
@@ -115,7 +116,7 @@ const MyPage  = () => {
                     <div>학교</div>
                         {isEditing ? (
                         <>
-                            <input type="text" value={schoolName} onChange={changeSchool} placeholder="학교 검색" />
+                            <input type="text" value={tempSchoolName} onChange={changeSchool} placeholder="학교 검색" />
                             <div className={style.searchBtn} onClick={searchSchool}>검색</div>
                             <ul>
                                 {schoolList.map((school) => (
