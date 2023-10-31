@@ -1,3 +1,23 @@
+.app {
+  /* background-color: black; */
+  max-width: 443px;
+  /* min-width: 414px; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+  /* border: 1px solid black; */
+}
+
+.bg {
+  max-width: 443px;
+  /* min-width: 414px; */
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+}
+
 body {
   width: 100vw;
   /* max-width: 443px; */
@@ -82,7 +102,7 @@ body {
 
 /* 버튼 부분 */
 .btn {
-  height: 20%;
+  height: 10%;
 }
 
 .shareBtn {
@@ -95,6 +115,7 @@ body {
   background-color: #176124;
   padding: 13px;
   margin: 65px 20px 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .cheerUpBtn {
@@ -107,6 +128,7 @@ body {
   background-color: #176124;
   padding: 13px;
   margin: 0px 20px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .myDeskBtn {
@@ -119,6 +141,7 @@ body {
   background-color: #176124;
   padding: 13px;
   margin: 0px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .arrowIcon {
@@ -132,4 +155,13 @@ body {
   color: #ccc;
   cursor: not-allowed;
   margin: 0;
+}
+
+.nickname {
+  font-family: "omyu_pretty";
+  /* font-family: 'skybori'; */
+  font-size: 15px;
+  text-align: center;
+  /* padding-top: 20%; */
+  /* margin-top: 50px; */
 }

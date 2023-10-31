@@ -13,6 +13,7 @@ const SelectDeskAsset = () => {
     const [selectedAssetSeq, setSelectedAssetSeq] = useState(null); // 선택된 이미지의 assetSeq 값을 저장하는 상태
     const [totalPage, setTotalPage] = useState(1)
     const { deskUuid } = useParams();
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
     const changePage = (newPage) => {
         console.log(totalPage)
@@ -24,12 +25,15 @@ const SelectDeskAsset = () => {
     useEffect(() => {
         // 백엔드 API 호출하여 이미지 URL 가져오기
         const AccessToken = localStorage.getItem("AccessToken");
+        const headers = {};
+
+        if (AccessToken) {
+            headers.Authorization = `Bearer ${AccessToken}`;
+        }
         axios({
             method: "get",
-            url: `http://localhost:8080/api/my/letter/assets`,
-            headers: {
-                Authorization: `Bearer ${AccessToken}`,
-            },
+            url: `${SERVER_URL}/api/my/letter/assets`,
+            headers
         })
 
             .then(response => {
@@ -71,7 +75,7 @@ const SelectDeskAsset = () => {
             className={`${style.gridItem} ${selected === index + indexOfFirstItem ? style.selected : ""}`}
             onClick={() => handleImageClick(index)}
         >
-            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} />
+            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
         </div>
     ));
 

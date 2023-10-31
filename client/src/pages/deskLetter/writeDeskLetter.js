@@ -13,6 +13,7 @@ const WriteDeskLetter = () => {
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
     // const { deskUuid } = useParams();
 
     const navigate = useNavigate();
@@ -28,13 +29,16 @@ const WriteDeskLetter = () => {
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const headers = {};
+
+            if (AccessToken) {
+                headers.Authorization = `Bearer ${AccessToken}`;
+            }
 
             const response = await axios({
                 method: "post",
-                url: 'http://localhost:8080/api/my/letter/write',
-                headers: {
-                    Authorization: `Bearer ${AccessToken}`,
-                },
+                url: `${SERVER_URL}/api/my/letter/write`,
+                headers,
                 data: data
             });
 
