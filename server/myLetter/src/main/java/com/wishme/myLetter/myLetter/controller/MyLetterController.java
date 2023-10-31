@@ -53,6 +53,15 @@ public class MyLetterController {
     }
 
     /**
+     * 현재 로그인한 유저의 Uuid 가져오기
+     */
+    @GetMapping("/loginUserUuid")
+    public ResponseEntity<?> getUserUuid(Authentication authentication) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(myLetterService.getUserUuid(authentication));
+    }
+
+    /**
      * 개인 편지 내용 확인하기
      */
     @GetMapping("/detail/{myLetterSeq}")

@@ -39,7 +39,8 @@ const SchooLetterAssetList = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8082/api/school/letter/assets`)
+      .get(`/api/school/letter/assets`)
+      // .get(`http://localhost:8082/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
         console.log(data)
