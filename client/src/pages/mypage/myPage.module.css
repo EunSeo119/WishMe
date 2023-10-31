@@ -38,17 +38,20 @@
 }
 
 .nickname input {
+    font-family: 'omyu_pretty';
+    font-size: 20px;
   width: 80%;
-  width: 240px;
+  width: 260px;
   height: 35px;
   border: 1px solid rgb(247, 247, 247);
   border-radius: 5px;
 }
 
+
 .school {
   width: 90%;
-  display: flex;
-  justify-content: space-around;
+  /* display: flex;
+  justify-content: space-around; */
 }
 
 .school div:nth-child(1) {
@@ -59,12 +62,14 @@
 }
 
 .school input {
+    font-family: 'omyu_pretty';
+    font-size: 20px;
   width: 50%;
   width: 200px;
   height: 35px;
   border: 1px solid rgb(247, 247, 247);
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right:12px;
 }
 
 .searchBtn {
@@ -80,6 +85,12 @@
   background-color: #176124;
   padding: auto 2px;
   color: #fff;
+  margin-right: 5px;
+}
+
+.schoolList {
+    border: 1px solid #fff;
+    border-color: #fff;
 }
 
 /* 버튼 부분 */
