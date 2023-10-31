@@ -7,6 +7,7 @@ import { Navigate, useNavigate } from "react-router";
 import ShareURLModal from "../../Modal/shareURLModal";
 import { useParams } from 'react-router-dom';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import Header from '../../Common/Header'
 
 
 const DeskPage = () => {
@@ -122,24 +123,30 @@ const DeskPage = () => {
   }, [currentPage, deskUuid]);
 
   return (
-    <div className={style.app}>
-      <div className={style.deskPage}>
+    <div>
+      <div className={style.main}>
         <img
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
           className={style.bg}
           crossOrigin="anonymous"
         />
-        <div className={style.board}>
-          <div className={style.title}>
-            <b>{deskName}</b>님의 책상에
-            <br />
-            <b>{totalCount}</b>개의 응원이 왔어요!
-          </div>
-        </div>
-        <div className={style.desk}>
 
+        {/* 헤더 */}
+        <div className={style.header}>
+          <Header />
+        </div>
+
+        {/* 제목 */}
+        <div className={style.deskTitle}>
+          <b>{deskName}</b>님의 책상에
+          <br />
+          <b>{totalCount}</b>개의 응원이 왔어요!
+        </div>
+
+        {/* 편지 에셋 목록 */}
+        <div>
           <div
-            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : ''
+            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
               }`}
             onClick={() => {
               if (currentPage > 1) {
@@ -165,44 +172,15 @@ const DeskPage = () => {
           </div>
 
           <div
-            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : ''
+            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
               }`}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
           </div>
 
-
-          {/* 여기가 끝 */}
-          <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
-          {/* 여기가 모달*/}
-
-          <div>
-            {isNextDateModalOpen && (
-              <div className={style.Modalmodal}>
-                {/* <div className={style.header}> */}
-                <div
-                  className={style.Modalclose}
-                  onClick={closeNextDateModal}
-                >
-                  X
-                </div>
-                <div className={style.Modaltitle}>
-                  편지는 11월 11일<br></br> 공개됩니다!
-                </div>
-                <div
-                  className={style.Modalbtn}
-                  onClick={closeNextDateModal}
-                >
-                  닫기
-                </div>
-              </div>
-            )}
-          </div>
-
-
-
         </div>
+
         <div className={style.btn}>
           {isMine ? (
             <>
@@ -236,6 +214,32 @@ const DeskPage = () => {
                 내 책상 보기
               </div>
             </>
+          )}
+        </div>
+
+
+        {/* 편지 날짜 알림 모달*/}
+        <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
+
+        <div>
+          {isNextDateModalOpen && (
+            <div className={style.Modalmodal}>
+              <div
+                className={style.Modalclose}
+                onClick={closeNextDateModal}
+              >
+                X
+              </div>
+              <div className={style.Modaltitle}>
+                편지는 11월 11일<br></br> 공개됩니다!
+              </div>
+              <div
+                className={style.Modalbtn}
+                onClick={closeNextDateModal}
+              >
+                닫기
+              </div>
+            </div>
           )}
         </div>
       </div>
