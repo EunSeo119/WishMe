@@ -6,6 +6,7 @@ import com.wishme.schoolLetter.asset.repository.AssetRepository;
 import com.wishme.schoolLetter.school.domian.School;
 import com.wishme.schoolLetter.school.repository.SchoolRepository;
 import com.wishme.schoolLetter.schoolLetter.domain.SchoolLetter;
+import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteByUuidRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterBoardListResponseDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterDetailResponseDto;
@@ -133,5 +134,19 @@ public class SchoolLetterService {
 
         return resultMap;
 
+    }
+
+    @Transactional
+    public Long writeSchoolLetterByUuid(SchoolLetterWriteByUuidRequestDto writeDto) {
+
+        School school = schoolRepository.findByUuid(writeDto.getUuid())
+                .orElseThrow(IllegalArgumentException::new);
+        Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
+                .orElseThrow(IllegalArgumentException::new);
+
+        SchoolLetter schoolLetter = new SchoolLetter(writeDto.getContent(), writeDto.getNickname(), school, asset);
+        schoolLetter = schoolLetterRepository.save(schoolLetter);
+
+        return schoolLetter.getSchoolLetterSeq();
     }
 }
