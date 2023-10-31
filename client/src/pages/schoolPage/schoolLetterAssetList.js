@@ -26,8 +26,8 @@ const SchooLetterAssetList = () => {
       alert('문구를 선택해주세요!')
     }
   }
-  const goPre = (assetId) => {
-    setSelectAsset(assetId)
+  const goPre = () => {
+    navigate(`/school/${schoolUuid}`)
   }
 
   const changePage = (newPage) => {
@@ -89,11 +89,7 @@ const SchooLetterAssetList = () => {
                   setSelectedItemIndex(index)
                 }}
               >
-                <img
-                  crossOrigin="anonymous"
-                  src={asset.assetImg}
-                  alt={`Asset ${index}`}
-                />
+                <img src={asset.assetImg} alt={`Asset ${index}`} />
               </div>
             ))}
           {page > schoolAssetList.length / 12 &&
