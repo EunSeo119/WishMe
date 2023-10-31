@@ -7,9 +7,10 @@ const KakaoRedirectPage = () => {
 
     const navigate = useNavigate();
     const code = new URL(document.location.toString()).searchParams.get('code');
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
-        axios.get('https://wishme.co.kr/api/users/login?code=' + code)
+        axios.get(`${SERVER_URL}/api/users/login?code=${code}`)
             .then((res) => {
                 localStorage.setItem('AccessToken', res.data.data.token)
                 // localStorage.setItem('deskUuid', res.data.data.uuid)
