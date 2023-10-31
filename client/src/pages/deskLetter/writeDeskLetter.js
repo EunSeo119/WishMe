@@ -28,13 +28,16 @@ const WriteDeskLetter = () => {
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const headers = {};
+
+            if (AccessToken) {
+                headers.Authorization = `Bearer ${AccessToken}`;
+            }
 
             const response = await axios({
                 method: "post",
                 url: 'http://localhost:8080/api/my/letter/write',
-                headers: {
-                    Authorization: `Bearer ${AccessToken}`,
-                },
+                headers,
                 data: data
             });
 

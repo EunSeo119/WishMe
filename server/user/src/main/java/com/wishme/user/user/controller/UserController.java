@@ -39,8 +39,8 @@ public class UserController {
 
     // API 4. 학교 검색
     @GetMapping("/school")
-    public ResponseEntity<?> searchSchool(@RequestBody Map<String, String> request) {
-        return userService.searchSchool(request);
+    public ResponseEntity<?> searchSchool(@RequestParam("schoolName") String schoolName) {
+        return userService.searchSchool(schoolName);
     }
 
     // API 5. 유저 정보 조회
