@@ -163,6 +163,7 @@ const SchoolPage = () => {
                 onClick={() => handleLetterClick(letter.schoolLetterSeq)}
               >
                 <img
+                  crossorigin="anonymous"
                   // crossOrigin="anonymous"
                   src={`${letter.assetImg}`}
                 />
