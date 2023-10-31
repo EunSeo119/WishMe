@@ -31,7 +31,7 @@ const SelectDeskAsset = () => {
         }
         axios({
             method: "get",
-            url: `http://localhost:8080/api/my/letter/assets`,
+            url: `https://wishme.co.kr/api/my/letter/assets`,
             headers
         })
 
@@ -74,7 +74,7 @@ const SelectDeskAsset = () => {
             className={`${style.gridItem} ${selected === index + indexOfFirstItem ? style.selected : ""}`}
             onClick={() => handleImageClick(index)}
         >
-            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} />
+            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
         </div>
     ));
 
