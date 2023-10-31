@@ -8,7 +8,7 @@ const MyPage = () => {
     const [schoolName, setSchoolName] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [tempDeskName, setTempDeskName] = useState(deskName);
-    const [tempSchoolName, setTempSchoolName] = useState("");
+    const [tempSchoolName, setTempSchoolName] = useState(schoolName);
     const [userSchoolSeq, setUserSchoolSeq] = useState(0);
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -124,7 +124,7 @@ const MyPage = () => {
                         <>
                             <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                                 <div>학교 :</div>
-                                <div><input type="text" value={schoolName} onChange={changeSchool} /></div>
+                                <div><input type="text" value={tempSchoolName} onChange={changeSchool} /></div>
                                 <div className={style.searchBtn} onClick={searchSchool}>검색</div>
                             </div>
                             <div className={schoolList}>
