@@ -13,4 +13,5 @@ public interface SchoolRepository extends JpaRepository<School, Integer> {
 
     List<School> findBySchoolNameContaining(String keyword);
 
+    Optional<School> findByUuid(String schoolUuid);
 }

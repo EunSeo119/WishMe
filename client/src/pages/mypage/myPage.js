@@ -26,8 +26,9 @@ const MyPage  = () => {
 
     const saveClick = () => {
 
-        setTempDeskName(deskName);
         setIsEditing(false);
+
+        setDeskName(tempDeskName);
 
         // SchoolSeq 찾기
         axios.get(`http://localhost:8080/api/users/school?schoolName=${tempSchoolName}`)
@@ -62,7 +63,7 @@ const MyPage  = () => {
 
 
     const searchSchool = () => {
-        axios.get(`http://localhost:8080/api/users/school?schoolName=${tempSchoolName}`)
+        axios.get(`http://localhost:8081/api/users/school?schoolName=${tempSchoolName}`)
         .then((res) => {
             setSchoolList(res.data.data);
             console.log(res.data.data);
@@ -80,7 +81,7 @@ const MyPage  = () => {
         const AccessToken = localStorage.getItem("AccessToken");
         axios({
           method: "get",
-          url: `http://localhost:8080/api/users`,
+          url: `http://localhost:8081/api/users`,
           headers: {
             Authorization: `Bearer ${AccessToken}`,
           },
