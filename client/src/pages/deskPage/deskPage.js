@@ -1,5 +1,5 @@
 import style from "./deskPage.module.css";
-import styleApp from "../../app.module.css";
+// import styleApp from "../../app.module.css";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -21,6 +21,7 @@ const DeskPage = () => {
   const [totalPage, setTotalPage] = useState(1)
   // const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate();
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +45,7 @@ const DeskPage = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: "get",
-        url: `http://localhost:8080/api/my/letter/loginUserUuid`,
+        url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
         },
@@ -75,7 +76,7 @@ const DeskPage = () => {
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
       method: "get",
-      url: `http://localhost:8080/api/my/letter/all/${deskUuid}?page=${currentPage}`,
+      url: `${SERVER_URL}/api/my/letter/all/${deskUuid}?page=${currentPage}`,
       headers,
     })
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
@@ -90,16 +91,18 @@ const DeskPage = () => {
         // setTotalPage(data.totalPage)
       })
       .catch((error) => {
+        console.log(SERVER_URL)
         console.error("API 요청 중 오류 발생:", error);
       });
   }, [currentPage, deskUuid]);
 
   return (
-    <div className={styleApp.app}>
+    <div className={style.app}>
       <div className={style.deskPage}>
         <img
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
-          className={styleApp.bg}
+          className={style.bg}
+          crossOrigin="anonymous"
         />
         <div className={style.board}>
           <div className={style.title}>
@@ -126,7 +129,7 @@ const DeskPage = () => {
             {deskLetter.slice(0, 9).map((letter, index) => (
               <div key={index} className={style.gridItem}>
                 {/* <img src={`${letter.assetImg}`} /> */}
-                <img src={`${letter.assetImg}`} />
+                <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
               </div>
             ))}

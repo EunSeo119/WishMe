@@ -13,6 +13,7 @@ const SelectDeskAsset = () => {
     const [selectedAssetSeq, setSelectedAssetSeq] = useState(null); // 선택된 이미지의 assetSeq 값을 저장하는 상태
     const [totalPage, setTotalPage] = useState(1)
     const { deskUuid } = useParams();
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
     const changePage = (newPage) => {
         console.log(totalPage)
@@ -31,7 +32,7 @@ const SelectDeskAsset = () => {
         }
         axios({
             method: "get",
-            url: `http://localhost:8080/api/my/letter/assets`,
+            url: `${SERVER_URL}/api/my/letter/assets`,
             headers
         })
 
@@ -74,7 +75,7 @@ const SelectDeskAsset = () => {
             className={`${style.gridItem} ${selected === index + indexOfFirstItem ? style.selected : ""}`}
             onClick={() => handleImageClick(index)}
         >
-            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} />
+            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
         </div>
     ));
 

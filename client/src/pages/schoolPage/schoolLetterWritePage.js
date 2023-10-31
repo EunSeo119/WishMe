@@ -11,31 +11,32 @@ const SchooLetterWritePage = () => {
   const [totalPage, setTotalPage] = useState(1)
   const [selectAsset, setSelectAsset] = useState(1)
   const [nickname, setNickname] = useState('')
-  const canvasRef = useRef(null) // Ref를 생성하여 Canvas 엘리먼트에 접근
+  const [content, setContent] = useState('')
+  const { schoolUuid, assetId } = useParams()
 
-  const { assetId } = useParams()
   const navigate = useNavigate()
 
-  const drawTextOnCanvas = () => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-    // Style for the text
-    ctx.font = '24px Arial'
-    ctx.fillStyle = 'black'
-
-    // Get the user's input
-    const text = nickname
-
-    // Calculate the position for the text
-    const x = 50 // X-coordinate
-    const y = 50 // Y-coordinate
-
-    // Draw the text on the canvas
-    ctx.fillText(text, x, y)
+  const clickWriteLetter = () => {
+    if (nickname && content) {
+      axios
+        .post(`https://wishme.co.kr/api/school/letter/write/uuid`, {
+          uuid: schoolUuid,
+          assetSeq: assetId,
+          content: content,
+          nickname: nickname
+        })
+        .then((response) => {
+          const data = response.data
+          // alert('응원남기기 완료!')
+          navigate(`/school/${schoolUuid}`)
+        })
+        .catch((error) => {
+          console.error('API 요청 중 오류 발생:', error)
+          console.log(error)
+        })
+    } else {
+      alert('닉네임과 내용을 입력해주세요')
+    }
   }
 
   const assetClick = (assetId) => {
@@ -57,7 +58,6 @@ const SchooLetterWritePage = () => {
   }
 
   const handleNicknameChange = (event) => {
-    // 4. 상태 업데이트
     setNickname(event.target.value)
   }
 
@@ -95,12 +95,20 @@ const SchooLetterWritePage = () => {
         />
       </div>
       <div className={style.letterImg}>
-        <img src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png" />
-        <canvas ref={canvasRef} id="text-canvas" className={style.canvas} />
+        <img
+          crossOrigin="anonymous"
+          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png"
+        />
+        <textarea
+          className={style.contentTextarea}
+          placeholder="응원의 글을 적어주세요."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />{' '}
       </div>
       <div className={style.btn}>
-        <div className={style.mySchoolBtn} onClick={() => drawTextOnCanvas()}>
-          다음
+        <div className={style.mySchoolBtn} onClick={() => clickWriteLetter()}>
+          응원 남기기
         </div>
       </div>
     </div>
