@@ -33,8 +33,6 @@ public class KakaoUtil {
     // 1. 인가 코드로 액세스 토큰 요청
     public String getAccessToken(String code) throws JsonProcessingException {
 
-        System.out.println("code를 찍어보쟈: " + code);
-
         // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");

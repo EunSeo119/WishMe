@@ -28,7 +28,7 @@ public class AuthenticationConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/api/users/login").permitAll()
+                .antMatchers("/api/users/login", "https://wishme.co.kr/kakao/callback", "https://kauth.kakao.com/oauth/token", "https://kapi.kakao.com/v2/user/me").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/**").authenticated()
