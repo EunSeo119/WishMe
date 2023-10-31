@@ -38,6 +38,28 @@ const DeskPage = () => {
     }
   };
 
+  const handleLetterClick = (letterId) => {
+    const currentDate = new Date()
+    const modalOpenDate = new Date('2023-11-11')
+
+    if (currentDate < modalOpenDate) {
+      // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
+      openNextDateModal()
+    } else {
+      // 그 이후면 개인 편지 페이지로 이동
+      // 아직 못만듬..!
+      // navigate(`/myLetterDetail/${letterId}`)
+    }
+  }
+
+  const [isNextDateModalOpen, setIsNextDateModalOpen] = useState(false)
+  const openNextDateModal = () => {
+    setIsNextDateModalOpen(true)
+  }
+  const closeNextDateModal = () => {
+    setIsNextDateModalOpen(false)
+  }
+
   // '내 책상 보기' 버튼 클릭 시 처리
   const handleMyDeskClick = () => {
     const AccessToken = localStorage.getItem("AccessToken");
@@ -130,7 +152,11 @@ const DeskPage = () => {
 
           <div className={style.gridContainer}>
             {deskLetter.slice(0, 9).map((letter, index) => (
-              <div key={index} className={style.gridItem}>
+              <div
+                key={index}
+                className={style.gridItem}
+                onClick={() => handleLetterClick(letter.myLetterSeq)}
+              >
                 {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
@@ -147,6 +173,35 @@ const DeskPage = () => {
           </div>
 
 
+          {/* 여기가 끝 */}
+          <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
+          {/* 여기가 모달*/}
+
+          <div>
+            {isNextDateModalOpen && (
+              <div className={style.Modalmodal}>
+                {/* <div className={style.header}> */}
+                <div
+                  className={style.Modalclose}
+                  onClick={closeNextDateModal}
+                >
+                  X
+                </div>
+                <div className={style.Modaltitle}>
+                  편지는 11월 11일<br></br> 공개됩니다!
+                </div>
+                <div
+                  className={style.Modalbtn}
+                  onClick={closeNextDateModal}
+                >
+                  닫기
+                </div>
+              </div>
+            )}
+          </div>
+
+
+
         </div>
         <div className={style.btn}>
           {isMine ? (
@@ -159,24 +214,24 @@ const DeskPage = () => {
           ) : (
             <>
               {
-              localStorage.getItem("AccessToken") ? (
-                <>
-                  <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
-                    <div className={style.cheerUpBtn}>
-                      응원하기
-                    </div>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link to={`/desk/${deskUuid}/checkLogin`} className={style.link}>
-                    <div className={style.cheerUpBtn}>
-                      응원하기
-                    </div>
-                  </Link>
-                </>
-              )
-            }
+                localStorage.getItem("AccessToken") ? (
+                  <>
+                    <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
+                      <div className={style.cheerUpBtn}>
+                        응원하기
+                      </div>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to={`/desk/${deskUuid}/checkLogin`} className={style.link}>
+                      <div className={style.cheerUpBtn}>
+                        응원하기
+                      </div>
+                    </Link>
+                  </>
+                )
+              }
               <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
                 내 책상 보기
               </div>
