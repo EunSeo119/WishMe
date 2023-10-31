@@ -20,23 +20,26 @@ function App() {
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
         <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
-        <Route path="/desk/:deskUuid/selectAsset" element={<SelectDeskAsset />} />
+        <Route
+          path="/desk/:deskUuid/selectAsset"
+          element={<SelectDeskAsset />}
+        />
         <Route
           path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
         {/* 추가 */}
-        <Route path="/school" element={<SchoolPage />}></Route>
+        <Route path="/school/:schoolUuid" element={<SchoolPage />}></Route>
         <Route
           path="/schoolLetterDetail/:letterId"
           element={<SchooLetterDetaillPage />}
         />
         <Route
-          path="/schoolLetterAssetList/:schoolId"
+          path="/schoolLetterAssetList/:schoolUuid"
           element={<SchooLetterAssetList />}
         />
         <Route
-          path="/schoolLetterWritePage/:assetId"
+          path="/schoolLetterWritePage/:assetId/:schoolUuid"
           element={<SchooLetterWritePage />}
         />
       </Routes>
