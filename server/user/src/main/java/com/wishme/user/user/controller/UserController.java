@@ -39,7 +39,7 @@ public class UserController {
     }
 
     // API 4. 학교 검색
-    @PostMapping("/school")
+    @PostMapping("/search/school")
     public ResponseEntity<?> searchSchool(@RequestBody SearchSchoolRequestDto searchSchoolRequestDto) {
         return userService.searchSchool(searchSchoolRequestDto);
     }
