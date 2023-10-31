@@ -10,7 +10,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
 #    url: jdbc:mysql://localhost:3306/wishme
-    url: jdbc:mysql://k9b105.p.ssafy.io:3608/wishme
+    url: jdbc:mysql://wishme.co.kr:3608/wishme
 #    url: jdbc:mysql://user_mysqldb:3308/wishme?autoReconnect=true
 #    url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
     password: "#e^y)p*i8"
