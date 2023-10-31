@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 public class KakaoUtil {
 
     private static final String GRANT_TYPE = "authorization_code";
-    private static final String REDIRECT_URI = "http://localhost:3000/kakao/callback";
+    private static final String REDIRECT_URI = "https://wishme.co.kr/kakao/callback";
     private static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
     private static final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
 
