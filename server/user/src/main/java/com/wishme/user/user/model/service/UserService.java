@@ -9,6 +9,6 @@ import java.util.Map;
 public interface UserService {
     ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq);
     ResponseEntity<?> registerSchool(Map<String, String> request, Long userSeq);
-    ResponseEntity<?> searchSchool(Map<String, String> request);
+    ResponseEntity<?> searchSchool(String schoolName);
     ResponseEntity<?> getUserInfo(Long userSeq);
 }
