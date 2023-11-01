@@ -59,6 +59,10 @@ public class DeveloperService {
         //공개키로 암호화
         String encryptedContent = RSAUtil.encryptRSA(writeDeveloperLetterRequestDto.getContent(), publicKey);
 
+        Long fromUserLong = null;
+        if(authentication != null) {
+            fromUserLong = Long.parseLong(authentication.getName());
+        }
 
         if(admin != null && asset != null){
             MyLetter myLetter = MyLetter.builder()
@@ -66,7 +70,7 @@ public class DeveloperService {
                     .asset(asset)
                     .content(encryptedContent)
                     .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
-                    .fromUser(Long.parseLong(authentication.getName()))
+                    .fromUser(fromUserLong)
                     .isPublic(writeDeveloperLetterRequestDto.isPublic())
                     .build();
             developerRepository.save(myLetter);
