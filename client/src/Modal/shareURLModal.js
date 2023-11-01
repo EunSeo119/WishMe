@@ -26,7 +26,7 @@ function ShareURLModal({ isOpen, onClose }) {
       objectType: "feed",
       content: {
         title: "Wish Me, 나의 행운을 빌어줘",
-        description: "수험생을 위한 응원 편지를 보내주세요 :)",
+        description: "친구를 위한 응원 편지를 보내주세요 :)",
         imageUrl: "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/share/shareProfile.png",
         link: {
           mobileWebUrl: localUrl,
