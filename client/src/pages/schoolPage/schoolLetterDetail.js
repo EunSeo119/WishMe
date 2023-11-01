@@ -19,6 +19,7 @@ const SchoolLetterDetail = () => {
       // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
+        // console.log(data)
         setSchoolName(data.schoolName)
         setContent(data.content)
         setSchoolName(data.nickname)

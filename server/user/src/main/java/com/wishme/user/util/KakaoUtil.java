@@ -45,12 +45,6 @@ public class KakaoUtil {
         body.add("redirect_uri", REDIRECT_URI);
         body.add("code", code);
 
-//        System.out.println("grant_type: " + GRANT_TYPE);
-//        System.out.println("client_id: " + CLIENT_ID);
-//        System.out.println("client_secret: " + CLIENT_SECRET);
-//        System.out.println("redirect_uri: " + REDIRECT_URI);
-//        System.out.println("code: " + code);
-
         // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
