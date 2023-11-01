@@ -11,6 +11,7 @@ import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
+import com.wishme.myLetter.util.AES256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -43,21 +44,27 @@ public class DeveloperService {
     @Value("${key.Base64_Private_Key}")
     String privateKeyBase;
 
+    @Value("${key.AES256_Key}")
+    String key;
+
     private final DeveloperRepository developerRepository;
     private final UserRepository userRepository;
     private final AssetRepository assetRepository;
 
     // 개발자 편지 작성
-    public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
 
         User admin = userRepository.findById(1L).orElse(null);
         Asset asset = assetRepository.findById(writeDeveloperLetterRequestDto.getAssetSeq()).orElse(null);
 
-        //base64된 공개키를 가져옴
-        PublicKey publicKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+        AES256 aes256 = new AES256(key);
+        String cipherContent = aes256.encrypt(writeDeveloperLetterRequestDto.getContent());
 
-        //공개키로 암호화
-        String encryptedContent = RSAUtil.encryptRSA(writeDeveloperLetterRequestDto.getContent(), publicKey);
+//        //base64된 공개키를 가져옴
+//        PublicKey publicKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+//
+//        //공개키로 암호화
+//        String encryptedContent = RSAUtil.encryptRSA(writeDeveloperLetterRequestDto.getContent(), publicKey);
 
         Long fromUserLong = null;
         if(authentication != null) {
@@ -68,7 +75,7 @@ public class DeveloperService {
             MyLetter myLetter = MyLetter.builder()
                     .toUser(admin)
                     .asset(asset)
-                    .content(encryptedContent)
+                    .content(cipherContent)
                     .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
                     .fromUser(fromUserLong)
                     .isPublic(writeDeveloperLetterRequestDto.isPublic())
@@ -113,7 +120,7 @@ public class DeveloperService {
     }
 
     // 개발자 편지 상세 조회
-    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, BadPaddingException, InvalidKeyException {
+    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId) throws Exception {
         MyLetter myLetter = developerRepository.findById(myLetterId).orElse(null);
 
         if(myLetter.getToUser().getUserSeq() != 1l) {
@@ -124,9 +131,11 @@ public class DeveloperService {
             throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
         }
 
-        // 개인키로 복호화
-        PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
-        String decryptContent = RSAUtil.decryptRSA(myLetter.getContent(), privateKey);
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(myLetter.getContent());
+//        // 개인키로 복호화
+//        PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
+//        String decryptContent = RSAUtil.decryptRSA(myLetter.getContent(), privateKey);
 
         if(myLetter != null && myLetter.getIsPublic()){
             return OneDeveloperLetterResponseDto.builder()
