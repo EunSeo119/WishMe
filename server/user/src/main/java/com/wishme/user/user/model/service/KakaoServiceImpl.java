@@ -56,9 +56,14 @@ public class KakaoServiceImpl implements KakaoService {
         JwtUtil jwtUtil = new JwtUtil();
 
         try {
-            // 4. 로그인 처리 & Response Header 에 JWT 추가
+            // 4. 로그인 처리 & Response Header 에 JWT AccessToken & JWT RefreshToken 추가
+            String refreshToken = jwtUtil.createRefreshToken(Long.toString(user.getUserSeq()), secretKey);
+            user.setRefreshToken(refreshToken);
+            userRepository.save(user);
+
             Map<String, Object> data = new HashMap<>();
             data.put("token", jwtUtil.createJwt(Long.toString(user.getUserSeq()), secretKey));
+            data.put("refresh_token", refreshToken);
             data.put("userSeq", user.getUserSeq());
             data.put("uuid", user.getUuid());
 

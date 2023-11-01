@@ -59,6 +59,10 @@ public class DeveloperService {
         //공개키로 암호화
         String encryptedContent = RSAUtil.encryptRSA(writeDeveloperLetterRequestDto.getContent(), publicKey);
 
+        Long fromUserLong = null;
+        if(authentication != null) {
+            fromUserLong = Long.parseLong(authentication.getName());
+        }
 
         if(admin != null && asset != null){
             MyLetter myLetter = MyLetter.builder()
@@ -66,7 +70,7 @@ public class DeveloperService {
                     .asset(asset)
                     .content(encryptedContent)
                     .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
-                    .fromUser(Long.parseLong(authentication.getName()))
+                    .fromUser(fromUserLong)
                     .isPublic(writeDeveloperLetterRequestDto.isPublic())
                     .build();
             developerRepository.save(myLetter);
@@ -108,8 +112,16 @@ public class DeveloperService {
     }
 
     // 개발자 편지 상세 조회
-    public OneDeveloperLetterResponseDto oneDeveloperLetter(Authentication authentication, Long myLetterId) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, BadPaddingException, InvalidKeyException {
+    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, BadPaddingException, InvalidKeyException {
         MyLetter myLetter = developerRepository.findById(myLetterId).orElse(null);
+
+        if(myLetter.getToUser().getUserSeq() != 1l) {
+            throw new IllegalArgumentException("개발자 편지가 아닙니다.");
+        }
+
+        if(!myLetter.getIsPublic()) {
+            throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
+        }
 
         // 개인키로 복호화
         PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);

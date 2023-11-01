@@ -112,6 +112,7 @@ const SchoolPage = () => {
       // )
       .then((response) => {
         const data = response.data
+        // console.log(data)
         setSchoolName(data.schoolName)
         setTotalCount(data.totalCount)
         setSchoolLetter(data.schoolLetterList)
