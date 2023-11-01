@@ -16,6 +16,8 @@ public class OneDeveloperLetterResponseDto {
 
     // 에셋 일련번호
     private Long assetSeq;
+    // 에셋 이미지
+    private String assetImg;
     // 내용
     private String content;
     // 닉네임
