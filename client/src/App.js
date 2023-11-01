@@ -12,6 +12,9 @@ import SchooLetterDetaillPage from './pages/schoolPage/schoolLetterDetail'
 import SchooLetterAssetList from './pages/schoolPage/schoolLetterAssetList'
 import SchooLetterWritePage from './pages/schoolPage/schoolLetterWritePage'
 import SearchSchoolPage from './pages/searchSchoolPage/searchSchoolPage'
+import DeveloperPage from './pages/developerPage/developerPage'
+import SelectDeveloperAsset from './pages/developerPage/selectDeveloperAsset'
+import WriteDeveloperLetter from './pages/developerPage/writeDeveloperLetter'
 import style from './app.module.css'
 
 function App() {
@@ -48,6 +51,16 @@ function App() {
         <Route
           path="/schoolLetterWritePage/:assetId/:schoolUuid"
           element={<SchooLetterWritePage />}
+        />
+        {/* 개발자 편지 */}
+        <Route path="/developer" element={<DeveloperPage />}></Route>
+        <Route
+          path="/developer/selectAsset"
+          element={<SelectDeveloperAsset />}
+        />
+        <Route
+          path="/developer/writeLetter/:assetSeq"
+          element={<WriteDeveloperLetter />}
         />
       </Routes>
     </div>
