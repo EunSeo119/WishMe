@@ -107,10 +107,12 @@ public class UserServiceImpl implements UserService {
 
             if (user.getUserSchoolSeq() == null) {
                 data.put("schoolName", "선택 안함");
+                data.put("schoolUuid", null);
             } else {
                 School school = schoolRepository.findBySchoolSeq(user.getUserSchoolSeq());
                 data.put("schoolSeq", user.getUserSchoolSeq());
                 data.put("schoolName", school.getSchoolName());
+                data.put("schoolUuid", school.getUuid());
             }
 
             resultMap.put("data", data);
