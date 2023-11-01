@@ -30,9 +30,9 @@ public class DeveloperController {
 
     // API 2. 개발자 책상 확인
     @GetMapping("/all")
-    public ResponseEntity<?> allDeveloperLetter(@PageableDefault(size=9)Pageable pageable){
+    public ResponseEntity<?> allDeveloperLetter(@PageableDefault(size=9)Pageable pageable, @RequestParam int page){
         try{
-            return ResponseEntity.ok(developerService.allDeveloperLetter(pageable));
+            return ResponseEntity.ok(developerService.allDeveloperLetter(pageable, page));
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 전체 조회 실패");
         }
