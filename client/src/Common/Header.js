@@ -17,7 +17,6 @@ const Header = () => {
 
     useEffect(() => {
         const AccessToken = localStorage.getItem("AccessToken");
-        console.log("AccessToken: " + AccessToken)
         if (AccessToken != null) {
             const headers = {
                 Authorization: `Bearer ${AccessToken}`
@@ -30,14 +29,12 @@ const Header = () => {
             })
                 .then((response) => {
                     const data = response.data;
-                    console.log(data);
                     if (data.data && data.data.userNickname) {
                         setUserName(data.data.userNickname); // 데이터가 있으면 userName을 상태로 업데이트
                     }
 
                 })
                 .catch((error) => {
-                    console.error("API 요청 중 오류 발생:", error);
                 });
         }
     }, []); // 빈 배열을 넘겨 한 번만 호출되도록 설정
@@ -51,7 +48,6 @@ const Header = () => {
     const handleLogout = (path) => {
         localStorage.removeItem("AccessToken"); // AccessToken 삭제
         setUserName(undefined); // userName 상태를 undefined로 설정
-        console.log(setUserName);
         navigate(path); // 로그아웃 후 이동할 페이지 경로
         setIsSidebarOpen(false); // 사이드바를 닫습니다.
     }
@@ -90,7 +86,7 @@ const Header = () => {
                             }}
                         >학교 칠판 구경하기</div>
                         <div
-                            onClick={() => handleLinkClick('/desk/bf68c8c1-2917-4a3c-b926-fd6d9e7880ab')}
+                            onClick={() => handleLinkClick('/developer')}
                             style={{
                                 cursor: 'pointer',
                                 padding: '10px',
