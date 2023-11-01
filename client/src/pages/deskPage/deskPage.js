@@ -187,7 +187,7 @@ const DeskPage = () => {
               <div className={style.shareBtn} onClick={openModal}>
                 공유하기
               </div>
-              <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
+              {/* <ShareURLModal isOpen={isModalOpen} onClose={closeModal} /> */}
             </>
           ) : (
             <>
