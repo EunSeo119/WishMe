@@ -77,7 +77,6 @@ const SchoolPage = () => {
     const AccessToken = localStorage.getItem('AccessToken')
     if (AccessToken) {
       // alert('내 책상으로 이동')
-      console.log(AccessToken)
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: 'get',
@@ -92,7 +91,7 @@ const SchoolPage = () => {
           navigate(`/desk/${data.loginUserUuid}`)
         })
         .catch((error) => {
-          console.error('API 요청 중 오류 발생:', error)
+          // console.error('API 요청 중 오류 발생:', error)
           //여기서도 로그인페이지로 이동
           navigate(`/`)
         })
@@ -113,7 +112,6 @@ const SchoolPage = () => {
       // )
       .then((response) => {
         const data = response.data
-        console.log(data)
         setSchoolName(data.schoolName)
         setTotalCount(data.totalCount)
         setSchoolLetter(data.schoolLetterList)
@@ -122,7 +120,7 @@ const SchoolPage = () => {
         localStorage.setItem('schoolUuid', schoolUuid)
       })
       .catch((error) => {
-        console.error('API 요청 중 오류 발생:', error)
+        // console.error('API 요청 중 오류 발생:', error)
       })
   }, [page])
 
