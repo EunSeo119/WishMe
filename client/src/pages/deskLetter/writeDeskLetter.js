@@ -69,7 +69,15 @@ const WriteDeskLetter = () => {
     };
 
     const handleSubmit = () => {
-        setShowModal(true);
+        if (nickname.trim() === "") {
+            alert("닉네임을 입력해주세요.");
+        }
+        else if (content.trim() === "") {
+            alert("내용을 입력해주세요.");
+        }
+        else {
+            setShowModal(true);
+        }
     };
 
     const closeModal = () => {
@@ -82,27 +90,30 @@ const WriteDeskLetter = () => {
                 <IoIosArrowBack />
                 <Link to={`/desk/${deskUuid}/selectAsset`} className={style.backLink}>이전으로</Link>
             </div>
-            <p className={style.title}>응원의 말을 남겨주세요!</p>
+            <div className={style.title}>응원의 말을 남겨주세요!</div>
 
-            <div >
+            <div className={style.nickname}>
                 <input
                     className={style.nicknameInput}
-                    placeholder="닉네임을 입력해주세요."
                     type="text"
+                    id="nickname"
                     value={nickname}
+                    placeholder="닉네임을 입력해주세요."
                     onChange={e => setNickname(e.target.value)}
                 />
             </div>
 
-            <div className={style.letterContainer}>
-
+            <div className={style.letterImg}>
+                <img
+                    crossOrigin="anonymous"
+                    src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png"
+                />
                 <textarea
                     className={style.contentTextarea}
                     placeholder="응원의 글을 적어주세요."
                     value={content}
-                    onChange={e => setContent(e.target.value)}
-                />
-
+                    onChange={(e) => setContent(e.target.value)}
+                />{' '}
                 <div className={style.radioGroup}>
                     <div className={selectedButton === 'public' ? style.selectedButton : style.radioItem}>
                         <label>
@@ -112,7 +123,7 @@ const WriteDeskLetter = () => {
                                 checked={isPublic}
                                 onChange={() => { setIsPublic(true); setSelectedButton('public'); }}
                             />
-                            공개
+                            전체공개
                         </label>
                     </div>
                     <div className={selectedButton === 'private' ? style.selectedButton : style.radioItem}>
@@ -145,10 +156,10 @@ const Modal = ({ closeModal, handleModalConfirm }) => {
             <div className={style.modalContent}>
                 <p>등록하면 수정할 수 없습니다.</p>
                 <div className={style.modalButtons}>
-                    <button onClick={closeModal}>뒤로</button>
-                    <button onClick={() => {
+                    <button onClick={closeModal} className={style.modalButtonBack}>뒤로</button>
+                    <button className={style.modalButtonSave} onClick={() => {
                         handleModalConfirm();
-                    }}>저장</button>
+                    }} >저장</button>
                 </div>
             </div>
         </div>

@@ -46,8 +46,8 @@ const SchooLetterWritePage = () => {
   const letterWriteNextClick = () => {
     navigate(`/schoolLetterDetail/${selectAsset}`)
   }
-  const goPre = (assetId) => {
-    setSelectAsset(assetId)
+  const goPre = () => {
+    navigate(`/schoolLetterAssetList/${schoolUuid}`)
   }
 
   const changePage = (newPage) => {
@@ -101,7 +101,7 @@ const SchooLetterWritePage = () => {
         />
         <textarea
           className={style.contentTextarea}
-          placeholder="응원의 글을 적어주세요."
+          placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />{' '}

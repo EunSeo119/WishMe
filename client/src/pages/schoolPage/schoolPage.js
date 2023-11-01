@@ -7,6 +7,8 @@ import Slider from 'react-slick'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io' // IoIosArrowForward를 import
+import ShareURLModal from '../../Modal/shareURLModal'
+import Header from '../../Common/Header'
 
 const SchoolPage = () => {
   const [page, setPage] = useState(1)
@@ -39,11 +41,66 @@ const SchoolPage = () => {
   }
 
   const handleLetterClick = (letterId) => {
-    navigate(`/schoolLetterDetail/${letterId}`)
+    const currentDate = new Date()
+    const modalOpenDate = new Date('2023-11-11')
+
+    if (currentDate < modalOpenDate) {
+      // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
+      openNextDateModal()
+    } else {
+      // 그 이후면 페이지로 이동
+      navigate(`/schoolLetterDetail/${letterId}`)
+    }
   }
 
   const letterWriteClick = (schoolUuid) => {
     navigate(`/schoolLetterAssetList/${schoolUuid}`)
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const [isNextDateModalOpen, setIsNextDateModalOpen] = useState(false)
+  const openNextDateModal = () => {
+    setIsNextDateModalOpen(true)
+  }
+  const closeNextDateModal = () => {
+    setIsNextDateModalOpen(false)
+  }
+
+  const handleMyDeskClick = () => {
+    const AccessToken = localStorage.getItem('AccessToken')
+    if (AccessToken) {
+      // alert('내 책상으로 이동')
+      console.log(AccessToken)
+      // AccessToken이 있으면 내 책상 페이지로 이동
+      axios({
+        method: 'get',
+        url: `https://wishme.co.kr/api/my/letter/loginUserUuid`,
+        headers: {
+          Authorization: `Bearer ${AccessToken}`
+        }
+      })
+        // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
+        .then((response) => {
+          const data = response.data
+          navigate(`/desk/${data.loginUserUuid}`)
+        })
+        .catch((error) => {
+          console.error('API 요청 중 오류 발생:', error)
+          //여기서도 로그인페이지로 이동
+          navigate(`/`)
+        })
+    } else {
+      // AccessToken이 없으면 로그인 페이지로 이동
+      // alert('로그인페이지로 이동')
+      navigate(`/`)
+    }
   }
 
   useEffect(() => {
@@ -77,6 +134,12 @@ const SchoolPage = () => {
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/schoolBackground.png"
           className={styleSchool.bg}
         />
+
+        {/* 헤더 */}
+        <div className={styleSchool.header}>
+          <Header />
+        </div>
+        {/* 급훈문구 */}
         <div className={styleSchool.schoolName}>
           <b>{schoolName}</b>에
           <b>
@@ -86,6 +149,7 @@ const SchoolPage = () => {
           개의 응원이 왔어요!
         </div>
 
+        {/* 편지 에셋 목록 */}
         <div className={styleSchool.gridContainer}>
           <div
             className={`${styleSchool.arrowIcon} ${
@@ -106,7 +170,7 @@ const SchoolPage = () => {
                 className={styleSchool.gridItem}
                 onClick={() => handleLetterClick(letter.schoolLetterSeq)}
               >
-                <img crossOrigin="anonymous" src={`${letter.assetImg}`} />
+                <img crossorigin="anonymous" src={`${letter.assetImg}`} />
               </div>
             ))}
           </div>
@@ -120,7 +184,33 @@ const SchoolPage = () => {
           </div>
         </div>
         {/* 여기가 끝 */}
+        <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
+        {/* 여기가 모달*/}
+
+        <div>
+          {isNextDateModalOpen && (
+            <div className={styleSchool.Modalmodal}>
+              {/* <div className={style.header}> */}
+              <div
+                className={styleSchool.Modalclose}
+                onClick={closeNextDateModal}
+              >
+                X
+              </div>
+              <div className={styleSchool.Modaltitle}>
+                편지는 11월 11일<br></br> 공개됩니다!
+              </div>
+              <div
+                className={styleSchool.Modalbtn}
+                onClick={closeNextDateModal}
+              >
+                닫기
+              </div>
+            </div>
+          )}
+        </div>
       </div>
+      {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
         <div
           className={styleSchool.mySchoolBtn}
@@ -128,7 +218,18 @@ const SchoolPage = () => {
         >
           응원하기
         </div>
-        <div className={styleSchool.mySchoolBtn}>내 책상 보기</div>
+        <div className={styleSchool.rowButton}>
+          <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
+            공유하기
+          </div>
+
+          <div
+            className={styleSchool.mySchoolBtnHalf}
+            onClick={handleMyDeskClick}
+          >
+            내 책상 보기
+          </div>
+        </div>
       </div>
     </div>
   )
