@@ -1,8 +1,12 @@
+.container {
+    height: 90vh;
+}
 .school {
     width: 90%;
+    height: 70%;
     /* height: 58%; */
     font-family: 'omyu_pretty';
-    margin: 100px auto;
+    margin:90px auto;
   }
   
   .school div:nth-child(1) {
@@ -73,7 +77,7 @@
     border-radius: 10px;
     background-color: #176124;
     padding: 13px;
-    margin: 0 auto;
+    margin: 0 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    margin-top: 100%;
+    /* margin-top: 100%; */
   }
