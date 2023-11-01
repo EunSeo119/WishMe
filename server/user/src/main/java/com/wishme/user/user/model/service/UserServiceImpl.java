@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +36,10 @@ public class UserServiceImpl implements UserService {
             String userSchoolSeq = request.get("userSchoolSeq");
 
             user.setUserNickname(newUserNickname);
-            user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
+
+            if (Integer.parseInt(userSchoolSeq) != 0) {
+                user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
+            }
 
             resultMap.put("message", "유저정보 변경 성공");
             status = HttpStatus.OK;
@@ -75,12 +76,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> searchSchool(SearchSchoolRequestDto searchSchoolRequestDto) {
-        String schoolName = searchSchoolRequestDto.getSchoolName();
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            List<School> schools = schoolRepository.findAllBySchoolNameLike("%" + schoolName + "%");
+            String schoolName = searchSchoolRequestDto.getSchoolName();
+            List<School> schools = schoolRepository.findSchoolsBySchoolNameContaining(schoolName);
 
             resultMap.put("data", schools);
             resultMap.put("message", "학교 검색 성공");
