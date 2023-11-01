@@ -19,13 +19,13 @@ const SchoolLetterDetail = () => {
       // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
-        console.log(data)
+        // console.log(data)
         setSchoolName(data.schoolName)
         setContent(data.content)
         setSchoolName(data.nickname)
       })
       .catch((error) => {
-        console.error('API 요청 중 오류 발생:', error)
+        // console.error('API 요청 중 오류 발생:', error)
       })
   }, [content])
 
