@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from './searchSchoolPage.module.css'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const SearchSchoolPage = () => {
 
@@ -12,7 +13,7 @@ const SearchSchoolPage = () => {
     
     // 학교 
     const saveClick = () => {
-
+        navigate(`/school/${userSchoolUuid}`);
     }
 
     // 학교 수정
