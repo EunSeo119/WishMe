@@ -1,6 +1,7 @@
 package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
+import com.wishme.myLetter.config.RSAUtil;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.*;
@@ -9,12 +10,15 @@ import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,12 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MyLetterService {
+
+    @Value("${key.Base64_Public_Key}")
+    String publicKeyBase;
+
+    @Value("${key.Base64_Private_Key}")
+    String privateKeyBase;
 
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
@@ -44,7 +54,7 @@ public class MyLetterService {
     }
 
     @Transactional
-    public Long saveLetter(Authentication authentication, SaveMyLetterRequestDto saveMyLetterRequestDto) {
+    public Long saveLetter(Authentication authentication, SaveMyLetterRequestDto saveMyLetterRequestDto) throws Exception {
         Long fromUserSeq = null;
         if(authentication != null) {
             fromUserSeq = Long.valueOf(authentication.getName());
@@ -56,10 +66,16 @@ public class MyLetterService {
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
 
+        //base64된 공개키를 가져옴
+        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+
+        //공개키로 암호화
+        String encryptedContent = RSAUtil.encryptRSA(saveMyLetterRequestDto.getContent(), puKey);
+
         MyLetter myLetter = MyLetter.builder()
                 .toUser(toUser)
                 .asset(myAsset)
-                .content(saveMyLetterRequestDto.getContent())
+                .content(encryptedContent)
                 .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
                 .fromUser(fromUserSeq)
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
@@ -128,7 +144,7 @@ public class MyLetterService {
         return loginUserUuidResponseDto;
     }
 
-    public MyLetterDetailResponseDto getMyLetterDetail(Authentication authentication, Long myLetterSeq) {
+    public MyLetterDetailResponseDto getMyLetterDetail(Authentication authentication, Long myLetterSeq) throws Exception{
 
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
@@ -140,10 +156,13 @@ public class MyLetterService {
             throw new RuntimeException("열람할 권한이 없습니다.");
         }
 
+        PrivateKey prKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
+        String decryptContent = RSAUtil.decryptRSA(myletter.getContent(), prKey);
+
         return MyLetterDetailResponseDto.builder()
                 .myLetterSeq(myletter.getMyLetterSeq())
                 .toUserNickname(checkUser.getFromUserNickname())
-                .content(myletter.getContent())
+                .content(decryptContent)
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
                 .build();
