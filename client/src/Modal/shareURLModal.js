@@ -8,7 +8,7 @@ const { Kakao } = window;
 function ShareURLModal({ isOpen, onClose }) {
   // const realUrl = "http://k9b205.p.ssafy.io";
   const localUrl = window.location.href;
-  const SHARE_URL_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const SHARE_URL_KEY = process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY;
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   // const deskUuid = localStorage.getItem('deskUuid');
 
