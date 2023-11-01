@@ -7,6 +7,7 @@ import { Navigate, useNavigate } from "react-router";
 import ShareURLModal from "../../Modal/shareURLModal";
 import { useParams } from 'react-router-dom';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import Header from '../../Common/Header'
 
 
 const DeskPage = () => {
@@ -38,6 +39,28 @@ const DeskPage = () => {
     }
   };
 
+  const handleLetterClick = (letterId) => {
+    const currentDate = new Date()
+    const modalOpenDate = new Date('2023-11-11')
+
+    if (currentDate < modalOpenDate) {
+      // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
+      openNextDateModal()
+    } else {
+      // 그 이후면 개인 편지 페이지로 이동
+      // 아직 못만듬..!
+      // navigate(`/myLetterDetail/${letterId}`)
+    }
+  }
+
+  const [isNextDateModalOpen, setIsNextDateModalOpen] = useState(false)
+  const openNextDateModal = () => {
+    setIsNextDateModalOpen(true)
+  }
+  const closeNextDateModal = () => {
+    setIsNextDateModalOpen(false)
+  }
+
   // '내 책상 보기' 버튼 클릭 시 처리
   const handleMyDeskClick = () => {
     const AccessToken = localStorage.getItem("AccessToken");
@@ -51,8 +74,11 @@ const DeskPage = () => {
         },
       })
         // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
-        .then((res) => {
-          navigate(`/desk/${res.loginUserUuid}`);
+        .then((response) => {
+          // 여기 넣어줘
+          const data = response.data;
+          navigate(`/desk/${data.loginUserUuid}`);
+          // 여기 넣어줘
         })
         .catch((error) => {
           console.error("API 요청 중 오류 발생:", error);
@@ -62,6 +88,41 @@ const DeskPage = () => {
       navigate(`/`);
     }
   };
+
+  // '우리 학교 가기' 버튼 클릭 시 처리
+  const handleMySchoolClick = () => {
+    const AccessToken = localStorage.getItem("AccessToken");
+    // if (AccessToken) {
+    // AccessToken이 있으면 AccessToken이 이미 있다는 것이니 체크할 필요없음
+    axios({
+      method: "get",
+      url: `${SERVER_URL}/api/users`,
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    })
+      .then((response) => {
+        // 여기 넣어줘
+        const data = response.data;
+
+        if (data.data.schoolUuid) {
+          navigate(`/school/${data.data.schoolUuid}`);
+        } else {
+          // 학교 저장을 한적이 없으면 학교 검색 페이지로 이동
+          // ============================
+          navigate(`/searchSchool`);
+        }
+
+        // 여기 넣어줘
+      })
+      .catch((error) => {
+        console.error("API 요청 중 오류 발생:", error);
+      });
+    // } else {
+    //   // AccessToken이 없으면 로그인 페이지로 이동
+    //   navigate(`/`);
+    // }
+  }
 
 
   // var url = 'http://localhost:8082/'
@@ -97,24 +158,30 @@ const DeskPage = () => {
   }, [currentPage, deskUuid]);
 
   return (
-    <div className={style.app}>
-      <div className={style.deskPage}>
+    <div>
+      <div className={style.main}>
         <img
           src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
           className={style.bg}
           crossOrigin="anonymous"
         />
-        <div className={style.board}>
-          <div className={style.title}>
-            <b>{deskName}</b>님의 책상에
-            <br />
-            <b>{totalCount}</b>개의 응원이 왔어요!
-          </div>
-        </div>
-        <div className={style.desk}>
 
+        {/* 헤더 */}
+        <div className={style.header}>
+          <Header />
+        </div>
+
+        {/* 제목 */}
+        <div className={style.deskTitle}>
+          <b>{deskName}</b>님의 책상에
+          <br />
+          <b>{totalCount}</b>개의 응원이 왔어요!
+        </div>
+
+        {/* 편지 에셋 목록 */}
+        <div>
           <div
-            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : ''
+            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
               }`}
             onClick={() => {
               if (currentPage > 1) {
@@ -127,7 +194,11 @@ const DeskPage = () => {
 
           <div className={style.gridContainer}>
             {deskLetter.slice(0, 9).map((letter, index) => (
-              <div key={index} className={style.gridItem}>
+              <div
+                key={index}
+                className={style.gridItem}
+                onClick={() => handleLetterClick(letter.myLetterSeq)}
+              >
                 {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
@@ -136,34 +207,82 @@ const DeskPage = () => {
           </div>
 
           <div
-            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : ''
+            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
               }`}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
           </div>
 
-
         </div>
+
         <div className={style.btn}>
           {isMine ? (
             <>
-              <div className={style.shareBtn} onClick={openModal}>
+              <div className={style.cheerUpBtn} onClick={openModal}>
                 공유하기
               </div>
-              <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
+
+              <div className={style.cheerUpBtn} onClick={handleMySchoolClick}>
+                우리 학교 가기
+              </div>
+
             </>
           ) : (
             <>
-              <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
-                <div className={style.cheerUpBtn} onClick={() => navigate("/")}>
-                  응원하기
-                </div>
-              </Link>
+              {
+                localStorage.getItem("AccessToken") ? (
+                  <>
+                    <Link to={`/desk/${deskUuid}/selectAsset`} className={style.link}>
+                      <div className={style.cheerUpBtn}>
+                        응원하기
+                      </div>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to={`/desk/${deskUuid}/checkLogin`} className={style.link}>
+                      <div className={style.cheerUpBtn}>
+                        응원하기
+                      </div>
+                    </Link>
+                  </>
+                )
+              }
+
+
               <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
                 내 책상 보기
               </div>
+
+
             </>
+          )}
+        </div>
+
+
+        {/* 편지 날짜 알림 모달*/}
+        <ShareURLModal isOpen={isModalOpen} onClose={closeModal} />
+
+        <div>
+          {isNextDateModalOpen && (
+            <div className={style.Modalmodal}>
+              <div
+                className={style.Modalclose}
+                onClick={closeNextDateModal}
+              >
+                X
+              </div>
+              <div className={style.Modaltitle}>
+                편지는 11월 11일<br></br> 공개됩니다!
+              </div>
+              <div
+                className={style.Modalbtn}
+                onClick={closeNextDateModal}
+              >
+                닫기
+              </div>
+            </div>
           )}
         </div>
       </div>

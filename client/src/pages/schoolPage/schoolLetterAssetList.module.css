@@ -36,12 +36,12 @@ body {
 
 .title {
   margin-top: 3%;
-  height: 20%;
+  height: 10%;
   display: flex;
   align-items: center;
   position: absolute;
   left: 5%;
-  /* top: 3%; */
+  top: 5%;
   /* transform: translate(-50%, 0); */
   font-family: 'omyu_pretty';
   font-style: normal;
