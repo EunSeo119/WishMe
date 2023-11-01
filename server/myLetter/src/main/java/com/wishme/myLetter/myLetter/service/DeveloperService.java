@@ -97,6 +97,7 @@ public class DeveloperService {
                         .assetSeq(myLetter.getAsset().getAssetSeq())
                         .fromUserNickname(myLetter.getFromUserNickname())
                         .isPublic(myLetter.getIsPublic())
+                        .assetImg(myLetter.getAsset().getAssetImg())
                         .build();
                 developerLetterResponseDtos.add(result);
             }
@@ -134,6 +135,7 @@ public class DeveloperService {
                     .nickname(myLetter.getFromUserNickname())
                     .fromUser(myLetter.getFromUser())
                     .createAt(myLetter.getCreateAt())
+                    .assetImg(myLetter.getAsset().getAssetImg())
                     .build();
         }else{
             throw new IllegalArgumentException("개별자 편지 상세 조회 실패");

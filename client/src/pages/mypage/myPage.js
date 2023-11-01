@@ -81,7 +81,6 @@ const MyPage = () => {
     axios({
       method: 'post',
       url: `${SERVER_URL}/api/users/search/school`,
-      headers,
       data: {
         schoolName: tempSchoolName
       }
@@ -171,6 +170,7 @@ const MyPage = () => {
                 <div>
                   <input
                     type="text"
+                    style={{width: '160px'}}
                     value={tempSchoolName}
                     onChange={(e) => changeSchool(e)}
                   />
@@ -184,20 +184,8 @@ const MyPage = () => {
                   <div className={style.schoolList}>
                     <ul>
                       {schoolList.map((school, idx) => (
-                        <li
-                          key={school.schoolSeq}
-                          onClick={() =>
-                            selectSchool(
-                              school.schoolName,
-                              school.schoolSeq,
-                              idx
-                            )
-                          }
-                          style={{
-                            backgroundColor:
-                              selectedIdx === idx ? '#ececec' : 'white'
-                          }}
-                        >
+                        <li key={school.schoolSeq} onClick={() => selectSchool(school.schoolName, school.schoolSeq, idx)}
+                          style={{backgroundColor: selectedIdx === idx ? '#ececec' : 'white'}}>
                           {school.schoolName}
                           <br />
                           <div style={{ color: '#aeaeae' }}>
@@ -229,8 +217,8 @@ const MyPage = () => {
                   style={{
                     color: 'gray',
                     backgroundColor: '#edf4ef',
-                    width: '80%',
-                    width: '260px'
+                    width: '70%',
+                    width: '210px'
                   }}
                   readOnly
                 />
