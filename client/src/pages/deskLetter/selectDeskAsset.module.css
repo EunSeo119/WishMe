@@ -73,6 +73,7 @@ body {
     grid-template-rows: repeat(3, 1fr);
     width: 100%;
     align-items: center;
+    max-height: 57vh;
 }
 
 .arrowIcon {
