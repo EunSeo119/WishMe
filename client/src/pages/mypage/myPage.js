@@ -170,6 +170,7 @@ const MyPage = () => {
                 <div>
                   <input
                     type="text"
+                    style={{width: '160px'}}
                     value={tempSchoolName}
                     onChange={(e) => changeSchool(e)}
                   />
@@ -216,8 +217,8 @@ const MyPage = () => {
                   style={{
                     color: 'gray',
                     backgroundColor: '#edf4ef',
-                    width: '80%',
-                    width: '260px'
+                    width: '70%',
+                    width: '210px'
                   }}
                   readOnly
                 />
