@@ -3,6 +3,7 @@ package com.wishme.schoolLetter.schoolLetter.service;
 
 import com.wishme.schoolLetter.asset.domain.Asset;
 import com.wishme.schoolLetter.asset.repository.AssetRepository;
+import com.wishme.schoolLetter.config.RSAUtil;
 import com.wishme.schoolLetter.school.domian.School;
 import com.wishme.schoolLetter.school.repository.SchoolRepository;
 import com.wishme.schoolLetter.schoolLetter.domain.SchoolLetter;
@@ -13,6 +14,7 @@ import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterDetailRespo
 import com.wishme.schoolLetter.schoolLetter.repository.SchoolLetterRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +33,12 @@ import java.util.Map;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class SchoolLetterService {
+
+    @Value("${key.Base64_Public_Key}")
+    String publicKeyBase;
+
+    @Value("${key.Base64_Private_Key}")
+    String privateKeyBase;
 
     private final SchoolLetterRepository schoolLetterRepository;
     private final AssetRepository assetRepository;
@@ -66,14 +76,16 @@ public class SchoolLetterService {
     }
 
 
-    public SchoolLetterDetailResponseDto getSchoolLetter(Long schoolLetterId) {
+    public SchoolLetterDetailResponseDto getSchoolLetter(Long schoolLetterId) throws Exception {
 
         SchoolLetter sc = schoolLetterRepository.findBySchoolLetterSeq(schoolLetterId)
                 .orElseThrow(IllegalArgumentException::new);
+        PrivateKey prKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
+        String decryptContent = RSAUtil.decryptRSA(sc.getContent(), prKey);
 
         return SchoolLetterDetailResponseDto.builder()
                 .schoolLetterSeq(sc.getSchoolLetterSeq())
-                .content(sc.getContent())
+                .content(decryptContent)
                 .schoolName(sc.getSchool().getSchoolName())
                 .nickname(sc.getNickname())
                 .createAt(sc.getCreateAt())
@@ -107,9 +119,7 @@ public class SchoolLetterService {
         Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
         Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolUuid(schoolUUID, pageable);
         List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
-        System.out.println("============================================");
         System.out.println(schoolLetterList.size());
-        System.out.println("============================================");
         List<SchoolLetterBoardListResponseDto> schoolLetterResponseDtoList = new ArrayList<>();
 
         if (schoolLetterList != null && schoolLetterList.size() > 0) {
@@ -137,14 +147,20 @@ public class SchoolLetterService {
     }
 
     @Transactional
-    public Long writeSchoolLetterByUuid(SchoolLetterWriteByUuidRequestDto writeDto) {
+    public Long writeSchoolLetterByUuid(SchoolLetterWriteByUuidRequestDto writeDto) throws Exception {
 
         School school = schoolRepository.findByUuid(writeDto.getUuid())
                 .orElseThrow(IllegalArgumentException::new);
         Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
                 .orElseThrow(IllegalArgumentException::new);
 
-        SchoolLetter schoolLetter = new SchoolLetter(writeDto.getContent(), writeDto.getNickname(), school, asset);
+        //base64된 공개키를 가져옴
+        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+
+        //공개키로 암호화
+        String encryptedContent = RSAUtil.encryptRSA(writeDto.getContent(), puKey);
+
+        SchoolLetter schoolLetter = new SchoolLetter(encryptedContent, writeDto.getNickname(), school, asset);
         schoolLetter = schoolLetterRepository.save(schoolLetter);
 
         return schoolLetter.getSchoolLetterSeq();

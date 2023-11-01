@@ -66,7 +66,7 @@ public class SchoolLetterController {
             SchoolLetterDetailResponseDto schoolLetterDetail = schoolLetterService.getSchoolLetter(schoolLetterId);
             resultMap.put("schoolLetterDetail", schoolLetterDetail);
             status = HttpStatus.ACCEPTED;
-        }catch (IllegalArgumentException e){
+        }catch (Exception e){
             resultMap.put("schoolLetterDetail", null);
             status = HttpStatus.NO_CONTENT;
         }
@@ -100,7 +100,7 @@ public class SchoolLetterController {
             Long schoolLetterId = schoolLetterService.writeSchoolLetterByUuid(writeDto);
             if(schoolLetterId == null) throw new IllegalArgumentException();
             status = HttpStatus.ACCEPTED;
-        }catch (IllegalArgumentException e){
+        }catch (Exception e){
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
