@@ -97,6 +97,7 @@ public class DeveloperService {
                         .assetSeq(myLetter.getAsset().getAssetSeq())
                         .fromUserNickname(myLetter.getFromUserNickname())
                         .isPublic(myLetter.getIsPublic())
+                        .assetImg(myLetter.getAsset().getAssetImg())
                         .build();
                 developerLetterResponseDtos.add(result);
             }
