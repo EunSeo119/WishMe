@@ -31,7 +31,6 @@ const SchooLetterAssetList = () => {
   }
 
   const changePage = (newPage) => {
-    // console.log(totalPage)
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage)
       assetClick('')
@@ -45,14 +44,11 @@ const SchooLetterAssetList = () => {
       // .get(`http://localhost:8082/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
-        // console.log(data)
         setSchoolAssetList(data.schoolAssertList)
         setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
-        // console.log(schoolAssetList)
-        // console.log(totalPage)
       })
       .catch((error) => {
-        console.error('API 요청 중 오류 발생:', error)
+        // console.error('API 요청 중 오류 발생:', error)
       })
   }, [schoolUuid])
 
