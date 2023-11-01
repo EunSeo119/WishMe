@@ -35,7 +35,7 @@ public class MyLetterController {
      */
     @PostMapping("/write")
     public ResponseEntity<?> saveLetter(Authentication authentication,
-                                        @Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) {
+                                        @Valid @RequestBody SaveMyLetterRequestDto saveMyLetterRequestDto) throws Exception {
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(myLetterService.saveLetter(authentication, saveMyLetterRequestDto));
@@ -65,7 +65,7 @@ public class MyLetterController {
      * 개인 편지 내용 확인하기
      */
     @GetMapping("/detail/{myLetterSeq}")
-    public ResponseEntity<?> getMyLetterDetail(Authentication authentication, @PathVariable("myLetterSeq") Long myLetterSeq) {
+    public ResponseEntity<?> getMyLetterDetail(Authentication authentication, @PathVariable("myLetterSeq") Long myLetterSeq) throws Exception {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(myLetterService.getMyLetterDetail(authentication, myLetterSeq));
