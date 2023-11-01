@@ -8,9 +8,8 @@ const Header = () => {
     const navigate = useNavigate();
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [UserName, setUserName] = useState(""); // 상태로 UserName 관리
+    const [userName, setUserName] = useState(""); // 상태로 userName 관리
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -30,8 +29,8 @@ const Header = () => {
             })
                 .then((response) => {
                     const data = response.data;
-                    if (data) {
-                        setUserName(data.userNickname); // 데이터가 있으면 상태 업데이트
+                    if (data && data.userName) {
+                        setUserName(data.userName); // 데이터가 있으면 userName을 상태로 업데이트
                     }
                 })
                 .catch((error) => {
@@ -47,6 +46,13 @@ const Header = () => {
         setIsSidebarOpen(false); // 사이드바를 닫습니다.
     }
 
+    const handleLogout = (path) => {
+        localStorage.removeItem("AccessToken"); // AccessToken 삭제
+        navigate(path); // 로그아웃 후 이동할 페이지 경로
+        setIsSidebarOpen(false); // 사이드바를 닫습니다.
+    }
+
+
     return (
         <div className={style.header}>
             <Toaster />
@@ -54,11 +60,11 @@ const Header = () => {
                 <img src="/assets/Menu.png" className={style.menuIcon} />
             </div>
             <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
-                <div className={style.sideName}> {UserName} </div>
+                <div className={style.sideName}> {userName} </div>
                 <div>반갑습니다!</div>
 
                 <br></br>
-                {UserName ? (
+                {userName ? (
                     <>
                         <div
                             onClick={() => handleLinkClick('/mypage')}
@@ -71,7 +77,7 @@ const Header = () => {
                             마이페이지
                         </div>
                         <div
-                            onClick={() => handleLinkClick('/')}
+                            onClick={() => handleLogout('/')} // 로그아웃 버튼 클릭 시
                             style={{
                                 cursor: 'pointer',
                                 padding: '10px',
@@ -82,7 +88,7 @@ const Header = () => {
                 ) : (
                     <>
                         <div
-                            onClick={() => handleLinkClick('/login')}
+                            onClick={() => handleLinkClick('/')}
                             style={{
                                 cursor: 'pointer',
                                 padding: '10px',
@@ -99,14 +105,6 @@ const Header = () => {
                                 borderBottom: '1px solid #ccc',
                             }}
                         >개발자 책상 가기</div>
-                        <div
-                            onClick={() => handleLinkClick('/school-support')}
-                            style={{
-                                cursor: 'pointer',
-                                padding: '10px',
-                                borderBottom: '1px solid #ccc',
-                            }}
-                        >학교 응원하기</div>
                     </>
                 )}
             </div>
