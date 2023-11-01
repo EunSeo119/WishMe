@@ -179,9 +179,8 @@ const DeskPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={style.deskLetterList}>
           <div
-            className={`${style.arrowIcon} ${
-              currentPage === 1 ? style.disabledArrow : style.abledArrow
-            }`}
+            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
+              }`}
             onClick={() => {
               if (currentPage > 1) {
                 changePage(currentPage - 1)
@@ -205,9 +204,8 @@ const DeskPage = () => {
             ))}
           </div>
           <div
-            className={`${style.arrowIcon} ${
-              currentPage === totalPage ? style.disabledArrow : style.abledArrow
-            }`}
+            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
+              }`}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
@@ -227,7 +225,7 @@ const DeskPage = () => {
             </>
           ) : (
             <>
-              {localStorage.getItem('AccessToken') ? (
+              {/* {localStorage.getItem('AccessToken') ? (
                 <>
                   <Link
                     to={`/desk/${deskUuid}/selectAsset`}
@@ -245,7 +243,13 @@ const DeskPage = () => {
                     <div className={style.cheerUpBtn}>응원하기</div>
                   </Link>
                 </>
-              )}
+              )} */}
+              <Link
+                to={`/desk/${deskUuid}/selectAsset`}
+                className={style.link}
+              >
+                <div className={style.cheerUpBtn}>응원하기</div>
+              </Link>
 
               <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
                 내 책상 보기
