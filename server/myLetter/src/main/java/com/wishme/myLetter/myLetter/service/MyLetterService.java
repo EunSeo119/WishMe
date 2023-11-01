@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,10 +104,11 @@ public class MyLetterService {
             }
         }
 
-        // 9개씩 페이징 처리해줌
-        PageRequest pageRequest = PageRequest.of(page-1, 9);
+        // 9개씩 페이징 처리해줌 (최신 순으로 정렬)
+        Sort sort = Sort.by(Sort.Order.desc("createAt"));
+        Pageable pageable = PageRequest.of(page - 1, 9, sort);
 
-        List<MyLetter> myLetters = myLetterRepository.findAllByToUser(toUser, pageRequest);
+        List<MyLetter> myLetters = myLetterRepository.findAllByToUser(toUser, pageable);
 
         List<MyLetterResponseDto> myLetterResponseDtoList = new ArrayList<>();
 
