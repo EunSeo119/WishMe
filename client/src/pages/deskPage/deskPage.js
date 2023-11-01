@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router'
 import ShareURLModal from '../../Modal/shareURLModal'
 import { useParams } from 'react-router-dom'
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io'
 import Header from '../../Common/Header'
 
 const DeskPage = () => {
@@ -222,7 +222,7 @@ const DeskPage = () => {
           {isNextDateModalOpen && (
             <div className={style.Modalmodal}>
               <div className={style.Modalclose} onClick={closeNextDateModal}>
-                X
+                <IoIosClose />
               </div>
               <div className={style.Modaltitle}>
                 편지는 11월 11일<br></br> 공개됩니다!
