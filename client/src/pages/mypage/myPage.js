@@ -56,7 +56,7 @@ const MyPage = () => {
       data: updatedData
     })
       .then((response) => {
-        console.log('회원정보 수정: ', response)
+        // console.log('회원정보 수정: ', response)
         setDeskName(tempDeskName)
         setSchoolName(tempSchoolName)
       })
@@ -91,7 +91,7 @@ const MyPage = () => {
         // console.log(res.data.data);
       })
       .catch((error) => {
-        console.log('검색 중 오류 발생: ' + error)
+        // console.log('검색 중 오류 발생: ' + error)
       })
   }
 

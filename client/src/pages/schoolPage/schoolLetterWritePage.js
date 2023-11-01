@@ -32,7 +32,7 @@ const SchooLetterWritePage = () => {
         })
         .catch((error) => {
           console.error('API 요청 중 오류 발생:', error)
-          console.log(error)
+          // console.log(error)
         })
     } else {
       alert('닉네임과 내용을 입력해주세요')
@@ -51,7 +51,7 @@ const SchooLetterWritePage = () => {
   }
 
   const changePage = (newPage) => {
-    console.log(totalPage)
+    // console.log(totalPage)
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage)
     }
