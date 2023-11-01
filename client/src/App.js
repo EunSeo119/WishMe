@@ -11,6 +11,7 @@ import WriteDeskLetter from './pages/deskLetter/writeDeskLetter'
 import SchooLetterDetaillPage from './pages/schoolPage/schoolLetterDetail'
 import SchooLetterAssetList from './pages/schoolPage/schoolLetterAssetList'
 import SchooLetterWritePage from './pages/schoolPage/schoolLetterWritePage'
+import SearchSchoolPage from './pages/searchSchoolPage/searchSchoolPage'
 import style from './app.module.css'
 
 function App() {
