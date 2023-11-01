@@ -1,9 +1,6 @@
 package com.wishme.user.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,10 +26,14 @@ public class School {
     @OneToMany(mappedBy = "school")
     private List<SchoolLetter> schoolLetters = new ArrayList<>();
 
+    @Column(name = "uuid")
+    private String uuid;
+
     @Builder
-    public School(Integer schoolSeq, String schoolName, String region) {
+    public School(Integer schoolSeq, String schoolName, String region, String uuid) {
         this.schoolSeq = schoolSeq;
         this.schoolName = schoolName;
         this.region = region;
+        this.uuid = uuid;
     }
 }

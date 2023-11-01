@@ -32,39 +32,44 @@
 
 .nickname div:nth-child(1) {
   width: 20%;
-  font-size: 25px;
+  font-size: 22px;
   text-align: center;
   margin-right: 10px;
 }
 
 .nickname input {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
   width: 80%;
-  width: 240px;
-  height: 35px;
+  width: 260px;
+  height: 32px;
   border: 1px solid rgb(247, 247, 247);
+  /* color: #ececec; */
   border-radius: 5px;
 }
 
 .school {
   width: 90%;
-  display: flex;
-  justify-content: space-around;
+  /* display: flex;
+  justify-content: space-around; */
 }
 
 .school div:nth-child(1) {
   width: 20%;
-  font-size: 25px;
+  font-size: 22px;
   text-align: center;
   margin-right: 10px;
 }
 
 .school input {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
   width: 50%;
   width: 200px;
-  height: 35px;
+  height: 32px;
   border: 1px solid rgb(247, 247, 247);
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
 .searchBtn {
@@ -80,6 +85,28 @@
   background-color: #176124;
   padding: auto 2px;
   color: #fff;
+  margin-right: 5px;
+}
+
+.schoolList {
+  border: 1px solid #fff;
+  background-color: #fff;
+  width: 70%;
+  height: 200px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-top: 5px;
+}
+
+.schoolList ul {
+  margin: 10px;
+  padding: 0;
+}
+
+.schoolList li {
+  list-style-type: none;
 }
 
 /* 버튼 부분 */
@@ -111,4 +138,19 @@
   padding: 13px;
   margin: 0px 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.beforeTitle {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
 }
