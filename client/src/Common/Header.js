@@ -90,7 +90,7 @@ const Header = () => {
                             }}
                         >학교 칠판 구경하기</div>
                         <div
-                            onClick={() => handleLinkClick('/desk/bf68c8c1-2917-4a3c-b926-fd6d9e7880ab')}
+                            onClick={() => handleLinkClick('/developer')}
                             style={{
                                 cursor: 'pointer',
                                 padding: '10px',
