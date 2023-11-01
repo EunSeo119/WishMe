@@ -63,7 +63,7 @@ const SearchSchoolPage = () => {
                     검색
                     </div>
                 </div>
-                {schoolList.length() > 0 ? (
+                {schoolList.length > 0 ? (
                     <>
                     <div className={style.schoolList}>
                         <ul>
@@ -78,7 +78,6 @@ const SearchSchoolPage = () => {
                     </div></>
                 ) : (
                     <>
-                        <div className={style.schoolList}>검색 결과가 없습니다.</div>
                     </>
                 )}
             </div>
