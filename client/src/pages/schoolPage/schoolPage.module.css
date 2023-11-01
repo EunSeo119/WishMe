@@ -47,6 +47,7 @@
   min-height: 45%;
   /* max-height: fit-content; */
 }
+
 .gridItemContainer {
   display: flex;
   /* display: grid; */
