@@ -75,12 +75,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<?> searchSchool(SearchSchoolRequestDto searchSchoolRequestDto) {
-        String schoolName = searchSchoolRequestDto.getSchoolName();
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            List<School> schools = schoolRepository.findAllBySchoolNameLike("%" + schoolName + "%");
+            String schoolName = searchSchoolRequestDto.getSchoolName();
+            List<School> schools = schoolRepository.findSchoolsBySchoolNameContaining(schoolName);
 
             resultMap.put("data", schools);
             resultMap.put("message", "학교 검색 성공");
