@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 
 const SearchSchoolPage = () => {
 
-    const [tempSchoolName, setTempSchoolName] = useState("")
-    const [userSchoolUuid, setUserSchoolUuid] = useState(0)
-    const [schoolList, setSchoolList] = useState([])
-    const [selectedIdx, setSelectedIdx] = useState(-1)
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL
-    
+    const [tempSchoolName, setTempSchoolName] = useState("");
+    const [userSchoolUuid, setUserSchoolUuid] = useState(0);
+    const [schoolList, setSchoolList] = useState([]);
+    const [selectedIdx, setSelectedIdx] = useState(-1);
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+    const navigate = useNavigate();
+
     // 학교 
     const saveClick = () => {
         navigate(`/school/${userSchoolUuid}`);
