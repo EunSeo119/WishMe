@@ -19,6 +19,8 @@ public class AllDeveloperLetterResponseDto {
     private String fromUserNickname;
     // 공개여부
     private boolean isPublic;
+    // 에셋 이미지
+    private String assetImg;
 
 
 }
