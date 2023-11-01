@@ -44,7 +44,7 @@
   align-items: center;
   justify-content: space-between;
   max-width: 400px;
-  min-height: 300px;
+  min-height: 45%;
   /* max-height: fit-content; */
 }
 .gridItemContainer {
@@ -55,7 +55,6 @@
   grid-template-rows: repeat(4, 1fr);
   width: 78%;
   align-items: center;
-  /* height: fit-content; */
 }
 
 .arrowIcon {
@@ -71,23 +70,15 @@
 
 .gridItem {
   margin: 2% 5px; /* 상하 0, 좌우 1px의 마진 설정 */
-  /* display: inline-block;
-  position: relative;
-  display: flex; */
   justify-content: center;
   align-items: center;
   width: calc(33.33% - 10px);
-  /* width: 100%; */
-  /* display: flex; */
-  /* height: fit-content; */
-
-  /* height: 20%; */
+  min-height: 50px;
+  display: flex;
 }
 
 .gridItem img {
   width: 100%;
-  /* height: 20%; */
-  /* max-height: 0px; */
 }
 
 .title {
@@ -164,6 +155,7 @@
 
 .Modalmodal {
   position: fixed;
+  flex-direction: column;
   top: 35%;
   left: 50%;
   transform: translateX(-50%);
@@ -175,16 +167,10 @@
   z-index: 1000;
 }
 
-/* .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
-
 .Modaltitle {
   font-family: 'omyu_pretty';
-  flex: 1; /* '공유하기'를 화면 가운데로 위치시킴 */
-  text-align: center; /* 텍스트를 가운데 정렬 */
+  flex: 1;
+  text-align: center;
   font-size: 28px;
   color: #000000;
   margin: 20px 0 20px 15px;
@@ -194,24 +180,11 @@
   margin-right: 10px;
   cursor: pointer;
   float: right;
-  color: #176124;
-  font-size: 20px;
+  color: #000000;
+  font-size: 25px;
   margin-top: 10px;
+  height: 10px;
 }
-
-/* .btn div {
-  font-family: 'omyu_pretty';
-  font-size: 20px;
-  color: #176124;
-  text-align: center;
-  border: 1px solid #176124;
-  border-radius: 10px;
-  background-color: #edf4ef;
-  padding: 13px;
-  margin: 10px 25px;
-  cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-} */
 
 .Modalbtn {
   font-family: 'omyu_pretty';
