@@ -131,7 +131,7 @@ const DeveloperPage = () => {
         </div>
 
         {/* 편지 에셋 목록 */}
-        <div>
+        <div className={style.deskLetterList}>
           <div
             className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
               }`}
