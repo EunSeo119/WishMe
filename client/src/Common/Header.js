@@ -143,8 +143,8 @@ const Header = () => {
                 )}
 
                 <div className={style.copyRight} style={{ position: 'fixed', bottom: '0',   fontFamily: 'omyu_pretty' }}>
-                    <div>copyright(c) 빛나리</div>
-                    <div>instagram <a href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer">@wish_me</a></div>
+                    <div style={{width : "100%"}}>copyright(c) 빛나리</div>
+                    <div>instagram <a href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer">@wish_me_1116</a></div>
                     <div  className={style.copyRight} style={{ fontSize: '12px', color: '#ccc' ,   fontFamily: 'omyu_pretty'}} >designed by manshagraphics<br></br>from Flaticon </div>
                 </div>
 
