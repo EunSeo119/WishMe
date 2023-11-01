@@ -16,7 +16,7 @@ const SelectDeskAsset = () => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
     const changePage = (newPage) => {
-        console.log(totalPage)
+        // console.log(totalPage)
         if (newPage >= 1 && newPage <= totalPage) {
             setCurrentPage(newPage)
         }
@@ -60,7 +60,7 @@ const SelectDeskAsset = () => {
     const handleImageClick = (index) => {
         setSelected(index + indexOfFirstItem);
         const selectedImage = assetInfo[index + indexOfFirstItem];
-        console.log("selectedImage", selectedImage)
+        // console.log("selectedImage", selectedImage)
         setSelectedAssetSeq(selectedImage.assetSeq);
     }
 
