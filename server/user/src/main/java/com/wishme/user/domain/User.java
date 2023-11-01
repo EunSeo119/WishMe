@@ -32,6 +32,9 @@ public class User {
     @Column(name = "uuid")
     private String uuid;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
     @OneToMany(mappedBy = "toUser")
     private List<MyLetter> myLetters = new ArrayList<>();
 
