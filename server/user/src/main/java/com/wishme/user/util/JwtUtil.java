@@ -17,8 +17,8 @@ public class JwtUtil {
     @Autowired
     private UserRepository userRepository;
 
-    // access token valid time : 1 hour
-    private final long ACCESS_TOKEN_VALID_TIME = 60 * 60 * 1000L;
+    // access token valid time : 2 days
+    private final long ACCESS_TOKEN_VALID_TIME = 2 * 24 * 60 * 60 * 1000L;
 
     // refresh token valid time : 3 weeks
     private final long REFRESH_TOKEN_VALID_TIME = 21 * 24 * 60 * 60 * 1000L;
