@@ -1,0 +1,79 @@
+.school {
+    width: 90%;
+    /* height: 58%; */
+    font-family: 'omyu_pretty';
+    margin: 100px auto;
+  }
+  
+  .school div:nth-child(1) {
+    width: 20%;
+    font-size: 22px;
+    text-align: center;
+    margin-right: 10px;
+  }
+  
+  .school input {
+    font-family: 'omyu_pretty';
+    font-size: 20px;
+    width: 50%;
+    width: 200px;
+    height: 32px;
+    border: 1px solid rgb(247, 247, 247);
+    border-radius: 5px;
+    margin-right: 12px;
+  }
+
+  .school input:focus {
+    outline: none;
+  }
+  
+  .searchBtn {
+    width: 20%;
+    font-size: 15px;
+    display: flex;
+    width: 45px;
+    height: 35px;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #176124;
+    background-color: #176124;
+    padding: auto 2px;
+    color: #fff;
+    margin-right: 5px;
+  }
+  
+  .schoolList {
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 70%;
+    height: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-radius: 5px;
+    margin-left: 20%;
+    margin-top: 5px;
+  }
+  
+  .schoolList ul {
+    margin: 10px;
+    padding: 0;
+  }
+  
+  .schoolList li {
+    list-style-type: none;
+  }
+  
+  .completeBtn {
+    font-family: 'omyu_pretty';
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #176124;
+    border-radius: 10px;
+    background-color: #176124;
+    padding: 13px;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin-top: 100%;
+  }
