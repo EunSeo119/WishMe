@@ -111,6 +111,7 @@ public class UserServiceImpl implements UserService {
                 School school = schoolRepository.findBySchoolSeq(user.getUserSchoolSeq());
                 data.put("schoolSeq", user.getUserSchoolSeq());
                 data.put("schoolName", school.getSchoolName());
+                data.put("schoolUuid", school.getUuid());
             }
 
             resultMap.put("data", data);

@@ -79,7 +79,11 @@ public class RSAUtil {
     }
 
     /**
+<<<<<<< HEAD
+     * Base64 엔코딩된 공용키키 문자열로부터 PublicKey객체를 얻는다.
+=======
      * Base64 엔코딩된 공용키 문자열로부터 PublicKey객체를 얻는다.
+>>>>>>> f0efbe4436e1787e4a3767801fccc9becc64cb2b
      * @param keyString
      * @return
      * @throws NoSuchAlgorithmException
