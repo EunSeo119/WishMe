@@ -9,6 +9,7 @@ import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
+import com.wishme.myLetter.util.AES256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,6 +35,9 @@ public class MyLetterService {
 
     @Value("${key.Base64_Private_Key}")
     String privateKeyBase;
+
+    @Value("${key.AES256_Key}")
+    String key;
 
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
@@ -68,16 +72,20 @@ public class MyLetterService {
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
 
-        //base64된 공개키를 가져옴
-        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+        AES256 aes256 = new AES256(key);
+        String cipherContent = aes256.encrypt(saveMyLetterRequestDto.getContent());
 
-        //공개키로 암호화
-        String encryptedContent = RSAUtil.encryptRSA(saveMyLetterRequestDto.getContent(), puKey);
+//
+//        //base64된 공개키를 가져옴
+//        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+//
+//        //공개키로 암호화
+//        String encryptedContent = RSAUtil.encryptRSA(saveMyLetterRequestDto.getContent(), puKey);
 
         MyLetter myLetter = MyLetter.builder()
                 .toUser(toUser)
                 .asset(myAsset)
-                .content(encryptedContent)
+                .content(cipherContent)
                 .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
                 .fromUser(fromUserSeq)
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
@@ -159,8 +167,11 @@ public class MyLetterService {
             throw new RuntimeException("열람할 권한이 없습니다.");
         }
 
-        PrivateKey prKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
-        String decryptContent = RSAUtil.decryptRSA(myletter.getContent(), prKey);
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(myletter.getContent());
+
+//        PrivateKey prKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
+//        String decryptContent = RSAUtil.decryptRSA(myletter.getContent(), prKey);
 
         return MyLetterDetailResponseDto.builder()
                 .myLetterSeq(myletter.getMyLetterSeq())
