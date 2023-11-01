@@ -1,15 +1,16 @@
 package com.wishme.myLetter.config;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+
 public class RSAUtil {
 
     /**
@@ -78,7 +79,11 @@ public class RSAUtil {
     }
 
     /**
+<<<<<<< HEAD
      * Base64 엔코딩된 공용키키 문자열로부터 PublicKey객체를 얻는다.
+=======
+     * Base64 엔코딩된 공용키 문자열로부터 PublicKey객체를 얻는다.
+>>>>>>> f0efbe4436e1787e4a3767801fccc9becc64cb2b
      * @param keyString
      * @return
      * @throws NoSuchAlgorithmException
@@ -97,6 +102,5 @@ public class RSAUtil {
 
         return keyFactory.generatePublic(keySpecX509);
     }
-
 
 }

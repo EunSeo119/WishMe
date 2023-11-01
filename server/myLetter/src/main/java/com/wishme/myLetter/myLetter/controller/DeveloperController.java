@@ -23,7 +23,7 @@ public class DeveloperController {
         try{
             developerService.writeDeveloperLetter(authentication, writeDeveloperLetterRequestDto);
             return ResponseEntity.status(HttpStatus.OK).build();
-        }catch (IllegalArgumentException e){
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 작성 실패");
         }
     }
@@ -43,7 +43,7 @@ public class DeveloperController {
     public ResponseEntity<?> oneDeveloperLetter(Authentication authentication, @PathVariable("myLetterId") Long myLetterId){
         try{
             return ResponseEntity.ok(developerService.oneDeveloperLetter(authentication, myLetterId));
-        }catch (IllegalArgumentException e){
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 상세 조회 실패");
         }
     }
