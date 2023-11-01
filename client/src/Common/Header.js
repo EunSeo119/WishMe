@@ -10,6 +10,8 @@ const Header = () => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [userName, setUserName] = useState(""); // 상태로 userName 관리
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 나타내는 상태 변수
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -31,11 +33,16 @@ const Header = () => {
                     const data = response.data;
                     if (data.data && data.data.userNickname) {
                         setUserName(data.data.userNickname); // 데이터가 있으면 userName을 상태로 업데이트
+                        setIsLoggedIn(true); // 로그인 상태로 설정
                     }
 
                 })
                 .catch((error) => {
+                    setIsLoggedIn(false); // 에러 시 로그아웃 상태로 설정
                 });
+        }
+        else {
+            setIsLoggedIn(false); // AccessToken이 없을 때도 로그아웃 상태로 설정
         }
     }, []); // 빈 배열을 넘겨 한 번만 호출되도록 설정
 
@@ -48,6 +55,7 @@ const Header = () => {
     const handleLogout = (path) => {
         localStorage.removeItem("AccessToken"); // AccessToken 삭제
         setUserName(undefined); // userName 상태를 undefined로 설정
+        setIsLoggedIn(false);
         navigate(path); // 로그아웃 후 이동할 페이지 경로
         setIsSidebarOpen(false); // 사이드바를 닫습니다.
     }
@@ -60,10 +68,10 @@ const Header = () => {
             </div>
             <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
-                    {userName !== undefined ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
+                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
                 </div>
                 <br></br>
-                {userName !== undefined ? (
+                {isLoggedIn ? (
                     <>
                         <div
                             onClick={() => handleLinkClick('/mypage')}
