@@ -11,6 +11,7 @@ import WriteDeskLetter from './pages/deskLetter/writeDeskLetter'
 import SchooLetterDetaillPage from './pages/schoolPage/schoolLetterDetail'
 import SchooLetterAssetList from './pages/schoolPage/schoolLetterAssetList'
 import SchooLetterWritePage from './pages/schoolPage/schoolLetterWritePage'
+import SearchSchoolPage from './pages/searchSchoolPage/searchSchoolPage'
 import style from './app.module.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <div className={style.app}>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/searchSchool" element={<SearchSchoolPage />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
         <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
