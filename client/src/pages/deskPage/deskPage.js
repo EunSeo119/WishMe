@@ -142,7 +142,7 @@ const DeskPage = () => {
       // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
       .then((response) => {
         const data = response.data
-        console.log(data.myLetterResponseDtoList.length)
+        // console.log(data.myLetterResponseDtoList.length)
         setDeskName(data.toUserNickname)
         setTotalCount(data.totalLetterCount)
         setDeskLetter(data.myLetterResponseDtoList)
@@ -151,7 +151,7 @@ const DeskPage = () => {
         // setTotalPage(data.totalPage)
       })
       .catch((error) => {
-        console.log(SERVER_URL)
+        // console.log(SERVER_URL)
         console.error('API 요청 중 오류 발생:', error)
       })
   }, [currentPage, deskUuid])

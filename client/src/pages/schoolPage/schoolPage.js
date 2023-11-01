@@ -77,7 +77,7 @@ const SchoolPage = () => {
     const AccessToken = localStorage.getItem('AccessToken')
     if (AccessToken) {
       // alert('내 책상으로 이동')
-      console.log(AccessToken)
+      // console.log(AccessToken)
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: 'get',
@@ -113,7 +113,7 @@ const SchoolPage = () => {
       // )
       .then((response) => {
         const data = response.data
-        console.log(data)
+        // console.log(data)
         setSchoolName(data.schoolName)
         setTotalCount(data.totalCount)
         setSchoolLetter(data.schoolLetterList)

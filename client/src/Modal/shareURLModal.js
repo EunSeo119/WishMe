@@ -17,7 +17,7 @@ function ShareURLModal({ isOpen, onClose }) {
     // console.log(process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY);
     Kakao.init(`${SHARE_URL_KEY}`);
     // 잘 적용됐으면 true 리턴
-    console.log(Kakao.isInitialized());
+    // console.log(Kakao.isInitialized());
   }, []);
 
   // 카카오톡 공유하기
@@ -49,7 +49,7 @@ function ShareURLModal({ isOpen, onClose }) {
       await navigator.clipboard.writeText(pageURL);
       alert("클립보드에 링크가 복사되었어요!");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

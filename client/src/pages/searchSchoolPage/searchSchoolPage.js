@@ -26,7 +26,7 @@ const SearchSchoolPage = () => {
     // 학교 선택
     const selectSchool = (schoolName, schoolUuid, idx) => {
         setTempSchoolName(schoolName)
-        console.log(schoolUuid);
+        // console.log(schoolUuid);
         setUserSchoolUuid(schoolUuid)
         // console.log(schoolName);
         setSelectedIdx(idx)
@@ -43,10 +43,10 @@ const SearchSchoolPage = () => {
       })
         .then((res) => {
           setSchoolList(res.data.data)
-          console.log(res.data.data);
+        //   console.log(res.data.data);
         })
         .catch((error) => {
-          console.log('검색 중 오류 발생: ' + error)
+        //   console.log('검색 중 오류 발생: ' + error)
         })
     }
 
