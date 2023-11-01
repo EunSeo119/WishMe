@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io' // IoIosArrowForward를 import
+import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io' // IoIosArrowForward를 import
 import ShareURLModal from '../../Modal/shareURLModal'
 import Header from '../../Common/Header'
 
@@ -195,7 +195,7 @@ const SchoolPage = () => {
                 className={styleSchool.Modalclose}
                 onClick={closeNextDateModal}
               >
-                X
+                <IoIosClose />
               </div>
               <div className={styleSchool.Modaltitle}>
                 편지는 11월 11일<br></br> 공개됩니다!
