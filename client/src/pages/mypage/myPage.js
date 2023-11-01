@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import style from './myPage.module.css'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { IoIosArrowBack } from 'react-icons/io'
 
 const MyPage = () => {
   const [deskName, setDeskName] = useState('')
@@ -10,6 +12,12 @@ const MyPage = () => {
   const [tempSchoolName, setTempSchoolName] = useState('')
   const [userSchoolSeq, setUserSchoolSeq] = useState(0)
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const navigate = useNavigate() //변수 할당시켜서 사용
+
+  //이전으로
+  const onClickBeforeBtn = () => {
+    navigate(-1)
+  }
 
   // 값 수정
   const changeNickname = (e) => {
@@ -105,6 +113,10 @@ const MyPage = () => {
 
   return (
     <div className={style.body}>
+      <div className={style.beforeTitle} onClick={() => onClickBeforeBtn()}>
+        <IoIosArrowBack className={style.icon} />
+        이전으로
+      </div>
       <div className={style.title}>
         <b>
           {deskName}님의

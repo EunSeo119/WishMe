@@ -38,15 +38,14 @@
 }
 
 .nickname input {
-    font-family: 'omyu_pretty';
-    font-size: 20px;
+  font-family: 'omyu_pretty';
+  font-size: 20px;
   width: 80%;
   width: 260px;
   height: 35px;
   border: 1px solid rgb(247, 247, 247);
   border-radius: 5px;
 }
-
 
 .school {
   width: 90%;
@@ -62,14 +61,14 @@
 }
 
 .school input {
-    font-family: 'omyu_pretty';
-    font-size: 20px;
+  font-family: 'omyu_pretty';
+  font-size: 20px;
   width: 50%;
   width: 200px;
   height: 35px;
   border: 1px solid rgb(247, 247, 247);
   border-radius: 5px;
-  margin-right:12px;
+  margin-right: 12px;
 }
 
 .searchBtn {
@@ -89,8 +88,8 @@
 }
 
 .schoolList {
-    border: 1px solid #fff;
-    border-color: #fff;
+  border: 1px solid #fff;
+  border-color: #fff;
 }
 
 /* 버튼 부분 */
@@ -122,4 +121,19 @@
   padding: 13px;
   margin: 0px 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.beforeTitle {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
 }
