@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
             if (Integer.parseInt(userSchoolSeq) != 0) {
                 user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
             }
-            
+
             resultMap.put("message", "유저정보 변경 성공");
             status = HttpStatus.OK;
         } catch (Exception e) {
