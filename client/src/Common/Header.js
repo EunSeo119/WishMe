@@ -30,8 +30,8 @@ const Header = () => {
                 .then((response) => {
                     const data = response.data;
                     console.log(data);
-                    if (data && data.userName) {
-                        setUserName(data.userName); // 데이터가 있으면 userName을 상태로 업데이트
+                    if (data && data.toUserNickname) {
+                        setUserName(data.toUserNickname); // 데이터가 있으면 userName을 상태로 업데이트
                     }
                 })
                 .catch((error) => {
