@@ -56,7 +56,7 @@ const MyPage = () => {
       data: updatedData
     })
       .then((response) => {
-        console.log('회원정보 수정: ', response)
+        // console.log('회원정보 수정: ', response)
         setDeskName(tempDeskName)
         setSchoolName(tempSchoolName)
       })
@@ -81,7 +81,6 @@ const MyPage = () => {
     axios({
       method: 'post',
       url: `${SERVER_URL}/api/users/search/school`,
-      headers,
       data: {
         schoolName: tempSchoolName
       }
@@ -91,7 +90,7 @@ const MyPage = () => {
         // console.log(res.data.data);
       })
       .catch((error) => {
-        console.log('검색 중 오류 발생: ' + error)
+        // console.log('검색 중 오류 발생: ' + error)
       })
   }
 
@@ -184,20 +183,8 @@ const MyPage = () => {
                   <div className={style.schoolList}>
                     <ul>
                       {schoolList.map((school, idx) => (
-                        <li
-                          key={school.schoolSeq}
-                          onClick={() =>
-                            selectSchool(
-                              school.schoolName,
-                              school.schoolSeq,
-                              idx
-                            )
-                          }
-                          style={{
-                            backgroundColor:
-                              selectedIdx === idx ? '#ececec' : 'white'
-                          }}
-                        >
+                        <li key={school.schoolSeq} onClick={() => selectSchool(school.schoolName, school.schoolSeq, idx)}
+                          style={{backgroundColor: selectedIdx === idx ? '#ececec' : 'white'}}>
                           {school.schoolName}
                           <br />
                           <div style={{ color: '#aeaeae' }}>

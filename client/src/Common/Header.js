@@ -10,6 +10,8 @@ const Header = () => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [userName, setUserName] = useState(""); // 상태로 userName 관리
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 나타내는 상태 변수
+
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -17,7 +19,6 @@ const Header = () => {
 
     useEffect(() => {
         const AccessToken = localStorage.getItem("AccessToken");
-        console.log("AccessToken: " + AccessToken)
         if (AccessToken != null) {
             const headers = {
                 Authorization: `Bearer ${AccessToken}`
@@ -30,15 +31,18 @@ const Header = () => {
             })
                 .then((response) => {
                     const data = response.data;
-                    console.log(data);
                     if (data.data && data.data.userNickname) {
                         setUserName(data.data.userNickname); // 데이터가 있으면 userName을 상태로 업데이트
+                        setIsLoggedIn(true); // 로그인 상태로 설정
                     }
 
                 })
                 .catch((error) => {
-                    console.error("API 요청 중 오류 발생:", error);
+                    setIsLoggedIn(false); // 에러 시 로그아웃 상태로 설정
                 });
+        }
+        else {
+            setIsLoggedIn(false); // AccessToken이 없을 때도 로그아웃 상태로 설정
         }
     }, []); // 빈 배열을 넘겨 한 번만 호출되도록 설정
 
@@ -51,7 +55,7 @@ const Header = () => {
     const handleLogout = (path) => {
         localStorage.removeItem("AccessToken"); // AccessToken 삭제
         setUserName(undefined); // userName 상태를 undefined로 설정
-        console.log(setUserName);
+        setIsLoggedIn(false);
         navigate(path); // 로그아웃 후 이동할 페이지 경로
         setIsSidebarOpen(false); // 사이드바를 닫습니다.
     }
@@ -64,10 +68,10 @@ const Header = () => {
             </div>
             <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
-                    {userName !== undefined ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
+                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
                 </div>
                 <br></br>
-                {userName !== undefined ? (
+                {isLoggedIn ? (
                     <>
                         <div
                             onClick={() => handleLinkClick('/mypage')}
@@ -75,6 +79,7 @@ const Header = () => {
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >
                             마이페이지
@@ -85,14 +90,16 @@ const Header = () => {
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >학교 칠판 구경하기</div>
                         <div
-                            onClick={() => handleLinkClick('/desk/bf68c8c1-2917-4a3c-b926-fd6d9e7880ab')}
+                            onClick={() => handleLinkClick('/developer')}
                             style={{
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >개발자 책상 가기</div>
                         <div
@@ -101,6 +108,7 @@ const Header = () => {
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >로그아웃</div>
                     </>
@@ -112,6 +120,7 @@ const Header = () => {
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >개발자 책상 가기</div>
                         <div
@@ -120,6 +129,7 @@ const Header = () => {
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >학교 칠판 구경하기</div>
                         <div
@@ -128,6 +138,7 @@ const Header = () => {
                                 cursor: 'pointer',
                                 padding: '10px',
                                 borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty'
                             }}
                         >
                             로그인하기
@@ -135,10 +146,10 @@ const Header = () => {
                     </>
                 )}
 
-                <div className={style.copyRight} style={{ position: 'fixed', bottom: '0' }}>
-                    <div>copyright(c) 빛나리</div>
-                    <div>instagram <a href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer">@wish_me</a></div>
-                    <div  className={style.copyRight} style={{ fontSize: '12px', color: '#ccc' }} >designed by manshagraphics<br></br>from Flaticon </div>
+                <div className={style.copyRight} style={{ position: 'fixed', bottom: '0',   fontFamily: 'omyu_pretty' }}>
+                    <div style={{width : "100%"}}>copyright(c) 빛나리</div>
+                    <div>instagram <a href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer">@wish_me_1116</a></div>
+                    <div  className={style.copyRight} style={{ fontSize: '12px', color: '#ccc' ,   fontFamily: 'omyu_pretty'}} >designed by manshagraphics<br></br>from Flaticon </div>
                 </div>
 
 
