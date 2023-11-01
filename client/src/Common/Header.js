@@ -63,7 +63,7 @@ const Header = () => {
                     {userName !== undefined ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
                 </div>
                 <br></br>
-                {userName !== undefined ? (
+                {localStorage.getItem("AccessToken") !== null ? (
                     <>
                         <div
                             onClick={() => handleLinkClick('/mypage')}
