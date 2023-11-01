@@ -14,7 +14,7 @@ function ShareURLModal({ isOpen, onClose }) {
 
   useEffect(() => {
     Kakao.cleanup();
-    console.log(process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY);
+    // console.log(process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY);
     Kakao.init(`${SHARE_URL_KEY}`);
     // 잘 적용됐으면 true 리턴
     console.log(Kakao.isInitialized());
