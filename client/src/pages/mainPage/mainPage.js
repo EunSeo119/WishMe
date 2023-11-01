@@ -14,7 +14,6 @@ const MainPage = () => {
 
     return (
         <div className={styleMain.bg}>
-            <Header />
             <div className={styleMain.topbox}>
                 <div className={styleMain.title}>
                     Wish Me
