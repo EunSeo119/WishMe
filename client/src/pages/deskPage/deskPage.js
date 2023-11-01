@@ -89,6 +89,41 @@ const DeskPage = () => {
     }
   };
 
+  // '우리 학교 가기' 버튼 클릭 시 처리
+  const handleMySchoolClick = () => {
+    const AccessToken = localStorage.getItem("AccessToken");
+    // if (AccessToken) {
+    // AccessToken이 있으면 AccessToken이 이미 있다는 것이니 체크할 필요없음
+    axios({
+      method: "get",
+      url: `${SERVER_URL}/api/users`,
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    })
+      .then((response) => {
+        // 여기 넣어줘
+        const data = response.data;
+
+        if (data.data.schoolUuid) {
+          navigate(`/school/${data.data.schoolUuid}`);
+        } else {
+          // 학교 저장을 한적이 없으면 학교 검색 페이지로 이동
+          // ============================
+          navigate(`/searchSchool`);
+        }
+
+        // 여기 넣어줘
+      })
+      .catch((error) => {
+        console.error("API 요청 중 오류 발생:", error);
+      });
+    // } else {
+    //   // AccessToken이 없으면 로그인 페이지로 이동
+    //   navigate(`/`);
+    // }
+  }
+
 
   // var url = 'http://localhost:8082/'
 
@@ -184,10 +219,14 @@ const DeskPage = () => {
         <div className={style.btn}>
           {isMine ? (
             <>
-              <div className={style.shareBtn} onClick={openModal}>
+              <div className={style.cheerUpBtn} onClick={openModal}>
                 공유하기
               </div>
-              {/* <ShareURLModal isOpen={isModalOpen} onClose={closeModal} /> */}
+
+              <div className={style.cheerUpBtn} onClick={handleMySchoolClick}>
+                우리 학교 가기
+              </div>
+
             </>
           ) : (
             <>
@@ -210,9 +249,13 @@ const DeskPage = () => {
                   </>
                 )
               }
+
+
               <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
                 내 책상 보기
               </div>
+
+
             </>
           )}
         </div>
