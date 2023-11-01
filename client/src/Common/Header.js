@@ -68,7 +68,7 @@ const Header = () => {
             </div>
             <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
-                    {userName !== undefined ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
+                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
                 </div>
                 <br></br>
                 {isLoggedIn ? (
