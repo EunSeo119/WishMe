@@ -49,4 +49,10 @@ public class UserController {
     public ResponseEntity<?> getUserInfo(Authentication authentication) {
         return userService.getUserInfo(Long.parseLong(authentication.getName()));
     }
+
+    // API 6. Refresh Token을 통한 Access Token 재발급
+    @PostMapping("/refresh")
+    public ResponseEntity<?> getAccessTokenByRefreshToken() {
+        return null;
+    }
 }
