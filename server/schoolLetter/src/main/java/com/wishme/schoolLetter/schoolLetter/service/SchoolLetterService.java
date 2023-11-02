@@ -3,6 +3,7 @@ package com.wishme.schoolLetter.schoolLetter.service;
 
 import com.wishme.schoolLetter.asset.domain.Asset;
 import com.wishme.schoolLetter.asset.repository.AssetRepository;
+import com.wishme.schoolLetter.config.AES256;
 import com.wishme.schoolLetter.config.RSAUtil;
 import com.wishme.schoolLetter.school.domian.School;
 import com.wishme.schoolLetter.school.repository.SchoolRepository;
@@ -39,6 +40,9 @@ public class SchoolLetterService {
 
     @Value("${key.Base64_Private_Key}")
     String privateKeyBase;
+
+    @Value("${key.AES256_Key}")
+    String key;
 
     private final SchoolLetterRepository schoolLetterRepository;
     private final AssetRepository assetRepository;
@@ -80,8 +84,9 @@ public class SchoolLetterService {
 
         SchoolLetter sc = schoolLetterRepository.findBySchoolLetterSeq(schoolLetterId)
                 .orElseThrow(IllegalArgumentException::new);
-        PrivateKey prKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
-        String decryptContent = RSAUtil.decryptRSA(sc.getContent(), prKey);
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(sc.getContent());
+
 
         return SchoolLetterDetailResponseDto.builder()
                 .schoolLetterSeq(sc.getSchoolLetterSeq())
@@ -154,13 +159,10 @@ public class SchoolLetterService {
         Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
                 .orElseThrow(IllegalArgumentException::new);
 
-        //base64된 공개키를 가져옴
-        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
+        AES256 aes256 = new AES256(key);
+        String cipherContent = aes256.encrypt(writeDto.getContent());
 
-        //공개키로 암호화
-        String encryptedContent = RSAUtil.encryptRSA(writeDto.getContent(), puKey);
-
-        SchoolLetter schoolLetter = new SchoolLetter(encryptedContent, writeDto.getNickname(), school, asset);
+        SchoolLetter schoolLetter = new SchoolLetter(cipherContent, writeDto.getNickname(), school, asset);
         schoolLetter = schoolLetterRepository.save(schoolLetter);
 
         return schoolLetter.getSchoolLetterSeq();
