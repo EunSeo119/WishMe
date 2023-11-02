@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/mainPage/mainPage'
+import MainPageUuid from './pages/mainPage/mainPageUuid'
 import MyPage from './pages/mypage/myPage'
 import KakaoRedirectPage from './pages/mainPage/kakaoRedirectPage'
 import DeskPage from './pages/deskPage/deskPage'
@@ -22,6 +23,7 @@ function App() {
     <div className={style.app}>
       <Routes>
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/login/:deskUuid" element={<MainPageUuid />}></Route>
         <Route path="/searchSchool" element={<SearchSchoolPage />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
