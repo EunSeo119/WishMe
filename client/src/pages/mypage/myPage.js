@@ -65,6 +65,13 @@ const MyPage = () => {
       })
   }
 
+  // 엔터키로 동작
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      searchSchool(e)
+    }
+  }
+
   // 학교 찾기
   const [schoolList, setSchoolList] = useState([])
   const [selectedSchool, setSelectedSchool] = useState('')
@@ -174,6 +181,7 @@ const MyPage = () => {
                     style={{width: '160px'}}
                     value={tempSchoolName}
                     onChange={(e) => changeSchool(e)}
+                    onKeyPress={handleKeyPress}
                   />
                 </div>
                 <div className={style.searchBtn} onClick={searchSchool}>
