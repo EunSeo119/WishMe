@@ -66,7 +66,7 @@ const Header = () => {
             <div onClick={toggleSidebar}>
                 <img src="/assets/Menu.png" className={style.menuIcon} />
             </div>
-            <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
+            <div className={`${isSidebarOpen ? style.sidebarVisible : style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
                     {isLoggedIn ? `${userName} 님 반갑습니다!` : "로그인을 해주세요"}
                 </div>
