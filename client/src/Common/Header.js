@@ -68,7 +68,7 @@ const Header = () => {
             </div>
             <div className={`${isSidebarOpen ? style.sidebarVisible : style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
-                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
+                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "로그인을 해주세요"}
                 </div>
                 <br></br>
                 {isLoggedIn ? (
@@ -77,9 +77,10 @@ const Header = () => {
                             onClick={() => handleLinkClick('/mypage')}
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >
                             마이페이지
@@ -88,27 +89,30 @@ const Header = () => {
                             onClick={() => handleLinkClick('/searchSchool')}
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >학교 칠판 구경하기</div>
                         <div
                             onClick={() => handleLinkClick('/developer')}
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >개발자 책상 가기</div>
                         <div
                             onClick={() => handleLogout('/')} // 로그아웃 버튼 클릭 시
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >로그아웃</div>
                     </>
@@ -118,27 +122,30 @@ const Header = () => {
                             onClick={() => handleLinkClick('/developer')}
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >개발자 책상 가기</div>
                         <div
                             onClick={() => handleLinkClick('/searchSchool')}
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >학교 칠판 구경하기</div>
                         <div
                             onClick={() => handleLinkClick('/')}
                             style={{
                                 cursor: 'pointer',
-                                padding: '10px',
+                                padding: '12px',
                                 borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty'
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
                             }}
                         >
                             로그인하기
@@ -148,7 +155,7 @@ const Header = () => {
 
                 <div className={style.copyRight} style={{ position: 'fixed', bottom: '0',   fontFamily: 'omyu_pretty' }}>
                     <div style={{width : "100%"}}>copyright(c) 빛나리</div>
-                    <div>instagram <a href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer">@wish_me_1116</a></div>
+                    <div>instagram <a href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer" style={{color:'black', textDecoration:'none'}}>@wish_me_1116</a></div>
                     <div  className={style.copyRight} style={{ fontSize: '12px', color: '#ccc' ,   fontFamily: 'omyu_pretty'}} >designed by manshagraphics<br></br>from Flaticon </div>
                 </div>
 
