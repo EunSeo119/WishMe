@@ -38,7 +38,12 @@ const SearchSchoolPage = () => {
 
     // 마이페이지로 이동
     const goMypage = () => {
-        navigate(`/mypage`);
+        const AccessToken = localStorage.getItem("AccessToken");
+        if(AccessToken){
+            navigate(`/mypage`);
+        }else{
+            alert("로그인 후 이용가능합니다!");
+        }
     }
 
     // 학교 수정
