@@ -12,4 +12,6 @@ public interface DeveloperRepositoryCustom {
     // 개발자 전체 편지 조회 - 페이지네이션
     Page<MyLetter> findAllDeveloperLetter(Pageable pageable, User user);
 
+    Integer findTotalCnt(User user);
+
 }
