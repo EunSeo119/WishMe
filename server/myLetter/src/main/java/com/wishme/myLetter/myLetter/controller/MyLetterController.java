@@ -71,4 +71,14 @@ public class MyLetterController {
                 .body(myLetterService.getMyLetterDetail(authentication, myLetterSeq));
     }
 
+    /**
+     * 편지 신고하기
+     */
+    @PutMapping("/report/{letterSeq}")
+    public ResponseEntity<?> reportLetter(Authentication authentication, @PathVariable("letterSeq") Long letterSeq) {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(myLetterService.reportLetter(authentication, letterSeq));
+    }
+
 }
