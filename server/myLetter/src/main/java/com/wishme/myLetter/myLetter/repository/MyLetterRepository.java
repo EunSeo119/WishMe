@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface MyLetterRepository extends JpaRepository<MyLetter, Long> {
 
-    List<MyLetter> findAllByToUser(User toUser, Pageable pageable);
+    List<MyLetter> findAllByToUserAndIsReportIsFalse(User toUser, Pageable pageable);
 
     Optional<MyLetter> findByMyLetterSeq(Long myLetterSeq);
 
