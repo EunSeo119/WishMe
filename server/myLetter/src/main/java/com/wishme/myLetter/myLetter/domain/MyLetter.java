@@ -44,8 +44,11 @@ public class MyLetter extends BaseTimeEntity {
     @OneToOne(mappedBy = "myLetter")
     private Reply reply;
 
+    @Column(name = "is_report", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean isReport;
+
     @Builder
-    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply) {
+    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply, Boolean isReport) {
         this.myLetterSeq = myLetterSeq;
         this.toUser = toUser;
         this.asset = asset;
@@ -54,5 +57,14 @@ public class MyLetter extends BaseTimeEntity {
         this.fromUser = fromUser;
         this.isPublic = isPublic;
         this.reply = reply;
+        this.isReport = isReport;
+    }
+
+    /**
+     * 신고 반영
+     */
+    public void updateReport() {
+        this.isReport = true;
+        this.isPublic = false;
     }
 }
