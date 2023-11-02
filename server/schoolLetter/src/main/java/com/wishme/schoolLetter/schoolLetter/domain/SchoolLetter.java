@@ -41,18 +41,22 @@ public class SchoolLetter {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    @Column(name = "is_report", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean isReport;
+
     @PrePersist
     public void prePersist() {
         createAt = new Date();
     }
     @Builder
-    public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt) {
+    public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt, Boolean isReport) {
         this.schoolLetterSeq = schoolLetterSeq;
         this.school = school;
         this.assetSeq = assetSeq;
         this.content = content;
         this.nickname = nickname;
         this.createAt = createAt;
+        this.isReport = isReport;
     }
 
     public SchoolLetter(SchoolLetterWriteRequestDto writeDto, School school, Asset asset) {
@@ -67,6 +71,13 @@ public class SchoolLetter {
         this.assetSeq = asset;
         this.content = content;
         this.nickname = nickname;
+    }
+
+    /**
+     * 신고 반영
+     */
+    public void updateReport(Boolean isReport) {
+        this.isReport = isReport;
     }
 
 }

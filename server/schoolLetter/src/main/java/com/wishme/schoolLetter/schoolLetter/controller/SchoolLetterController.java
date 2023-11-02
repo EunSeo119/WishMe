@@ -125,4 +125,11 @@ public class SchoolLetterController {
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
 
+    @PutMapping("/report/{letterSeq}")
+    public ResponseEntity<?> reportLetter(@PathVariable("letterSeq") Long letterSeq) {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(schoolLetterService.reportLetter(letterSeq));
+    }
+
 }
