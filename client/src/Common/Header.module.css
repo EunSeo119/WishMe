@@ -71,6 +71,8 @@
   .sideName {
     margin-top: 1vh;
     font-family: 'omyu_pretty';
+    font-size: 22px;
+    margin-bottom: 15px;
   }
   
   .sideEmail {
@@ -98,4 +100,7 @@
     height: 29px;
     padding-bottom: 5px;
     margin-left: 3px;
+  }
+  .copyRight {
+    line-height: 20px;
   }
