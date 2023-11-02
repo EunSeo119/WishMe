@@ -40,9 +40,9 @@ public class DeveloperController {
 
     //API 3. 개발자 편지 상세 조회
     @GetMapping("/one/{myLetterId}")
-    public ResponseEntity<?> oneDeveloperLetter(@PathVariable("myLetterId") Long myLetterId){
+    public ResponseEntity<?> oneDeveloperLetter(Authentication authentication, @PathVariable("myLetterId") Long myLetterId){
         try{
-            return ResponseEntity.ok(developerService.oneDeveloperLetter(myLetterId));
+            return ResponseEntity.ok(developerService.oneDeveloperLetter(authentication, myLetterId));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
