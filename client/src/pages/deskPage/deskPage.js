@@ -225,7 +225,7 @@ const DeskPage = () => {
             </>
           ) : (
             <>
-              {/* {localStorage.getItem('AccessToken') ? (
+              {localStorage.getItem('AccessToken') ? (
                 <>
                   <Link
                     to={`/desk/${deskUuid}/selectAsset`}
@@ -243,13 +243,13 @@ const DeskPage = () => {
                     <div className={style.cheerUpBtn}>응원하기</div>
                   </Link>
                 </>
-              )} */}
-              <Link
+              )}
+              {/* <Link
                 to={`/desk/${deskUuid}/selectAsset`}
                 className={style.link}
               >
                 <div className={style.cheerUpBtn}>응원하기</div>
-              </Link>
+              </Link> */}
 
               <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
                 내 책상 보기
