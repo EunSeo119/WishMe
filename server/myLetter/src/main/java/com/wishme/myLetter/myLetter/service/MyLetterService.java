@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,15 @@ public class MyLetterService {
 
     @Value("${key.AES256_Key}")
     String key;
+
+    @Value("${enable_date.year}")
+    String enableYear;
+
+    @Value("${enable_date.month}")
+    String enableMonth;
+
+    @Value("${enable_date.day}")
+    String enableDay;
 
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
@@ -116,7 +126,7 @@ public class MyLetterService {
         Sort sort = Sort.by(Sort.Order.desc("createAt"));
         Pageable pageable = PageRequest.of(page - 1, 9, sort);
 
-        List<MyLetter> myLetters = myLetterRepository.findAllByToUser(toUser, pageable);
+        List<MyLetter> myLetters = myLetterRepository.findAllByToUserAndIsReportIsFalse(toUser, pageable);
 
         List<MyLetterResponseDto> myLetterResponseDtoList = new ArrayList<>();
 
@@ -157,6 +167,16 @@ public class MyLetterService {
 
     public MyLetterDetailResponseDto getMyLetterDetail(Authentication authentication, Long myLetterSeq) throws Exception{
 
+        // 현재 날짜 가져오기
+        LocalDate currentDate = LocalDate.now();
+
+        LocalDate enableDate = LocalDate.of(Integer.parseInt(enableYear), Integer.parseInt(enableMonth), Integer.parseInt(enableDay));
+
+        // 설정된 날짜와 현재 날짜 비교
+        if (currentDate.isBefore(enableDate)) {
+            throw new RuntimeException("11월 11일 이전에는 호출할 수 없습니다.");
+        }
+
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
@@ -180,5 +200,23 @@ public class MyLetterService {
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
                 .build();
+    }
+
+    @Transactional
+    public Long reportLetter(Authentication authentication, Long letterSeq) {
+        MyLetter myLetter = myLetterRepository.findByMyLetterSeq(letterSeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        User user = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+        if(!myLetter.getToUser().equals(user)) {
+            throw new IllegalArgumentException("해당 유저는 신고할 권한이 없습니다.");
+        }
+
+        myLetter.updateReport();
+        myLetterRepository.save(myLetter);
+
+        return myLetter.getMyLetterSeq();
     }
 }
