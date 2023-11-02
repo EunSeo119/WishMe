@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io' // IoIosArrowForward를 import
 import ShareURLModal from '../../Modal/shareURLModal'
 import Header from '../../Common/Header'
+import { BsToggle2Off, BsToggle2On } from 'react-icons/bs'
 
 const SchoolPage = () => {
   const [page, setPage] = useState(1)
@@ -57,6 +58,16 @@ const SchoolPage = () => {
   const letterWriteClick = (schoolUuid) => {
     navigate(`/schoolLetterAssetList/${schoolUuid}`)
   }
+
+   // 학교/책상 토글
+   const [isOn, setIsOn] = useState(false);
+
+   const handleToggleClick = () => {
+     setIsOn(!isOn);
+     if(!isOn){
+      handleMyDeskClick();
+     }
+   };
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const openModal = () => {
@@ -139,6 +150,15 @@ const SchoolPage = () => {
         <div className={styleSchool.header}>
           <Header />
         </div>
+
+        {/* 학교/내책상 토글 */}
+        <div className={styleSchool.toggle}>
+          <div><b>책상</b></div>
+          {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
+          <div>{isOn ? <BsToggle2Off onClick={handleToggleClick} /> : <BsToggle2On onClick={handleToggleClick} />}</div>
+          <div><b>학교</b></div>
+        </div>
+
         {/* 급훈문구 */}
         <div className={styleSchool.schoolName}>
           <b>{schoolName}</b>에
@@ -220,15 +240,15 @@ const SchoolPage = () => {
         </div>
         <div className={styleSchool.rowButton}>
           <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
-            공유하기
+            학교 공유하기
           </div>
 
-          <div
+          {/* <div
             className={styleSchool.mySchoolBtnHalf}
             onClick={handleMyDeskClick}
           >
             내 책상 보기
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
