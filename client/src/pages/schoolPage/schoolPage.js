@@ -43,14 +43,15 @@ const SchoolPage = () => {
   const handleLetterClick = (letterId) => {
     const currentDate = new Date()
     const modalOpenDate = new Date('2023-11-11')
+    navigate(`/schoolLetterDetail/${letterId}`)
 
-    if (currentDate < modalOpenDate) {
-      // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
-      openNextDateModal()
-    } else {
-      // 그 이후면 페이지로 이동
-      navigate(`/schoolLetterDetail/${letterId}`)
-    }
+    // if (currentDate < modalOpenDate) {
+    //   // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
+    //   openNextDateModal()
+    // } else {
+    //   // 그 이후면 페이지로 이동
+    //   navigate(`/schoolLetterDetail/${letterId}`)
+    // }
   }
 
   const letterWriteClick = (schoolUuid) => {
