@@ -68,7 +68,7 @@ const Header = () => {
             </div>
             <div className={`${style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
-                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "반갑습니다!"}
+                    {isLoggedIn ? `${userName} 님 반갑습니다!` : "로그인을 해주세요"}
                 </div>
                 <br></br>
                 {isLoggedIn ? (
@@ -80,7 +80,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >
                             마이페이지
@@ -92,7 +92,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >학교 칠판 구경하기</div>
                         <div
@@ -102,7 +102,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >개발자 책상 가기</div>
                         <div
@@ -112,7 +112,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >로그아웃</div>
                     </>
@@ -125,7 +125,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >개발자 책상 가기</div>
                         <div
@@ -135,7 +135,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >학교 칠판 구경하기</div>
                         <div
@@ -145,7 +145,7 @@ const Header = () => {
                                 padding: '12px',
                                 borderBottom: '1px solid #ccc',
                                 fontFamily: 'omyu_pretty',
-                                fontSize: '18px'
+                                fontSize: '20px'
                             }}
                         >
                             로그인하기
