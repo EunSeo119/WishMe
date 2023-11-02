@@ -3,8 +3,11 @@ import style from "./letterReportModal.module.css";
 import { useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"; // IoIosArrowForward를 import
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL
+
     useEffect(() => {}, []);
     const navigate = useNavigate();
 
