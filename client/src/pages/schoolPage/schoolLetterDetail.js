@@ -71,7 +71,7 @@ const SchoolLetterDetail = () => {
         {/* 여기가 편지 내용 */}
         <div className={style.letter}>
           <div className={style.to}>
-            <text className={style.letterPrefix}>To. {nickname}</text>
+            <text className={style.letterPrefix}>To. {schoolName}</text>
             <PiSirenLight
               className={style.reportLetterIcon}
               onClick={openModal}
@@ -85,7 +85,7 @@ const SchoolLetterDetail = () => {
             />{' '}
           </div>
           <div className={style.from}>
-            <text className={style.letterSurfix}>From. {schoolName}</text>
+            <text className={style.letterSurfix}>From. {nickname}</text>
           </div>{' '}
         </div>
       </div>

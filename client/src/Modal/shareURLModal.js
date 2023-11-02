@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./shareURLModal.module.css";
 import { useEffect } from "react";
+import { AiOutlineClose } from 'react-icons/ai'
 
 // 카카오 공유하기 기능
 const { Kakao } = window;
@@ -59,7 +60,7 @@ function ShareURLModal({ isOpen, onClose }) {
     <div className={style.modal}>
       {/* <div className={style.header}> */}
       <div className={style.close} onClick={onClose}>
-        X
+        <AiOutlineClose />
       </div>
       <div className={style.title}>공유하기</div>
       {/* </div> */}
