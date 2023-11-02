@@ -5,22 +5,12 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import "./fonts/font.css";
-
+import RouteChangeTracker from "./RouteChangeTracker";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <BrowserRouter>
+        <RouteChangeTracker />
         <App />
-        {/* <!-- Google tag (gtag.js) --> */}
-
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-1BFGW7JD08"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || []; function gtag()
-            {dataLayer.push(arguments)}
-            gtag('js', new Date()); gtag('config', 'G-1BFGW7JD08');
-        </script>
     </BrowserRouter>
 );
