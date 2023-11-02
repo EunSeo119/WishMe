@@ -48,7 +48,7 @@ public class MyLetter extends BaseTimeEntity {
     private boolean isReport;
 
     @Builder
-    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply, Boolean isReport) {
+    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply) {
         this.myLetterSeq = myLetterSeq;
         this.toUser = toUser;
         this.asset = asset;
@@ -57,7 +57,6 @@ public class MyLetter extends BaseTimeEntity {
         this.fromUser = fromUser;
         this.isPublic = isPublic;
         this.reply = reply;
-        this.isReport = isReport;
     }
 
     /**
