@@ -27,7 +27,7 @@ const CheckDeskLogin = () => {
             </p>
             <p className={style.content}>답장을 받으려면 로그인 해주세요!</p>
             <div className={style.btn}>
-                <Link to={`/`} className={style.link}>
+                <Link to={`/login/${deskUuid}`} className={style.link}>
                     <div className={style.selectBtn}>로그인 하기</div>
                 </Link>
                 <Link
