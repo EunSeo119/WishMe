@@ -49,14 +49,13 @@ public class SchoolLetter {
         createAt = new Date();
     }
     @Builder
-    public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt, Boolean isReport) {
+    public SchoolLetter(Long schoolLetterSeq, School school, Asset assetSeq, String content, String nickname, Date createAt) {
         this.schoolLetterSeq = schoolLetterSeq;
         this.school = school;
         this.assetSeq = assetSeq;
         this.content = content;
         this.nickname = nickname;
         this.createAt = createAt;
-        this.isReport = isReport;
     }
 
     public SchoolLetter(SchoolLetterWriteRequestDto writeDto, School school, Asset asset) {
