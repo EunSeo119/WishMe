@@ -27,11 +27,20 @@ public class User {
     private String userNickname;
 
     @Column(name = "user_school_seq")
-    private Long userSchoolSeq;
+    private Integer userSchoolSeq;
 
     @Column(name = "uuid")
     private String uuid;
 
+    @Column(name = "refresh_token")
+    private String refreshToken;
+
     @OneToMany(mappedBy = "toUser")
     private List<MyLetter> myLetters = new ArrayList<>();
+
+    public User(String email, String userNickname, String uuid) {
+        this.email = email;
+        this.userNickname = userNickname;
+        this.uuid = uuid;
+    }
 }
