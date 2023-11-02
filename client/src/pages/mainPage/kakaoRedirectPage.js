@@ -18,7 +18,15 @@ const KakaoRedirectPage = () => {
                 // localStorage.setItem('deskUuid', res.data.data.uuid)
                 // localStorage.setItem('deskUserSeq', res.data.data.userSeq)
                 // navigate(`/desk`);
-                navigate(`/desk/${res.data.data.uuid}`);
+                const linkUuid = localStorage.getItem('LinkUuid')
+                localStorage.removeItem("LinkUuid")
+                if(linkUuid == null){
+                    navigate(`/desk/${res.data.data.uuid}`);
+                }
+                else{
+                    navigate(`/desk/${linkUuid}`);
+                }
+                
             });
     }, []);
 

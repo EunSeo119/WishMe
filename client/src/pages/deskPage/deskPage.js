@@ -7,6 +7,8 @@ import { Navigate, useNavigate } from 'react-router'
 import ShareURLModal from '../../Modal/shareURLModal'
 import { useParams } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io'
+import { BsToggleOff, BsToggleOn } from 'react-icons/bs'
+import { BsToggle2Off, BsToggle2On } from 'react-icons/bs'
 import Header from '../../Common/Header'
 
 const DeskPage = () => {
@@ -22,6 +24,16 @@ const DeskPage = () => {
   // const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
+
+  // 학교/책상 토글
+  const [isOn, setIsOn] = useState(false);
+
+  const handleToggleClick = () => {
+    setIsOn(!isOn);
+    if(!isOn){
+      handleMySchoolClick();
+    }
+  };
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -163,11 +175,23 @@ const DeskPage = () => {
           className={style.bg}
           crossOrigin="anonymous"
         />
-
+        
         {/* 헤더 */}
         <div className={style.header}>
           <Header />
         </div>
+
+        {/* 학교/내책상 토글 */}
+        {isMine ? (
+        <div className={style.toggle}>
+          <div><b>책상</b></div>
+          {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
+          <div>{isOn ? <BsToggle2On onClick={handleToggleClick} /> : <BsToggle2Off onClick={handleToggleClick} />}</div>
+          <div><b>학교</b></div>
+        </div>
+        ) : (
+          <></>
+        )}
 
         {/* 제목 */}
         <div className={style.deskTitle}>
@@ -179,9 +203,8 @@ const DeskPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={style.deskLetterList}>
           <div
-            className={`${style.arrowIcon} ${
-              currentPage === 1 ? style.disabledArrow : style.abledArrow
-            }`}
+            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
+              }`}
             onClick={() => {
               if (currentPage > 1) {
                 changePage(currentPage - 1)
@@ -205,9 +228,8 @@ const DeskPage = () => {
             ))}
           </div>
           <div
-            className={`${style.arrowIcon} ${
-              currentPage === totalPage ? style.disabledArrow : style.abledArrow
-            }`}
+            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
+              }`}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
@@ -218,12 +240,12 @@ const DeskPage = () => {
           {isMine ? (
             <>
               <div className={style.cheerUpBtn} onClick={openModal}>
-                공유하기
+                내 책상 공유하기
               </div>
 
-              <div className={style.cheerUpBtn} onClick={handleMySchoolClick}>
+              {/* <div className={style.cheerUpBtn} onClick={handleMySchoolClick}>
                 우리 학교 가기
-              </div>
+              </div> */}
             </>
           ) : (
             <>
@@ -242,12 +264,18 @@ const DeskPage = () => {
                     to={`/desk/${deskUuid}/checkLogin`}
                     className={style.link}
                   >
-                    <div className={style.cheerUpBtn}>응원하기</div>
+                    <div className={style.cheerUpBtn2}>응원하기</div>
                   </Link>
                 </>
               )}
+              {/* <Link
+                to={`/desk/${deskUuid}/selectAsset`}
+                className={style.link}
+              >
+                <div className={style.cheerUpBtn}>응원하기</div>
+              </Link> */}
 
-              <div className={style.cheerUpBtn} onClick={handleMyDeskClick}>
+              <div className={style.cheerUpBtn3} onClick={handleMyDeskClick}>
                 내 책상 보기
               </div>
             </>

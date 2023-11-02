@@ -65,6 +65,13 @@ const MyPage = () => {
       })
   }
 
+  // 엔터키로 동작
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      searchSchool(e)
+    }
+  }
+
   // 학교 찾기
   const [schoolList, setSchoolList] = useState([])
   const [selectedSchool, setSelectedSchool] = useState('')
@@ -150,6 +157,7 @@ const MyPage = () => {
               type="text"
               value={deskName}
               style={{ color: 'gray', backgroundColor: '#edf4ef' }}
+              disabled
               readOnly
             />
           )}
@@ -170,8 +178,10 @@ const MyPage = () => {
                 <div>
                   <input
                     type="text"
+                    style={{width: '160px'}}
                     value={tempSchoolName}
                     onChange={(e) => changeSchool(e)}
+                    onKeyPress={handleKeyPress}
                   />
                 </div>
                 <div className={style.searchBtn} onClick={searchSchool}>
@@ -216,9 +226,10 @@ const MyPage = () => {
                   style={{
                     color: 'gray',
                     backgroundColor: '#edf4ef',
-                    width: '80%',
-                    width: '260px'
+                    width: '70%',
+                    width: '210px'
                   }}
+                  disabled
                   readOnly
                 />
               </div>

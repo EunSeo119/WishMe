@@ -10,6 +10,31 @@ body {
   text-decoration: none;
 }
 
+.toggle {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2%;
+  /* background-color: #edf4ef; */
+  /* border-radius: 30px; */
+  width: 150px;
+  color: #176124;
+  background-color: rgb(249, 240, 229);
+}
+
+.toggle div:nth-child(2n-1){
+  font-family: 'omyu_pretty';
+  font-size: 26px;
+  margin: auto;
+}
+
+.toggle div:nth-child(2){
+  font-size: 35px;
+  text-align: center;
+  margin: 0 5px;
+}
+
 .shareBtn {
   font-family: 'omyu_pretty';
   font-size: 25px;
@@ -24,6 +49,32 @@ body {
 }
 
 .cheerUpBtn {
+  font-family: 'omyu_pretty';
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 13px;
+  margin: 50px 20px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.cheerUpBtn2 {
+  font-family: 'omyu_pretty';
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 13px;
+  margin: 10px 20px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.cheerUpBtn3 {
   font-family: 'omyu_pretty';
   font-size: 25px;
   color: #fff;
@@ -187,12 +238,10 @@ body {
 .Modaltitle {
   font-family: 'omyu_pretty';
   flex: 1;
-  /* '공유하기'를 화면 가운데로 위치시킴 */
   text-align: center;
-  /* 텍스트를 가운데 정렬 */
-  font-size: 28px;
+  font-size: 27px;
   color: #000000;
-  margin: 20px 0 20px 15px;
+  margin: 25px auto 20px;
 }
 
 .Modalclose {
