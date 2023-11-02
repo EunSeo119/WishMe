@@ -15,7 +15,24 @@ const SearchSchoolPage = () => {
 
     // 학교 
     const saveClick = () => {
-        navigate(`/school/${userSchoolUuid}`);
+
+        if(userSchoolUuid !== 0){
+            navigate(`/school/${userSchoolUuid}`);
+        }else{
+            alert("학교가 선택되지 않았습니다!")
+        }
+    }
+
+    // 엔터키로 동작
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+          searchSchool(e);
+        }
+      };
+
+    // 마이페이지로 이동
+    const goMypage = () => {
+        navigate(`/mypage`);
     }
 
     // 학교 수정
@@ -53,11 +70,13 @@ const SearchSchoolPage = () => {
     return (
         <div className={style.container}>
             <div className={style.school}>
-                <div style={{width: '100%', fontSize: '35px', marginBottom: '50px'}}>학교 검색하기</div>
+                <div style={{width: '100%', fontSize: '35px', marginBottom: '30px'}}>학교 검색하기</div>
+                <div className={style.desc1}> * 학교를 선택하면 해당 학교에 온 응원을 볼 수 있어요!</div>
+                <div className={style.desc2} onClick={goMypage}> 마이페이지에서 내 학교 등록하기</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                     <div>학교 :</div>
                     <div>
-                    <input type="text" value={tempSchoolName} onChange={(e) => changeSchool(e)} />
+                    <input type="text" value={tempSchoolName} onChange={(e) => changeSchool(e)} onKeyPress={handleKeyPress}/>
                     </div>
                     <div className={style.searchBtn} onClick={searchSchool}>
                     검색
