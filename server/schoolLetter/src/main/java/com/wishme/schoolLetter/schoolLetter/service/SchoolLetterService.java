@@ -16,6 +16,7 @@ import com.wishme.schoolLetter.schoolLetter.repository.SchoolLetterRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -164,6 +165,17 @@ public class SchoolLetterService {
 
         SchoolLetter schoolLetter = new SchoolLetter(cipherContent, writeDto.getNickname(), school, asset);
         schoolLetter = schoolLetterRepository.save(schoolLetter);
+
+        return schoolLetter.getSchoolLetterSeq();
+    }
+
+    @Transactional
+    public Long reportLetter(Long letterSeq) {
+        SchoolLetter schoolLetter = schoolLetterRepository.findBySchoolLetterSeq(letterSeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        schoolLetter.updateReport(true);
+        schoolLetterRepository.save(schoolLetter);
 
         return schoolLetter.getSchoolLetterSeq();
     }

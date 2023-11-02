@@ -2,7 +2,6 @@ package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.asset.repository.AssetRepository;
-import com.wishme.myLetter.config.RSAUtil;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
@@ -14,6 +13,7 @@ import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,15 +21,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,16 +111,27 @@ public class DeveloperService {
     }
 
     // 개발자 편지 상세 조회
-    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId) throws Exception {
-        MyLetter myLetter = developerRepository.findById(myLetterId).orElse(null);
+    public OneDeveloperLetterResponseDto oneDeveloperLetter(Authentication authentication, Long myLetterId) throws Exception {
+        MyLetter myLetter = developerRepository.findById(myLetterId)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        User checkUser = null;
+        if(authentication != null){
+            checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+        }
 
         if(myLetter.getToUser().getUserSeq() != 1l) {
             throw new IllegalArgumentException("개발자 편지가 아닙니다.");
         }
 
-        if(!myLetter.getIsPublic()) {
-            throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
+        if(!myLetter.getToUser().equals(checkUser) && !myLetter.getIsPublic()) {
+            throw new RuntimeException("비공개 편지입니다.");
         }
+
+//        if(!myLetter.getIsPublic()) {
+//            throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
+//        }
 
         AES256 aes256 = new AES256(key);
         String decryptContent = aes256.decrypt(myLetter.getContent());
@@ -137,7 +139,7 @@ public class DeveloperService {
 //        PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
 //        String decryptContent = RSAUtil.decryptRSA(myLetter.getContent(), privateKey);
 
-        if(myLetter != null && myLetter.getIsPublic()){
+        if(myLetter != null){
             return OneDeveloperLetterResponseDto.builder()
                     .assetSeq(myLetter.getAsset().getAssetSeq())
                     .content(decryptContent)
