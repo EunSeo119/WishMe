@@ -84,8 +84,9 @@ public class SchoolLetterService {
 
         SchoolLetter sc = schoolLetterRepository.findBySchoolLetterSeq(schoolLetterId)
                 .orElseThrow(IllegalArgumentException::new);
-        PrivateKey prKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
-        String decryptContent = RSAUtil.decryptRSA(sc.getContent(), prKey);
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(sc.getContent());
+
 
         return SchoolLetterDetailResponseDto.builder()
                 .schoolLetterSeq(sc.getSchoolLetterSeq())
