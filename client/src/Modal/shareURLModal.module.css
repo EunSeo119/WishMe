@@ -1,0 +1,50 @@
+.modal {
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 200px;
+  background-color: #176124;
+  border-radius: 15px;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.title {
+  font-family: "omyu_pretty";
+  flex: 1; /* '공유하기'를 화면 가운데로 위치시킴 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  font-size: 28px;
+  color: #edf4ef;
+  margin: 20px 0 20px 15px;
+}
+
+.close {
+  margin-right: 10px;
+  cursor: pointer;
+  float: right;
+  color: #edf4ef;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.btn div {
+  font-family: "omyu_pretty";
+  font-size: 20px;
+  color: #176124;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #edf4ef;
+  padding: 13px;
+  margin: 10px 25px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,80 @@
+.bg {
+    background-color: #DAF1DE;
+    height: 100vh;
+    width: 100vw;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.topbox {
+    height: 58%;
+    margin: 75px 0;
+}
+
+.bottombox {
+    height: 5%;
+}
+
+.title {
+    font-size: 55px;
+    /* font-family: 'kalam-Reqular'; */
+    font-family: 'Yeongdeok Sea';
+    text-align: center;
+}
+
+.subTitle {
+    font-size: 30px;
+    font-family: 'Yeongdeok Sea';
+    text-align: right;
+    padding-right: 25px;
+}
+
+.kakao {
+    text-align: center;
+    cursor: pointer;
+}
+
+.nologin {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 13px;
+    font-family: 'armata';
+    color: #9F9F9F;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.loadingPage {
+    font-family: 'Yeongdeok Sea';
+    text-align: center;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.sidebar {
+    z-index: 5;
+    padding: 12px;
+    border-radius: 15px 0 0 15px;
+    background-color: #e7e4e1;
+    height: 100%;
+    width: 55%;
+    right: -55%;
+    top: 0;
+    position: fixed;
+    transition: 0.5s ease;
+}
+
+.sidebar.open {
+    right: 0;
+    transition: 0.5s ease;
+}
+
+.menu {
+    margin: 30px 8px;
+}
+
+.exitMenu {
+    position: absolute;
+    bottom: 26px;
+    font-size: 0.8rem;
+}

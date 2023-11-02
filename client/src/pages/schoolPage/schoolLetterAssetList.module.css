@@ -1,0 +1,145 @@
+body {
+  background-color: #daf1de;
+  max-width: 443px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* left: 50%;
+  transform: translate(-50%, 0); */
+}
+
+.icon {
+  /* position: absolute; */
+  /* top: 11%; */
+  /* transform: translateY(-50%); */
+}
+.schoolName {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  /* top: 3%; */
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+
+.title {
+  margin-top: 3%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  /* transform: translate(-50%, 0); */
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  /* align-items: center; */
+  text-align: center;
+  color: #000000;
+}
+.gridContainer {
+  left: 50%; /* 가운데로부터 오른쪽으로 50% 떨어진 위치에 배치 */
+  transform: translateX(-50%);
+  top: 25.5%;
+  width: 100%;
+  /* height: 50%; */
+  position: absolute;
+  height: 50%;
+  /* background-color: #000000; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+.gridItemContainer {
+  display: flex; /* 수평으로 그리드 아이템을 배치합니다. */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 100%;
+  align-items: center;
+}
+
+.arrowIcon {
+  font-size: 24px;
+  cursor: pointer;
+  margin: 0;
+}
+.disabledArrow {
+  font-size: 24px;
+  color: #ccc;
+  cursor: not-allowed;
+  margin: 0;
+}
+
+/* .gridItem {
+  margin: 20px 5px;
+  display: inline-block;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+} */
+
+.gridItem {
+  margin: 7px 5px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid #ccc; */
+  min-height: 100px;
+  /* width: 100%; */
+  background: rgba(89, 172, 130, 0.8);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+.gridItem img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.gridItem img {
+  width: 100%;
+  height: auto;
+}
+
+.btn {
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 443px;
+}
+
+.selectAsset {
+  border: 2px solid #176124; /* 테두리 스타일 추가, 원하는 스타일로 변경 가능 */
+}
+.mySchoolBtn {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 10px;
+  margin: 0 20px 10px;
+  /* width: 100%; */
+}

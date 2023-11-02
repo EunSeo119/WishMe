@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: '8081'
 
 jwt:
   secret:
@@ -9,10 +9,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    #    url: jdbc:mysql://localhost:3306/wishme
+#    url: jdbc:mysql://localhost:3306/wishme
     url: jdbc:mysql://wishme.co.kr:3608/wishme
-    #    url: jdbc:mysql://user_mysqldb:3308/wishme?autoReconnect=true
-    #    url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
+#    url: jdbc:mysql://user_mysqldb:3308/wishme?autoReconnect=true
+#    url: jdbc:mysql://myletter_mysqldb:3306/wishme?autoReconnect=true
     password: "#e^y)p*i8"
 
   mvc:
@@ -30,11 +30,3 @@ oauth:
   kakao:
     CLIENT_ID: 387062eebd5664d04e85b2d4f021b9ef
     CLIENT_SECRET: WoEoIenp7NYAygJUsr6ieXVSmAjp8vZJ
-
-management:
-  server:
-    port: 1002
-  endpoints:
-    web:
-      exposure:
-        include: prometheus, info, health
