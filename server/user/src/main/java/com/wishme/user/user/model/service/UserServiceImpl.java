@@ -6,8 +6,10 @@ import com.wishme.user.school.model.repository.SchoolRepository;
 import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
 import com.wishme.user.user.model.dto.response.SearchSchoolResponseDto;
 import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.util.AES256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
+
+    @Value("{key.AES256_Key}")
+    private String key;
 
     @Override
     public ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq) {
