@@ -17,6 +17,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,11 +79,13 @@ public class DeveloperService {
     }
 
     // 개발자 책상 확인
-    public AllDeveloperLetterListResponseDto allDeveloperLetter(Pageable pageable, int page){
+    public AllDeveloperLetterListResponseDto allDeveloperLetter(int page){
         User admin = userRepository.findById(1L).orElse(null);
 
         // 페이지 번호 사용해 Pageable 수정
-        pageable = PageRequest.of(page-1, pageable.getPageSize(), pageable.getSort());
+        Sort sort = Sort.by(Sort.Order.desc("createAt"));
+        Pageable pageable = PageRequest.of(page - 1, 9, sort);
+//        pageable = PageRequest.of(page-1, pageable.getPageSize(), pageable.getSort());
 
         Page<MyLetter> myLetters = developerRepository.findAllDeveloperLetter(pageable, admin);
         Integer totalCnt = developerRepository.findTotalCnt(admin);
