@@ -6,8 +6,8 @@
   top: 15vh;
   left: 50%;
   transform: translateX(-50%);
-  width: 60vw;
-  height: 70vh;
+  width: 350px;
+  height: 500px;
   background-color: #edf4ef;
   border-radius: 15px;
   align-items: center;
@@ -37,8 +37,8 @@
   top: 15vh;
   left: 50%;
   transform: translateX(-50%); */
-  width: 40vw;
-  height: 40vh;
+  width: 65%;
+  height: 40%;
   margin-left: 17%;
 }
 .Modalclose {
