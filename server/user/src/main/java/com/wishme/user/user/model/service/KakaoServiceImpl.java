@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wishme.user.domain.User;
 import com.wishme.user.user.model.dto.request.KakaoUserInfoDto;
 import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.util.AES256;
 import com.wishme.user.util.JwtUtil;
 import com.wishme.user.util.KakaoUtil;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +28,15 @@ public class KakaoServiceImpl implements KakaoService {
 
     @Value("{jwt.secret.key}")
     private String secretKey;
+
+    @Value("{key.AES256_Key}")
+    private String key;
+
     private final KakaoUtil kakaoUtil;
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<?> login(String code, HttpServletResponse response) throws JsonProcessingException {
+    public ResponseEntity<?> login(String code, HttpServletResponse response) throws Exception {
 
         // 1. 인가 코드로 액세스 토큰 요청
         String accessToken = kakaoUtil.getAccessToken(code);
@@ -44,10 +49,13 @@ public class KakaoServiceImpl implements KakaoService {
         if (user == null) {
             // 회원가입
             String email = kakaoUserInfoDto.getEmail();
+            AES256 aes256 = new AES256(key);
+            String cipherEmail = aes256.encrypt(email); // email AES256 암호화
+
             String userNickname = kakaoUserInfoDto.getNickname();
             String uuid = UUID.randomUUID().toString();
 
-            user = new User(email, userNickname, uuid);
+            user = new User(cipherEmail, userNickname, uuid);
             userRepository.save(user);
         }
 
