@@ -175,7 +175,7 @@ const DeveloperPage = () => {
             <>
                     <Link to={`/developer/selectAsset`} className={style.link}>
                       <div className={style.cheerUpBtn}>
-                        응원하기
+                        응원 또는 문의하기
                       </div>
                     </Link>
 

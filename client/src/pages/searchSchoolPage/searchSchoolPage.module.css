@@ -31,6 +31,7 @@
     padding-top: 2px;
     padding-bottom: 5px;
     cursor: pointer;
+    margin-top: 10px;
   }
 
   .school div:nth-child(1) {
@@ -59,7 +60,7 @@
     width: 20%;
     font-size: 15px;
     display: flex;
-    width: 45px;
+    width: 50px;
     height: 35px;
     border-radius: 5px;
     justify-content: center;
