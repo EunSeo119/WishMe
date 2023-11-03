@@ -69,7 +69,7 @@ public class DeveloperService {
                     .content(cipherContent)
                     .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
                     .fromUser(fromUserLong)
-                    .isPublic(writeDeveloperLetterRequestDto.isPublic())
+                    .isPublic(writeDeveloperLetterRequestDto.getIsPublic())
                     .build();
             developerRepository.save(myLetter);
         }else{
@@ -85,6 +85,7 @@ public class DeveloperService {
         pageable = PageRequest.of(page-1, pageable.getPageSize(), pageable.getSort());
 
         Page<MyLetter> myLetters = developerRepository.findAllDeveloperLetter(pageable, admin);
+        Integer totalCnt = developerRepository.findTotalCnt(admin);
 
         if(admin != null){
             // 9개씩 담기
@@ -101,7 +102,7 @@ public class DeveloperService {
             }
             // 총 편지 수, 총 페이지 수, 페이지 당 편지
             return AllDeveloperLetterListResponseDto.builder()
-                    .totalLetters(myLetters.getNumberOfElements())
+                    .totalLetters(totalCnt)
                     .totalPages(myLetters.getTotalPages())
                     .lettersPerPage(developerLetterResponseDtos)
                     .build();

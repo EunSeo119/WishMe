@@ -20,6 +20,6 @@ public class WriteDeveloperLetterRequestDto {
     // 보내는 사람
     private Long fromUser;
     // 공개여부
-    private boolean isPublic;
+    private Boolean isPublic;
 
 }

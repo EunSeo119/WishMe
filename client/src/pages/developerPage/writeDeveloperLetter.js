@@ -18,12 +18,15 @@ const WriteDeveloperLetter = () => {
     const navigate = useNavigate();
 
     const handleSave = async () => {
+
+        console.log(isPublic);
+
         try {
             const data = {
                 assetSeq: Number(assetSeq),
                 nickname: nickname,
                 content: content,
-                isPublic: isPublic ? 1 : 0,
+                isPublic: isPublic ?  1 : 0,
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
@@ -119,7 +122,7 @@ const WriteDeveloperLetter = () => {
                                 type="radio"
                                 name="visibility"
                                 checked={isPublic}
-                                onChange={() => { setIsPublic(true); setSelectedButton('public'); }}
+                                onClick={() => { setIsPublic(true); setSelectedButton('public'); }}
                             />
                             전체공개
                         </label>
@@ -130,7 +133,7 @@ const WriteDeveloperLetter = () => {
                                 type="radio"
                                 name="visibility"
                                 checked={!isPublic}
-                                onChange={() => { setIsPublic(false); setSelectedButton('private'); }}
+                                onClick={() => { setIsPublic(false); setSelectedButton('private'); }}
                             />
                             비공개
                         </label>
@@ -138,7 +141,7 @@ const WriteDeveloperLetter = () => {
                 </div>
             </div>
             <div className={style.btn}>
-                <button className={style.submitButton} onClick={handleSubmit}>응원 남기기</button>
+                <button className={style.submitButton} onClick={handleSubmit}>응원 또는 문의 남기기</button>
             </div>
 
             {showModal && (
