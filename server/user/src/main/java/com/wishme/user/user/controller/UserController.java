@@ -22,7 +22,7 @@ public class UserController {
 
     // API 1. 카카오 로그인
     @GetMapping("/login")
-    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code, HttpServletResponse response) throws JsonProcessingException {
+    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code, HttpServletResponse response) throws Exception {
         return kakaoService.login(code, response);
     }
 
