@@ -69,7 +69,7 @@ public class DeveloperService {
                     .content(cipherContent)
                     .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
                     .fromUser(fromUserLong)
-                    .isPublic(writeDeveloperLetterRequestDto.isPublic())
+                    .isPublic(writeDeveloperLetterRequestDto.getIsPublic())
                     .build();
             developerRepository.save(myLetter);
         }else{
