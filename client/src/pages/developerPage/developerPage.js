@@ -36,18 +36,14 @@ const DeveloperPage = () => {
     }
   };
 
-  const handleLetterClick = (letterId) => {
-    const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-11')
-
-    if (currentDate < modalOpenDate) {
-      // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
+  const handleLetterClick = (letter) => {
+    if(!letter.public){
       openNextDateModal()
-    } else {
-      // 그 이후면 개인 편지 페이지로 이동
-      // 아직 못만듬..!
-      // navigate(`/myLetterDetail/${letterId}`)
     }
+    else{
+      navigate(`/developerLetterDetail/${letter.myLetterSeq}`)
+    }
+     
   }
 
   const [isNextDateModalOpen, setIsNextDateModalOpen] = useState(false)
@@ -149,7 +145,7 @@ const DeveloperPage = () => {
               <div
                 key={index}
                 className={style.gridItem}
-                onClick={() => handleLetterClick(letter.myLetterSeq)}
+                onClick={() => handleLetterClick(letter)}
               >
                 {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
@@ -179,7 +175,7 @@ const DeveloperPage = () => {
             <>
                     <Link to={`/developer/selectAsset`} className={style.link}>
                       <div className={style.cheerUpBtn}>
-                        응원하기
+                        응원 또는 문의하기
                       </div>
                     </Link>
 
@@ -206,7 +202,7 @@ const DeveloperPage = () => {
                 X
               </div>
               <div className={style.Modaltitle}>
-                편지는 11월 11일<br></br> 공개됩니다!
+                비공개 편지입니다.
               </div>
               <div
                 className={style.Modalbtn}

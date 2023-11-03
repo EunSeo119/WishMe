@@ -141,7 +141,7 @@ const WriteDeveloperLetter = () => {
                 </div>
             </div>
             <div className={style.btn}>
-                <button className={style.submitButton} onClick={handleSubmit}>문의 남기기</button>
+                <button className={style.submitButton} onClick={handleSubmit}>글 남기기</button>
             </div>
 
             {showModal && (
