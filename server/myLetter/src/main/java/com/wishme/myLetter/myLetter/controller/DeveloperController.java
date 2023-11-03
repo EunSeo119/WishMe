@@ -31,7 +31,7 @@ public class DeveloperController {
 
     // API 2. 개발자 책상 확인
     @GetMapping("/all")
-    public ResponseEntity<?> allDeveloperLetter(@PageableDefault(size=9, direction = Sort.Direction.DESC)Pageable pageable, @RequestParam int page){
+    public ResponseEntity<?> allDeveloperLetter(@PageableDefault(size=9, sort = "createAt", direction = Sort.Direction.DESC)Pageable pageable, @RequestParam int page){
         try{
             return ResponseEntity.ok(developerService.allDeveloperLetter(pageable, page));
         }catch (IllegalArgumentException e){
