@@ -72,7 +72,7 @@ services:
     environment:
       - TZ=Asia/Seoul
     build:
-      context: ./server/user
+      context: ./server/schoolLetter
       dockerfile: Dockerfile
     ports:
       - "9999:8080"

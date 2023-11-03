@@ -1,0 +1,157 @@
+.body {
+  height: 100vh;
+}
+
+/* 타이틀 부분 */
+.title {
+  font-family: 'omyu_pretty';
+  height: 20%;
+  font-size: 30px;
+  text-align: left;
+  padding-top: 20%;
+  margin-left: 30px;
+}
+
+/* 폼 입력 부분 */
+.form {
+  height: 58%;
+  font-family: 'omyu_pretty';
+  margin-left: 15px;
+}
+
+.form input:focus {
+  outline: none;
+}
+
+.nickname {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.nickname div:nth-child(1) {
+  width: 30%;
+  width: 90px;
+  font-size: 22px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.nickname input {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
+  width: 70%;
+  width: 210px;
+  height: 32px;
+  border: 1px solid rgb(247, 247, 247);
+  /* color: #ececec; */
+  border-radius: 5px;
+}
+
+.school {
+  width: 90%;
+  /* display: flex;
+  justify-content: space-around; */
+}
+
+.school div:nth-child(1) {
+  width: 30%;
+  width: 90px;
+  font-size: 22px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.school input {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
+  width: 70%;
+  height: 32px;
+  border: 1px solid rgb(247, 247, 247);
+  border-radius: 5px;
+  margin-right: 12px;
+}
+
+.searchBtn {
+  /* width: 20%; */
+  font-size: 15px;
+  display: flex;
+  width: 60px;
+  height: 35px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #176124;
+  background-color: #176124;
+  padding: auto 2px;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.schoolList {
+  border: 1px solid #fff;
+  background-color: #fff;
+  width: 70%;
+  height: 200px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-top: 5px;
+}
+
+.schoolList ul {
+  margin: 10px;
+  padding: 0;
+}
+
+.schoolList li {
+  list-style-type: none;
+}
+
+/* 버튼 부분 */
+.btn {
+  height: 10%;
+}
+
+.modifyBtn {
+  font-family: 'omyu_pretty';
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 13px;
+  margin: 0px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.completeBtn {
+  font-family: 'omyu_pretty';
+  font-size: 25px;
+  color: #176124;
+  text-align: center;
+  border: 2px solid #176124;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 13px;
+  margin: 0px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.beforeTitle {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}

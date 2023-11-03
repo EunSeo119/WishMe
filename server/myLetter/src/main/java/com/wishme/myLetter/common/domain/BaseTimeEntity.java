@@ -1,5 +1,6 @@
 package com.wishme.myLetter.common.domain;
 
+
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

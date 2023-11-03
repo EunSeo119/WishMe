@@ -1,7 +1,9 @@
 package com.wishme.myLetter.myLetter.domain;
 
 import com.wishme.myLetter.common.domain.BaseTimeEntity;
+import com.wishme.myLetter.user.domain.User;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,12 +21,30 @@ public class Reply extends BaseTimeEntity {
     private Long replySeq;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "letter_seq")
+    @JoinColumn(name = "letter_seq", nullable = false)
     private MyLetter myLetter;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "to_user", nullable = false)
+    private User toUser;
 
     @Column(columnDefinition = "text", nullable = false)
     private String content;
 
-    @Column(name = "from_user", nullable = false)
-    private String fromUser;
+    @Column(name = "from_user_nickname", nullable = false)
+    private String fromUserNickname;
+
+    @Column(name = "letter_color", nullable = false)
+    private char color;
+
+    @Builder
+    public Reply(Long replySeq, MyLetter myLetter, User toUser, String content, String fromUserNickname, char color) {
+        this.replySeq = replySeq;
+        this.myLetter = myLetter;
+        this.toUser = toUser;
+        this.content = content;
+        this.fromUserNickname = fromUserNickname;
+        this.color = color;
+    }
 }
+
