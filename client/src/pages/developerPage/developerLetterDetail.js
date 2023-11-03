@@ -50,7 +50,7 @@ const DeveloperLetterDetail = () => {
         {/* 여기가 편지 내용 */}
         <div className={style.letter}>
           <div className={style.to}>
-            <text className={style.letterPrefix}>To. {nickname}</text>
+            <text className={style.letterPrefix}>To. 빛나리</text>
           </div>
           <div className={style.content}>
             <textarea
@@ -60,7 +60,7 @@ const DeveloperLetterDetail = () => {
             />{' '}
           </div>
           <div className={style.from}>
-            <text className={style.letterSurfix}>From. 빛나리</text>
+            <text className={style.letterSurfix}>From. {nickname}</text>
           </div>{' '}
         </div>
       </div>
