@@ -44,14 +44,14 @@ public class KakaoServiceImpl implements KakaoService {
         // 2. 액세스 토큰으로 카카오 API 호출
         KakaoUserInfoDto kakaoUserInfoDto = kakaoUtil.getKakaoUserInfo(accessToken);
 
+        String email = kakaoUserInfoDto.getEmail();
+        AES256 aes256 = new AES256(key);
+        String cipherEmail = aes256.encrypt(email); // email AES256 암호화
+
         // 3. 카카오 ID로 회원가입 처리
-        User user = userRepository.findByEmail(kakaoUserInfoDto.getEmail());
+        User user = userRepository.findByEmail(cipherEmail);
         if (user == null) {
             // 회원가입
-            String email = kakaoUserInfoDto.getEmail();
-            AES256 aes256 = new AES256(key);
-            String cipherEmail = aes256.encrypt(email); // email AES256 암호화
-
             String userNickname = kakaoUserInfoDto.getNickname();
             String uuid = UUID.randomUUID().toString();
 
