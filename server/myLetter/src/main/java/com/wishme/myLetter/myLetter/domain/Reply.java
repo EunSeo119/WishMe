@@ -34,17 +34,22 @@ public class Reply extends BaseTimeEntity {
     @Column(name = "from_user_nickname", nullable = false)
     private String fromUserNickname;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "from_user", nullable = false)
+    private User fromUser;
+
     @Column(name = "letter_color", nullable = false)
     private char color;
 
     @Builder
-    public Reply(Long replySeq, MyLetter myLetter, User toUser, String content, String fromUserNickname, char color) {
+    public Reply(Long replySeq, MyLetter myLetter, User toUser, String content, String fromUserNickname, char color, User fromUser) {
         this.replySeq = replySeq;
         this.myLetter = myLetter;
         this.toUser = toUser;
         this.content = content;
         this.fromUserNickname = fromUserNickname;
         this.color = color;
+        this.fromUser = fromUser;
     }
 }
 
