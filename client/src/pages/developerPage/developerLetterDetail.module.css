@@ -137,3 +137,15 @@ body {
   font-size: 25px;
   color: #d91212;
 }
+
+.replyBtn {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 10px;
+  margin: 0 20px 10px;
+}

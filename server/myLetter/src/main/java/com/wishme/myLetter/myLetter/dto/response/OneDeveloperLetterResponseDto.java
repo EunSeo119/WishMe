@@ -26,5 +26,7 @@ public class OneDeveloperLetterResponseDto {
     private Long fromUser;
     // 작성 일시
     private LocalDateTime createAt;
+    // 개발자 편지인지
+    private Boolean isMine;
 
 }
