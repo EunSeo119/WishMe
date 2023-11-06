@@ -29,6 +29,10 @@ const DeveloperLetterDetail = () => {
     navigate(-1)
   }
 
+  const writeReplyLetter = () => {
+    navigate(`/replyWritePage/${letterId}`)
+  }
+
   const handleReportClick = () => {
     // navigate(`/school/${schoolUuid}`)
     //letterId 이게 편지 아이디요
@@ -67,6 +71,9 @@ const DeveloperLetterDetail = () => {
       <div className={style.btn}>
         <div className={style.mySchoolBtn} onClick={() => goPre()}>
           닫기
+        </div>
+        <div className={style.mySchoolBtn} onClick={() => writeReplyLetter()}>
+          답장쓰기
         </div>
       </div>
     </div>
