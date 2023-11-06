@@ -7,7 +7,7 @@ import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import { PiSirenLight } from 'react-icons/pi'
 import LetterReportModal from '../../Modal/letterReportModal'
 const SchoolLetterDetail = () => {
-  const { schoolUuid, letterId } = useParams()
+  const { schoolUuid, letterId, page } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [schoolName, setSchoolName] = useState('')
@@ -40,8 +40,8 @@ const SchoolLetterDetail = () => {
   }, [content])
 
   const goPre = () => {
-    // navigate(`/school/${schoolUuid}`)
-    navigate(-1)
+    navigate(`/school/${schoolUuid}/${page}`)
+    // navigate(-1)
   }
 
   const handleReportClick = () => {
