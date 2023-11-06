@@ -78,10 +78,12 @@ const MyPage = () => {
   const [selectedIdx, setSelectedIdx] = useState(-1)
 
   const AccessToken = localStorage.getItem('AccessToken')
+  const RefreshToken = localStorage.getItem("RefreshToken");
   const headers = {}
 
   if (AccessToken) {
-    headers.Authorization = `Bearer ${AccessToken}`
+    headers.Authorization = `Bearer ${AccessToken}`;
+    headers.RefreshToken = `${RefreshToken}`;
   }
 
   const searchSchool = () => {
@@ -110,10 +112,12 @@ const MyPage = () => {
 
   useEffect(() => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem("RefreshToken");
     const headers = {}
 
     if (AccessToken) {
       headers.Authorization = `Bearer ${AccessToken}`
+      headers.RefreshToken = `${RefreshToken}`;
     }
 
     axios({

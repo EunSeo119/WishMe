@@ -75,13 +75,15 @@ const DeskPage = () => {
   // '내 책상 보기' 버튼 클릭 시 처리
   const handleMyDeskClick = () => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem("RefreshToken");
     if (AccessToken) {
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: 'get',
         url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
-          Authorization: `Bearer ${AccessToken}`
+          Authorization: `Bearer ${AccessToken}`,
+          RefreshToken: `${RefreshToken}`
         }
       })
         // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
@@ -103,13 +105,15 @@ const DeskPage = () => {
   // '우리 학교 가기' 버튼 클릭 시 처리
   const handleMySchoolClick = () => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem("RefreshToken");
     // if (AccessToken) {
     // AccessToken이 있으면 AccessToken이 이미 있다는 것이니 체크할 필요없음
     axios({
       method: 'get',
       url: `${SERVER_URL}/api/users`,
       headers: {
-        Authorization: `Bearer ${AccessToken}`
+        Authorization: `Bearer ${AccessToken}`,
+        RefreshToken: `${RefreshToken}`
       }
     })
       .then((response) => {
@@ -139,10 +143,12 @@ const DeskPage = () => {
 
   useEffect(() => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem("RefreshToken");
     const headers = {}
 
     if (AccessToken) {
-      headers.Authorization = `Bearer ${AccessToken}`
+      headers.Authorization = `Bearer ${AccessToken}`;
+      headers.RefreshToken = `${RefreshToken}`;
     }
     // const DeskUuid = localStorage.getItem("deskUuid");
     axios({
