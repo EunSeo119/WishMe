@@ -14,6 +14,7 @@ const ReplyWritePage = () => {
   const [content, setContent] = useState('')
   const [letterColor, setLetterColor] = useState('Y')
   const navigate = useNavigate()
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   const imageColors = [
     {
@@ -75,14 +76,26 @@ const ReplyWritePage = () => {
   //   }, [content])
 
   //답장 작성 완료
-  const clickWriteLetter = () => {
+  const clickWriteLetter = async () => {
+    const AccessToken = localStorage.getItem('AccessToken') // 토큰 값을 가져오는 코드
+    const RefreshToken = localStorage.getItem('RefreshToken')
+    const headers = {}
+    if (AccessToken) {
+      headers.Authorization = `Bearer ${AccessToken}`
+      headers.RefreshToken = `${RefreshToken}`
+    }
     if (content) {
-      axios
-        .post(`https://wishme.co.kr/api/my/reply/write`, {
+      console.log(letterId, content, letterColor, headers)
+      await axios({
+        method: 'post',
+        url: `${SERVER_URL}/api/my/reply/write`,
+        headers,
+        data: {
           myLetterSeq: letterId,
           content: content,
           color: letterColor
-        })
+        }
+      })
         .then((response) => {
           const data = response.data
           console.log(data)
@@ -91,6 +104,8 @@ const ReplyWritePage = () => {
         })
         .catch((error) => {
           // console.error('API 요청 중 오류 발생:', error)
+          alert('답장 등록에 실패했습니다.')
+          throw error
         })
     } else {
       alert('내용을 입력해주세요')
@@ -164,9 +179,9 @@ const ReplyWritePage = () => {
               ? style.myBtnPink
               : style.myBtnBlue
           }`}
-          onClick={() => goPre()}
+          onClick={() => clickWriteLetter()}
         >
-          닫기
+          답장 보내기
         </div>
       </div>
     </div>
