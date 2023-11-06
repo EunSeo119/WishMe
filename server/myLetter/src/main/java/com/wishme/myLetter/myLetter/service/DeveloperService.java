@@ -81,12 +81,12 @@ public class DeveloperService {
     }
 
     // 개발자 책상 확인
-    public AllDeveloperLetterListResponseDto allDeveloperLetter(Pageable pageable, int page){
+    public AllDeveloperLetterListResponseDto allDeveloperLetter(int page){
         User admin = userRepository.findById(1L).orElse(null);
 
         // 페이지 번호 사용해 Pageable 수정
         Sort sort = Sort.by(Sort.Order.desc("createAt"));
-        pageable = PageRequest.of(page-1, 9, sort);
+        Pageable pageable = PageRequest.of(page - 1, 9, sort);
 
         List<MyLetter> myLetters = myLetterRepository.findAllByToUser(admin, pageable);
         Integer totalCnt = developerRepository.findTotalCnt(admin);
