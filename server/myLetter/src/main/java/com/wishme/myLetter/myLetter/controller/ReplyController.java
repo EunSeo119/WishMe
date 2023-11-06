@@ -1,6 +1,5 @@
 package com.wishme.myLetter.myLetter.controller;
 
-import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.request.SaveReplyRequestDto;
 import com.wishme.myLetter.myLetter.service.ReplyService;
 import lombok.Getter;
@@ -30,5 +29,13 @@ public class ReplyController {
                 .body(replyService.saveReply(saveReplyRequestDto, authentication));
     }
 
-//    public ResponseEntity<?>
+    /**
+     * 편지 답장 리스트 확인하기
+     */
+    @GetMapping("/all")
+    public ResponseEntity<?> getMyLetterList(Authentication authentication, @RequestParam(value = "page") int page) {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(replyService.getMyReplyList(authentication, page));
+    }
 }
