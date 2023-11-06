@@ -10,8 +10,7 @@ import java.util.List;
 public interface DeveloperRepositoryCustom {
 
     // 개발자 전체 편지 조회 - 페이지네이션
-//    List<MyLetter> findAllDeveloperLetter(Pageable pageable, User user);
-//    List<MyLetter> findAllDeveloperLetter(User toUser, Pageable pageable);
+//    Page<MyLetter> findAllDeveloperLetter(Pageable pageable, User user);
 
     Integer findTotalCnt(User user);
 
