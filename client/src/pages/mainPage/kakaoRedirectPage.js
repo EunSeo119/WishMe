@@ -15,6 +15,7 @@ const KakaoRedirectPage = () => {
                 // const token = {AccessToken: res.data.data.token, expires: new Date().getTime() + 60*1000*1000}
                 // localStorage.setItem('AccessToken', JSON.stringify(token));
                 localStorage.setItem('AccessToken', res.data.data.token);
+                localStorage.setItem('RefreshToken', res.data.data.refresh_token)
                 // localStorage.setItem('deskUuid', res.data.data.uuid)
                 // localStorage.setItem('deskUserSeq', res.data.data.userSeq)
                 // navigate(`/desk`);

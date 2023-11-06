@@ -8,6 +8,7 @@ const DeveloperLetterDetail = () => {
   const { letterId } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
+  const [isMine, setIsMine] = useState(false)
 
   const navigate = useNavigate()
 
@@ -19,6 +20,7 @@ const DeveloperLetterDetail = () => {
         const data = response.data
         setContent(data.content)
         setNickname(data.nickname)
+        setIsMine(data.isMine)
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
@@ -65,6 +67,13 @@ const DeveloperLetterDetail = () => {
         </div>
       </div>
       <div className={style.btn}>
+        {isMine ? (
+          <>
+            <div className={style.replyBtn}>답장하기</div>
+          </>
+        ) : (
+          <></>
+        )}
         <div className={style.mySchoolBtn} onClick={() => goPre()}>
           닫기
         </div>
