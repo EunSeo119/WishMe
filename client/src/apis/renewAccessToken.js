@@ -1,19 +1,13 @@
-import { getCookie } from "../utils/cookie";
 import axios from "axios";
 
 export const renewAccessToken = async () => {
-  const AccessToken = localStorage.getItem('AccessToken')
-  const RefreshToken = getCookie("RefreshToken");
+  const RefreshToken = localStorage.getItem("RefreshToken");
   const headers = {
-    Authorization: "Bearer " + AccessToken,
+    RefreshToken: RefreshToken,
   };
   const result = await axios.post(
     "https://wishme.co.kr/api/users/refresh",
-    { headers },
-    {
-      AccessToken,
-      RefreshToken,
-    }
+    { headers }
   );
 
   return result;

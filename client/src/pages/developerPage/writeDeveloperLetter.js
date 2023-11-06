@@ -30,10 +30,12 @@ const WriteDeveloperLetter = () => {
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const RefreshToken = localStorage.getItem("RefreshToken");
             const headers = {};
 
             if (AccessToken) {
                 headers.Authorization = `Bearer ${AccessToken}`;
+                headers.RefreshToken = `${RefreshToken}`;
             }
 
             const response = await axios({

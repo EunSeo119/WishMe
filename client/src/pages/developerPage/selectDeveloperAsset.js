@@ -23,10 +23,12 @@ const SelectDeveloperAsset = () => {
     useEffect(() => {
         // 백엔드 API 호출하여 이미지 URL 가져오기
         const AccessToken = localStorage.getItem("AccessToken");
+        const RefreshToken = localStorage.getItem("RefreshToken");
         const headers = {};
 
         if (AccessToken) {
             headers.Authorization = `Bearer ${AccessToken}`;
+            headers.RefreshToken = `${RefreshToken}`;
         }
         axios({
             method: "get",
