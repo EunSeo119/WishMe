@@ -5,7 +5,7 @@ import style from './developerLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 const DeveloperLetterDetail = () => {
-  const { letterId } = useParams()
+  const { letterId, page } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)
@@ -43,7 +43,8 @@ const DeveloperLetterDetail = () => {
   }, [content])
 
   const goPre = () => {
-    navigate(-1)
+    navigate(`/developer/${page}`)
+    // navigate(-1)
   }
 
   const handleReportClick = () => {
