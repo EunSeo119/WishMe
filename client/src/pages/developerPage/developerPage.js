@@ -57,6 +57,7 @@ const DeveloperPage = () => {
   // '내 책상 보기' 버튼 클릭 시 처리
   const handleMyDeskClick = () => {
     const AccessToken = localStorage.getItem("AccessToken");
+    const RefreshToken = localStorage.getItem("RefreshToken");
     if (AccessToken) {
       // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
@@ -64,6 +65,7 @@ const DeveloperPage = () => {
         url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
+          RefreshToken: `${RefreshToken}`,
         },
       })
         .then((response) => {
@@ -83,10 +85,12 @@ const DeveloperPage = () => {
 
   useEffect(() => {
     const AccessToken = localStorage.getItem("AccessToken");
+    const RefreshToken = localStorage.getItem("RefreshToken");
     const headers = {};
 
     if (AccessToken) {
       headers.Authorization = `Bearer ${AccessToken}`;
+      headers.RefreshToken = `${RefreshToken}`;
     }
 
     axios({

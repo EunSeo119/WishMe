@@ -156,7 +156,7 @@ public class MyLetterService {
                 .isMine(isMine)
                 .totalLetterCount(totalLetterCount)
                 .toUserSeq(toUser.getUserSeq())
-                .toUserNickname(toUser.getFromUserNickname())
+                .toUserNickname(toUser.getUserNickname())
                 .myLetterResponseDtoList(myLetterResponseDtoList)
                 .build();
 
@@ -188,11 +188,26 @@ public class MyLetterService {
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
-        User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
-                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+        Boolean canReply = false;
 
-        if(!myletter.getToUser().equals(checkUser) && !myletter.getIsPublic()) {
-            throw new RuntimeException("열람할 권한이 없습니다.");
+        if(authentication == null) {
+            // 비공개 편지인데 비회원이 열람하려고 할 때
+            if(!myletter.getIsPublic()) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+        } else {
+            User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+            // 비공개 편지인데 해당 편지의 주인이 아닌 회원이 열람하려고 할 때
+            if(!myletter.getIsPublic() && !myletter.getToUser().equals(checkUser)) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+
+            // 이 편지에 답장이 가능할 때
+            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null) {
+                canReply = true;
+            }
         }
 
         AES256 aes256 = new AES256(key);
@@ -203,10 +218,11 @@ public class MyLetterService {
 
         return MyLetterDetailResponseDto.builder()
                 .myLetterSeq(myletter.getMyLetterSeq())
-                .toUserNickname(checkUser.getFromUserNickname())
+                .toUserNickname(myletter.getToUser().getUserNickname())
                 .content(decryptContent)
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
+                .canReply(canReply)
                 .build();
     }
 
