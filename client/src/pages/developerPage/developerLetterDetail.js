@@ -72,9 +72,6 @@ const DeveloperLetterDetail = () => {
         <div className={style.mySchoolBtn} onClick={() => goPre()}>
           닫기
         </div>
-        <div className={style.mySchoolBtn} onClick={() => writeReplyLetter()}>
-          답장쓰기
-        </div>
       </div>
     </div>
   )
