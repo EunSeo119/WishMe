@@ -13,12 +13,12 @@ public class MyReplyResponseDto {
 
     private String fromUserNickname;
 
-    private String assetImg;
+    private char color;
 
     @Builder
-    public MyReplyResponseDto(Long replySeq, String fromUserNickname, String assetImg) {
+    public MyReplyResponseDto(Long replySeq, String fromUserNickname, char color) {
         this.replySeq = replySeq;
         this.fromUserNickname = fromUserNickname;
-        this.assetImg = assetImg;
+        this.color = color;
     }
 }

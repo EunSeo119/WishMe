@@ -78,19 +78,10 @@ public class ReplyService {
         List<MyReplyResponseDto> myReplyResponseDtos = new ArrayList<>();
 
         for(Reply reply : replies) {
-            String assetImg = null;
-            if(reply.getColor() == 'B') {
-                assetImg = "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/blueButton.png";
-            } else if(reply.getColor() == 'P') {
-                assetImg = "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/pinkButton.png";
-            } else {
-                assetImg = "https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/yellowButton.png";
-            }
-
             MyReplyResponseDto myReplyResponseDto = MyReplyResponseDto.builder()
                     .replySeq(reply.getReplySeq())
                     .fromUserNickname(reply.getFromUserNickname())
-                    .assetImg(assetImg)
+                    .color(reply.getColor())
                     .build();
 
             myReplyResponseDtos.add(myReplyResponseDto);
