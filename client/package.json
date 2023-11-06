@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "react-scripts start --port 3001"
+    "start": "export PORT=3001 && react-scripts start"
   },
   "eslintConfig": {
     "extends": [
