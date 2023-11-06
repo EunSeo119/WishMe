@@ -79,6 +79,7 @@ const SchoolPage = () => {
 
   const handleMyDeskClick = () => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem('RefreshToken')
     if (AccessToken) {
       // alert('내 책상으로 이동')
       // AccessToken이 있으면 내 책상 페이지로 이동
@@ -86,7 +87,8 @@ const SchoolPage = () => {
         method: 'get',
         url: `https://wishme.co.kr/api/my/letter/loginUserUuid`,
         headers: {
-          Authorization: `Bearer ${AccessToken}`
+          Authorization: `Bearer ${AccessToken}`,
+          RefreshToken: `${RefreshToken}`
         }
       })
         // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
