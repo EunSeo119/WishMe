@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -30,6 +31,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken = request.getHeader("RefreshToken");
         log.info("authorization:{}", authorization);
 
         // Jwt 안보내면 block
@@ -45,9 +47,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // Token Expired 여부
         if (jwtUtil.isExpired(token, JwtSecretKey)) { // token이 만료된 경우
-            log.error("Jwt Access Token is expired");
-            filterChain.doFilter(request, response);
-            return;
+            log.error("Jwt Access Token is expired. Renew Access Token");
+
+            Map<String, String> tokenDto = userService.getAccessTokenByRefreshToken(refreshToken);
+            token = tokenDto.get("token");
         }
 
         // Jwt에서 UserSeq 꺼내기

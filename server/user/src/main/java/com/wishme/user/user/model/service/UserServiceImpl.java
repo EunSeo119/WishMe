@@ -149,9 +149,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> getAccessTokenByRefreshToken(String refreshToken) {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
+    public Map<String, String> getAccessTokenByRefreshToken(String refreshToken) {
+        Map<String, String> resultMap = new HashMap<>();
+//        HttpStatus status = null;
 
         JwtUtil jwtUtil = new JwtUtil();
         try {
@@ -166,14 +166,15 @@ public class UserServiceImpl implements UserService {
                 }
             }
             resultMap.put("message", "Refresh Token을 통한 Access Token 재발급 성공");
-            status = HttpStatus.OK;
+//            status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("message", "Access Token 또는 Refresh Token 에러 발생");
             resultMap.put("error", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
+//            status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
-        return new ResponseEntity<>(resultMap, status);
+//        return new ResponseEntity<>(resultMap, status);
+        return resultMap;
     }
 
 }

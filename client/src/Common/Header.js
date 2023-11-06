@@ -19,9 +19,12 @@ const Header = () => {
 
     useEffect(() => {
         const AccessToken = localStorage.getItem("AccessToken");
+        const RefreshToken = localStorage.getItem("RefreshToken");
+
         if (AccessToken != null) {
             const headers = {
-                Authorization: `Bearer ${AccessToken}`
+                Authorization: `Bearer ${AccessToken}`,
+                RefreshToken: `${RefreshToken}`,
             };
 
             axios({
@@ -54,6 +57,7 @@ const Header = () => {
 
     const handleLogout = (path) => {
         localStorage.removeItem("AccessToken"); // AccessToken 삭제
+        localStorage.removeItem("RefreshToken"); // RefreshToken 삭제
         setUserName(undefined); // userName 상태를 undefined로 설정
         setIsLoggedIn(false);
         navigate(path); // 로그아웃 후 이동할 페이지 경로
