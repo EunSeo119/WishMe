@@ -12,4 +12,5 @@ public interface UserService {
     ResponseEntity<?> registerSchool(Map<String, String> request, Long userSeq);
     ResponseEntity<?> searchSchool(SearchSchoolRequestDto searchSchoolRequestDto);
     ResponseEntity<?> getUserInfo(Long userSeq);
+    ResponseEntity<?> getAccessTokenByRefreshToken(String refreshToken);
 }
