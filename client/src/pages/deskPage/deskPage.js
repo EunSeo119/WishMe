@@ -26,14 +26,14 @@ const DeskPage = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   // 학교/책상 토글
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(false)
 
   const handleToggleClick = () => {
-    setIsOn(!isOn);
-    if(!isOn){
-      handleMySchoolClick();
+    setIsOn(!isOn)
+    if (!isOn) {
+      handleMySchoolClick()
     }
-  };
+  }
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -175,7 +175,7 @@ const DeskPage = () => {
           className={style.bg}
           crossOrigin="anonymous"
         />
-        
+
         {/* 헤더 */}
         <div className={style.header}>
           <Header />
@@ -183,12 +183,22 @@ const DeskPage = () => {
 
         {/* 학교/내책상 토글 */}
         {isMine ? (
-        <div className={style.toggle}>
-          <div><b>책상</b></div>
-          {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
-          <div>{isOn ? <BsToggle2On onClick={handleToggleClick} /> : <BsToggle2Off onClick={handleToggleClick} />}</div>
-          <div><b>학교</b></div>
-        </div>
+          <div className={style.toggle}>
+            <div>
+              <b>책상</b>
+            </div>
+            {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
+            <div>
+              {isOn ? (
+                <BsToggle2On onClick={handleToggleClick} />
+              ) : (
+                <BsToggle2Off onClick={handleToggleClick} />
+              )}
+            </div>
+            <div>
+              <b>학교</b>
+            </div>
+          </div>
         ) : (
           <></>
         )}
@@ -203,8 +213,9 @@ const DeskPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={style.deskLetterList}>
           <div
-            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
-              }`}
+            className={`${style.arrowIcon} ${
+              currentPage === 1 ? style.disabledArrow : style.abledArrow
+            }`}
             onClick={() => {
               if (currentPage > 1) {
                 changePage(currentPage - 1)
@@ -228,8 +239,9 @@ const DeskPage = () => {
             ))}
           </div>
           <div
-            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
-              }`}
+            className={`${style.arrowIcon} ${
+              currentPage === totalPage ? style.disabledArrow : style.abledArrow
+            }`}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
