@@ -7,6 +7,8 @@ import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.*;
 import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
+import com.wishme.myLetter.openAPI.dto.request.GPTCompletionChatRequestDto;
+import com.wishme.myLetter.openAPI.service.GPTService;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
@@ -52,6 +54,7 @@ public class MyLetterService {
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
     private final UserRepository userRepository;
+    private final GPTService gptService;
 
     public List<MyLetterAssetResponseDto> getMyLetterAssets() {
         List<MyLetterAssetResponseDto> result = new ArrayList<>();
@@ -81,6 +84,11 @@ public class MyLetterService {
 
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
+
+//        // GPT로 부정적인 편지 내용 필터링
+//        GPTCompletionChatRequestDto gptCompletionChatRequestDto = null;
+//        gptCompletionChatRequestDto.setMessage(saveMyLetterRequestDto.getContent());
+//        gptService.completionChat(gptCompletionChatRequestDto);
 
         AES256 aes256 = new AES256(key);
         String cipherContent = aes256.encrypt(saveMyLetterRequestDto.getContent());
