@@ -37,13 +37,11 @@ const DeveloperPage = () => {
   };
 
   const handleLetterClick = (letter) => {
-    if(!letter.public){
+    if(letter.public || letter.developer){
+      navigate(`/developerLetterDetail/${letter.myLetterSeq}`)
+    }else{
       openNextDateModal()
     }
-    else{
-      navigate(`/developerLetterDetail/${letter.myLetterSeq}`)
-    }
-     
   }
 
   const [isNextDateModalOpen, setIsNextDateModalOpen] = useState(false)
