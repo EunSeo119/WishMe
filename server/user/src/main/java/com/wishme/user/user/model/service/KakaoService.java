@@ -8,5 +8,5 @@ import javax.servlet.http.HttpServletResponse;
 
 @Service
 public interface KakaoService {
-    ResponseEntity<?> login(String code, HttpServletResponse response) throws JsonProcessingException;
+    ResponseEntity<?> login(String code, HttpServletResponse response) throws Exception;
 }
