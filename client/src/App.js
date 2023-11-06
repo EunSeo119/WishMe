@@ -29,10 +29,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
         <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
-        <Route
-          path="/desk/:deskUuid/checkLogin"
-          element={<CheckDeskLogin />}
-        />
+        <Route path="/desk/:deskUuid/checkLogin" element={<CheckDeskLogin />} />
         <Route
           path="/desk/:deskUuid/selectAsset"
           element={<SelectDeskAsset />}
@@ -42,9 +39,12 @@ function App() {
           element={<WriteDeskLetter />}
         />
         {/* 추가 */}
-        <Route path="/school/:schoolUuid" element={<SchoolPage />}></Route>
         <Route
-          path="/schoolLetterDetail/:letterId"
+          path="/school/:schoolUuid/:letterPage?"
+          element={<SchoolPage />}
+        ></Route>
+        <Route
+          path="/schoolLetterDetail/:schoolUuid/:letterId/:page"
           element={<SchooLetterDetaillPage />}
         />
         <Route
@@ -65,11 +65,10 @@ function App() {
           path="/developer/writeLetter/:assetSeq"
           element={<WriteDeveloperLetter />}
         />
-                <Route
+        <Route
           path="/developerLetterDetail/:letterId"
           element={<DeveloperLetterDetail />}
         />
-
       </Routes>
     </div>
   )
