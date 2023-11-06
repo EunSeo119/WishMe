@@ -17,11 +17,11 @@ public class JwtUtil {
     @Autowired
     private UserRepository userRepository;
 
-    // access token valid time : 14 days
-    private final long ACCESS_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
+    // access token valid time : 30 minutes
+    private final long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L;
 
-    // refresh token valid time : 3 weeks
-    private final long REFRESH_TOKEN_VALID_TIME = 21 * 24 * 60 * 60 * 1000L;
+    // refresh token valid time : 2 weeks
+    private final long REFRESH_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
 
     public String createJwt(String userSeq, String secretKey) {
         Claims claims = Jwts.claims();
