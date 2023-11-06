@@ -19,6 +19,7 @@ const KakaoRedirectPage = () => {
                 // localStorage.setItem('deskUuid', res.data.data.uuid)
                 // localStorage.setItem('deskUserSeq', res.data.data.userSeq)
                 // navigate(`/desk`);
+                console.log(res.data); // debug
                 const linkUuid = localStorage.getItem('LinkUuid')
                 localStorage.removeItem("LinkUuid")
                 if(linkUuid == null){
