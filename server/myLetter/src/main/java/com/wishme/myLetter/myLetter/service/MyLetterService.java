@@ -156,7 +156,7 @@ public class MyLetterService {
                 .isMine(isMine)
                 .totalLetterCount(totalLetterCount)
                 .toUserSeq(toUser.getUserSeq())
-                .toUserNickname(toUser.getFromUserNickname())
+                .toUserNickname(toUser.getUserNickname())
                 .myLetterResponseDtoList(myLetterResponseDtoList)
                 .build();
 
@@ -188,10 +188,14 @@ public class MyLetterService {
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
+        if(!myletter.getIsPublic() && authentication == null) {
+            throw new RuntimeException("열람할 권한이 없습니다.");
+        }
+
         User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        if(!myletter.getToUser().equals(checkUser) && !myletter.getIsPublic()) {
+        if(!myletter.getIsPublic() && !myletter.getToUser().equals(checkUser)) {
             throw new RuntimeException("열람할 권한이 없습니다.");
         }
 
@@ -203,7 +207,7 @@ public class MyLetterService {
 
         return MyLetterDetailResponseDto.builder()
                 .myLetterSeq(myletter.getMyLetterSeq())
-                .toUserNickname(checkUser.getFromUserNickname())
+                .toUserNickname(myletter.getToUser().getUserNickname())
                 .content(decryptContent)
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
