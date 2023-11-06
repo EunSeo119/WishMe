@@ -149,8 +149,10 @@ public class DeveloperService {
 
         // 현재 로그인한 유저가 개발자이고, fromUser가 있는 경우
         boolean isMine = false;
-        if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null){
-            isMine = true;
+        if(authentication != null){
+            if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null){
+                isMine = true;
+            }
         }
 
 
