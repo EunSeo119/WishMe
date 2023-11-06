@@ -188,15 +188,26 @@ public class MyLetterService {
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
-        if(!myletter.getIsPublic() && authentication == null) {
-            throw new RuntimeException("열람할 권한이 없습니다.");
-        }
+        Boolean canReply = false;
 
-        User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
-                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+        if(authentication == null) {
+            // 비공개 편지인데 비회원이 열람하려고 할 때
+            if(!myletter.getIsPublic()) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+        } else {
+            User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        if(!myletter.getIsPublic() && !myletter.getToUser().equals(checkUser)) {
-            throw new RuntimeException("열람할 권한이 없습니다.");
+            // 비공개 편지인데 해당 편지의 주인이 아닌 회원이 열람하려고 할 때
+            if(!myletter.getIsPublic() && !myletter.getToUser().equals(checkUser)) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+
+            // 이 편지에 답장이 가능할 때
+            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null) {
+                canReply = true;
+            }
         }
 
         AES256 aes256 = new AES256(key);
@@ -211,6 +222,7 @@ public class MyLetterService {
                 .content(decryptContent)
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
+                .canReply(canReply)
                 .build();
     }
 
