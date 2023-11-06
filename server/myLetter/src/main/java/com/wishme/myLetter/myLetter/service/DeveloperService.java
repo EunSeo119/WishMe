@@ -8,6 +8,7 @@ import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
+import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
@@ -42,6 +43,7 @@ public class DeveloperService {
     private final DeveloperRepository developerRepository;
     private final UserRepository userRepository;
     private final AssetRepository assetRepository;
+    private final MyLetterRepository myLetterRepository;
 
     // 개발자 편지 작성
     public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
@@ -79,16 +81,21 @@ public class DeveloperService {
     }
 
     // 개발자 책상 확인
-    public AllDeveloperLetterListResponseDto allDeveloperLetter(int page){
+    public AllDeveloperLetterListResponseDto allDeveloperLetter(Pageable pageable, int page){
         User admin = userRepository.findById(1L).orElse(null);
 
         // 페이지 번호 사용해 Pageable 수정
         Sort sort = Sort.by(Sort.Order.desc("createAt"));
-        Pageable pageable = PageRequest.of(page - 1, 9, sort);
-//        pageable = PageRequest.of(page-1, pageable.getPageSize(), pageable.getSort());
+        pageable = PageRequest.of(page-1, 9, sort);
 
-        Page<MyLetter> myLetters = developerRepository.findAllDeveloperLetter(pageable, admin);
+        List<MyLetter> myLetters = myLetterRepository.findAllByToUser(admin, pageable);
         Integer totalCnt = developerRepository.findTotalCnt(admin);
+
+        // totalCnt가 null이 아닐 때만 연산을 수행합니다.
+        int totalPage = 0;
+        if (totalCnt != null) {
+            totalPage = Math.round(totalCnt / 9.0f);
+        }
 
         if(admin != null){
             // 9개씩 담기
@@ -106,7 +113,7 @@ public class DeveloperService {
             // 총 편지 수, 총 페이지 수, 페이지 당 편지
             return AllDeveloperLetterListResponseDto.builder()
                     .totalLetters(totalCnt)
-                    .totalPages(myLetters.getTotalPages())
+                    .totalPages(totalPage)
                     .lettersPerPage(developerLetterResponseDtos)
                     .build();
         }else{
