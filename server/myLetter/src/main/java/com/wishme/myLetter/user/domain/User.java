@@ -25,7 +25,7 @@ public class User {
     private String email;
 
     @Column(name = "user_nickname", nullable = false)
-    private String fromUserNickname;
+    private String userNickname;
 
     @Column(name = "user_school_seq")
     private Long userSchoolSeq;
@@ -38,7 +38,7 @@ public class User {
 
     public User(String email, String userNickname, String uuid) {
         this.email = email;
-        this.fromUserNickname = userNickname;
+        this.userNickname = userNickname;
         this.uuid = uuid;
     }
 }

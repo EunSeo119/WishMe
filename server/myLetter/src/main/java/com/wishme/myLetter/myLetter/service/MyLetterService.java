@@ -7,6 +7,8 @@ import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.*;
 import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
+import com.wishme.myLetter.openAPI.dto.request.GPTCompletionChatRequestDto;
+import com.wishme.myLetter.openAPI.service.GPTService;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
@@ -52,6 +54,7 @@ public class MyLetterService {
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
     private final UserRepository userRepository;
+    private final GPTService gptService;
 
     public List<MyLetterAssetResponseDto> getMyLetterAssets() {
         List<MyLetterAssetResponseDto> result = new ArrayList<>();
@@ -81,6 +84,11 @@ public class MyLetterService {
 
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
+
+//        // GPT로 부정적인 편지 내용 필터링
+//        GPTCompletionChatRequestDto gptCompletionChatRequestDto = null;
+//        gptCompletionChatRequestDto.setMessage(saveMyLetterRequestDto.getContent());
+//        gptService.completionChat(gptCompletionChatRequestDto);
 
         AES256 aes256 = new AES256(key);
         String cipherContent = aes256.encrypt(saveMyLetterRequestDto.getContent());
@@ -148,7 +156,7 @@ public class MyLetterService {
                 .isMine(isMine)
                 .totalLetterCount(totalLetterCount)
                 .toUserSeq(toUser.getUserSeq())
-                .toUserNickname(toUser.getFromUserNickname())
+                .toUserNickname(toUser.getUserNickname())
                 .myLetterResponseDtoList(myLetterResponseDtoList)
                 .build();
 
@@ -180,11 +188,26 @@ public class MyLetterService {
         MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
-        User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
-                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+        Boolean canReply = false;
 
-        if(!myletter.getToUser().equals(checkUser) && !myletter.getIsPublic()) {
-            throw new RuntimeException("열람할 권한이 없습니다.");
+        if(authentication == null) {
+            // 비공개 편지인데 비회원이 열람하려고 할 때
+            if(!myletter.getIsPublic()) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+        } else {
+            User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+            // 비공개 편지인데 해당 편지의 주인이 아닌 회원이 열람하려고 할 때
+            if(!myletter.getIsPublic() && !myletter.getToUser().equals(checkUser)) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+
+            // 이 편지에 답장이 가능할 때
+            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null) {
+                canReply = true;
+            }
         }
 
         AES256 aes256 = new AES256(key);
@@ -195,10 +218,11 @@ public class MyLetterService {
 
         return MyLetterDetailResponseDto.builder()
                 .myLetterSeq(myletter.getMyLetterSeq())
-                .toUserNickname(checkUser.getFromUserNickname())
+                .toUserNickname(myletter.getToUser().getUserNickname())
                 .content(decryptContent)
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
+                .canReply(canReply)
                 .build();
     }
 

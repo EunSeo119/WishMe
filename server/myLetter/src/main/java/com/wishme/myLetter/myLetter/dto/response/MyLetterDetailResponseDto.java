@@ -20,12 +20,15 @@ public class MyLetterDetailResponseDto {
 
     private String fromUserNickname;
 
+    private Boolean canReply;
+
     @Builder
-    public MyLetterDetailResponseDto(Long myLetterSeq, String toUserNickname, String content, Long fromUser, String fromUserNickname) {
+    public MyLetterDetailResponseDto(Long myLetterSeq, String toUserNickname, String content, Long fromUser, String fromUserNickname, Boolean canReply) {
         this.myLetterSeq = myLetterSeq;
         this.toUserNickname = toUserNickname;
         this.content = content;
         this.fromUser = fromUser;
         this.fromUserNickname = fromUserNickname;
+        this.canReply = canReply;
     }
 }

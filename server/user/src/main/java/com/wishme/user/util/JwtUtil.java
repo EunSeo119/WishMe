@@ -17,11 +17,11 @@ public class JwtUtil {
     @Autowired
     private UserRepository userRepository;
 
-    // access token valid time : 14 days
-    private final long ACCESS_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
+    // access token valid time : 30 minutes
+    private final long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L;
 
-    // refresh token valid time : 3 weeks
-    private final long REFRESH_TOKEN_VALID_TIME = 21 * 24 * 60 * 60 * 1000L;
+    // refresh token valid time : 2 weeks
+    private final long REFRESH_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
 
     public String createJwt(String userSeq, String secretKey) {
         Claims claims = Jwts.claims();
@@ -52,37 +52,12 @@ public class JwtUtil {
     }
 
     public boolean isExpired(String token, String secretKey) {
-
-        try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(token);
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-//        return Jwts.parser()
-//                .setSigningKey(secretKey)
-//                .parseClaimsJws(token)
-//                .getBody()
-//                .getExpiration()
-//                .before(new Date());
-    }
-
-    public boolean isValidationRefreshToken(String token, String secretKey) {
-
-        if (!isExpired(token, secretKey)) return false;
-
-        User user = userRepository.findByUserSeq(Long.parseLong(getUserSeq(token, secretKey)));
-        String refreshToken = user.getRefreshToken();
-
-        if (refreshToken != null && refreshToken.equals(token)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
     }
 
     public String getUserSeq(String token, String secretKey) {
