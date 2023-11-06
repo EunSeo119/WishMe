@@ -140,6 +140,13 @@ public class DeveloperService {
             throw new RuntimeException("비공개 편지입니다.");
         }
 
+        // 현재 로그인한 유저가 개발자이고, fromUser가 있는 경우
+        boolean isMine = false;
+        if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null){
+            isMine = true;
+        }
+
+
 //        if(!myLetter.getIsPublic()) {
 //            throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
 //        }
@@ -150,6 +157,8 @@ public class DeveloperService {
 //        PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
 //        String decryptContent = RSAUtil.decryptRSA(myLetter.getContent(), privateKey);
 
+
+
         if(myLetter != null){
             return OneDeveloperLetterResponseDto.builder()
                     .assetSeq(myLetter.getAsset().getAssetSeq())
@@ -158,6 +167,7 @@ public class DeveloperService {
                     .fromUser(myLetter.getFromUser())
                     .createAt(myLetter.getCreateAt())
                     .assetImg(myLetter.getAsset().getAssetImg())
+                    .isMine(isMine)
                     .build();
         }else{
             throw new IllegalArgumentException("개별자 편지 상세 조회 실패");
