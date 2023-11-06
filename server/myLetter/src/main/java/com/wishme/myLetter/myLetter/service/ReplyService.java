@@ -35,7 +35,7 @@ public class ReplyService {
                 .myLetter(myLetter)
                 .toUser(toUser)
                 .content(saveReplyRequestDto.getContent())
-                .fromUserNickname(saveReplyRequestDto.getFromUserNickname())
+                .fromUserNickname(myLetter.getToUser().getUserNickname())
                 .color(saveReplyRequestDto.getColor())
                 .build();
 
