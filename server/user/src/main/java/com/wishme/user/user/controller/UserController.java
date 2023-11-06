@@ -52,7 +52,7 @@ public class UserController {
 
     // API 6. Refresh Token을 통한 Access Token 재발급
     @PostMapping("/refresh")
-    public ResponseEntity<?> getAccessTokenByRefreshToken() {
-        return null;
+    public ResponseEntity<?> getAccessTokenByRefreshToken(@RequestHeader("refresh-token") String refreshToken) {
+        return userService.getAccessTokenByRefreshToken(refreshToken);
     }
 }

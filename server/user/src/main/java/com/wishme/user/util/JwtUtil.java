@@ -52,37 +52,12 @@ public class JwtUtil {
     }
 
     public boolean isExpired(String token, String secretKey) {
-
-        try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(secretKey)
-                    .parseClaimsJws(token);
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-
-//        return Jwts.parser()
-//                .setSigningKey(secretKey)
-//                .parseClaimsJws(token)
-//                .getBody()
-//                .getExpiration()
-//                .before(new Date());
-    }
-
-    public boolean isValidationRefreshToken(String token, String secretKey) {
-
-        if (!isExpired(token, secretKey)) return false;
-
-        User user = userRepository.findByUserSeq(Long.parseLong(getUserSeq(token, secretKey)));
-        String refreshToken = user.getRefreshToken();
-
-        if (refreshToken != null && refreshToken.equals(token)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
     }
 
     public String getUserSeq(String token, String secretKey) {
