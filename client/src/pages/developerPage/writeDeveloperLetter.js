@@ -18,6 +18,19 @@ const WriteDeveloperLetter = () => {
 
     const navigate = useNavigate();
 
+
+    const handleNicknameChange = (e) => {
+
+        const inputText = e.target.value;
+    
+        if(inputText.length <= 13){
+          setNickname(e.target.value)
+        }else{
+          alert('닉네임은 13자 이내로 작성해주세요.');
+        }
+    
+      }
+
     const handleSave = async () => {
 
         console.log(isPublic);
@@ -59,7 +72,7 @@ const WriteDeveloperLetter = () => {
         try {
             await handleSave(); // handleSave 함수가 비동기 함수로 가정
             setShowModal(false);
-            navigate(`/developer`);
+            navigate(`/developer/1`);
         } catch (error) {
             // handleSave 함수에서 예외 처리를 하고 있다면 이 곳에서 추가 처리
             console.error('handleSave 함수에서 오류 발생:', error);
@@ -103,7 +116,7 @@ const WriteDeveloperLetter = () => {
                     id="nickname"
                     value={nickname}
                     placeholder="닉네임을 입력해주세요."
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={handleNicknameChange}
                 />
             </div>
 
