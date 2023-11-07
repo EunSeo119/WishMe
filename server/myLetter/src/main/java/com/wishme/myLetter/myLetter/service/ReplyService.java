@@ -3,8 +3,10 @@ package com.wishme.myLetter.myLetter.service;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.SaveReplyRequestDto;
+import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyReplyListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyReplyResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.ReplyDetailResponseDto;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.myLetter.repository.ReplyRepository;
 import com.wishme.myLetter.user.domain.User;
@@ -20,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,5 +98,27 @@ public class ReplyService {
                 .build();
 
         return myReplyListResponseDto;
+    }
+
+    public ReplyDetailResponseDto getReplyDetail(Authentication authentication, Long replySeq) throws Exception{
+        Reply reply = replyRepository.findByReplySeq(replySeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 답장은 존재하지 않습니다.", 1));
+
+        if(Long.parseLong(authentication.getName()) != reply.getToUser().getUserSeq()) {
+            throw new IllegalArgumentException("열람할 권한이 없습니다.");
+        }
+
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(reply.getContent());
+
+        ReplyDetailResponseDto replyDetailResponseDto = ReplyDetailResponseDto.builder()
+                .replySeq(reply.getReplySeq())
+                .toUserNickname(reply.getToUser().getUserNickname())
+                .fromUserNickname(reply.getFromUserNickname())
+                .content(decryptContent)
+                .letterSeq(reply.getMyLetter().getMyLetterSeq())
+                .build();
+
+        return replyDetailResponseDto;
     }
 }
