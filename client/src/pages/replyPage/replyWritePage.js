@@ -113,6 +113,7 @@ const ReplyWritePage = () => {
             onClick={() => handleImageClick(image.id)}
           >
             <img
+              crossOrigin="anonymous"
               className={style.colorImage}
               src={image.url}
               alt={`Image ${image.id}`}
@@ -134,7 +135,11 @@ const ReplyWritePage = () => {
             onClick={() => handleImageClick(image.id)}
           >
             {letterColor === image.id && (
-              <img src={image.url} alt={`Image ${image.id}`} />
+              <img
+                crossOrigin="anonymous"
+                src={image.url}
+                alt={`Image ${image.id}`}
+              />
             )}
           </div>
         ))}

@@ -30,16 +30,31 @@ const DeveloperLetterDetail = () => {
           RefreshToken: `${RefreshToken}`
         }
       })
-        .then((response) => {
-          const data = response.data
-          setContent(data.content)
-          setNickname(data.nickname)
-          setIsMine(data.isMine)
-          console.log(isMine)
-        })
-        .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
-        })
+      .then((response) => {
+        const data = response.data
+        setContent(data.content)
+        setNickname(data.nickname)
+        setIsMine(data.isMine)
+        // console.log(isMine);
+      })
+      .catch((error) => {
+        // console.error('API 요청 중 오류 발생:', error)
+      })
+    }else {
+      axios({
+        method: 'get',
+        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`
+      })
+      .then((response) => {
+        const data = response.data
+        setContent(data.content)
+        setNickname(data.nickname)
+        setIsMine(data.isMine)
+        // console.log(isMine);
+      })
+      .catch((error) => {
+        // console.error('API 요청 중 오류 발생:', error)
+      })
     }
   }, [content])
 
@@ -84,16 +99,16 @@ const DeveloperLetterDetail = () => {
       <div className={style.btn}>
         {isMine ? (
           <>
-            <div className={style.replyBtn} onClick={() => writeReplyLetter()}>
-              답장하기
+            <div style={{display:'flex', justifyContent:'space-around'}}>
+              <div className={style.replyBtn} onClick={() => writeReplyLetter()}>답장하기</div>
+              <div className={style.closeBtn} onClick={() => goPre()}>닫기</div>
             </div>
           </>
         ) : (
-          <></>
+          <div className={style.mySchoolBtn} onClick={() => goPre()}>
+            닫기
+          </div>
         )}
-        <div className={style.mySchoolBtn} onClick={() => goPre()}>
-          닫기
-        </div>
       </div>
     </div>
   )

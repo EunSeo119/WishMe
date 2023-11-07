@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MyReplyListResponseDto {
 
-    private long totalLetterCount;
+    private long totalReplyCount;
 
     private long toUserSeq;
 
@@ -20,8 +20,8 @@ public class MyReplyListResponseDto {
     private List<MyReplyResponseDto> myReplyResponseDtos;
 
     @Builder
-    public MyReplyListResponseDto(long totalLetterCount, long toUserSeq, String toUserNickname, List<MyReplyResponseDto> myReplyResponseDtos) {
-        this.totalLetterCount = totalLetterCount;
+    public MyReplyListResponseDto(long totalReplyCount, long toUserSeq, String toUserNickname, List<MyReplyResponseDto> myReplyResponseDtos) {
+        this.totalReplyCount = totalReplyCount;
         this.toUserSeq = toUserSeq;
         this.toUserNickname = toUserNickname;
         this.myReplyResponseDtos = myReplyResponseDtos;
