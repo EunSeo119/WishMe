@@ -70,7 +70,7 @@ public class ReplyService {
         User toUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        long totalLetterCount = replyRepository.countByToUser(toUser);
+        long totalReplyCount = replyRepository.countByToUser(toUser);
 
         // 9개씩 페이징 처리해줌 (최신 순으로 정렬)
         Sort sort = Sort.by(Sort.Order.desc("createAt"));
@@ -91,7 +91,7 @@ public class ReplyService {
         }
 
         MyReplyListResponseDto myReplyListResponseDto = MyReplyListResponseDto.builder()
-                .totalLetterCount(totalLetterCount)
+                .totalReplyCount(totalReplyCount)
                 .toUserSeq(toUser.getUserSeq())
                 .toUserNickname(toUser.getUserNickname())
                 .myReplyResponseDtos(myReplyResponseDtos)
