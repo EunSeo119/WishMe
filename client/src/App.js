@@ -17,6 +17,7 @@ import DeveloperPage from './pages/developerPage/developerPage'
 import SelectDeveloperAsset from './pages/developerPage/selectDeveloperAsset'
 import WriteDeveloperLetter from './pages/developerPage/writeDeveloperLetter'
 import DeveloperLetterDetail from './pages/developerPage/developerLetterDetail'
+import ReplyWritePage from './pages/replyPage/replyWritePage'
 import style from './app.module.css'
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
           path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
-        {/* 추가 */}
+        {/* 학교 */}
         <Route
           path="/school/:schoolUuid/:letterPage?"
           element={<SchoolPage />}
@@ -66,9 +67,11 @@ function App() {
           element={<WriteDeveloperLetter />}
         />
         <Route
-          path="/developerLetterDetail/:letterPage/:letterId"
+          path="/developerLetterDetail/:page/:letterId"
           element={<DeveloperLetterDetail />}
         />
+        {/* 답장 */}
+        <Route path="/replyWritePage/:letterId" element={<ReplyWritePage />} />
       </Routes>
     </div>
   )
