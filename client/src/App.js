@@ -17,6 +17,7 @@ import DeveloperPage from './pages/developerPage/developerPage'
 import SelectDeveloperAsset from './pages/developerPage/selectDeveloperAsset'
 import WriteDeveloperLetter from './pages/developerPage/writeDeveloperLetter'
 import DeveloperLetterDetail from './pages/developerPage/developerLetterDetail'
+import ReplyListPage from './pages/replyPage/replyListPage'
 import ReplyWritePage from './pages/replyPage/replyWritePage'
 import ReplyDetailPage from './pages/replyPage/replyDetailPage'
 import style from './app.module.css'
@@ -75,6 +76,7 @@ function App() {
           element={<DeveloperLetterDetail />}
         />
         {/* 답장 */}
+        <Route path="/replyList" element={<ReplyListPage />}></Route>
         <Route path="/replyWritePage/:letterId" element={<ReplyWritePage />} />
         <Route path="/replyDetailPage/:replyId" element={<ReplyDetailPage />} />
       </Routes>
