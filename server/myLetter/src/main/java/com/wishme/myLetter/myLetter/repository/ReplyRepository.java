@@ -1,5 +1,6 @@
 package com.wishme.myLetter.myLetter.repository;
 
+import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.user.domain.User;
 import org.springframework.data.domain.Pageable;
@@ -15,4 +16,6 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
     List<Reply> findAllByToUser(User toUser, Pageable pageable);
 
     Optional<Reply> findByReplySeq(Long replySeq);
+
+    Reply findByMyLetter(MyLetter myLetter);
 }
