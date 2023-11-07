@@ -25,8 +25,6 @@ tokenHttp.interceptors.request.use(async (req) => {
         // localStorage.removeItem("persist:root");
         localStorage.removeItem("AccessToken");
         localStorage.removeItem("RefreshToken");
-        window.location.href = "/";
-        alert("다시 로그인 해주세요.");
     }
 });
 
