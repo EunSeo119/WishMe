@@ -58,7 +58,7 @@ const WriteDeveloperLetter = () => {
         try {
             await handleSave(); // handleSave 함수가 비동기 함수로 가정
             setShowModal(false);
-            navigate(`/developer`);
+            navigate(`/developer/1`);
         } catch (error) {
             // handleSave 함수에서 예외 처리를 하고 있다면 이 곳에서 추가 처리
             console.error('handleSave 함수에서 오류 발생:', error);
