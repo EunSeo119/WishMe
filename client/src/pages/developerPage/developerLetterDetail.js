@@ -5,7 +5,7 @@ import style from './developerLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 const DeveloperLetterDetail = () => {
-  const { letterId, page } = useParams()
+  const { page, letterId } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)

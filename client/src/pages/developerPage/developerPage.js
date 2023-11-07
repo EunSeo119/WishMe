@@ -9,13 +9,13 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import Header from '../../Common/Header'
 
 const DeveloperPage = () => {
-  const { deskUuid } = useParams()
-  const [page, setPage] = useState(1)
-  const [isMine, setIsMine] = useState(false)
-  const [deskName, setDeskName] = useState('test')
-  const [totalCount, setTotalCount] = useState(0)
-  const [deskLetter, setDeskLetter] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const { letterPage } = useParams()
+  const [page, setPage] = useState(letterPage ? Number(letterPage) : 1);
+  const [isMine, setIsMine] = useState(false);
+  const [deskName, setDeskName] = useState("test");
+  const [totalCount, setTotalCount] = useState(0);
+  const [deskLetter, setDeskLetter] = useState([]);
+  const [currentPage, setCurrentPage] = useState(page);
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
@@ -36,9 +36,9 @@ const DeveloperPage = () => {
   }
 
   const handleLetterClick = (letter) => {
-    if (letter.public || letter.developer) {
-      navigate(`/developerLetterDetail/${page}/${letter.myLetterSeq}`)
-    } else {
+    if(letter.public || letter.developer){
+      navigate(`/developerLetterDetail/${currentPage}/${letter.myLetterSeq}`)
+    }else{
       openNextDateModal()
     }
   }
@@ -130,9 +130,13 @@ const DeveloperPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={style.deskLetterList}>
           <div
-            className={`${style.arrowIcon} ${
-              currentPage === 1 ? style.disabledArrow : style.abledArrow
-            }`}
+            className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
+              }`}
+            // onClick={() => {
+            //   if (currentPage > 1) {
+            //     changePage(currentPage - 1)
+            //   }
+            // }}
             onClick={() => {
               if (currentPage > 1) {
                 changePage(currentPage - 1)
@@ -157,9 +161,9 @@ const DeveloperPage = () => {
           </div>
 
           <div
-            className={`${style.arrowIcon} ${
-              currentPage === totalPage ? style.disabledArrow : style.abledArrow
-            }`}
+            className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
+              }`}
+            // onClick={() => changePage(currentPage + 1)}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
