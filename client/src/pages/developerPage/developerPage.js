@@ -37,7 +37,7 @@ const DeveloperPage = () => {
 
   const handleLetterClick = (letter) => {
     if (letter.public || letter.developer) {
-      navigate(`/developerLetterDetail/${letter.myLetterSeq}`)
+      navigate(`/developerLetterDetail/${page}/${letter.myLetterSeq}`)
     } else {
       openNextDateModal()
     }

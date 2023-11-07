@@ -42,8 +42,8 @@ const DeveloperLetterDetail = () => {
   }, [content])
 
   const goPre = () => {
-    navigate(`/developer/${page}`)
-    // navigate(-1)
+    // navigate(`/developer/${page}`)
+    navigate(-1)
   }
   const writeReplyLetter = () => {
     navigate(`/replyWritePage/${letterId}`)
