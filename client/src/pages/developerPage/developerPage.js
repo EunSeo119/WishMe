@@ -7,6 +7,7 @@ import ShareURLModal from '../../Modal/shareURLModal'
 import { useParams } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import Header from '../../Common/Header'
+import tokenHttp from '../../apis/tokenHttp'
 
 const DeveloperPage = () => {
   const { letterPage } = useParams()
@@ -36,9 +37,9 @@ const DeveloperPage = () => {
   }
 
   const handleLetterClick = (letter) => {
-    if(letter.public || letter.developer){
+    if (letter.public || letter.developer) {
       navigate(`/developerLetterDetail/${currentPage}/${letter.myLetterSeq}`)
-    }else{
+    } else {
       openNextDateModal()
     }
   }
@@ -57,7 +58,7 @@ const DeveloperPage = () => {
     const RefreshToken = localStorage.getItem('RefreshToken')
     if (AccessToken) {
       // AccessToken이 있으면 내 책상 페이지로 이동
-      axios({
+      tokenHttp({
         method: 'get',
         url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
@@ -90,7 +91,7 @@ const DeveloperPage = () => {
       headers.RefreshToken = `${RefreshToken}`
     }
 
-    axios({
+    tokenHttp({
       method: 'get',
       url: `${SERVER_URL}/api/developer/letter/all?page=${currentPage}`,
       headers

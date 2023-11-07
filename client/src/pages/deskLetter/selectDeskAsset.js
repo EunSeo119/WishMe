@@ -4,6 +4,7 @@ import style from "./selectDeskAsset.module.css";
 import axios from 'axios';  // axios import
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useParams } from 'react-router-dom';
+import tokenHttp from "../../apis/tokenHttp";
 
 const SelectDeskAsset = () => {
     const [selected, setSelected] = useState(null);
@@ -32,7 +33,7 @@ const SelectDeskAsset = () => {
             headers.Authorization = `Bearer ${AccessToken}`;
             headers.RefreshToken = `${RefreshToken}`;
         }
-        axios({
+        tokenHttp({
             method: "get",
             url: `${SERVER_URL}/api/my/letter/assets`,
             headers
