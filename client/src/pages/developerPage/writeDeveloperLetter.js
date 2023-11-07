@@ -17,6 +17,19 @@ const WriteDeveloperLetter = () => {
 
     const navigate = useNavigate();
 
+
+    const handleNicknameChange = (e) => {
+
+        const inputText = e.target.value;
+    
+        if(inputText.length <= 13){
+          setNickname(e.target.value)
+        }else{
+          alert('닉네임은 13자 이내로 작성해주세요.');
+        }
+    
+      }
+
     const handleSave = async () => {
 
         console.log(isPublic);
@@ -102,7 +115,7 @@ const WriteDeveloperLetter = () => {
                     id="nickname"
                     value={nickname}
                     placeholder="닉네임을 입력해주세요."
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={handleNicknameChange}
                 />
             </div>
 

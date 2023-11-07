@@ -56,8 +56,16 @@ const SchooLetterWritePage = () => {
     }
   }
 
-  const handleNicknameChange = (event) => {
-    setNickname(event.target.value)
+  const handleNicknameChange = (e) => {
+
+    const inputText = e.target.value;
+
+    if(inputText.length <= 13){
+      setNickname(e.target.value)
+    }else{
+      alert('닉네임은 13자 이내로 작성해주세요.');
+    }
+
   }
 
   //   useEffect(() => {
