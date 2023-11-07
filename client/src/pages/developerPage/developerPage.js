@@ -122,7 +122,7 @@ const DeveloperPage = () => {
 
         {/* 제목 */}
         <div className={style.deskTitle}>
-          <b>빛나리</b>님의 책상에
+          <b>빛나리(개발자)</b>님의 책상에
           <br />
           <b>{totalCount}</b>개의 응원이 왔어요!
         </div>
