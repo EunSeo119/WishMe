@@ -117,6 +117,7 @@ public class ReplyService {
                 .fromUserNickname(reply.getFromUserNickname())
                 .content(decryptContent)
                 .letterSeq(reply.getMyLetter().getMyLetterSeq())
+                .color(reply.getColor())
                 .build();
 
         return replyDetailResponseDto;
