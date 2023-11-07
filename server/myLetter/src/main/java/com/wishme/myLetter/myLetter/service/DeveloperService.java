@@ -2,6 +2,7 @@ package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.asset.repository.AssetRepository;
+import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
@@ -9,6 +10,7 @@ import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
+import com.wishme.myLetter.myLetter.repository.ReplyRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
@@ -44,6 +46,7 @@ public class DeveloperService {
     private final UserRepository userRepository;
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
+    private final ReplyRepository replyRepository;
 
     // 개발자 편지 작성
     public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
@@ -151,8 +154,12 @@ public class DeveloperService {
 
         // 현재 로그인한 유저가 개발자이고, fromUser가 있는 경우
         boolean isMine = false;
+
+        // 답장 한 적 없는 지 확인
+        Reply reply = replyRepository.findByLetterSeq(myLetterId).orElse(null);
+
         if(authentication != null){
-            if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null){
+            if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null && reply == null){
                 isMine = true;
             }
         }
