@@ -192,3 +192,21 @@ body {
     margin: 0 20px 10px;
     /* width: 100%; */
 }
+
+.nickname {
+    font-family: 'omyu_pretty';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    /* color: white; */
+    font-size: 25px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+    width: 12vh;
+    align-items: center;
+    text-align: center
+}
