@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import { PiSirenLight } from 'react-icons/pi'
 import { BsCheck } from 'react-icons/bs'
+import tokenHttp from '../../apis/tokenHttp'
 
 import LetterReportModal from '../../Modal/letterReportModal'
 
@@ -62,7 +63,7 @@ const ReplyWritePage = () => {
     }
     if (content) {
       console.log(letterId, content, letterColor, headers)
-      await axios({
+      await tokenHttp({
         method: 'post',
         url: `${SERVER_URL}/api/my/reply/write`,
         headers,
@@ -153,13 +154,12 @@ const ReplyWritePage = () => {
       <div className={style.btn}>
         {/* <div className={style.mySchoolBtn} onClick={() => goPre()}> */}
         <div
-          className={`${
-            letterColor === 'Y'
+          className={`${letterColor === 'Y'
               ? style.myBtnYellow
               : letterColor === 'P'
-              ? style.myBtnPink
-              : style.myBtnBlue
-          }`}
+                ? style.myBtnPink
+                : style.myBtnBlue
+            }`}
           onClick={() => clickWriteLetter()}
         >
           답장 보내기
