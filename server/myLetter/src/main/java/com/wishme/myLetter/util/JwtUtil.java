@@ -8,8 +8,8 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    // token valid time : 30 minutes
-    private final long TOKEN_VALID_TIME = 30 * 30 * 60 * 1000L;
+    // access token valid time : 2 weeks
+    private final long TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
 
 
     public String createJwt(String userSeq, String secretKey) {
