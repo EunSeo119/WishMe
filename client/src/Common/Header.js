@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import style from './Header.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
+import tokenHttp from '../apis/tokenHttp';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Header = () => {
                 RefreshToken: `${RefreshToken}`,
             };
 
-            axios({
+            tokenHttp({
                 method: "get",
                 url: `${SERVER_URL}/api/users`,
                 headers,

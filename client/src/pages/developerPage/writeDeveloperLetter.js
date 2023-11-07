@@ -5,6 +5,7 @@ import style from "./writeDeveloperLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 // import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
+import tokenHttp from '../../apis/tokenHttp';
 
 const WriteDeveloperLetter = () => {
     const { assetSeq } = useParams();
@@ -26,7 +27,7 @@ const WriteDeveloperLetter = () => {
                 assetSeq: Number(assetSeq),
                 nickname: nickname,
                 content: content,
-                isPublic: isPublic ?  1 : 0,
+                isPublic: isPublic ? 1 : 0,
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
@@ -38,7 +39,7 @@ const WriteDeveloperLetter = () => {
                 headers.RefreshToken = `${RefreshToken}`;
             }
 
-            const response = await axios({
+            const response = await tokenHttp({
                 method: "post",
                 url: `${SERVER_URL}/api/developer/letter/write`,
                 headers,
