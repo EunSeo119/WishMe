@@ -4,6 +4,7 @@ import axios from 'axios'
 import style from './schoolLetterAssetList.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SchooLetterAssetList = () => {
   const [schoolAssetList, setSchoolAssetList] = useState([])
@@ -11,6 +12,7 @@ const SchooLetterAssetList = () => {
   const [totalPage, setTotalPage] = useState(1)
   const [selectAsset, setSelectAsset] = useState()
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const { schoolUuid } = useParams()
   const navigate = useNavigate()
@@ -40,7 +42,7 @@ const SchooLetterAssetList = () => {
 
   useEffect(() => {
     axios
-      .get(`https://wishme.co.kr/api/school/letter/assets`)
+      .get(`${SERVER_URL}/api/school/letter/assets`)
       // .get(`http://localhost:8082/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
@@ -61,9 +63,8 @@ const SchooLetterAssetList = () => {
       <div className={style.title}>문구를 선택해주세요</div>
       <div className={style.gridContainer}>
         <div
-          className={`${style.arrowIcon} ${
-            page === 1 ? style.disabledArrow : ''
-          }`}
+          className={`${style.arrowIcon} ${page === 1 ? style.disabledArrow : ''
+            }`}
           onClick={() => {
             if (page > 1) {
               changePage(page - 1)
@@ -79,9 +80,8 @@ const SchooLetterAssetList = () => {
             .map((asset, index) => (
               <div
                 key={index}
-                className={`${style.gridItem} ${
-                  index === selectedItemIndex ? style.selectAsset : ''
-                }`}
+                className={`${style.gridItem} ${index === selectedItemIndex ? style.selectAsset : ''
+                  }`}
                 onClick={() => {
                   assetClick(asset.assetSeq)
                   setSelectedItemIndex(index)
@@ -105,9 +105,8 @@ const SchooLetterAssetList = () => {
             )}
         </div>
         <div
-          className={`${style.arrowIcon} ${
-            page === totalPage ? style.disabledArrow : ''
-          }`}
+          className={`${style.arrowIcon} ${page === totalPage ? style.disabledArrow : ''
+            }`}
           onClick={() => changePage(page + 1)}
         >
           <IoIosArrowForward />
