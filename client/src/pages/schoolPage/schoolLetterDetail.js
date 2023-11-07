@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import { PiSirenLight } from 'react-icons/pi'
 import LetterReportModal from '../../Modal/letterReportModal'
+import tokenHttp from '../../apis/tokenHttp'
+
 const SchoolLetterDetail = () => {
   const { schoolUuid, letterId, page } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [schoolName, setSchoolName] = useState('')
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const navigate = useNavigate()
 
@@ -25,7 +28,7 @@ const SchoolLetterDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`https://wishme.co.kr/api/school/letter/one/${letterId}`)
+      .get(`${SERVER_URL}/api/school/letter/one/${letterId}`)
       // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data

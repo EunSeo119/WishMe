@@ -4,6 +4,7 @@ import axios from 'axios'
 import style from './schoolLetterWritePage.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SchooLetterWritePage = () => {
   const [schoolAssetList, setSchoolAssetList] = useState([])
@@ -13,13 +14,14 @@ const SchooLetterWritePage = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const { schoolUuid, assetId } = useParams()
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   const navigate = useNavigate()
 
   const clickWriteLetter = () => {
     if (nickname && content) {
       axios
-        .post(`https://wishme.co.kr/api/school/letter/write/uuid`, {
+        .post(`${SERVER_URL}/api/school/letter/write/uuid`, {
           uuid: schoolUuid,
           assetSeq: assetId,
           content: content,
@@ -56,8 +58,16 @@ const SchooLetterWritePage = () => {
     }
   }
 
-  const handleNicknameChange = (event) => {
-    setNickname(event.target.value)
+  const handleNicknameChange = (e) => {
+
+    const inputText = e.target.value;
+
+    if(inputText.length <= 13){
+      setNickname(e.target.value)
+    }else{
+      alert('닉네임은 13자 이내로 작성해주세요.');
+    }
+
   }
 
   //   useEffect(() => {

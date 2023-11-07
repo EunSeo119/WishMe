@@ -3,6 +3,7 @@ import style from './searchSchoolPage.module.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SearchSchoolPage = () => {
   const [tempSchoolName, setTempSchoolName] = useState('')
