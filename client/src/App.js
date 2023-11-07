@@ -18,6 +18,7 @@ import SelectDeveloperAsset from './pages/developerPage/selectDeveloperAsset'
 import WriteDeveloperLetter from './pages/developerPage/writeDeveloperLetter'
 import DeveloperLetterDetail from './pages/developerPage/developerLetterDetail'
 import ReplyWritePage from './pages/replyPage/replyWritePage'
+import ReplyDetailPage from './pages/replyPage/replyDetailPage'
 import style from './app.module.css'
 
 function App() {
@@ -57,7 +58,10 @@ function App() {
           element={<SchooLetterWritePage />}
         />
         {/* 개발자 편지 */}
-        <Route path="/developer/:letterPage" element={<DeveloperPage />}></Route>
+        <Route
+          path="/developer/:letterPage"
+          element={<DeveloperPage />}
+        ></Route>
         <Route
           path="/developer/selectAsset"
           element={<SelectDeveloperAsset />}
@@ -72,6 +76,7 @@ function App() {
         />
         {/* 답장 */}
         <Route path="/replyWritePage/:letterId" element={<ReplyWritePage />} />
+        <Route path="/replyDetailPage/:replyId" element={<ReplyDetailPage />} />
       </Routes>
     </div>
   )
