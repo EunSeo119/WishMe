@@ -246,7 +246,7 @@ const SchoolPage = () => {
       {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
         {/* <div style={{display:'flex', justifyContent:'space-around'}}> */}
-          <div className={styleSchool.mydeskBtn} onClick={() => letterWriteClick(schoolUuid)}>
+          <div className={styleSchool.mydeskBtn} onClick={() => handleMyDeskClick()}>
             나도 응원 받기
           </div>
           <div className={styleSchool.rowButton}>
