@@ -10,6 +10,8 @@ const ReplyDetailPage = () => {
   const { replyId } = useParams()
   const [toNickname, setToNickname] = useState('')
   const [fromNickname, setFromNickname] = useState('')
+  const [colorType, setColorType] = useState('')
+  const [letterId, setLetterId] = useState('')
 
   const [content, setContent] = useState('')
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
@@ -49,7 +51,9 @@ const ReplyDetailPage = () => {
         console.log(data)
         setToNickname(data.toUserNickname)
         setContent(data.content)
+        setLetterId(data.letterSeq)
         setFromNickname(data.fromUserNickname)
+        setColorType(data.color)
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
@@ -61,9 +65,9 @@ const ReplyDetailPage = () => {
     navigate(-1)
   }
 
-  const handleReportClick = () => {
-    // navigate(`/school/${schoolUuid}`)
-    navigate(-1)
+  //내 편지 보러 가기
+  const goMyletter = () => {
+    navigate(`/developerLetterDetail/1/${letterId}`)
   }
 
   return (
@@ -74,10 +78,17 @@ const ReplyDetailPage = () => {
       </div>
       <div className={style.title}>답장을 확인하세요!</div>
       <div className={style.letterImgBack}>
-        <img
-          crossOrigin="anonymous"
-          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/clovaLetter.png"
-        />
+        {imageLetter.map((image) => (
+          <div key={image.id}>
+            {colorType === image.id && (
+              <img
+                crossOrigin="anonymous"
+                src={image.url}
+                alt={`Image ${image.id}`}
+              />
+            )}
+          </div>
+        ))}
         {/* 여기가 편지 내용 */}
         <div className={style.letter}>
           <div className={style.to}>
@@ -96,7 +107,28 @@ const ReplyDetailPage = () => {
         </div>
       </div>
       <div className={style.btn}>
-        <div className={style.mySchoolBtn} onClick={() => goPre()}>
+        <div
+          className={`${
+            colorType === 'Y'
+              ? style.myBtnWirteYellow
+              : colorType === 'P'
+              ? style.myBtnWirtePink
+              : style.myBtnWirteBlue
+          }`}
+          onClick={() => goMyletter()}
+        >
+          내 편지 보기
+        </div>
+        <div
+          className={`${
+            colorType === 'Y'
+              ? style.myBtnYellow
+              : colorType === 'P'
+              ? style.myBtnPink
+              : style.myBtnBlue
+          }`}
+          onClick={() => goPre()}
+        >
           닫기
         </div>
       </div>
