@@ -81,7 +81,7 @@ public class DeveloperService {
     }
 
     // 개발자 책상 확인
-    public AllDeveloperLetterListResponseDto allDeveloperLetter(int page){
+    public AllDeveloperLetterListResponseDto allDeveloperLetter(Authentication authentication, int page){
         User admin = userRepository.findById(1L).orElse(null);
 
         // 페이지 번호 사용해 Pageable 수정
@@ -97,6 +97,12 @@ public class DeveloperService {
             totalPage = Math.round(totalCnt / 9.0f);
         }
 
+        // 로그인한 유저가 개발자면 무조건 열람 가능
+        boolean isDeveloper = false;
+        if(Long.parseLong(authentication.getName()) == 1){
+            isDeveloper = true;
+        }
+
         if(admin != null){
             // 9개씩 담기
             List<AllDeveloperLetterResponseDto> developerLetterResponseDtos = new ArrayList<>();
@@ -106,6 +112,7 @@ public class DeveloperService {
                         .assetSeq(myLetter.getAsset().getAssetSeq())
                         .fromUserNickname(myLetter.getFromUserNickname())
                         .isPublic(myLetter.getIsPublic())
+                        .developer(isDeveloper)
                         .assetImg(myLetter.getAsset().getAssetImg())
                         .build();
                 developerLetterResponseDtos.add(result);

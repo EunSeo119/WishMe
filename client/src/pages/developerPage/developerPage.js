@@ -36,10 +36,10 @@ const DeveloperPage = () => {
   }
 
   const handleLetterClick = (letter) => {
-    if (!letter.public) {
-      openNextDateModal()
-    } else {
+    if (letter.public || letter.developer) {
       navigate(`/developerLetterDetail/${letter.myLetterSeq}`)
+    } else {
+      openNextDateModal()
     }
   }
 
