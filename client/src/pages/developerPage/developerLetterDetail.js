@@ -4,6 +4,8 @@ import axios from 'axios'
 import style from './developerLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
+
 const DeveloperLetterDetail = () => {
   const { page, letterId } = useParams()
   const [nickname, setNickname] = useState('')
@@ -20,7 +22,8 @@ const DeveloperLetterDetail = () => {
     const RefreshToken = localStorage.getItem('RefreshToken')
 
     if (AccessToken) {
-      axios({
+      // AccessToken이 있으면 내 책상 페이지로 이동
+      tokenHttp({
         method: 'get',
         url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
         headers: {
