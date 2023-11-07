@@ -1,9 +1,7 @@
 package com.wishme.myLetter.myLetter.service;
 
-import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.domain.Reply;
-import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.request.SaveReplyRequestDto;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.myLetter.repository.ReplyRepository;
@@ -49,7 +47,7 @@ public class ReplyService {
                 .myLetter(myLetter)
                 .toUser(toUser)
                 .content(cipherContent)
-                .fromUserNickname(saveReplyRequestDto.getFromUserNickname())
+                .fromUserNickname(myLetter.getToUser().getUserNickname())
                 .color(saveReplyRequestDto.getColor())
                 .fromUser(myLetter.getToUser())
                 .build();
