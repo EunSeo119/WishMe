@@ -18,27 +18,25 @@ const DeveloperLetterDetail = () => {
     const AccessToken = localStorage.getItem('AccessToken')
     const RefreshToken = localStorage.getItem('RefreshToken')
 
-    if (AccessToken) {
-      // AccessToken이 있으면 내 책상 페이지로 이동
-      axios({
-        method: 'get',
-        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-          RefreshToken: `${RefreshToken}`
-        }
-      })
-        .then((response) => {
-          const data = response.data
-          setContent(data.content)
-          setNickname(data.nickname)
-          setIsMine(data.isMine)
-          console.log(isMine)
-        })
-        .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
-        })
-    }
+    axios({
+      method: 'get',
+      url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+        RefreshToken: `${RefreshToken}`
+      }
+    })
+    .then((response) => {
+      const data = response.data
+      setContent(data.content)
+      setNickname(data.nickname)
+      setIsMine(data.isMine)
+      // console.log(isMine);
+    })
+    .catch((error) => {
+      // console.error('API 요청 중 오류 발생:', error)
+    })
+    
   }, [content])
 
   const goPre = () => {
@@ -82,16 +80,16 @@ const DeveloperLetterDetail = () => {
       <div className={style.btn}>
         {isMine ? (
           <>
-            <div className={style.replyBtn} onClick={() => writeReplyLetter()}>
-              답장하기
+            <div style={{display:'flex', justifyContent:'space-around'}}>
+              <div className={style.replyBtn} onClick={() => writeReplyLetter()}>답장하기</div>
+              <div className={style.closeBtn} onClick={() => goPre()}>닫기</div>
             </div>
           </>
         ) : (
-          <></>
+          <div className={style.mySchoolBtn} onClick={() => goPre()}>
+            닫기
+          </div>
         )}
-        <div className={style.mySchoolBtn} onClick={() => goPre()}>
-          닫기
-        </div>
       </div>
     </div>
   )
