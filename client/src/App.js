@@ -38,7 +38,7 @@ function App() {
           path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
-        {/* 추가 */}
+        {/* 학교 */}
         <Route
           path="/school/:schoolUuid/:letterPage?"
           element={<SchoolPage />}
@@ -66,7 +66,7 @@ function App() {
           element={<WriteDeveloperLetter />}
         />
         <Route
-          path="/developerLetterDetail/:letterPage/:letterId"
+          path="/developerLetterDetail/:page/:letterId"
           element={<DeveloperLetterDetail />}
         />
       </Routes>
