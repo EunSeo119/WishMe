@@ -19,12 +19,15 @@ public class ReplyDetailResponseDto {
 
     private Long letterSeq;
 
+    private char color;
+
     @Builder
-    public ReplyDetailResponseDto(Long replySeq, String toUserNickname, String fromUserNickname, String content, Long letterSeq) {
+    public ReplyDetailResponseDto(Long replySeq, String toUserNickname, String fromUserNickname, String content, Long letterSeq, char color) {
         this.replySeq = replySeq;
         this.toUserNickname = toUserNickname;
         this.fromUserNickname = fromUserNickname;
         this.content = content;
         this.letterSeq = letterSeq;
+        this.color = color;
     }
 }
