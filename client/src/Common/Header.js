@@ -123,16 +123,6 @@ const Header = () => {
                             }}
                         >개발자 책상 가기</div>
                         <div
-                            onClick={() => handleLogout('/')} // 로그아웃 버튼 클릭 시
-                            style={{
-                                cursor: 'pointer',
-                                padding: '12px',
-                                borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty',
-                                fontSize: '20px'
-                            }}
-                        >로그아웃</div>
-                        <div
                             style={{
                                 cursor: 'pointer',
                                 padding: '12px',
@@ -148,6 +138,16 @@ const Header = () => {
                             >
                                 사용방법 보러가기</a>
                         </div>
+                        <div
+                            onClick={() => handleLogout('/')} // 로그아웃 버튼 클릭 시
+                            style={{
+                                cursor: 'pointer',
+                                padding: '12px',
+                                borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
+                            }}
+                        >로그아웃</div>
                     </>
                 ) : (
                     <>
@@ -172,18 +172,6 @@ const Header = () => {
                             }}
                         >학교 칠판 구경하기</div>
                         <div
-                            onClick={() => handleLinkClick('/')}
-                            style={{
-                                cursor: 'pointer',
-                                padding: '12px',
-                                borderBottom: '1px solid #ccc',
-                                fontFamily: 'omyu_pretty',
-                                fontSize: '20px'
-                            }}
-                        >
-                            로그인하기
-                        </div>
-                        <div
                             style={{
                                 cursor: 'pointer',
                                 padding: '12px',
@@ -198,6 +186,18 @@ const Header = () => {
                                 }}
                             >
                                 사용방법 보러가기</a>
+                        </div>
+                        <div
+                            onClick={() => handleLinkClick('/')}
+                            style={{
+                                cursor: 'pointer',
+                                padding: '12px',
+                                borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
+                            }}
+                        >
+                            로그인하기
                         </div>
                     </>
                 )}
