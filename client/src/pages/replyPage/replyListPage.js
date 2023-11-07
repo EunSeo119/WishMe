@@ -55,8 +55,9 @@ const ReplyListPage = () => {
 
     const navigate = useNavigate();  // useNavigate 초기화
 
-    const handleCloseButtonClick = () => {
-        navigate(`/developer`);
+    //이전으로
+    const goPre = () => {
+        navigate(-1)
     }
 
     const handleImageClick = (index) => {
@@ -94,7 +95,12 @@ const ReplyListPage = () => {
                 className={`${style.gridItem} ${selected === index + indexOfFirstItem ? style.selected : ""}`}
                 onClick={() => handleImageClick(index)}
             >
-                <img src={imageUrl} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
+                <div style={{ position: 'relative' }}>
+                    <img src={imageUrl} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
+                    <div className={style.nickname}>
+                        {replySource.fromUserNickname} {/* 닉네임 출력 */}
+                    </div>
+                </div>
             </div>
         );
     });
@@ -107,9 +113,9 @@ const ReplyListPage = () => {
 
     return (
         <div className={style.body}>
-            <div className={style.navigation}>
+            <div className={style.navigation} onClick={() => goPre()}>
                 <IoIosArrowBack className={style.icon} />
-                <Link to={`/developer`} className={style.backLink}>이전으로</Link>
+                이전으로
             </div>
             {/* 제목 */}
             <div className={style.deskTitle}>
@@ -143,7 +149,7 @@ const ReplyListPage = () => {
             <div className={style.btn}>
                 <div
                     className={style.closeBtn}
-                    onClick={() => handleCloseButtonClick()}
+                    onClick={() => goPre()}
                 >
                     닫기
                 </div>
