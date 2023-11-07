@@ -1,0 +1,227 @@
+body {
+  background-color: #daf1de;
+  max-width: 443px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.schoolName {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+.title {
+  margin-top: 3%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  text-align: center;
+  color: #000000;
+}
+
+.letterImg {
+  top: 20%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.btn {
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 443px;
+  display: flex;
+  justify-content: center;
+}
+
+.mySchoolBtn {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #176124;
+  border-radius: 10px;
+  background-color: #176124;
+  padding: 10px;
+  /* width: 100%; */
+  margin: 0 20px 10px;
+  /* width: 100%; */
+}
+.letter {
+  width: 80%;
+  top: 8%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  min-height: 38vh;
+}
+
+.contentTextarea {
+  min-height: 38vh;
+  max-height: 38vh;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  resize: none;
+  overflow: auto;
+  height: 100%;
+  height: auto;
+  line-height: 1.4;
+  width: 100%;
+  outline: none;
+  font-family: 'omyu_pretty';
+}
+
+.letterImgBack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 22%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* background-color: #176124; */
+  /* border: 15px solid #176124; */
+  /* border-radius: 10px; */
+}
+
+.to {
+  margin-bottom: 5px;
+  /* width: 70%; */
+
+  /* display: flex; */
+  /* position: relative; */
+  /* align-items: center; */
+  /* left: 10%; */
+  /* transform: translate(-120%, 0); */
+}
+
+.letterPrefix {
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+}
+.letterSurfix {
+  float: right;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+}
+.reportLetterIcon {
+  float: right;
+  font-size: 25px;
+  color: #d91212;
+}
+.myBtnYellow {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #ffd36f;
+  border-radius: 10px;
+  background-color: #ffd36f;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.myBtnPink {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #ffa4a4;
+  border-radius: 10px;
+  background-color: #ffa4a4;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.myBtnBlue {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #6dd3ff;
+  border-radius: 10px;
+  background-color: #6dd3ff;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.myBtnWirteYellow {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #ffd36f;
+  text-align: center;
+  border: 3px solid #ffd36f;
+  border-radius: 10px;
+  background-color: #ffff;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.myBtnWirtePink {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #ffa4a4;
+  text-align: center;
+  border: 3px solid #ffa4a4;
+  border-radius: 10px;
+  background-color: #ffff;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.myBtnWirteBlue {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #6dd3ff;
+  text-align: center;
+  border: 3px solid #6dd3ff;
+  border-radius: 10px;
+  background-color: #ffff;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}

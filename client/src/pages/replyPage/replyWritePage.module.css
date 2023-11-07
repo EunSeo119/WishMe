@@ -1,0 +1,206 @@
+body {
+  background-color: #daf1de;
+  max-width: 443px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  z-index: -9999;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.schoolName {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  align-items: center;
+  text-align: center;
+  color: #000000;
+}
+.title {
+  margin-top: 3%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 5%;
+  top: 5%;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  text-align: center;
+  color: #000000;
+}
+
+.letter {
+  width: 80%;
+  top: 8%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  min-height: 38vh;
+}
+
+.letterImgBack {
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  top: 22%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.to {
+  margin-bottom: 5px;
+  /* width: 70%; */
+
+  /* display: flex; */
+  /* position: relative; */
+  /* align-items: center; */
+  /* left: 10%; */
+  /* transform: translate(-120%, 0); */
+}
+
+.letterPrefix {
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+}
+.letterSurfix {
+  float: right;
+  font-family: 'omyu_pretty';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+}
+.reportLetterIcon {
+  float: right;
+  font-size: 25px;
+  color: #d91212;
+}
+
+.selectColorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 16%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.colorImage {
+  max-width: 30px;
+}
+.imageBox {
+  margin: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.imageBack {
+  /* margin: 5px; */
+  position: relative;
+  cursor: pointer;
+}
+
+.checkIcon {
+  position: absolute;
+  color: #000000;
+  font-size: 28px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin-bottom: 10%;
+}
+.contentTextarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+  resize: none;
+  overflow: auto;
+  height: 70%;
+  line-height: 1.5;
+  width: 80%;
+  outline: none;
+  font-family: 'omyu_pretty';
+  /* background-color: #176124; */
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 17%;
+}
+.btn {
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 443px;
+}
+
+.myBtnYellow {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #ffd36f;
+  border-radius: 10px;
+  background-color: #ffd36f;
+  padding: 10px;
+  margin: 0 20px 10px;
+}
+
+.myBtnPink {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #ffa4a4;
+  border-radius: 10px;
+  background-color: #ffa4a4;
+  padding: 10px;
+  margin: 0 20px 10px;
+}
+
+.myBtnBlue {
+  font-family: 'omyu_pretty';
+  font-size: 30px;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #6dd3ff;
+  border-radius: 10px;
+  background-color: #6dd3ff;
+  padding: 10px;
+  margin: 0 20px 10px;
+}
+
+.letterImg {
+  top: 26%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.imageBoxBack {
+  position: relative;
+  cursor: pointer;
+  /* position: absolute; */
+}

@@ -63,7 +63,7 @@ const ReplyListPage = () => {
         setSelected(index + indexOfFirstItem);
         const selectedReply = replyLetterList[index + indexOfFirstItem];
         // setSelectedReplySeq(selectedReply.replySeq);
-        navigate(`/reply/detail/${selectedReply.replySeq}`);
+        navigate(`/replyDetailPage/${selectedReply.replySeq}`);
     }
 
     // 현재 페이지의 이미지만 표시하기 위한 로직
