@@ -47,33 +47,9 @@ const ReplyWritePage = () => {
   ]
 
   const handleImageClick = (imageId) => {
-    // const updatedImages = imageColors.map((image) => {
-    //   if (image.id === imageId) {
-    //     return { ...image, selected: true }
-    //   } else {
-    //     return { ...image, selected: false }
-    //   }
-    // })
     setLetterColor(imageId)
     console.log(letterColor)
   }
-
-  //   useEffect(() => {
-  //     axios
-  //       .post(`https://wishme.co.kr/api/my/reply/write`, {
-  //         myLetterSeq: letterId,
-  //         content: content,
-  //         color: letterColor
-  //       })
-  //       .then((response) => {
-  //         const data = response.data
-  //         console.log(data)
-  //         alert('답장 작성 완료')
-  //       })
-  //       .catch((error) => {
-  //         console.error('API 요청 중 오류 발생:', error)
-  //       })
-  //   }, [content])
 
   //답장 작성 완료
   const clickWriteLetter = async () => {
