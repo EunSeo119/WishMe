@@ -57,7 +57,7 @@ function App() {
           element={<SchooLetterWritePage />}
         />
         {/* 개발자 편지 */}
-        <Route path="/developer" element={<DeveloperPage />}></Route>
+        <Route path="/developer/:letterPage" element={<DeveloperPage />}></Route>
         <Route
           path="/developer/selectAsset"
           element={<SelectDeveloperAsset />}
@@ -67,7 +67,7 @@ function App() {
           element={<WriteDeveloperLetter />}
         />
         <Route
-          path="/developerLetterDetail/:letterId"
+          path="/developerLetterDetail/:letterPage/:letterId"
           element={<DeveloperLetterDetail />}
         />
         {/* 답장 */}

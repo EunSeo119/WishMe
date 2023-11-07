@@ -42,17 +42,12 @@ const DeveloperLetterDetail = () => {
   }, [content])
 
   const goPre = () => {
-    // navigate(`/developer/${page}`)
-    navigate(-1)
-  }
-  const writeReplyLetter = () => {
-    navigate(`/replyWritePage/${letterId}`)
+    navigate(`/developer/${page}`)
+    // navigate(-1)
   }
 
-  const handleReportClick = () => {
-    // navigate(`/school/${schoolUuid}`)
-    //letterId 이게 편지 아이디요
-    navigate(-1)
+  const writeReplyLetter = () => {
+    navigate(`/replyWritePage/${letterId}`)
   }
 
   return (
