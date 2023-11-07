@@ -10,6 +10,7 @@ import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io'
 import { BsToggleOff, BsToggleOn } from 'react-icons/bs'
 import { BsToggle2Off, BsToggle2On } from 'react-icons/bs'
 import Header from '../../Common/Header'
+import tokenHttp from '../../apis/tokenHttp'
 
 const DeskPage = () => {
   const { deskUuid } = useParams()
@@ -26,14 +27,14 @@ const DeskPage = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   // 학교/책상 토글
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(false)
 
   const handleToggleClick = () => {
-    setIsOn(!isOn);
-    if(!isOn){
-      handleMySchoolClick();
+    setIsOn(!isOn)
+    if (!isOn) {
+      handleMySchoolClick()
     }
-  };
+  }
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -78,7 +79,7 @@ const DeskPage = () => {
     const RefreshToken = localStorage.getItem("RefreshToken");
     if (AccessToken) {
       // AccessToken이 있으면 내 책상 페이지로 이동
-      axios({
+      tokenHttp({
         method: 'get',
         url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
@@ -108,7 +109,7 @@ const DeskPage = () => {
     const RefreshToken = localStorage.getItem("RefreshToken");
     // if (AccessToken) {
     // AccessToken이 있으면 AccessToken이 이미 있다는 것이니 체크할 필요없음
-    axios({
+    tokenHttp({
       method: 'get',
       url: `${SERVER_URL}/api/users`,
       headers: {
@@ -151,7 +152,7 @@ const DeskPage = () => {
       headers.RefreshToken = `${RefreshToken}`;
     }
     // const DeskUuid = localStorage.getItem("deskUuid");
-    axios({
+    tokenHttp({
       method: 'get',
       url: `${SERVER_URL}/api/my/letter/all/${deskUuid}?page=${currentPage}`,
       headers
@@ -181,7 +182,7 @@ const DeskPage = () => {
           className={style.bg}
           crossOrigin="anonymous"
         />
-        
+
         {/* 헤더 */}
         <div className={style.header}>
           <Header />
@@ -189,12 +190,22 @@ const DeskPage = () => {
 
         {/* 학교/내책상 토글 */}
         {isMine ? (
-        <div className={style.toggle}>
-          <div><b>책상</b></div>
-          {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
-          <div>{isOn ? <BsToggle2On onClick={handleToggleClick} /> : <BsToggle2Off onClick={handleToggleClick} />}</div>
-          <div><b>학교</b></div>
-        </div>
+          <div className={style.toggle}>
+            <div>
+              <b>책상</b>
+            </div>
+            {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
+            <div>
+              {isOn ? (
+                <BsToggle2On onClick={handleToggleClick} />
+              ) : (
+                <BsToggle2Off onClick={handleToggleClick} />
+              )}
+            </div>
+            <div>
+              <b>학교</b>
+            </div>
+          </div>
         ) : (
           <></>
         )}
