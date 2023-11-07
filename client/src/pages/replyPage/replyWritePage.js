@@ -81,7 +81,7 @@ const ReplyWritePage = () => {
         .catch((error) => {
           // console.error('API 요청 중 오류 발생:', error)
           alert('답장 등록에 실패했습니다.')
-          throw error
+          goPre()
         })
     } else {
       alert('내용을 입력해주세요')
