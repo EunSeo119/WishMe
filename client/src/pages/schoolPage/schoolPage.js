@@ -38,8 +38,6 @@ const SchoolPage = () => {
   }, [VISITED])
 
   const changePage = (newPage) => {
-    console.log('페이지 변경')
-    console.log(newPage, page, totalPage)
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage)
     }
@@ -110,12 +108,9 @@ const SchoolPage = () => {
   useEffect(() => {
     const pageNumber = letterPage ? Number(letterPage) : 1
     setPage(pageNumber)
-    console.log('페이지변경[letterPage]' + page, pageNumber)
   }, [letterPage])
 
   useEffect(() => {
-    // console.log('페이지변경' + page)
-    console.log('페이지변경[pate]' + page)
 
     axios
       .get(
@@ -134,7 +129,6 @@ const SchoolPage = () => {
         setSchoolId(data.schoolId)
         localStorage.setItem('schoolUuid', schoolUuid)
         setTotalPage(data.totalPage)
-        console.log(page, totalPage)
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
