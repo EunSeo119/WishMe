@@ -245,24 +245,19 @@ const SchoolPage = () => {
       </div>
       {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
-        <div
-          className={styleSchool.mySchoolBtn}
-          onClick={() => letterWriteClick(schoolUuid)}
-        >
-          응원하기
-        </div>
-        <div className={styleSchool.rowButton}>
-          <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
-            학교 공유하기
+        {/* <div style={{display:'flex', justifyContent:'space-around'}}> */}
+          <div className={styleSchool.mydeskBtn} onClick={() => letterWriteClick(schoolUuid)}>
+            나도 응원 받기
           </div>
-
-          {/* <div
-            className={styleSchool.mySchoolBtnHalf}
-            onClick={handleMyDeskClick}
-          >
-            내 책상 보기
-          </div> */}
-        </div>
+          <div className={styleSchool.rowButton}>
+            <div className={styleSchool.mySchoolBtn} onClick={() => letterWriteClick(schoolUuid)}>
+              응원하기
+            </div>
+            <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
+              학교 공유하기
+            </div>
+          </div>
+        {/* </div> */}
       </div>
     </div>
   )

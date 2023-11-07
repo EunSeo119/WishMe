@@ -123,7 +123,7 @@ const Header = () => {
                 ) : (
                     <>
                         <div
-                            onClick={() => handleLinkClick('/developer')}
+                            onClick={() => handleLinkClick('/developer/1')}
                             style={{
                                 cursor: 'pointer',
                                 padding: '12px',
