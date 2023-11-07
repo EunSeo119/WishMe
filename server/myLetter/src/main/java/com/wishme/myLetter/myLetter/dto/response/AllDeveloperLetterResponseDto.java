@@ -21,6 +21,8 @@ public class AllDeveloperLetterResponseDto {
     private boolean isPublic;
     // 에셋 이미지
     private String assetImg;
+    // 로그인한 유저가 개발자인지
+    private Boolean developer;
 
 
 }
