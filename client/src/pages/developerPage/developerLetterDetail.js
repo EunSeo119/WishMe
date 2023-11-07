@@ -18,25 +18,41 @@ const DeveloperLetterDetail = () => {
     const AccessToken = localStorage.getItem('AccessToken')
     const RefreshToken = localStorage.getItem('RefreshToken')
 
-    axios({
-      method: 'get',
-      url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-        RefreshToken: `${RefreshToken}`
-      }
-    })
-    .then((response) => {
-      const data = response.data
-      setContent(data.content)
-      setNickname(data.nickname)
-      setIsMine(data.isMine)
-      // console.log(isMine);
-    })
-    .catch((error) => {
-      // console.error('API 요청 중 오류 발생:', error)
-    })
-    
+    if (AccessToken) {
+      axios({
+        method: 'get',
+        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+          RefreshToken: `${RefreshToken}`
+        }
+      })
+      .then((response) => {
+        const data = response.data
+        setContent(data.content)
+        setNickname(data.nickname)
+        setIsMine(data.isMine)
+        // console.log(isMine);
+      })
+      .catch((error) => {
+        // console.error('API 요청 중 오류 발생:', error)
+      })
+    }else {
+      axios({
+        method: 'get',
+        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`
+      })
+      .then((response) => {
+        const data = response.data
+        setContent(data.content)
+        setNickname(data.nickname)
+        setIsMine(data.isMine)
+        // console.log(isMine);
+      })
+      .catch((error) => {
+        // console.error('API 요청 중 오류 발생:', error)
+      })
+    }
   }, [content])
 
   const goPre = () => {
