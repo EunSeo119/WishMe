@@ -8,7 +8,7 @@ import axios from 'axios'
 function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
-    useEffect(() => {}, []);
+    useEffect(() => { }, []);
     const navigate = useNavigate();
 
     // 페이지 URL 공유하기
@@ -25,7 +25,7 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
                         navigate(-1);
                     })
                     .catch((error) => {
-                      alert("학교편지 신고에 실패하였습니다.");
+                        alert("학교편지 신고에 실패하였습니다.");
                     });
             }
         } catch (err) {
