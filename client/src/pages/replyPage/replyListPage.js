@@ -4,6 +4,7 @@ import style from "./replyListPage.module.css";
 import axios from 'axios';  // axios import
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useParams } from 'react-router-dom';
+import tokenHttp from "../../apis/tokenHttp";
 
 const ReplyListPage = () => {
     const [selected, setSelected] = useState(null);
@@ -35,7 +36,7 @@ const ReplyListPage = () => {
             headers.Authorization = `Bearer ${AccessToken}`;
             headers.RefreshToken = `${RefreshToken}`;
         }
-        axios({
+        tokenHttp({
             method: "get",
             url: `${SERVER_URL}/api/my/reply/all?page=${currentPage}`,
             headers
