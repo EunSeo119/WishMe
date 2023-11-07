@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
 import { set } from 'react-ga'
+import tokenHttp from '../../apis/tokenHttp'
 
 const MyPage = () => {
   const [deskName, setDeskName] = useState('')
@@ -50,7 +51,7 @@ const MyPage = () => {
       userSchoolSeq: userSchoolSeq
     }
 
-    axios({
+    tokenHttp({
       method: 'put',
       url: `${SERVER_URL}/api/users/modify`,
       headers,
@@ -90,9 +91,9 @@ const MyPage = () => {
 
   const searchSchool = () => {
 
-    if(tempSchoolName == ''){
+    if (tempSchoolName == '') {
       alert("학교를 입력해주세요!");
-    }else{
+    } else {
       axios({
         method: 'post',
         url: `${SERVER_URL}/api/users/search/school`,
@@ -101,8 +102,8 @@ const MyPage = () => {
         }
       })
         .then((res) => {
-            setFlag(true);
-            setSchoolList(res.data.data);
+          setFlag(true);
+          setSchoolList(res.data.data);
         })
         .catch((error) => {
           setFlag(true);
@@ -131,7 +132,7 @@ const MyPage = () => {
       headers.RefreshToken = `${RefreshToken}`;
     }
 
-    axios({
+    tokenHttp({
       method: 'get',
       url: `${SERVER_URL}/api/users`,
       headers
@@ -193,7 +194,7 @@ const MyPage = () => {
                 <div>
                   <input
                     type="text"
-                    style={{width: '160px'}}
+                    style={{ width: '160px' }}
                     placeholder='학교 검색'
                     value={tempSchoolName}
                     onChange={(e) => changeSchool(e)}
@@ -207,12 +208,12 @@ const MyPage = () => {
               {flag ? (
                 <>
                   {schoolList.length > 0 ? (
-                  <>
-                    <div className={style.schoolList}>
+                    <>
+                      <div className={style.schoolList}>
                         <ul>
                           {schoolList.map((school, idx) => (
                             <li key={school.schoolSeq} onClick={() => selectSchool(school.schoolName, school.schoolSeq, idx)}
-                              style={{backgroundColor: selectedIdx === idx ? '#ececec' : 'white'}}>
+                              style={{ backgroundColor: selectedIdx === idx ? '#ececec' : 'white' }}>
                               {school.schoolName}
                               <br />
                               <div style={{ color: '#aeaeae' }}>
@@ -222,15 +223,15 @@ const MyPage = () => {
                             </li>
                           ))}
                         </ul>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className={style.schoolList} style={{overflowY: 'hidden'}}>
-                      <div style={{width:'100%', height:'100%', textAlign:'center', marginTop:'80px'}}>검색 결과가 없습니다.</div>
-                    </div>
-                  </>
-                )}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={style.schoolList} style={{ overflowY: 'hidden' }}>
+                        <div style={{ width: '100%', height: '100%', textAlign: 'center', marginTop: '80px' }}>검색 결과가 없습니다.</div>
+                      </div>
+                    </>
+                  )}
                 </>
               ) : (
                 <>

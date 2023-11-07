@@ -3,6 +3,7 @@ import style from './searchSchoolPage.module.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SearchSchoolPage = () => {
   const [tempSchoolName, setTempSchoolName] = useState('')
@@ -34,15 +35,15 @@ const SearchSchoolPage = () => {
     }
   }
 
-    // 마이페이지로 이동
-    const goMypage = () => {
-        const AccessToken = localStorage.getItem("AccessToken");
-        if(AccessToken){
-            navigate(`/mypage`);
-        }else{
-            alert("로그인 후 이용가능합니다!");
-        }
+  // 마이페이지로 이동
+  const goMypage = () => {
+    const AccessToken = localStorage.getItem('AccessToken')
+    if (AccessToken) {
+      navigate(`/mypage`)
+    } else {
+      alert('로그인 후 이용가능합니다!')
     }
+  }
 
   // 학교 수정
   const changeSchool = (e) => {

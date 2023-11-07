@@ -135,6 +135,19 @@
   max-width: 443px;
 }
 
+.mydeskBtn {
+  font-family: 'omyu_pretty';
+  font-size: 25px;
+  color: #176124;
+  text-align: center;
+  border: 2px solid #176124;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px;
+  margin: 0px 20px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
 .mySchoolBtn {
   font-family: 'omyu_pretty';
   font-size: 25px;
@@ -144,8 +157,9 @@
   border-radius: 10px;
   background-color: #176124;
   padding: 10px;
-  margin: 0px 20px 10px;
-  /* width: 100%; */
+  margin: 0px 10px 10px 20px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .mySchoolBtnHalfShare {
@@ -156,9 +170,10 @@
   border: 1px solid #176124;
   border-radius: 10px;
   background-color: #176124;
-  width: 90%;
+  width: 100%;
   padding: 10px;
-  margin: 0 20px 10px;
+  margin: 0 20px 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .mySchoolBtnHalf {
@@ -172,6 +187,7 @@
   width: 50%;
   padding: 10px 10px 10px 10px;
   margin: 0 20px 10px 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 .rowButton {

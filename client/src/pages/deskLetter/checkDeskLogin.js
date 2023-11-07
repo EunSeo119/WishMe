@@ -4,6 +4,7 @@ import style from "./checkDeskLogin.module.css";
 import axios from "axios"; // axios import
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import tokenHttp from "../../apis/tokenHttp";
 
 const CheckDeskLogin = () => {
     const navigate = useNavigate(); // useNavigate 초기화

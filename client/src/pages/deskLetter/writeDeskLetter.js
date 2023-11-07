@@ -5,6 +5,7 @@ import style from "./writeDeskLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 // import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
+import tokenHttp from '../../apis/tokenHttp';
 
 const WriteDeskLetter = () => {
     const { assetSeq, deskUuid } = useParams();
@@ -17,6 +18,19 @@ const WriteDeskLetter = () => {
     // const { deskUuid } = useParams();
 
     const navigate = useNavigate();
+
+
+    const handleNicknameChange = (e) => {
+
+        const inputText = e.target.value;
+    
+        if(inputText.length <= 13){
+          setNickname(e.target.value)
+        }else{
+          alert('닉네임은 13자 이내로 작성해주세요.');
+        }
+    
+      }
 
     const handleSave = async () => {
         try {
@@ -37,7 +51,7 @@ const WriteDeskLetter = () => {
                 headers.RefreshToken = `${RefreshToken}`;
             }
 
-            const response = await axios({
+            const response = await tokenHttp({
                 method: "post",
                 url: `${SERVER_URL}/api/my/letter/write`,
                 headers,
@@ -101,7 +115,7 @@ const WriteDeskLetter = () => {
                     id="nickname"
                     value={nickname}
                     placeholder="닉네임을 입력해주세요."
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={handleNicknameChange}
                 />
             </div>
 

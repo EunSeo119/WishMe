@@ -5,22 +5,21 @@ import style from './developerLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 const DeveloperLetterDetail = () => {
-  const { letterId, page } = useParams()
+  const { page, letterId } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)
+  const [canReply, setCanReply] = useState(true)
 
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   const navigate = useNavigate()
 
   useEffect(() => {
-
     const AccessToken = localStorage.getItem('AccessToken')
-    const RefreshToken = localStorage.getItem("RefreshToken");
+    const RefreshToken = localStorage.getItem('RefreshToken')
 
     if (AccessToken) {
-      // AccessToken이 있으면 내 책상 페이지로 이동
       axios({
         method: 'get',
         url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
@@ -34,7 +33,23 @@ const DeveloperLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
         setIsMine(data.isMine)
-        console.log(isMine);
+        // console.log(isMine);
+      })
+      .catch((error) => {
+        // console.error('API 요청 중 오류 발생:', error)
+      })
+    }else {
+      axios({
+        method: 'get',
+        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`
+      })
+      .then((response) => {
+        const data = response.data
+        setContent(data.content)
+        setNickname(data.nickname)
+        setIsMine(data.isMine)
+        setCanReply(data.canReply)
+        // console.log(isMine);
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
@@ -43,14 +58,12 @@ const DeveloperLetterDetail = () => {
   }, [content])
 
   const goPre = () => {
-    // navigate(`/developer/${page}`)
-    navigate(-1)
+    navigate(`/developer/${page}`)
+    // navigate(-1)
   }
 
-  const handleReportClick = () => {
-    // navigate(`/school/${schoolUuid}`)
-    //letterId 이게 편지 아이디요
-    navigate(-1)
+  const writeReplyLetter = () => {
+    navigate(`/replyWritePage/${letterId}`)
   }
 
   return (
@@ -85,14 +98,20 @@ const DeveloperLetterDetail = () => {
       <div className={style.btn}>
         {isMine ? (
           <>
-            <div className={style.replyBtn}>답장하기</div>
+            <div style={{display:'flex', justifyContent:'space-around'}}>
+              {canReply ? (
+                <div className={style.replyBtn} onClick={() => writeReplyLetter()}>답장하기</div>
+              ) : (
+                <div className={style.replyBtn2}>답장하기</div>
+              )}
+              <div className={style.closeBtn} onClick={() => goPre()}>닫기</div>
+            </div>
           </>
         ) : (
-          <></>
+          <div className={style.mySchoolBtn} onClick={() => goPre()}>
+            닫기
+          </div>
         )}
-        <div className={style.mySchoolBtn} onClick={() => goPre()}>
-          닫기
-        </div>
       </div>
     </div>
   )
