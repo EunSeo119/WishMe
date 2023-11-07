@@ -11,6 +11,7 @@ import ShareURLModal from '../../Modal/shareURLModal'
 import Header from '../../Common/Header'
 import { BsToggle2Off, BsToggle2On } from 'react-icons/bs'
 import MainPopup from '../../Modal/MainPopup'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SchoolPage = () => {
   const { schoolUuid, letterPage } = useParams()
@@ -21,6 +22,7 @@ const SchoolPage = () => {
   const [schoolLetter, setSchoolLetter] = useState([])
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   // 모달
   const [showMainPop, setShowMainPop] = useState(false)
@@ -83,9 +85,9 @@ const SchoolPage = () => {
     if (AccessToken) {
       // alert('내 책상으로 이동')
       // AccessToken이 있으면 내 책상 페이지로 이동
-      axios({
+      tokenHttp({
         method: 'get',
-        url: `https://wishme.co.kr/api/my/letter/loginUserUuid`,
+        url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -117,7 +119,7 @@ const SchoolPage = () => {
 
     axios
       .get(
-        `https://wishme.co.kr/api/school/letter/allByUUID/${schoolUuid}/${page}`
+        `${SERVER_URL}/api/school/letter/allByUUID/${schoolUuid}/${page}`
       )
       // .get(
       //   `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
@@ -185,9 +187,8 @@ const SchoolPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={styleSchool.gridContainer}>
           <div
-            className={`${styleSchool.arrowIcon} ${
-              page === 1 ? styleSchool.disabledArrow : ''
-            }`}
+            className={`${styleSchool.arrowIcon} ${page === 1 ? styleSchool.disabledArrow : ''
+              }`}
             onClick={() => {
               if (page > 1) {
                 changePage(page - 1)
@@ -208,9 +209,8 @@ const SchoolPage = () => {
             ))}
           </div>
           <div
-            className={`${styleSchool.arrowIcon} ${
-              page === totalPage ? styleSchool.disabledArrow : ''
-            }`}
+            className={`${styleSchool.arrowIcon} ${page === totalPage ? styleSchool.disabledArrow : ''
+              }`}
             onClick={() => changePage(page + 1)}
           >
             <IoIosArrowForward />
