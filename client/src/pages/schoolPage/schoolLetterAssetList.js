@@ -13,6 +13,7 @@ const SchooLetterAssetList = () => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
 
   const { schoolUuid } = useParams()
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL
   const navigate = useNavigate()
 
   const assetClick = (assetId) => {
