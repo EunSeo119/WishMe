@@ -9,6 +9,7 @@ const DeveloperLetterDetail = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)
+  const [canReply, setCanReply] = useState(true)
 
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
@@ -47,6 +48,7 @@ const DeveloperLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
         setIsMine(data.isMine)
+        setCanReply(data.canReply)
         // console.log(isMine);
       })
       .catch((error) => {
