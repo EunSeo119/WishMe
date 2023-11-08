@@ -154,14 +154,17 @@ public class DeveloperService {
 
         // 현재 로그인한 유저가 개발자이고, fromUser가 있는 경우
         boolean isMine = false;
-
-        // 답장 한 적 없는 지 확인
-        Reply reply = replyRepository.findByLetterSeq(myLetterId).orElse(null);
-
         if(authentication != null){
-            if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null && reply == null){
+            if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null){
                 isMine = true;
             }
+        }
+
+        // 답장 한 적 없는 지 확인
+        Reply reply = replyRepository.findByLetterSeq(myLetter).orElse(null);
+        boolean canReply = false;
+        if(reply == null){
+            canReply = true;
         }
 
 
@@ -186,6 +189,7 @@ public class DeveloperService {
                     .createAt(myLetter.getCreateAt())
                     .assetImg(myLetter.getAsset().getAssetImg())
                     .isMine(isMine)
+                    .canReply(canReply)
                     .build();
         }else{
             throw new IllegalArgumentException("개별자 편지 상세 조회 실패");

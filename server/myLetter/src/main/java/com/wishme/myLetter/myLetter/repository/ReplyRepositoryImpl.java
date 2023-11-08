@@ -10,16 +10,16 @@ import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class ReplyRepositoryImpl {
+public class ReplyRepositoryImpl implements ReplyRepositoryCustom{
 
     private final EntityManager em;
 
-    public Reply findByLetterSeq(Long myLetterId){
-        String jpql = "SELECT r FROM Reply r WHERE r.letterSeq = :myLetterId";
+    public Optional<Reply> findByLetterSeq(MyLetter myLetter){
+        String jpql = "SELECT r FROM Reply r WHERE r.myLetter = :myLetter";
 
-        return em.createQuery(jpql, Reply.class)
-                .setParameter("myLetterId", myLetterId)
-                .getSingleResult();
+        return Optional.ofNullable(em.createQuery(jpql, Reply.class)
+                .setParameter("myLetter", myLetter)
+                .getSingleResult());
     }
 
 }
