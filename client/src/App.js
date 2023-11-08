@@ -21,6 +21,7 @@ import ReplyListPage from './pages/replyPage/replyListPage'
 import ReplyWritePage from './pages/replyPage/replyWritePage'
 import ReplyDetailPage from './pages/replyPage/replyDetailPage'
 import DeskLetterDetail from './pages/deskLetter/deskLetterDetail'
+import MyLetterDetailPage from './pages/replyPage/myLetterDetailPage'
 import style from './app.module.css'
 
 function App() {
@@ -84,6 +85,10 @@ function App() {
         <Route path="/replyList" element={<ReplyListPage />}></Route>
         <Route path="/replyWritePage/:letterId" element={<ReplyWritePage />} />
         <Route path="/replyDetailPage/:replyId" element={<ReplyDetailPage />} />
+        <Route
+          path="/myLetterDetailPage/:letterId"
+          element={<MyLetterDetailPage />}
+        />
       </Routes>
     </div>
   )
