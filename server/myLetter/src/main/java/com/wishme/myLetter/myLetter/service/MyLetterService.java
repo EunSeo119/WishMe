@@ -7,6 +7,7 @@ import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.*;
 import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
+import com.wishme.myLetter.myLetter.repository.ReplyRepository;
 import com.wishme.myLetter.openAPI.dto.request.GPTCompletionChatRequestDto;
 import com.wishme.myLetter.openAPI.service.GPTService;
 import com.wishme.myLetter.user.domain.User;
@@ -55,6 +56,7 @@ public class MyLetterService {
     private final MyLetterRepository myLetterRepository;
     private final UserRepository userRepository;
     private final GPTService gptService;
+    private final ReplyRepository replyRepository;
 
     public List<MyLetterAssetResponseDto> getMyLetterAssets() {
         List<MyLetterAssetResponseDto> result = new ArrayList<>();
@@ -205,7 +207,8 @@ public class MyLetterService {
             }
 
             // 이 편지에 답장이 가능할 때
-            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null) {
+            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null
+            && replyRepository.findByMyLetter(myletter) == null) {
                 canReply = true;
             }
         }
