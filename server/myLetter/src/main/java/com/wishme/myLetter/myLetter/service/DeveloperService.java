@@ -2,6 +2,7 @@ package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.asset.repository.AssetRepository;
+import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
@@ -9,6 +10,7 @@ import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
+import com.wishme.myLetter.myLetter.repository.ReplyRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
@@ -44,6 +46,7 @@ public class DeveloperService {
     private final UserRepository userRepository;
     private final AssetRepository assetRepository;
     private final MyLetterRepository myLetterRepository;
+    private final ReplyRepository replyRepository;
 
     // 개발자 편지 작성
     public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
@@ -157,6 +160,13 @@ public class DeveloperService {
             }
         }
 
+        // 답장 한 적 없는 지 확인
+        Reply reply = replyRepository.findByLetterSeq(myLetter).orElse(null);
+        boolean canReply = false;
+        if(reply == null){
+            canReply = true;
+        }
+
 
 //        if(!myLetter.getIsPublic()) {
 //            throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
@@ -179,6 +189,7 @@ public class DeveloperService {
                     .createAt(myLetter.getCreateAt())
                     .assetImg(myLetter.getAsset().getAssetImg())
                     .isMine(isMine)
+                    .canReply(canReply)
                     .build();
         }else{
             throw new IllegalArgumentException("개별자 편지 상세 조회 실패");

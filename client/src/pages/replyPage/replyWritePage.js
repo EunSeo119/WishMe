@@ -155,10 +155,10 @@ const ReplyWritePage = () => {
         {/* <div className={style.mySchoolBtn} onClick={() => goPre()}> */}
         <div
           className={`${letterColor === 'Y'
-              ? style.myBtnYellow
-              : letterColor === 'P'
-                ? style.myBtnPink
-                : style.myBtnBlue
+            ? style.myBtnYellow
+            : letterColor === 'P'
+              ? style.myBtnPink
+              : style.myBtnBlue
             }`}
           onClick={() => clickWriteLetter()}
         >
