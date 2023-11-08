@@ -19,8 +19,9 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class KakaoUtil {
 
+    @Value("{kakao.redirect.url}")
+    private String REDIRECT_URI;
     private static final String GRANT_TYPE = "authorization_code";
-    private static final String REDIRECT_URI = "https://wishme.co.kr/kakao/callback";
     private static final String TOKEN_URI = "https://kauth.kakao.com/oauth/token";
     private static final String USER_INFO_URI = "https://kapi.kakao.com/v2/user/me";
 
