@@ -12,10 +12,9 @@ const SchooLetterAssetList = () => {
   const [totalPage, setTotalPage] = useState(1)
   const [selectAsset, setSelectAsset] = useState()
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   const { schoolUuid } = useParams()
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
   const navigate = useNavigate()
 
   const assetClick = (assetId) => {
@@ -64,8 +63,9 @@ const SchooLetterAssetList = () => {
       <div className={style.title}>문구를 선택해주세요</div>
       <div className={style.gridContainer}>
         <div
-          className={`${style.arrowIcon} ${page === 1 ? style.disabledArrow : ''
-            }`}
+          className={`${style.arrowIcon} ${
+            page === 1 ? style.disabledArrow : ''
+          }`}
           onClick={() => {
             if (page > 1) {
               changePage(page - 1)
@@ -81,8 +81,9 @@ const SchooLetterAssetList = () => {
             .map((asset, index) => (
               <div
                 key={index}
-                className={`${style.gridItem} ${index === selectedItemIndex ? style.selectAsset : ''
-                  }`}
+                className={`${style.gridItem} ${
+                  index === selectedItemIndex ? style.selectAsset : ''
+                }`}
                 onClick={() => {
                   assetClick(asset.assetSeq)
                   setSelectedItemIndex(index)
@@ -106,8 +107,9 @@ const SchooLetterAssetList = () => {
             )}
         </div>
         <div
-          className={`${style.arrowIcon} ${page === totalPage ? style.disabledArrow : ''
-            }`}
+          className={`${style.arrowIcon} ${
+            page === totalPage ? style.disabledArrow : ''
+          }`}
           onClick={() => changePage(page + 1)}
         >
           <IoIosArrowForward />

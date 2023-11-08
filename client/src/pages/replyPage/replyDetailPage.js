@@ -5,7 +5,6 @@ import style from './replyDetailPage.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import { PiSirenLight } from 'react-icons/pi'
-import tokenHttp from '../../apis/tokenHttp'
 
 const ReplyDetailPage = () => {
   const { replyId } = useParams()
@@ -42,7 +41,7 @@ const ReplyDetailPage = () => {
       headers.Authorization = `Bearer ${AccessToken}`
       headers.RefreshToken = `${RefreshToken}`
     }
-    tokenHttp({
+    axios({
       method: 'get',
       url: `${SERVER_URL}/api/my/reply/detail/${replyId}`,
       headers
@@ -68,7 +67,8 @@ const ReplyDetailPage = () => {
 
   //내 편지 보러 가기
   const goMyletter = () => {
-    navigate(`/developerLetterDetail/1/${letterId}`)
+    // navigate(`/developerLetterDetail/1/${letterId}`)
+    navigate(`/myLetterDetailPage/${letterId}`)
   }
 
   return (
@@ -109,23 +109,25 @@ const ReplyDetailPage = () => {
       </div>
       <div className={style.btn}>
         <div
-          className={`${colorType === 'Y'
+          className={`${
+            colorType === 'Y'
               ? style.myBtnWirteYellow
               : colorType === 'P'
-                ? style.myBtnWirtePink
-                : style.myBtnWirteBlue
-            }`}
+              ? style.myBtnWirtePink
+              : style.myBtnWirteBlue
+          }`}
           onClick={() => goMyletter()}
         >
           내 편지 보기
         </div>
         <div
-          className={`${colorType === 'Y'
+          className={`${
+            colorType === 'Y'
               ? style.myBtnYellow
               : colorType === 'P'
-                ? style.myBtnPink
-                : style.myBtnBlue
-            }`}
+              ? style.myBtnPink
+              : style.myBtnBlue
+          }`}
           onClick={() => goPre()}
         >
           닫기
