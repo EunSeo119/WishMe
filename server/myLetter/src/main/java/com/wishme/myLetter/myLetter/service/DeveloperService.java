@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -161,10 +162,10 @@ public class DeveloperService {
         }
 
         // 답장 한 적 없는 지 확인
-        Reply reply = replyRepository.findByLetterSeq(myLetter).orElse(null);
-        boolean canReply = false;
-        if(reply == null){
-            canReply = true;
+        Optional<Reply> replyOptional = replyRepository.findByLetter(myLetter);
+        boolean canReply = !replyOptional.isPresent();
+        if(replyOptional != null){
+            canReply = false;
         }
 
 
