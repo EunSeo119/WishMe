@@ -1,9 +1,10 @@
 package com.wishme.myLetter.myLetter.service;
 
+import com.wishme.myLetter.common.exception.CustomException;
+import com.wishme.myLetter.common.exception.code.ErrorCode;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.SaveReplyRequestDto;
-import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyReplyListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.MyReplyResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.ReplyDetailResponseDto;
@@ -40,9 +41,13 @@ public class ReplyService {
 
     @Transactional
     public Long saveReply(SaveReplyRequestDto saveReplyRequestDto, Authentication authentication) throws Exception {
-        // 여기서 저장할 때 @OneToOne 이여서 같은 편지에 대해 답장을 중복해서 보내면 exception 되는거 처리 (근데 2번은 되는거 수정)
         MyLetter myLetter = myLetterRepository.findByMyLetterSeq(saveReplyRequestDto.getMyLetterSeq())
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다. 해당 편지에 답장을 쓸 수 없습니다.", 1));
+
+        if(replyRepository.findByMyLetter(myLetter) != null) {
+//            throw new CustomException(ErrorCode.ALREADY_CREATED_ERROR);
+            throw new IllegalArgumentException("답장은 한번만 할 수 있습니다.");
+        }
 
         if(myLetter.getToUser().getUserSeq() != Long.parseLong(authentication.getName())) {
             throw new IllegalArgumentException("해당 유저는 답장을 보낼 수 없습니다.");
