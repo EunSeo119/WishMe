@@ -1,5 +1,7 @@
 package com.wishme.myLetter.myLetter.service;
 
+import com.wishme.myLetter.common.exception.CustomException;
+import com.wishme.myLetter.common.exception.code.ErrorCode;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.SaveReplyRequestDto;
@@ -43,6 +45,7 @@ public class ReplyService {
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다. 해당 편지에 답장을 쓸 수 없습니다.", 1));
 
         if(replyRepository.findByMyLetter(myLetter) != null) {
+//            throw new CustomException(ErrorCode.ALREADY_CREATED_ERROR);
             throw new IllegalArgumentException("답장은 한번만 할 수 있습니다.");
         }
 
