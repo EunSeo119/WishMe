@@ -33,7 +33,7 @@ const DeveloperLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
         setIsMine(data.isMine)
-        // console.log(isMine);
+        setCanReply(data.canReply)
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
@@ -48,7 +48,6 @@ const DeveloperLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
         setIsMine(data.isMine)
-        setCanReply(data.canReply)
         // console.log(isMine);
       })
       .catch((error) => {
