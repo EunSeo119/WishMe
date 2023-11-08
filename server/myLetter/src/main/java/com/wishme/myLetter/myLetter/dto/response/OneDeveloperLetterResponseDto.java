@@ -28,5 +28,7 @@ public class OneDeveloperLetterResponseDto {
     private LocalDateTime createAt;
     // 개발자 편지인지
     private Boolean isMine;
+    // 답장 가능한지
+    private Boolean canReply;
 
 }
