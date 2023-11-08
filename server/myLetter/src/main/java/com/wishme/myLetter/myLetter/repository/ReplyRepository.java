@@ -5,11 +5,13 @@ import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.user.domain.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ReplyRepository extends JpaRepository<Reply, Long> {
+@Repository
+public interface ReplyRepository extends JpaRepository<Reply, Long>, ReplyRepositoryCustom {
 
     long countByToUser(User toUser);
 

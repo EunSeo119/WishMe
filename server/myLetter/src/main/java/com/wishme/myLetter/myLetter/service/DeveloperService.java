@@ -156,7 +156,7 @@ public class DeveloperService {
         boolean isMine = false;
 
         // 답장 한 적 없는 지 확인
-        Reply reply = replyRepository.findByLetterSeq(myLetterId).orElse(null);
+        Reply reply = replyRepository.findByLetterSeq(myLetter).orElse(null);
 
         if(authentication != null){
             if(Long.parseLong(authentication.getName()) == 1 && myLetter.getFromUser() != null && reply == null){
