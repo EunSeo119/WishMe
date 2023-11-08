@@ -8,7 +8,8 @@ import tokenHttp from '../../apis/tokenHttp'
 
 const MyLetterDetailPage = () => {
   const { letterId } = useParams()
-  const [nickname, setNickname] = useState('')
+  const [toUserNickname, setToUserNickname] = useState('')
+  const [fromUserNickname, setFromUserNickname] = useState('')
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)
 
@@ -24,7 +25,7 @@ const MyLetterDetailPage = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       tokenHttp({
         method: 'get',
-        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
+        url: `${SERVER_URL}/api/developer/letter/detail/${letterId}`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -33,7 +34,8 @@ const MyLetterDetailPage = () => {
         .then((response) => {
           const data = response.data
           setContent(data.content)
-          setNickname(data.nickname)
+          setToUserNickname(data.toUserNickname)
+          setFromUserNickname(data.fromUserNickname)
           setIsMine(data.isMine)
           // console.log(isMine);
         })
@@ -48,7 +50,8 @@ const MyLetterDetailPage = () => {
         .then((response) => {
           const data = response.data
           setContent(data.content)
-          setNickname(data.nickname)
+          setToUserNickname(data.toUserNickname)
+          setFromUserNickname(data.fromUserNickname)
           setIsMine(data.isMine)
           // console.log(isMine);
         })
@@ -80,7 +83,7 @@ const MyLetterDetailPage = () => {
         />
         <div className={style.letter}>
           <div className={style.to}>
-            <text className={style.letterPrefix}>To. 빛나리</text>
+            <text className={style.letterPrefix}>To. {toUserNickname}</text>
           </div>
           <div className={style.content}>
             <textarea
@@ -90,7 +93,7 @@ const MyLetterDetailPage = () => {
             />{' '}
           </div>
           <div className={style.from}>
-            <text className={style.letterSurfix}>From. {nickname}</text>
+            <text className={style.letterSurfix}>From. {fromUserNickname}</text>
           </div>{' '}
         </div>
       </div>
