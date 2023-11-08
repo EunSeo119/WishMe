@@ -48,4 +48,14 @@ public class DeveloperController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    /**
+     * 답장에서 내가 썼던 편지 가기
+     */
+    @GetMapping("/detail/{myLetterSeq}")
+    public ResponseEntity<?> getDeveloperLetterDetail(Authentication authentication, @PathVariable("myLetterSeq") Long myLetterSeq) throws Exception {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(developerService.getDeveloperLetterDetail(authentication, myLetterSeq));
+    }
 }
