@@ -165,7 +165,7 @@ public class DeveloperService {
         Optional<Reply> replyOptional = replyRepository.findByLetter(myLetter);
         boolean canReply = !replyOptional.isPresent();
         if(replyOptional != null){
-            canReply = false;
+            canReply = true;
         }
 
 
