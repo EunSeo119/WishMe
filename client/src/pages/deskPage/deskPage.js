@@ -13,14 +13,14 @@ import Header from '../../Common/Header'
 import tokenHttp from '../../apis/tokenHttp'
 
 const DeskPage = () => {
-  const { deskUuid } = useParams()
-  const [page, setPage] = useState(1)
+  const { deskUuid, letterPage } = useParams()
+  // const [page, setPage] = useState(letterPage ? Number(letterPage) : 1)
   // const [deskUuid, setDeskUuid] = useState("");
   const [isMine, setIsMine] = useState(false)
   const [deskName, setDeskName] = useState('test')
   const [totalCount, setTotalCount] = useState(0)
   const [deskLetter, setDeskLetter] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(letterPage ? Number(letterPage) : 1)
   const [totalPage, setTotalPage] = useState(1)
   // const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
@@ -51,18 +51,28 @@ const DeskPage = () => {
     }
   }
 
-  const handleLetterClick = (letterId) => {
+  const handleLetterClick = (letter) => {
     const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-11')
+    const modalOpenDate = new Date('2023-11-7')
+
+    console.log(letter.public)
 
     if (currentDate < modalOpenDate) {
       // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
       openNextDateModal()
+    } else if (letter.isPublic || isMine) {
+      navigate(`/deskLetterDetail/${deskUuid}/${letter.myLetterSeq}/${currentPage}`)
     } else {
-      // 그 이후면 개인 편지 페이지로 이동
-      // 아직 못만듬..!
-      // navigate(`/myLetterDetail/${letterId}`)
+      openPrivateLetterModal()
     }
+  }
+
+  const [isPrivateLetterModal, setIsPrivateLetterModal] = useState(false)
+  const openPrivateLetterModal = () => {
+    setIsPrivateLetterModal(true)
+  }
+  const closePrivateLetterModal = () => {
+    setIsPrivateLetterModal(false)
   }
 
   const [isNextDateModalOpen, setIsNextDateModalOpen] = useState(false)
@@ -141,6 +151,11 @@ const DeskPage = () => {
   }
 
   // var url = 'http://localhost:8082/'
+
+  useEffect(() => {
+    const pageNumber = letterPage ? Number(letterPage) : 1
+    setCurrentPage(pageNumber)
+  }, [letterPage])
 
   useEffect(() => {
     const AccessToken = localStorage.getItem('AccessToken')
@@ -236,7 +251,7 @@ const DeskPage = () => {
               <div
                 key={index}
                 className={style.gridItem}
-                onClick={() => handleLetterClick(letter.myLetterSeq)}
+                onClick={() => handleLetterClick(letter)}
               >
                 {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
@@ -312,6 +327,21 @@ const DeskPage = () => {
                 편지는 11월 11일<br></br> 공개됩니다!
               </div>
               <div className={style.Modalbtn} onClick={closeNextDateModal}>
+                닫기
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 비공개 편지 알림 모달*/}
+        <div>
+          {isPrivateLetterModal && (
+            <div className={style.Modalmodal}>
+              <div className={style.Modalclose} onClick={closePrivateLetterModal}>
+                X
+              </div>
+              <div className={style.Modaltitle}>비공개 편지입니다.</div>
+              <div className={style.Modalbtn} onClick={closePrivateLetterModal}>
                 닫기
               </div>
             </div>
