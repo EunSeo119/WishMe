@@ -21,7 +21,7 @@ public class JwtUtil {
     private final long ACCESS_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
 
     // refresh token valid time : 2 weeks
-    private final long REFRESH_TOKEN_VALID_TIME = 14 * 24 * 60 * 60 * 1000L;
+    private final long REFRESH_TOKEN_VALID_TIME = 21* 24 * 60 * 60 * 1000L;
 
     public String createJwt(String userSeq, String secretKey) {
         Claims claims = Jwts.claims();
