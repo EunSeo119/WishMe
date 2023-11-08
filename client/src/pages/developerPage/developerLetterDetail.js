@@ -4,13 +4,12 @@ import axios from 'axios'
 import style from './developerLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
-import tokenHttp from '../../apis/tokenHttp'
-
 const DeveloperLetterDetail = () => {
   const { page, letterId } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)
+  const [canReply, setCanReply] = useState(true)
 
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
@@ -21,8 +20,7 @@ const DeveloperLetterDetail = () => {
     const RefreshToken = localStorage.getItem('RefreshToken')
 
     if (AccessToken) {
-      // AccessToken이 있으면 내 책상 페이지로 이동
-      tokenHttp({
+      axios({
         method: 'get',
         url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
         headers: {
@@ -50,6 +48,7 @@ const DeveloperLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
         setIsMine(data.isMine)
+        setCanReply(data.canReply)
         // console.log(isMine);
       })
       .catch((error) => {
@@ -100,7 +99,11 @@ const DeveloperLetterDetail = () => {
         {isMine ? (
           <>
             <div style={{display:'flex', justifyContent:'space-around'}}>
-              <div className={style.replyBtn} onClick={() => writeReplyLetter()}>답장하기</div>
+              {canReply ? (
+                <div className={style.replyBtn} onClick={() => writeReplyLetter()}>답장하기</div>
+              ) : (
+                <div className={style.replyBtn2}>답장하기</div>
+              )}
               <div className={style.closeBtn} onClick={() => goPre()}>닫기</div>
             </div>
           </>
