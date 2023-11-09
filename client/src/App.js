@@ -20,6 +20,8 @@ import DeveloperLetterDetail from './pages/developerPage/developerLetterDetail'
 import ReplyListPage from './pages/replyPage/replyListPage'
 import ReplyWritePage from './pages/replyPage/replyWritePage'
 import ReplyDetailPage from './pages/replyPage/replyDetailPage'
+import DeskLetterDetail from './pages/deskLetter/deskLetterDetail'
+import MyLetterDetailPage from './pages/replyPage/myLetterDetailPage'
 import style from './app.module.css'
 
 function App() {
@@ -31,7 +33,10 @@ function App() {
         <Route path="/searchSchool" element={<SearchSchoolPage />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
-        <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
+        <Route
+          path="/desk/:deskUuid/:letterPage?"
+          element={<DeskPage />}
+        ></Route>
         <Route path="/desk/:deskUuid/checkLogin" element={<CheckDeskLogin />} />
         <Route
           path="/desk/:deskUuid/selectAsset"
@@ -40,6 +45,10 @@ function App() {
         <Route
           path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
+        />
+        <Route
+          path="/deskLetterDetail/:deskUuid/:letterId/:page"
+          element={<DeskLetterDetail />}
         />
         {/* 학교 */}
         <Route
@@ -60,7 +69,7 @@ function App() {
         />
         {/* 개발자 편지 */}
         <Route
-          path="/developer/:letterPage"
+          path="/developer/:letterPage?"
           element={<DeveloperPage />}
         ></Route>
         <Route
@@ -79,6 +88,10 @@ function App() {
         <Route path="/replyList" element={<ReplyListPage />}></Route>
         <Route path="/replyWritePage/:letterId" element={<ReplyWritePage />} />
         <Route path="/replyDetailPage/:replyId" element={<ReplyDetailPage />} />
+        <Route
+          path="/myLetterDetailPage/:letterId"
+          element={<MyLetterDetailPage />}
+        />
       </Routes>
     </div>
   )
