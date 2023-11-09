@@ -33,7 +33,10 @@ function App() {
         <Route path="/searchSchool" element={<SearchSchoolPage />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
-        <Route path="/desk/:deskUuid/:letterPage?" element={<DeskPage />}></Route>
+        <Route
+          path="/desk/:deskUuid/:letterPage?"
+          element={<DeskPage />}
+        ></Route>
         <Route path="/desk/:deskUuid/checkLogin" element={<CheckDeskLogin />} />
         <Route
           path="/desk/:deskUuid/selectAsset"
@@ -66,7 +69,7 @@ function App() {
         />
         {/* 개발자 편지 */}
         <Route
-          path="/developer/:letterPage"
+          path="/developer/:letterPage?"
           element={<DeveloperPage />}
         ></Route>
         <Route
