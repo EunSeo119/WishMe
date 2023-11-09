@@ -53,7 +53,7 @@ const DeskPage = () => {
 
   const handleLetterClick = (letter) => {
     const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-7')
+    const modalOpenDate = new Date('2023-11-11')
 
     console.log(letter.public)
 
