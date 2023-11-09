@@ -94,12 +94,12 @@ public class DeveloperService {
         Pageable pageable = PageRequest.of(page - 1, 9, sort);
 
         List<MyLetter> myLetters = myLetterRepository.findAllByToUser(admin, pageable);
-        Integer totalCnt = developerRepository.findTotalCnt(admin);
+        Long totalCnt = developerRepository.countByToUser(admin);
 
         // totalCnt가 null이 아닐 때만 연산을 수행합니다.
         int totalPage = 0;
         if (totalCnt != null) {
-            totalPage = Math.round(totalCnt / 9.0f);
+            totalPage = (int) Math.ceil((double) totalCnt / 9.0);
         }
 
         // 로그인한 유저가 개발자면 무조건 열람 가능
@@ -126,7 +126,7 @@ public class DeveloperService {
             }
             // 총 편지 수, 총 페이지 수, 페이지 당 편지
             return AllDeveloperLetterListResponseDto.builder()
-                    .totalLetters(totalCnt)
+                    .totalLetters(Math.toIntExact(totalCnt))
                     .totalPages(totalPage)
                     .lettersPerPage(developerLetterResponseDtos)
                     .build();
