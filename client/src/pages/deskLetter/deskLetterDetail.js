@@ -5,6 +5,8 @@ import style from './deskLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import tokenHttp from '../../apis/tokenHttp'
+import LetterReportModal from '../../Modal/letterReportModal'
+import { PiSirenLight } from 'react-icons/pi'
 
 const DeskLetterDetail = () => {
   const { deskUuid, letterId, page } = useParams()
@@ -16,6 +18,15 @@ const DeskLetterDetail = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   const navigate = useNavigate()
+
+  // 신고하기 모달관련
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   useEffect(() => {
     const AccessToken = localStorage.getItem('AccessToken')
@@ -75,6 +86,12 @@ const DeskLetterDetail = () => {
         이전으로
       </div>
       <div className={style.title}>응원의 편지를 확인하세요!</div>
+      <LetterReportModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        isSchool={false}
+        letterId={letterId}
+      />
       <div className={style.letterImgBack}>
         <img
           crossOrigin="anonymous"
@@ -84,6 +101,10 @@ const DeskLetterDetail = () => {
         <div className={style.letter}>
           <div className={style.to}>
             <text className={style.letterPrefix}>To. {toUserNickname}</text>
+            <PiSirenLight
+              className={style.reportLetterIcon}
+              onClick={openModal}
+            />
           </div>
           <div className={style.content}>
             <textarea
