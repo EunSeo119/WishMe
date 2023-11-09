@@ -10,6 +10,6 @@ import java.util.Optional;
 
 public interface ReplyRepositoryCustom {
 
-    Optional<Reply> findByLetterSeq(MyLetter myLetter);
+    Optional<Reply> findByLetter(MyLetter myLetter);
 
 }
