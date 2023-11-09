@@ -15,7 +15,7 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
     const letterReport = async () => {
         try {
             if (isSchool) {
-                // await 신고로직작성
+                // await 학교 편지 신고 로직작성
                 axios({
                     method: "put",
                     url: `${SERVER_URL}/api/school/letter/report/${letterId}`,
@@ -27,6 +27,31 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
                     .catch((error) => {
                         alert("학교편지 신고에 실패하였습니다.");
                     });
+            } else {
+                const AccessToken = localStorage.getItem('AccessToken')
+                const RefreshToken = localStorage.getItem('RefreshToken')
+
+                if (AccessToken) {
+                    // await 개인 편지 신고 로직작성
+                    axios({
+                        method: "put",
+                        url: `${SERVER_URL}/api/my/letter/report/${letterId}`,
+                        headers: {
+                            Authorization: `Bearer ${AccessToken}`,
+                            RefreshToken: `${RefreshToken}`
+                        }
+                    })
+                        .then((response) => {
+                            alert("개인편지 신고가 완료되었습니다.");
+                            navigate(-1);
+                        })
+                        .catch((error) => {
+                            alert("개인편지 신고에 실패하였습니다.");
+                        });
+                } else {
+                    alert("신고할 권한이 없습니다.");
+                }
+
             }
         } catch (err) {
             // console.log(err);
