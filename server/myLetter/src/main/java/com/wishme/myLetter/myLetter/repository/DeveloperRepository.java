@@ -10,9 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface DeveloperRepository extends JpaRepository<MyLetter, Long>, DeveloperRepositoryCustom {
+public interface DeveloperRepository extends JpaRepository<MyLetter, Long> {
 
     // 받는 사람으로 개인편지 조회
 //    List<MyLetter> findByToUser(User user);
+
+    long countByToUser(User toUser);
 
 }
