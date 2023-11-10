@@ -14,7 +14,7 @@ const Clarity = () => {
             })(window, document, "clarity", "script", "jo6rj09z4o");
             `}
                 </script>
-                <meta http-equiv="Cross-Origin-Resource-Policy" content="same-origin" />
+                <meta http-equiv="Cross-Origin-Resource-Policy" content="cross-origin" />
             </Helmet>
             {/* 나머지 컴포넌트 내용 */}
         </div>
