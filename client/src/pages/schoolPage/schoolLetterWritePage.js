@@ -14,26 +14,23 @@ const SchooLetterWritePage = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const { schoolUuid, assetId } = useParams()
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER;
 
   const navigate = useNavigate()
 
   const clickWriteLetter = () => {
     if (nickname && content) {
       axios
-        .post(`${SERVER_URL}/api/school/letter/write/uuid`, {
+        .post(`${SCHOOL_SERVER}/api/school/letter/write/uuid`, {
           uuid: schoolUuid,
           assetSeq: assetId,
           content: content,
           nickname: nickname
         })
         .then((response) => {
-          const data = response.data
-          // alert('응원남기기 완료!')
           navigate(`/school/${schoolUuid}`)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     } else {
       alert('닉네임과 내용을 입력해주세요')
@@ -52,7 +49,6 @@ const SchooLetterWritePage = () => {
   }
 
   const changePage = (newPage) => {
-    // console.log(totalPage)
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage)
     }
@@ -70,21 +66,6 @@ const SchooLetterWritePage = () => {
 
   }
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`/api/school/letter/assets`)
-  //       .then((response) => {
-  //         const data = response.data
-  //         console.log(data)
-  //         setSchoolAssetList(data.schoolAssertList)
-  //         setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
-  //         console.log(schoolAssetList)
-  //         console.log(totalPage)
-  //       })
-  //       .catch((error) => {
-  //         console.error('API 요청 중 오류 발생:', error)
-  //       })
-  //   }, [assetId])
 
   return (
     <div className={style.body}>

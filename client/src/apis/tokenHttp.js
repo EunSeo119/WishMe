@@ -22,7 +22,6 @@ tokenHttp.interceptors.request.use(async (req) => {
         return req;
     }
     else {
-        // localStorage.removeItem("persist:root");
         localStorage.removeItem("AccessToken");
         localStorage.removeItem("RefreshToken");
     }
