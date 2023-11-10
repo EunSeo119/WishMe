@@ -5,7 +5,7 @@ const Clarity = () => {
     return (
         <div>
             <Helmet>
-                <script type="text/javascript">
+                <script type="text/javascript" crossOrigin="anonymous">
                     {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -14,7 +14,6 @@ const Clarity = () => {
             })(window, document, "clarity", "script", "jo6rj09z4o");
             `}
                 </script>
-                <meta http-equiv="Cross-Origin-Resource-Policy" content="cross-origin" />
             </Helmet>
             {/* 나머지 컴포넌트 내용 */}
         </div>
