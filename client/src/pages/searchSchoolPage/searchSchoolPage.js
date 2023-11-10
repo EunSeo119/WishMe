@@ -10,7 +10,7 @@ const SearchSchoolPage = () => {
   const [userSchoolUuid, setUserSchoolUuid] = useState(0)
   const [schoolList, setSchoolList] = useState([])
   const [selectedIdx, setSelectedIdx] = useState(-1)
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const USER_SERVER = process.env.REACT_APP_USER_SERVER;
 
   const navigate = useNavigate()
 
@@ -53,9 +53,7 @@ const SearchSchoolPage = () => {
   // 학교 선택
   const selectSchool = (schoolName, schoolUuid, idx) => {
     setTempSchoolName(schoolName)
-    // console.log(schoolUuid);
     setUserSchoolUuid(schoolUuid)
-    // console.log(schoolName);
     setSelectedIdx(idx)
   }
 
@@ -63,17 +61,15 @@ const SearchSchoolPage = () => {
   const searchSchool = () => {
     axios({
       method: 'post',
-      url: `${SERVER_URL}/api/users/search/school`,
+      url: `${USER_SERVER}/api/users/search/school`,
       data: {
         schoolName: tempSchoolName
       }
     })
       .then((res) => {
         setSchoolList(res.data.data)
-        //   console.log(res.data.data);
       })
       .catch((error) => {
-        //   console.log('검색 중 오류 발생: ' + error)
       })
   }
 
