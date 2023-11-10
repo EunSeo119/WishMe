@@ -45,14 +45,11 @@
   width: 210px;
   height: 32px;
   border: 1px solid rgb(247, 247, 247);
-  /* color: #ececec; */
   border-radius: 5px;
 }
 
 .school {
   width: 90%;
-  /* display: flex;
-  justify-content: space-around; */
 }
 
 .school div:nth-child(1) {
@@ -74,7 +71,6 @@
 }
 
 .searchBtn {
-  /* width: 20%; */
   font-size: 15px;
   display: flex;
   width: 60px;

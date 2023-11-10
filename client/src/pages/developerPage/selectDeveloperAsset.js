@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"; // useEffect import 추가
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import style from "./selectDeveloperAsset.module.css";
-import axios from 'axios';  // axios import
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import tokenHttp from "../../apis/tokenHttp";
 
@@ -12,10 +11,9 @@ const SelectDeveloperAsset = () => {
     const [assetInfo, setAssetInfo] = useState([]); // 상태 초기화 변경
     const [selectedAssetSeq, setSelectedAssetSeq] = useState(null); // 선택된 이미지의 assetSeq 값을 저장하는 상태
     const [totalPage, setTotalPage] = useState(1)
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const changePage = (newPage) => {
-        console.log(totalPage)
         if (newPage >= 1 && newPage <= totalPage) {
             setCurrentPage(newPage)
         }
@@ -33,7 +31,7 @@ const SelectDeveloperAsset = () => {
         }
         tokenHttp({
             method: "get",
-            url: `${SERVER_URL}/api/my/letter/assets`,
+            url: `${MYLETTER_SERVER}/api/my/letter/assets`,
             headers
         })
 

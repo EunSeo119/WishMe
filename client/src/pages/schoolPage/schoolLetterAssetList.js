@@ -12,7 +12,7 @@ const SchooLetterAssetList = () => {
   const [totalPage, setTotalPage] = useState(1)
   const [selectAsset, setSelectAsset] = useState()
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   const { schoolUuid } = useParams()
   const navigate = useNavigate()
@@ -42,15 +42,13 @@ const SchooLetterAssetList = () => {
 
   useEffect(() => {
     axios
-      .get(`${SERVER_URL}/api/school/letter/assets`)
-      // .get(`http://localhost:8082/api/school/letter/assets`)
+      .get(`${SCHOOL_SERVER}/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
         setSchoolAssetList(data.schoolAssertList)
         setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
       })
       .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
       })
   }, [schoolUuid])
 

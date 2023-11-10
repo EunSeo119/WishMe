@@ -1,19 +1,18 @@
 .header {
-    /* height: 7vh; */
     width: 100%;
     display: flex;
     justify-content: end;
-    /* display: grid; */
-    /* grid-template-columns: 1fr 8fr 1fr; */
-    /* align-items: center; */
-    /* margin-top: 3%; */
-    /* margin-bottom: 3%; */
+
   }
 
   .menuIcon {
     margin-right: 20px;
     height: 30px;
     grid:1;
+  }
+
+  .menuIcon2 {
+    font-size: 45px;
   }
   
   .notIcon {
@@ -34,7 +33,6 @@
     position: fixed;
     top: 0;
     right: -70vw;
-    /* width: 60vw; */
     height: 100%;
     background-color: rgb(234, 233, 233);
     color: black;
@@ -48,7 +46,6 @@
     display: none;
     top: 0;
     right: -70vw;
-    /* width: 60vw; */
     height: 100%;
     background-color: rgb(234, 233, 233);
     color: black;

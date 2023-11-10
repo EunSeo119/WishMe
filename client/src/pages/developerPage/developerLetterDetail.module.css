@@ -106,13 +106,6 @@ body {
 
 .to {
   margin-bottom: 5px;
-  /* width: 70%; */
-
-  /* display: flex; */
-  /* position: relative; */
-  /* align-items: center; */
-  /* left: 10%; */
-  /* transform: translate(-120%, 0); */
 }
 
 .letterPrefix {
@@ -182,18 +175,3 @@ body {
   margin: 0 10px 10px 20px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-
-/* .replyBtn2 {
-  font-family: 'omyu_pretty';
-  font-size: 25px;
-  color: #aaa;
-  text-align: center;
-  border: 2px solid #aaa;
-  border-radius: 10px;
-  background-color: #eaeaea;
-  opacity: 0.7;
-  padding: 10px;
-  width: 100%;
-  margin: 0 10px 10px 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-} */
