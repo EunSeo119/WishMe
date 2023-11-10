@@ -3,6 +3,7 @@ package com.wishme.myLetter.openAPI.dto.request;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatMessage;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,5 +37,10 @@ public class GPTCompletionChatRequestDto {
     private static List<ChatMessage> convertChatMessage(GPTCompletionChatRequestDto gptCompletionChatRequestDto) {
 
         return List.of(new ChatMessage("user", gptCompletionChatRequestDto.getMessage()));
+    }
+
+    @Builder
+    public GPTCompletionChatRequestDto(String message) {
+        this.message = message;
     }
 }
