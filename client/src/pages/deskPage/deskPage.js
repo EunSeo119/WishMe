@@ -21,7 +21,7 @@ const DeskPage = () => {
   const USER_SERVER = process.env.REACT_APP_USER_SERVER;
   const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
-  
+
   // 학교/책상 토글
   const [isOn, setIsOn] = useState(false)
 
@@ -49,7 +49,7 @@ const DeskPage = () => {
 
   const handleLetterClick = (letter) => {
     const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-11')
+    const modalOpenDate = new Date('2023-11-5')
 
     if (currentDate < modalOpenDate) {
       // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
