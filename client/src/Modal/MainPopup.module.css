@@ -2,7 +2,6 @@
 
 .Modalmodal {
   position: fixed;
-  /* flex-direction: column; */
   top: 15vh;
   left: 50%;
   transform: translateX(-50%);
@@ -12,8 +11,6 @@
   border-radius: 15px;
   align-items: center;
   z-index: 1000;
-  /* display: flex; */
-  /* flex-direction: column; */
 }
 
 .Modaltitle {
