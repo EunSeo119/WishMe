@@ -4,7 +4,7 @@ import axios from 'axios';
 import style from "./writeDeskLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-// import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
+import tokenHttp from '../../apis/tokenHttp';
 
 const WriteDeskLetter = () => {
     const { assetSeq, deskUuid } = useParams();
@@ -13,10 +13,22 @@ const WriteDeskLetter = () => {
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-    // const { deskUuid } = useParams();
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const navigate = useNavigate();
+
+
+    const handleNicknameChange = (e) => {
+
+        const inputText = e.target.value;
+    
+        if(inputText.length <= 13){
+          setNickname(e.target.value)
+        }else{
+          alert('닉네임은 13자 이내로 작성해주세요.');
+        }
+    
+      }
 
     const handleSave = async () => {
         try {
@@ -29,15 +41,17 @@ const WriteDeskLetter = () => {
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const RefreshToken = localStorage.getItem("RefreshToken");
             const headers = {};
 
             if (AccessToken) {
                 headers.Authorization = `Bearer ${AccessToken}`;
+                headers.RefreshToken = `${RefreshToken}`;
             }
 
-            const response = await axios({
+            const response = await tokenHttp({
                 method: "post",
-                url: `${SERVER_URL}/api/my/letter/write`,
+                url: `${MYLETTER_SERVER}/api/my/letter/write`,
                 headers,
                 data: data
             });
@@ -99,7 +113,7 @@ const WriteDeskLetter = () => {
                     id="nickname"
                     value={nickname}
                     placeholder="닉네임을 입력해주세요."
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={handleNicknameChange}
                 />
             </div>
 
@@ -110,7 +124,7 @@ const WriteDeskLetter = () => {
                 />
                 <textarea
                     className={style.contentTextarea}
-                    placeholder="응원의 글을 적어주세요."
+                    placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />{' '}

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import style from "./writeDeveloperLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-// import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
+import { IoIosArrowBack } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp';
 
 const WriteDeveloperLetter = () => {
     const { assetSeq } = useParams();
@@ -13,11 +12,25 @@ const WriteDeveloperLetter = () => {
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const navigate = useNavigate();
 
+
+    const handleNicknameChange = (e) => {
+
+        const inputText = e.target.value;
+    
+        if(inputText.length <= 13){
+          setNickname(e.target.value)
+        }else{
+          alert('닉네임은 13자 이내로 작성해주세요.');
+        }
+    
+      }
+
     const handleSave = async () => {
+
         try {
             const data = {
                 assetSeq: Number(assetSeq),
@@ -27,15 +40,17 @@ const WriteDeveloperLetter = () => {
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const RefreshToken = localStorage.getItem("RefreshToken");
             const headers = {};
 
             if (AccessToken) {
                 headers.Authorization = `Bearer ${AccessToken}`;
+                headers.RefreshToken = `${RefreshToken}`;
             }
 
-            const response = await axios({
+            const response = await tokenHttp({
                 method: "post",
-                url: `${SERVER_URL}/api/developer/letter/write`,
+                url: `${MYLETTER_SERVER}/api/developer/letter/write`,
                 headers,
                 data: data
             });
@@ -53,7 +68,7 @@ const WriteDeveloperLetter = () => {
         try {
             await handleSave(); // handleSave 함수가 비동기 함수로 가정
             setShowModal(false);
-            navigate(`/developer`);
+            navigate(`/developer/1`);
         } catch (error) {
             // handleSave 함수에서 예외 처리를 하고 있다면 이 곳에서 추가 처리
             console.error('handleSave 함수에서 오류 발생:', error);
@@ -97,7 +112,7 @@ const WriteDeveloperLetter = () => {
                     id="nickname"
                     value={nickname}
                     placeholder="닉네임을 입력해주세요."
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={handleNicknameChange}
                 />
             </div>
 
@@ -119,7 +134,7 @@ const WriteDeveloperLetter = () => {
                                 type="radio"
                                 name="visibility"
                                 checked={isPublic}
-                                onChange={() => { setIsPublic(true); setSelectedButton('public'); }}
+                                onClick={() => { setIsPublic(true); setSelectedButton('public'); }}
                             />
                             전체공개
                         </label>
@@ -130,7 +145,7 @@ const WriteDeveloperLetter = () => {
                                 type="radio"
                                 name="visibility"
                                 checked={!isPublic}
-                                onChange={() => { setIsPublic(false); setSelectedButton('private'); }}
+                                onClick={() => { setIsPublic(false); setSelectedButton('private'); }}
                             />
                             비공개
                         </label>
@@ -138,7 +153,7 @@ const WriteDeveloperLetter = () => {
                 </div>
             </div>
             <div className={style.btn}>
-                <button className={style.submitButton} onClick={handleSubmit}>응원 남기기</button>
+                <button className={style.submitButton} onClick={handleSubmit}>글 남기기</button>
             </div>
 
             {showModal && (

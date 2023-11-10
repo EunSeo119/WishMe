@@ -3,6 +3,8 @@ import style from './myPage.module.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
+import { set } from 'react-ga'
+import tokenHttp from '../../apis/tokenHttp'
 
 const MyPage = () => {
   const [deskName, setDeskName] = useState('')
@@ -11,7 +13,7 @@ const MyPage = () => {
   const [tempDeskName, setTempDeskName] = useState(deskName)
   const [tempSchoolName, setTempSchoolName] = useState('')
   const [userSchoolSeq, setUserSchoolSeq] = useState(0)
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const USER_SERVER = process.env.REACT_APP_USER_SERVER;
   const navigate = useNavigate() //변수 할당시켜서 사용
 
   //이전으로
@@ -49,14 +51,13 @@ const MyPage = () => {
       userSchoolSeq: userSchoolSeq
     }
 
-    axios({
+    tokenHttp({
       method: 'put',
-      url: `${SERVER_URL}/api/users/modify`,
+      url: `${USER_SERVER}/api/users/modify`,
       headers,
       data: updatedData
     })
       .then((response) => {
-        // console.log('회원정보 수정: ', response)
         setDeskName(tempDeskName)
         setSchoolName(tempSchoolName)
       })
@@ -65,58 +66,76 @@ const MyPage = () => {
       })
   }
 
+  // 엔터키로 동작
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      searchSchool(e)
+    }
+  }
+
   // 학교 찾기
   const [schoolList, setSchoolList] = useState([])
   const [selectedSchool, setSelectedSchool] = useState('')
   const [selectedIdx, setSelectedIdx] = useState(-1)
+  const [flag, setFlag] = useState(false)
 
   const AccessToken = localStorage.getItem('AccessToken')
+  const RefreshToken = localStorage.getItem("RefreshToken");
   const headers = {}
 
   if (AccessToken) {
-    headers.Authorization = `Bearer ${AccessToken}`
+    headers.Authorization = `Bearer ${AccessToken}`;
+    headers.RefreshToken = `${RefreshToken}`;
   }
 
   const searchSchool = () => {
-    axios({
-      method: 'post',
-      url: `${SERVER_URL}/api/users/search/school`,
-      data: {
-        schoolName: tempSchoolName
-      }
-    })
-      .then((res) => {
-        setSchoolList(res.data.data)
-        // console.log(res.data.data);
+
+    if (tempSchoolName == '') {
+      alert("학교를 입력해주세요!");
+    } else {
+      axios({
+        method: 'post',
+        url: `${USER_SERVER}/api/users/search/school`,
+        data: {
+          schoolName: tempSchoolName
+        }
       })
-      .catch((error) => {
-        // console.log('검색 중 오류 발생: ' + error)
-      })
+        .then((res) => {
+          setFlag(true);
+          setSchoolList(res.data.data);
+        })
+        .catch((error) => {
+          setFlag(true);
+
+          // 리스트 초기화
+          setSchoolList([]);
+        })
+    }
   }
 
   const selectSchool = (schoolName, schoolSeq, idx) => {
     setTempSchoolName(schoolName)
     setUserSchoolSeq(schoolSeq)
-    // console.log(schoolName);
     setSelectedIdx(idx)
   }
 
   useEffect(() => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem("RefreshToken");
     const headers = {}
 
     if (AccessToken) {
       headers.Authorization = `Bearer ${AccessToken}`
+      headers.RefreshToken = `${RefreshToken}`;
     }
 
-    axios({
+    tokenHttp({
       method: 'get',
-      url: `${SERVER_URL}/api/users`,
+      url: `${USER_SERVER}/api/users`,
       headers
     })
       .then((response) => {
         const data = response.data
-        // console.log(data);
         setDeskName(data.data.userNickname)
         setSchoolName(data.data.schoolName)
         setTempDeskName(data.data.userNickname)
@@ -150,13 +169,13 @@ const MyPage = () => {
               type="text"
               value={deskName}
               style={{ color: 'gray', backgroundColor: '#edf4ef' }}
+              disabled
               readOnly
             />
           )}
           <div></div>
         </div>
         <div className={style.school}>
-          {/* <div>학교 :</div> */}
           {isEditing ? (
             <>
               <div
@@ -170,34 +189,48 @@ const MyPage = () => {
                 <div>
                   <input
                     type="text"
+                    style={{ width: '160px' }}
+                    placeholder='학교 검색'
                     value={tempSchoolName}
                     onChange={(e) => changeSchool(e)}
+                    onKeyPress={handleKeyPress}
                   />
                 </div>
                 <div className={style.searchBtn} onClick={searchSchool}>
                   검색
                 </div>
               </div>
-              {schoolList.length > 0 ? (
+              {flag ? (
                 <>
-                  <div className={style.schoolList}>
-                    <ul>
-                      {schoolList.map((school, idx) => (
-                        <li key={school.schoolSeq} onClick={() => selectSchool(school.schoolName, school.schoolSeq, idx)}
-                          style={{backgroundColor: selectedIdx === idx ? '#ececec' : 'white'}}>
-                          {school.schoolName}
-                          <br />
-                          <div style={{ color: '#aeaeae' }}>
-                            {school.region}
-                          </div>
-                          <hr />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {schoolList.length > 0 ? (
+                    <>
+                      <div className={style.schoolList}>
+                        <ul>
+                          {schoolList.map((school, idx) => (
+                            <li key={school.schoolSeq} onClick={() => selectSchool(school.schoolName, school.schoolSeq, idx)}
+                              style={{ backgroundColor: selectedIdx === idx ? '#ececec' : 'white' }}>
+                              {school.schoolName}
+                              <br />
+                              <div style={{ color: '#aeaeae' }}>
+                                {school.region}
+                              </div>
+                              <hr />
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={style.schoolList} style={{ overflowY: 'hidden' }}>
+                        <div style={{ width: '100%', height: '100%', textAlign: 'center', marginTop: '80px' }}>검색 결과가 없습니다.</div>
+                      </div>
+                    </>
+                  )}
                 </>
               ) : (
-                <></>
+                <>
+                </>
               )}
             </>
           ) : (
@@ -216,9 +249,10 @@ const MyPage = () => {
                   style={{
                     color: 'gray',
                     backgroundColor: '#edf4ef',
-                    width: '80%',
-                    width: '260px'
+                    width: '70%',
+                    width: '210px'
                   }}
+                  disabled
                   readOnly
                 />
               </div>

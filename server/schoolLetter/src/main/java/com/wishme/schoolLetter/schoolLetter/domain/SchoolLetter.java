@@ -41,6 +41,9 @@ public class SchoolLetter {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
 
+    @Column(name = "is_report", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean isReport;
+
     @PrePersist
     public void prePersist() {
         createAt = new Date();
@@ -67,6 +70,13 @@ public class SchoolLetter {
         this.assetSeq = asset;
         this.content = content;
         this.nickname = nickname;
+    }
+
+    /**
+     * 신고 반영
+     */
+    public void updateReport(Boolean isReport) {
+        this.isReport = isReport;
     }
 
 }

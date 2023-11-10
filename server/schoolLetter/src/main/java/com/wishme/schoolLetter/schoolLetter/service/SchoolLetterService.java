@@ -106,7 +106,6 @@ public class SchoolLetterService {
                 .build();
     }
 
-
     @Transactional
     public Long writeSchoolLetterByUuid(SchoolLetterWriteByUuidRequestDto writeDto) throws Exception {
 
@@ -122,6 +121,17 @@ public class SchoolLetterService {
 
         SchoolLetter schoolLetter = new SchoolLetter(cipherContent, writeDto.getNickname(), school, asset);
         schoolLetter = schoolLetterRepository.save(schoolLetter);
+
+        return schoolLetter.getSchoolLetterSeq();
+    }
+
+    @Transactional
+    public Long reportLetter(Long letterSeq) {
+        SchoolLetter schoolLetter = schoolLetterRepository.findBySchoolLetterSeq(letterSeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        schoolLetter.updateReport(true);
+        schoolLetterRepository.save(schoolLetter);
 
         return schoolLetter.getSchoolLetterSeq();
     }
