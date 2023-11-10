@@ -25,6 +25,11 @@ const MainPage = () => {
                     />
                 </div>
                 <div className={styleMain.subTitle}>나의 행운을 빌어줘</div>
+                <div className={styleMain.desc}>
+                    개인 책상에 온 편지는 <b>11월 11일</b>부터 확인 가능해요! <br/>
+                    편지 Open 후, 답장도 주고 받을 수 있어요. <br/>
+                    학교 편지는 항상 Open 되어 있어요 :)
+                </div>
             </div>
             <div className={styleMain.bottombox}>
                 <div className={styleMain.kakao} onClick={kakaoLogin}>
@@ -37,7 +42,7 @@ const MainPage = () => {
                     className={styleMain.nologin}
                     onClick={() => navigate(`/searchSchool`)}
                 >
-                    로그인하지 않고 이용하기
+                    로그인하지 않고 학교 응원 구경하기
                 </div>
             </div>
         </div>
