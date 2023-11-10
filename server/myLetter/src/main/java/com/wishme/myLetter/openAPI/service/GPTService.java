@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,13 +30,25 @@ public class GPTService {
 
         gptCompletionChatRequestDto.setMessage(inputMessage + defaultMessage);
 
-        System.out.println(inputMessage+defaultMessage);
+//        System.out.println(inputMessage+defaultMessage);
 
         ChatCompletionResult chatCompletion = null;
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<ChatCompletionResult> future = executor.submit(() -> {
+            return openAiService.createChatCompletion(GPTCompletionChatRequestDto.of(gptCompletionChatRequestDto));
+        });
+
         try {
-            chatCompletion = openAiService.createChatCompletion(GPTCompletionChatRequestDto.of(gptCompletionChatRequestDto));
+            chatCompletion = future.get(10, TimeUnit.SECONDS);
+            // 결과를 처리하는 코드
+        } catch (TimeoutException e) {
+            // 시간 초과 예외 처리
+            return "timeout";
         } catch (Exception e) {
-            return "pass-timeout";
+            throw new RuntimeException("편지 필터링에 실패하였습니다.");
+        } finally {
+            executor.shutdown();
         }
 
         GPTCompletionChatResponseDto response = GPTCompletionChatResponseDto.of(chatCompletion);
@@ -44,12 +57,13 @@ public class GPTService {
                 .map(GPTCompletionChatResponseDto.Message::getMessage)
                 .collect(Collectors.toList());
 
-        System.out.println(messageList.stream().filter(Objects::nonNull).collect(Collectors.joining()));
+//        System.out.println(messageList.stream().filter(Objects::nonNull).collect(Collectors.joining()));
 
         String checkLetter = messageList.stream().filter(Objects::nonNull).collect(Collectors.joining());
 
         if(checkLetter.equals("1")) {
-            throw new IllegalArgumentException("부정적인 표현이 사용되었습니다.");
+            return "bad";
+//            throw new IllegalArgumentException("부정적인 표현이 사용되었습니다.");
         }
 
         return "pass";

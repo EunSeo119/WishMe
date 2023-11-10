@@ -21,18 +21,11 @@ public class SchoolContoller {
     private final SchoolService schoolService;
 
     @PostMapping("/search/all")
-    public ResponseEntity<Map<String, Object>> writeSchoolLetter(@RequestBody Map<String, String> request) {
+    public ResponseEntity<?> writeSchoolLetter(@RequestBody Map<String, String> request) {
 
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status = null;
-        try {
-            List<School> schoolList = schoolService.getSchoolByName(request.get("schoolName"));
-            resultMap.put("list", schoolList);
-            status = HttpStatus.ACCEPTED;
-        } catch (IllegalArgumentException e) {
-            status = HttpStatus.NO_CONTENT;
-        }
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(schoolService.getSchoolByName(request.get("schoolName")));
+
     }
 
     @GetMapping("/allocateID")

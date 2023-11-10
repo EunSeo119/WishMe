@@ -21,7 +21,7 @@ const DeskPage = () => {
   const USER_SERVER = process.env.REACT_APP_USER_SERVER;
   const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
-  
+
   // 학교/책상 토글
   const [isOn, setIsOn] = useState(false)
 
