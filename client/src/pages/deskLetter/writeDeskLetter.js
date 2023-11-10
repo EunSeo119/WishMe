@@ -5,6 +5,7 @@ import style from "./writeDeskLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import tokenHttp from '../../apis/tokenHttp';
+import { PulseLoader } from "react-spinners";
 
 const WriteDeskLetter = () => {
     const { assetSeq, deskUuid } = useParams();
@@ -13,6 +14,7 @@ const WriteDeskLetter = () => {
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
+    const [isLoading, setIsLoading] = useState(false);
     const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const navigate = useNavigate();
@@ -21,17 +23,20 @@ const WriteDeskLetter = () => {
     const handleNicknameChange = (e) => {
 
         const inputText = e.target.value;
-    
-        if(inputText.length <= 13){
-          setNickname(e.target.value)
-        }else{
-          alert('닉네임은 13자 이내로 작성해주세요.');
+
+        if (inputText.length <= 13) {
+            setNickname(e.target.value)
+        } else {
+            alert('닉네임은 13자 이내로 작성해주세요.');
         }
-    
-      }
+
+    }
 
     const handleSave = async () => {
         try {
+            setShowModal(false);
+            setIsLoading(true);
+
             const data = {
                 assetSeq: Number(assetSeq),
                 fromUserNickname: nickname,
@@ -57,6 +62,7 @@ const WriteDeskLetter = () => {
             });
 
             alert("응원이 성공적으로 등록되었습니다.");
+            setIsLoading(false);
             return response.data; // API 응답 데이터 반환
         } catch (error) {
             alert("응원 등록에 실패했습니다.");
@@ -124,7 +130,8 @@ const WriteDeskLetter = () => {
                 />
                 <textarea
                     className={style.contentTextarea}
-                    placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!"
+                    placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!
+                    ※ 부적절한 내용이 포함된 글은 공개되지 않을 수 있습니다."
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />{' '}
@@ -157,6 +164,11 @@ const WriteDeskLetter = () => {
                 <button className={style.submitButton} onClick={handleSubmit}>응원 남기기</button>
             </div>
 
+            {/* 로딩 UI */}
+            {isLoading && (
+                <Loading />
+            )}
+
             {showModal && (
                 <Modal closeModal={closeModal} handleModalConfirm={handleModalConfirm} />
             )}
@@ -175,6 +187,18 @@ const Modal = ({ closeModal, handleModalConfirm }) => {
                         handleModalConfirm();
                     }} >저장</button>
                 </div>
+            </div>
+        </div>
+    );
+};
+
+const Loading = () => {
+    return (
+        <div className={style.modalOverlay}>
+            <div className={style.modalContent} style={{ height: '18vh' }}>
+                <p>편지 내용을 필터링 중입니다. <br />
+                    잠시만 기다려주세요!</p>
+                <PulseLoader color="#176124" />
             </div>
         </div>
     );
