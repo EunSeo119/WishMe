@@ -176,7 +176,6 @@ const MyPage = () => {
           <div></div>
         </div>
         <div className={style.school}>
-          {/* <div>학교 :</div> */}
           {isEditing ? (
             <>
               <div
