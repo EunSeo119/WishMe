@@ -15,7 +15,7 @@ const ReplyWritePage = () => {
   const [content, setContent] = useState('')
   const [letterColor, setLetterColor] = useState('Y')
   const navigate = useNavigate()
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
 
   const imageColors = [
     {
@@ -49,7 +49,6 @@ const ReplyWritePage = () => {
 
   const handleImageClick = (imageId) => {
     setLetterColor(imageId)
-    console.log(letterColor)
   }
 
   //답장 작성 완료
@@ -62,10 +61,9 @@ const ReplyWritePage = () => {
       headers.RefreshToken = `${RefreshToken}`
     }
     if (content) {
-      console.log(letterId, content, letterColor, headers)
       await tokenHttp({
         method: 'post',
-        url: `${SERVER_URL}/api/my/reply/write`,
+        url: `${MYLETTER_SERVER}/api/my/reply/write`,
         headers,
         data: {
           myLetterSeq: letterId,
@@ -75,12 +73,10 @@ const ReplyWritePage = () => {
       })
         .then((response) => {
           const data = response.data
-          console.log(data)
           alert('답장 작성 완료')
           goPre()
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
           alert('답장 등록에 실패했습니다.')
           goPre()
         })
@@ -119,7 +115,6 @@ const ReplyWritePage = () => {
               alt={`Image ${image.id}`}
             />
             {letterColor === image.id && (
-              //   <span className={style.checkIcon}>&#10003;</span>
               <BsCheck className={style.checkIcon} />
             )}
           </div>

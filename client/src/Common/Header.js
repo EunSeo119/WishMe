@@ -7,7 +7,7 @@ import tokenHttp from '../apis/tokenHttp';
 
 const Header = () => {
     const navigate = useNavigate();
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const USER_SERVER = process.env.REACT_APP_USER_SERVER;
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [userName, setUserName] = useState(""); // 상태로 userName 관리
@@ -30,7 +30,7 @@ const Header = () => {
 
             tokenHttp({
                 method: "get",
-                url: `${SERVER_URL}/api/users`,
+                url: `${USER_SERVER}/api/users`,
                 headers,
             })
                 .then((response) => {
