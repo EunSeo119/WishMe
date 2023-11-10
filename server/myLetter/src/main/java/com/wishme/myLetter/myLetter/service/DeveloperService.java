@@ -166,9 +166,9 @@ public class DeveloperService {
         // 답장 한 적 없는 지 확인
         Optional<Reply> replyOptional = replyRepository.findByLetter(myLetter);
         boolean canReply = !replyOptional.isPresent();
-        if(replyOptional != null){
-            canReply = true;
-        }
+//        if(replyOptional != null){
+//            canReply = true;
+//        }
 
 
 //        if(!myLetter.getIsPublic()) {
