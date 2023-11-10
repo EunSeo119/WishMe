@@ -37,10 +37,8 @@ const MyLetterDetailPage = () => {
           setToUserNickname(data.toUserNickname)
           setFromUserNickname(data.fromUserNickname)
           setIsMine(data.isMine)
-          // console.log(isMine);
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     } else {
       axios({
@@ -53,10 +51,8 @@ const MyLetterDetailPage = () => {
           setToUserNickname(data.toUserNickname)
           setFromUserNickname(data.fromUserNickname)
           setIsMine(data.isMine)
-          // console.log(isMine);
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     }
   }, [content])

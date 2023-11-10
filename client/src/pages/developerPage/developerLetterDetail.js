@@ -36,7 +36,6 @@ const DeveloperLetterDetail = () => {
         setCanReply(data.canReply)
       })
       .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
       })
     }else {
       axios({
@@ -48,17 +47,14 @@ const DeveloperLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
         setIsMine(data.isMine)
-        // console.log(isMine);
       })
       .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
       })
     }
   }, [content])
 
   const goPre = () => {
     navigate(`/developer/${page}`)
-    // navigate(-1)
   }
 
   const writeReplyLetter = () => {
