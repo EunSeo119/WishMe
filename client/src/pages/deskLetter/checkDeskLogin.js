@@ -4,6 +4,7 @@ import style from "./checkDeskLogin.module.css";
 import axios from "axios"; // axios import
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import tokenHttp from "../../apis/tokenHttp";
 
 const CheckDeskLogin = () => {
     const navigate = useNavigate(); // useNavigate 초기화
@@ -27,7 +28,7 @@ const CheckDeskLogin = () => {
             </p>
             <p className={style.content}>답장을 받으려면 로그인 해주세요!</p>
             <div className={style.btn}>
-                <Link to={`/`} className={style.link}>
+                <Link to={`/login/${deskUuid}`} className={style.link}>
                     <div className={style.selectBtn}>로그인 하기</div>
                 </Link>
                 <Link

@@ -2,36 +2,37 @@ package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
 import com.wishme.myLetter.asset.repository.AssetRepository;
-import com.wishme.myLetter.config.RSAUtil;
+import com.wishme.myLetter.common.exception.CustomException;
+import com.wishme.myLetter.common.exception.code.ErrorCode;
+import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
+import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
+import com.wishme.myLetter.myLetter.repository.ReplyRepository;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -50,104 +51,168 @@ public class DeveloperService {
     private final DeveloperRepository developerRepository;
     private final UserRepository userRepository;
     private final AssetRepository assetRepository;
+    private final MyLetterRepository myLetterRepository;
+    private final ReplyRepository replyRepository;
 
     // 개발자 편지 작성
-    public void writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
+    public Long writeDeveloperLetter(Authentication authentication, WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
 
-        User admin = userRepository.findById(1L).orElse(null);
-        Asset asset = assetRepository.findById(writeDeveloperLetterRequestDto.getAssetSeq()).orElse(null);
+        User admin = userRepository.findById(1L)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+        Asset asset = assetRepository.findById(writeDeveloperLetterRequestDto.getAssetSeq())
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋은 존재하지 않습니다.", 1));
 
+        // 편지 내용 암호화
         AES256 aes256 = new AES256(key);
         String cipherContent = aes256.encrypt(writeDeveloperLetterRequestDto.getContent());
 
-//        //base64된 공개키를 가져옴
-//        PublicKey publicKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
-//
-//        //공개키로 암호화
-//        String encryptedContent = RSAUtil.encryptRSA(writeDeveloperLetterRequestDto.getContent(), publicKey);
-
+        // 로그인 여부 확인
         Long fromUserLong = null;
         if(authentication != null) {
             fromUserLong = Long.parseLong(authentication.getName());
         }
 
-        if(admin != null && asset != null){
-            MyLetter myLetter = MyLetter.builder()
-                    .toUser(admin)
-                    .asset(asset)
-                    .content(cipherContent)
-                    .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
-                    .fromUser(fromUserLong)
-                    .isPublic(writeDeveloperLetterRequestDto.isPublic())
-                    .build();
-            developerRepository.save(myLetter);
-        }else{
-            throw new IllegalArgumentException("개별자 편지 작성 실패");
-        }
+        MyLetter myLetter = MyLetter.builder()
+                .toUser(admin)
+                .asset(asset)
+                .content(cipherContent)
+                .fromUserNickname(writeDeveloperLetterRequestDto.getNickname())
+                .fromUser(fromUserLong)
+                .isPublic(writeDeveloperLetterRequestDto.getIsPublic())
+                .build();
+        MyLetter save = developerRepository.save(myLetter);
+        return save.getMyLetterSeq();
     }
 
     // 개발자 책상 확인
-    public AllDeveloperLetterListResponseDto allDeveloperLetter(Pageable pageable, int page){
-        User admin = userRepository.findById(1L).orElse(null);
+    // 리팩토링 코드
+    public AllDeveloperLetterListResponseDto allDeveloperLetter(Authentication authentication, Pageable pageable){
 
-        // 페이지 번호 사용해 Pageable 수정
-        pageable = PageRequest.of(page-1, pageable.getPageSize(), pageable.getSort());
+        User admin = userRepository.findByUserSeq(1L)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        Page<MyLetter> myLetters = developerRepository.findAllDeveloperLetter(pageable, admin);
+        Page<MyLetter> myLetterPage = developerRepository.findDeveloperLetterByToUser(admin, pageable)
+                .orElseThrow(() -> new CustomException(ErrorCode.LETTER_NOT_FOUND_ERROR));
 
-        if(admin != null){
-            // 9개씩 담기
-            List<AllDeveloperLetterResponseDto> developerLetterResponseDtos = new ArrayList<>();
-            for(MyLetter myLetter : myLetters){
-                AllDeveloperLetterResponseDto result = AllDeveloperLetterResponseDto.builder()
-                        .myLetterSeq(myLetter.getMyLetterSeq())
-                        .assetSeq(myLetter.getAsset().getAssetSeq())
-                        .fromUserNickname(myLetter.getFromUserNickname())
-                        .isPublic(myLetter.getIsPublic())
-                        .assetImg(myLetter.getAsset().getAssetImg())
-                        .build();
-                developerLetterResponseDtos.add(result);
-            }
-            // 총 편지 수, 총 페이지 수, 페이지 당 편지
-            return AllDeveloperLetterListResponseDto.builder()
-                    .totalLetters(myLetters.getNumberOfElements())
-                    .totalPages(myLetters.getTotalPages())
-                    .lettersPerPage(developerLetterResponseDtos)
-                    .build();
-        }else{
-            throw new IllegalArgumentException("개별자 편지 전체 조회 실패");
+        List<MyLetter> myLetterList = myLetterPage.getContent();
+
+        // 로그인한 유저가 개발자면 무조건 열람 가능
+        boolean isDeveloper = false;
+        if(authentication != null && Long.parseLong(authentication.getName()) == 1){
+            isDeveloper = true;
         }
+
+        // 9개씩 담기
+        List<AllDeveloperLetterResponseDto> developerLetterResponseDtos = new ArrayList<>();
+        for(MyLetter myLetter : myLetterList){
+            AllDeveloperLetterResponseDto result = AllDeveloperLetterResponseDto.builder()
+                    .myLetterSeq(myLetter.getMyLetterSeq())
+                    .assetSeq(myLetter.getAsset().getAssetSeq())
+                    .fromUserNickname(myLetter.getFromUserNickname())
+                    .isPublic(myLetter.getIsPublic())
+                    .developer(isDeveloper)
+                    .assetImg(myLetter.getAsset().getAssetImg())
+                    .build();
+            developerLetterResponseDtos.add(result);
+        }
+        // 총 편지 수, 총 페이지 수, 페이지 당 편지
+        return AllDeveloperLetterListResponseDto.builder()
+                .totalLetters(myLetterPage.getTotalElements())
+                .totalPages(myLetterPage.getTotalPages())
+                .lettersPerPage(developerLetterResponseDtos)
+                .build();
     }
 
     // 개발자 편지 상세 조회
-    public OneDeveloperLetterResponseDto oneDeveloperLetter(Long myLetterId) throws Exception {
-        MyLetter myLetter = developerRepository.findById(myLetterId).orElse(null);
+    public OneDeveloperLetterResponseDto oneDeveloperLetter(Authentication authentication, Long myLetterId) throws Exception {
 
-        if(myLetter.getToUser().getUserSeq() != 1l) {
-            throw new IllegalArgumentException("개발자 편지가 아닙니다.");
+        MyLetter myLetter = developerRepository.findById(myLetterId)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        User checkUser = null;
+        if(authentication != null){
+            checkUser = userRepository.findByUserSeq(Long.parseLong(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
         }
 
-        if(!myLetter.getIsPublic()) {
-            throw new IllegalArgumentException("해당 편지는 비공개 편지 입니다.");
+        // 개발자 편지가 아닌 경우
+        if(myLetter.getToUser().getUserSeq() != 1l) {
+            throw new CustomException(ErrorCode.NOT_DEVELOPER_LETTER_ERROR);
+        }
+
+        // 로그인한 사용사에게 온 편지가 아니고, 비공개 편지인 경우
+        if(!myLetter.getToUser().equals(checkUser) && !myLetter.getIsPublic()) {
+            throw new CustomException(ErrorCode.PRIVATE_LETTER_ERROR);
+        }
+
+        // 현재 로그인한 유저가 개발자인 경우
+        boolean isMine = false;
+        if(authentication != null){
+            if(Long.parseLong(authentication.getName()) == 1){
+                isMine = true;
+            }
+        }
+
+        // fromUser가 있고, 답장 한 적 없어 답장할 수 있는 경우
+        boolean canReply = false;
+        Optional<Reply> replyOptional = replyRepository.findByLetter(myLetter);
+        if(myLetter.getFromUser() != null && !replyOptional.isPresent()){
+            canReply = true;
+        }
+
+        // 편지 내용 복호화
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(myLetter.getContent());
+
+        return OneDeveloperLetterResponseDto.builder()
+                .assetSeq(myLetter.getAsset().getAssetSeq())
+                .content(decryptContent)
+                .nickname(myLetter.getFromUserNickname())
+                .fromUser(myLetter.getFromUser())
+                .createAt(myLetter.getCreateAt())
+                .assetImg(myLetter.getAsset().getAssetImg())
+                .isMine(isMine)
+                .canReply(canReply)
+                .build();
+    }
+
+    public MyLetterDetailResponseDto getDeveloperLetterDetail(Authentication authentication, Long myLetterSeq) throws Exception{
+        MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        Boolean canReply = false;
+
+        if(authentication == null) {
+            // 비공개 편지인데 비회원이 열람하려고 할 때
+            if(!myletter.getIsPublic()) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+        } else {
+            User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+            // 비공개 편지인데 해당 편지를 쓴 사람이 내가 아닐 때
+            if(!myletter.getIsPublic() && !myletter.getFromUser().equals(checkUser.getUserSeq())) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+
+            // 이 편지에 답장이 가능할 때
+            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null
+                    && replyRepository.findByMyLetter(myletter) == null) {
+                canReply = true;
+            }
         }
 
         AES256 aes256 = new AES256(key);
-        String decryptContent = aes256.decrypt(myLetter.getContent());
-//        // 개인키로 복호화
-//        PrivateKey privateKey = RSAUtil.getPrivateKeyFromBase64String(privateKeyBase);
-//        String decryptContent = RSAUtil.decryptRSA(myLetter.getContent(), privateKey);
+        String decryptContent = aes256.decrypt(myletter.getContent());
 
-        if(myLetter != null && myLetter.getIsPublic()){
-            return OneDeveloperLetterResponseDto.builder()
-                    .assetSeq(myLetter.getAsset().getAssetSeq())
-                    .content(decryptContent)
-                    .nickname(myLetter.getFromUserNickname())
-                    .fromUser(myLetter.getFromUser())
-                    .createAt(myLetter.getCreateAt())
-                    .assetImg(myLetter.getAsset().getAssetImg())
-                    .build();
-        }else{
-            throw new IllegalArgumentException("개별자 편지 상세 조회 실패");
-        }
+        return MyLetterDetailResponseDto.builder()
+                .myLetterSeq(myletter.getMyLetterSeq())
+                .toUserNickname(myletter.getToUser().getUserNickname())
+                .content(decryptContent)
+                .fromUser(myletter.getFromUser())
+                .fromUserNickname(myletter.getFromUserNickname())
+                .canReply(canReply)
+                .build();
     }
 }

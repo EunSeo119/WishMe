@@ -4,6 +4,7 @@ import axios from 'axios'
 import style from './schoolLetterWritePage.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SchooLetterWritePage = () => {
   const [schoolAssetList, setSchoolAssetList] = useState([])
@@ -13,25 +14,23 @@ const SchooLetterWritePage = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const { schoolUuid, assetId } = useParams()
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER;
 
   const navigate = useNavigate()
 
   const clickWriteLetter = () => {
     if (nickname && content) {
       axios
-        .post(`https://wishme.co.kr/api/school/letter/write/uuid`, {
+        .post(`${SCHOOL_SERVER}/api/school/letter/write/uuid`, {
           uuid: schoolUuid,
           assetSeq: assetId,
           content: content,
           nickname: nickname
         })
         .then((response) => {
-          const data = response.data
-          // alert('응원남기기 완료!')
           navigate(`/school/${schoolUuid}`)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     } else {
       alert('닉네임과 내용을 입력해주세요')
@@ -50,31 +49,23 @@ const SchooLetterWritePage = () => {
   }
 
   const changePage = (newPage) => {
-    // console.log(totalPage)
     if (newPage >= 1 && newPage <= totalPage) {
       setPage(newPage)
     }
   }
 
-  const handleNicknameChange = (event) => {
-    setNickname(event.target.value)
+  const handleNicknameChange = (e) => {
+
+    const inputText = e.target.value;
+
+    if(inputText.length <= 13){
+      setNickname(e.target.value)
+    }else{
+      alert('닉네임은 13자 이내로 작성해주세요.');
+    }
+
   }
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`/api/school/letter/assets`)
-  //       .then((response) => {
-  //         const data = response.data
-  //         console.log(data)
-  //         setSchoolAssetList(data.schoolAssertList)
-  //         setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
-  //         console.log(schoolAssetList)
-  //         console.log(totalPage)
-  //       })
-  //       .catch((error) => {
-  //         console.error('API 요청 중 오류 발생:', error)
-  //       })
-  //   }, [assetId])
 
   return (
     <div className={style.body}>
@@ -100,7 +91,7 @@ const SchooLetterWritePage = () => {
         />
         <textarea
           className={style.contentTextarea}
-          placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!"
+          placeholder="응원의 글을 적어주세요. 학교 편지는 바로 공개됩니다!"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />{' '}

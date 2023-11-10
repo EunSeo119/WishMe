@@ -3,36 +3,40 @@ import axios from 'axios'
 import styleSchool from './schoolPage.module.css' // CSS 모듈을 import
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io' // IoIosArrowForward를 import
 import ShareURLModal from '../../Modal/shareURLModal'
 import Header from '../../Common/Header'
+import { BsToggle2Off, BsToggle2On } from 'react-icons/bs'
+import MainPopup from '../../Modal/MainPopup'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SchoolPage = () => {
-  const [page, setPage] = useState(1)
+  const { schoolUuid, letterPage } = useParams()
+  const [page, setPage] = useState(letterPage ? Number(letterPage) : 1)
   const [schoolId, setSchoolId] = useState(1)
-  // const [schoolUuid, setSchoolUuid] = useState(
-  //   '9d7b90e2-e52c-4e90-ba5e-d661893b226d'
-  // )
   const [schoolName, setSchoolName] = useState('')
   const [totalCount, setTotalCount] = useState(0)
   const [schoolLetter, setSchoolLetter] = useState([])
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
-  const { schoolUuid } = useParams()
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER;
 
-  //   const settings = {
-  //     dots: true,
-  //     infinite: false,
-  //     speed: 500,
-  //     slidesToShow: 1,
-  //     slidesToScroll: 1,
-  //     afterChange: (current) => {
-  //       changePage(current + 1)
-  //     }
-  //   }
+  
+  // 모달
+  const [showMainPop, setShowMainPop] = useState(false)
+  // 기본 세팅 값은 false
+  const VISITED = localStorage.getItem('Visited')
+  // localStorage에 homeVisited 조회
+
+  useEffect(() => {
+    if (!VISITED) {
+      // 저장된 date가 없거나 today보다 작다면 popup 노출
+      setShowMainPop(true)
+    }
+  }, [VISITED])
 
   const changePage = (newPage) => {
     if (newPage >= 1 && newPage <= totalPage) {
@@ -41,20 +45,21 @@ const SchoolPage = () => {
   }
 
   const handleLetterClick = (letterId) => {
-    const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-11')
-
-    if (currentDate < modalOpenDate) {
-      // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
-      openNextDateModal()
-    } else {
-      // 그 이후면 페이지로 이동
-      navigate(`/schoolLetterDetail/${letterId}`)
-    }
+    navigate(`/schoolLetterDetail/${schoolUuid}/${letterId}/${page}`)
   }
 
   const letterWriteClick = (schoolUuid) => {
     navigate(`/schoolLetterAssetList/${schoolUuid}`)
+  }
+
+  // 학교/책상 토글
+  const [isOn, setIsOn] = useState(false)
+
+  const handleToggleClick = () => {
+    setIsOn(!isOn)
+    if (!isOn) {
+      handleMyDeskClick()
+    }
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -75,53 +80,51 @@ const SchoolPage = () => {
 
   const handleMyDeskClick = () => {
     const AccessToken = localStorage.getItem('AccessToken')
+    const RefreshToken = localStorage.getItem('RefreshToken')
     if (AccessToken) {
-      // alert('내 책상으로 이동')
       // AccessToken이 있으면 내 책상 페이지로 이동
-      axios({
+      tokenHttp({
         method: 'get',
-        url: `https://wishme.co.kr/api/my/letter/loginUserUuid`,
+        url: `${MYLETTER_SERVER}/api/my/letter/loginUserUuid`,
         headers: {
-          Authorization: `Bearer ${AccessToken}`
+          Authorization: `Bearer ${AccessToken}`,
+          RefreshToken: `${RefreshToken}`
         }
       })
-        // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
         .then((response) => {
           const data = response.data
           navigate(`/desk/${data.loginUserUuid}`)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
-          //여기서도 로그인페이지로 이동
           navigate(`/`)
         })
     } else {
-      // AccessToken이 없으면 로그인 페이지로 이동
-      // alert('로그인페이지로 이동')
       navigate(`/`)
     }
   }
 
   useEffect(() => {
+    const pageNumber = letterPage ? Number(letterPage) : 1
+    setPage(pageNumber)
+  }, [letterPage])
+
+  useEffect(() => {
+
     axios
       .get(
-        `https://wishme.co.kr/api/school/letter/allByUUID/${schoolUuid}/${page}`
+        `${SCHOOL_SERVER}/api/school/letter/allByUUID/${schoolUuid}/${page}`
       )
-      // .get(
-      //   `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
-      // )
       .then((response) => {
         const data = response.data
-        // console.log(data)
         setSchoolName(data.schoolName)
         setTotalCount(data.totalCount)
         setSchoolLetter(data.schoolLetterList)
         setTotalPage(data.totalPage)
         setSchoolId(data.schoolId)
         localStorage.setItem('schoolUuid', schoolUuid)
+        setTotalPage(data.totalPage)
       })
       .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
       })
   }, [page])
 
@@ -138,6 +141,25 @@ const SchoolPage = () => {
         <div className={styleSchool.header}>
           <Header />
         </div>
+        {/* 모달 */}
+        {showMainPop && <MainPopup setShowMainPop={setShowMainPop}></MainPopup>}
+        {/* 학교/내책상 토글 */}
+        <div className={styleSchool.toggle}>
+          <div>
+            <b>책상</b>
+          </div>
+          <div>
+            {isOn ? (
+              <BsToggle2Off onClick={handleToggleClick} />
+            ) : (
+              <BsToggle2On onClick={handleToggleClick} />
+            )}
+          </div>
+          <div>
+            <b>학교</b>
+          </div>
+        </div>
+
         {/* 급훈문구 */}
         <div className={styleSchool.schoolName}>
           <b>{schoolName}</b>에
@@ -151,9 +173,8 @@ const SchoolPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={styleSchool.gridContainer}>
           <div
-            className={`${styleSchool.arrowIcon} ${
-              page === 1 ? styleSchool.disabledArrow : ''
-            }`}
+            className={`${styleSchool.arrowIcon} ${page === 1 ? styleSchool.disabledArrow : ''
+              }`}
             onClick={() => {
               if (page > 1) {
                 changePage(page - 1)
@@ -174,9 +195,8 @@ const SchoolPage = () => {
             ))}
           </div>
           <div
-            className={`${styleSchool.arrowIcon} ${
-              page === totalPage ? styleSchool.disabledArrow : ''
-            }`}
+            className={`${styleSchool.arrowIcon} ${page === totalPage ? styleSchool.disabledArrow : ''
+              }`}
             onClick={() => changePage(page + 1)}
           >
             <IoIosArrowForward />
@@ -189,7 +209,6 @@ const SchoolPage = () => {
         <div>
           {isNextDateModalOpen && (
             <div className={styleSchool.Modalmodal}>
-              {/* <div className={style.header}> */}
               <div
                 className={styleSchool.Modalclose}
                 onClick={closeNextDateModal}
@@ -211,24 +230,17 @@ const SchoolPage = () => {
       </div>
       {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
-        <div
-          className={styleSchool.mySchoolBtn}
-          onClick={() => letterWriteClick(schoolUuid)}
-        >
-          응원하기
-        </div>
-        <div className={styleSchool.rowButton}>
-          <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
-            공유하기
+          <div className={styleSchool.mydeskBtn} onClick={() => handleMyDeskClick()}>
+            나도 응원 받기
           </div>
-
-          <div
-            className={styleSchool.mySchoolBtnHalf}
-            onClick={handleMyDeskClick}
-          >
-            내 책상 보기
+          <div className={styleSchool.rowButton}>
+            <div className={styleSchool.mySchoolBtn} onClick={() => letterWriteClick(schoolUuid)}>
+              응원하기
+            </div>
+            <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
+              학교 공유하기
+            </div>
           </div>
-        </div>
       </div>
     </div>
   )

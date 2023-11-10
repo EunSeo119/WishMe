@@ -4,6 +4,7 @@ import style from "./selectDeskAsset.module.css";
 import axios from 'axios';  // axios import
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useParams } from 'react-router-dom';
+import tokenHttp from "../../apis/tokenHttp";
 
 const SelectDeskAsset = () => {
     const [selected, setSelected] = useState(null);
@@ -13,10 +14,9 @@ const SelectDeskAsset = () => {
     const [selectedAssetSeq, setSelectedAssetSeq] = useState(null); // 선택된 이미지의 assetSeq 값을 저장하는 상태
     const [totalPage, setTotalPage] = useState(1)
     const { deskUuid } = useParams();
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const changePage = (newPage) => {
-        // console.log(totalPage)
         if (newPage >= 1 && newPage <= totalPage) {
             setCurrentPage(newPage)
         }
@@ -25,14 +25,16 @@ const SelectDeskAsset = () => {
     useEffect(() => {
         // 백엔드 API 호출하여 이미지 URL 가져오기
         const AccessToken = localStorage.getItem("AccessToken");
+        const RefreshToken = localStorage.getItem("RefreshToken");
         const headers = {};
 
         if (AccessToken) {
             headers.Authorization = `Bearer ${AccessToken}`;
+            headers.RefreshToken = `${RefreshToken}`;
         }
-        axios({
+        tokenHttp({
             method: "get",
-            url: `${SERVER_URL}/api/my/letter/assets`,
+            url: `${MYLETTER_SERVER}/api/my/letter/assets`,
             headers
         })
 
@@ -60,7 +62,6 @@ const SelectDeskAsset = () => {
     const handleImageClick = (index) => {
         setSelected(index + indexOfFirstItem);
         const selectedImage = assetInfo[index + indexOfFirstItem];
-        // console.log("selectedImage", selectedImage)
         setSelectedAssetSeq(selectedImage.assetSeq);
     }
 
@@ -116,7 +117,7 @@ const SelectDeskAsset = () => {
             </div>
             <div className={style.btn}>
                 <div
-                    className={style.mySchoolBtn}
+                    className={style.myLetterBtn}
                     onClick={() => handleNextButtonClick()}
                 >
                     다음

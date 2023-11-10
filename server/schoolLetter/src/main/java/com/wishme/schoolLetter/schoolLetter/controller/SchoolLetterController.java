@@ -41,4 +41,11 @@ public class SchoolLetterController {
                 .body(schoolLetterService.getAssetList());
     }
 
+    @PutMapping("/report/{letterSeq}")
+    public ResponseEntity<?> reportLetter(@PathVariable("letterSeq") Long letterSeq) {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(schoolLetterService.reportLetter(letterSeq));
+    }
+
 }

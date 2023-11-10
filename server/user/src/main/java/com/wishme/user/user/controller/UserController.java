@@ -22,7 +22,7 @@ public class UserController {
 
     // API 1. 카카오 로그인
     @GetMapping("/login")
-    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code, HttpServletResponse response) throws JsonProcessingException {
+    public ResponseEntity<?> kakaoLogin(@RequestParam("code") String code, HttpServletResponse response) throws Exception {
         return kakaoService.login(code, response);
     }
 
@@ -50,9 +50,9 @@ public class UserController {
         return userService.getUserInfo(Long.parseLong(authentication.getName()));
     }
 
-    // API 6. Refresh Token을 통한 Access Token 재발급
-    @PostMapping("/refresh")
-    public ResponseEntity<?> getAccessTokenByRefreshToken() {
-        return null;
-    }
+//    // API 6. Refresh Token을 통한 Access Token 재발급
+//    @PostMapping("/refresh")
+//    public ResponseEntity<?> getAccessTokenByRefreshToken(@RequestHeader("RefreshToken") String refreshToken) {
+//        return userService.getAccessTokenByRefreshToken(refreshToken);
+//    }
 }

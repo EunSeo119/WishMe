@@ -6,8 +6,10 @@ import com.wishme.user.school.model.repository.SchoolRepository;
 import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
 import com.wishme.user.user.model.dto.response.SearchSchoolResponseDto;
 import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
+
+    @Value("{key.AES256_Key}")
+    private String key;
+
+    @Value("{jwt.secret.key}")
+    private String secretKey;
 
     @Override
     public ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq) {
@@ -105,33 +113,6 @@ public class UserServiceImpl implements UserService {
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, status);
-
-//        try {
-//            String schoolName = searchSchoolRequestDto.getSchoolName();
-//            List<School> schools = schoolRepository.findSchoolsBySchoolNameContaining(schoolName);
-//
-//            List<SearchSchoolResponseDto> searchSchoolResponseDtos = new ArrayList<>();
-//            for(School school : schools){
-//                SearchSchoolResponseDto searchSchoolResponseDto = SearchSchoolResponseDto.builder()
-//                        .schoolSeq(school.getSchoolSeq())
-//                        .schoolName(school.getSchoolName())
-//                        .region(school.getRegion())
-//                        .uuid(school.getUuid())
-//                        .build();
-//                searchSchoolResponseDtos.add(searchSchoolResponseDto);
-//            }
-//            return searchSchoolResponseDtos;
-////            resultMap.put("schoolSeq", schools);
-////            resultMap.put("message", "학교 검색 성공");
-////            status = HttpStatus.OK;
-//        } catch (Exception e) {
-////            resultMap.put("error", e.getMessage());
-////            resultMap.put("message", "학교 검색 실패");
-////            status = HttpStatus.INTERNAL_SERVER_ERROR;
-//        }
-
-//        return new ResponseEntity<>(resultMap, status);
-
     }
 
     @Override
@@ -166,4 +147,34 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseEntity<>(resultMap, status);
     }
+
+    @Override
+    public Map<String, String> getAccessTokenByRefreshToken(String refreshToken) {
+        Map<String, String> resultMap = new HashMap<>();
+//        HttpStatus status = null;
+
+        JwtUtil jwtUtil = new JwtUtil();
+        try {
+            if (!jwtUtil.isExpired(refreshToken, secretKey)) { // Refresh Token이 만료되지 않은 경우
+                User user = userRepository.findByRefreshToken(refreshToken);
+                if (user != null) { // Access Token과 Refresh Token 모두 재발급
+                    String newAccessToken = jwtUtil.createJwt(Long.toString(user.getUserSeq()), secretKey);
+                    String newRefreshToken = jwtUtil.createRefreshToken(Long.toString(user.getUserSeq()), secretKey);
+
+                    resultMap.put("token", newAccessToken);
+                    resultMap.put("refresh_token", newRefreshToken);
+                }
+            }
+            resultMap.put("message", "Refresh Token을 통한 Access Token 재발급 성공");
+//            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("message", "Access Token 또는 Refresh Token 에러 발생");
+            resultMap.put("error", e.getMessage());
+//            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+//        return new ResponseEntity<>(resultMap, status);
+        return resultMap;
+    }
+
 }
