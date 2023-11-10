@@ -6,6 +6,7 @@ import com.wishme.myLetter.myLetter.domain.Reply;
 import com.wishme.myLetter.myLetter.dto.request.WriteDeveloperLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterListResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.AllDeveloperLetterResponseDto;
+import com.wishme.myLetter.myLetter.dto.response.MyLetterDetailResponseDto;
 import com.wishme.myLetter.myLetter.dto.response.OneDeveloperLetterResponseDto;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.repository.DeveloperRepository;
@@ -25,8 +26,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -92,12 +95,12 @@ public class DeveloperService {
         Pageable pageable = PageRequest.of(page - 1, 9, sort);
 
         List<MyLetter> myLetters = myLetterRepository.findAllByToUser(admin, pageable);
-        Integer totalCnt = developerRepository.findTotalCnt(admin);
+        Long totalCnt = developerRepository.countByToUser(admin);
 
         // totalCnt가 null이 아닐 때만 연산을 수행합니다.
         int totalPage = 0;
         if (totalCnt != null) {
-            totalPage = Math.round(totalCnt / 9.0f);
+            totalPage = (int) Math.ceil((double) totalCnt / 9.0);
         }
 
         // 로그인한 유저가 개발자면 무조건 열람 가능
@@ -124,7 +127,7 @@ public class DeveloperService {
             }
             // 총 편지 수, 총 페이지 수, 페이지 당 편지
             return AllDeveloperLetterListResponseDto.builder()
-                    .totalLetters(totalCnt)
+                    .totalLetters(Math.toIntExact(totalCnt))
                     .totalPages(totalPage)
                     .lettersPerPage(developerLetterResponseDtos)
                     .build();
@@ -161,11 +164,11 @@ public class DeveloperService {
         }
 
         // 답장 한 적 없는 지 확인
-        Reply reply = replyRepository.findByLetterSeq(myLetter).orElse(null);
-        boolean canReply = false;
-        if(reply == null){
-            canReply = true;
-        }
+        Optional<Reply> replyOptional = replyRepository.findByLetter(myLetter);
+        boolean canReply = !replyOptional.isPresent();
+//        if(replyOptional != null){
+//            canReply = true;
+//        }
 
 
 //        if(!myLetter.getIsPublic()) {
@@ -194,5 +197,45 @@ public class DeveloperService {
         }else{
             throw new IllegalArgumentException("개별자 편지 상세 조회 실패");
         }
+    }
+
+    public MyLetterDetailResponseDto getDeveloperLetterDetail(Authentication authentication, Long myLetterSeq) throws Exception{
+        MyLetter myletter = myLetterRepository.findByMyLetterSeq(myLetterSeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
+
+        Boolean canReply = false;
+
+        if(authentication == null) {
+            // 비공개 편지인데 비회원이 열람하려고 할 때
+            if(!myletter.getIsPublic()) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+        } else {
+            User checkUser = userRepository.findByUserSeq(Long.valueOf(authentication.getName()))
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+
+            // 비공개 편지인데 해당 편지를 쓴 사람이 내가 아닐 때
+            if(!myletter.getIsPublic() && !myletter.getFromUser().equals(checkUser.getUserSeq())) {
+                throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+
+            // 이 편지에 답장이 가능할 때
+            if(myletter.getToUser().equals(checkUser) && myletter.getFromUser() != null
+                    && replyRepository.findByMyLetter(myletter) == null) {
+                canReply = true;
+            }
+        }
+
+        AES256 aes256 = new AES256(key);
+        String decryptContent = aes256.decrypt(myletter.getContent());
+
+        return MyLetterDetailResponseDto.builder()
+                .myLetterSeq(myletter.getMyLetterSeq())
+                .toUserNickname(myletter.getToUser().getUserNickname())
+                .content(decryptContent)
+                .fromUser(myletter.getFromUser())
+                .fromUserNickname(myletter.getFromUserNickname())
+                .canReply(canReply)
+                .build();
     }
 }

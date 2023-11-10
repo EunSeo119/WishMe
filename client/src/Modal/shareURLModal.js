@@ -7,18 +7,13 @@ import { AiOutlineClose } from 'react-icons/ai'
 const { Kakao } = window;
 
 function ShareURLModal({ isOpen, onClose }) {
-  // const realUrl = "http://k9b205.p.ssafy.io";
   const localUrl = window.location.href;
   const SHARE_URL_KEY = process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY;
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-  // const deskUuid = localStorage.getItem('deskUuid');
 
   useEffect(() => {
     Kakao.cleanup();
-    // console.log(process.env.REACT_APP_KAKAO_JAVASCRIPT_API_KEY);
     Kakao.init(`${SHARE_URL_KEY}`);
     // 잘 적용됐으면 true 리턴
-    // console.log(Kakao.isInitialized());
   }, []);
 
   // 카카오톡 공유하기
@@ -50,7 +45,6 @@ function ShareURLModal({ isOpen, onClose }) {
       await navigator.clipboard.writeText(pageURL);
       alert("클립보드에 링크가 복사되었어요!");
     } catch (err) {
-      // console.log(err);
     }
   };
 
@@ -58,12 +52,10 @@ function ShareURLModal({ isOpen, onClose }) {
 
   return (
     <div className={style.modal}>
-      {/* <div className={style.header}> */}
       <div className={style.close} onClick={onClose}>
         <AiOutlineClose />
       </div>
       <div className={style.title}>공유하기</div>
-      {/* </div> */}
       <div className={style.btn}>
         <div
           className={style.kakaoBtn}

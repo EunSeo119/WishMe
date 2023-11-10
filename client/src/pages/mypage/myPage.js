@@ -13,7 +13,7 @@ const MyPage = () => {
   const [tempDeskName, setTempDeskName] = useState(deskName)
   const [tempSchoolName, setTempSchoolName] = useState('')
   const [userSchoolSeq, setUserSchoolSeq] = useState(0)
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const USER_SERVER = process.env.REACT_APP_USER_SERVER;
   const navigate = useNavigate() //변수 할당시켜서 사용
 
   //이전으로
@@ -53,12 +53,11 @@ const MyPage = () => {
 
     tokenHttp({
       method: 'put',
-      url: `${SERVER_URL}/api/users/modify`,
+      url: `${USER_SERVER}/api/users/modify`,
       headers,
       data: updatedData
     })
       .then((response) => {
-        // console.log('회원정보 수정: ', response)
         setDeskName(tempDeskName)
         setSchoolName(tempSchoolName)
       })
@@ -96,7 +95,7 @@ const MyPage = () => {
     } else {
       axios({
         method: 'post',
-        url: `${SERVER_URL}/api/users/search/school`,
+        url: `${USER_SERVER}/api/users/search/school`,
         data: {
           schoolName: tempSchoolName
         }
@@ -110,7 +109,6 @@ const MyPage = () => {
 
           // 리스트 초기화
           setSchoolList([]);
-          // console.log('검색 중 오류 발생: ' + error)
         })
     }
   }
@@ -118,7 +116,6 @@ const MyPage = () => {
   const selectSchool = (schoolName, schoolSeq, idx) => {
     setTempSchoolName(schoolName)
     setUserSchoolSeq(schoolSeq)
-    // console.log(schoolName);
     setSelectedIdx(idx)
   }
 
@@ -134,12 +131,11 @@ const MyPage = () => {
 
     tokenHttp({
       method: 'get',
-      url: `${SERVER_URL}/api/users`,
+      url: `${USER_SERVER}/api/users`,
       headers
     })
       .then((response) => {
         const data = response.data
-        // console.log(data);
         setDeskName(data.data.userNickname)
         setSchoolName(data.data.schoolName)
         setTempDeskName(data.data.userNickname)
@@ -180,7 +176,6 @@ const MyPage = () => {
           <div></div>
         </div>
         <div className={style.school}>
-          {/* <div>학교 :</div> */}
           {isEditing ? (
             <>
               <div

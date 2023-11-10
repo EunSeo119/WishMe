@@ -67,9 +67,7 @@ body {
   border-radius: 10px;
   background-color: #176124;
   padding: 10px;
-  /* width: 100%; */
   margin: 0 20px 10px;
-  /* width: 100%; */
 }
 .letter {
   width: 80%;
@@ -106,20 +104,10 @@ body {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  /* background-color: #176124; */
-  /* border: 15px solid #176124; */
-  /* border-radius: 10px; */
 }
 
 .to {
   margin-bottom: 5px;
-  /* width: 70%; */
-
-  /* display: flex; */
-  /* position: relative; */
-  /* align-items: center; */
-  /* left: 10%; */
-  /* transform: translate(-120%, 0); */
 }
 
 .letterPrefix {

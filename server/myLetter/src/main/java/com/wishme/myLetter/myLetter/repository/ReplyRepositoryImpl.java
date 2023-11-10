@@ -14,12 +14,14 @@ public class ReplyRepositoryImpl implements ReplyRepositoryCustom{
 
     private final EntityManager em;
 
-    public Optional<Reply> findByLetterSeq(MyLetter myLetter){
+
+    @Override
+    public Optional<Reply> findByLetter(MyLetter myLetter){
         String jpql = "SELECT r FROM Reply r WHERE r.myLetter = :myLetter";
 
-        return Optional.ofNullable(em.createQuery(jpql, Reply.class)
-                .setParameter("myLetter", myLetter)
-                .getSingleResult());
-    }
+        TypedQuery<Reply> query = em.createQuery(jpql, Reply.class)
+                .setParameter("myLetter", myLetter);
 
+        return query.getResultList().stream().findFirst();
+    }
 }
