@@ -5,6 +5,8 @@ import style from './deskLetterDetail.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import tokenHttp from '../../apis/tokenHttp'
+import LetterReportModal from '../../Modal/letterReportModal'
+import { PiSirenLight } from 'react-icons/pi'
 
 const DeskLetterDetail = () => {
   const { deskUuid, letterId, page } = useParams()
@@ -13,9 +15,18 @@ const DeskLetterDetail = () => {
   const [content, setContent] = useState('')
   const [canReply, setCanReply] = useState(false)
 
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
 
   const navigate = useNavigate()
+
+  // 신고하기 모달관련
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const openModal = () => {
+    setIsModalOpen(true)
+  }
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
 
   useEffect(() => {
     const AccessToken = localStorage.getItem('AccessToken')
@@ -25,7 +36,7 @@ const DeskLetterDetail = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       tokenHttp({
         method: 'get',
-        url: `${SERVER_URL}/api/my/letter/detail/${letterId}`,
+        url: `${MYLETTER_SERVER}/api/my/letter/detail/${letterId}`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -39,12 +50,11 @@ const DeskLetterDetail = () => {
           setToUserNickname(data.toUserNickname)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     } else {
       axios({
         method: 'get',
-        url: `${SERVER_URL}/api/my/letter/detail/${letterId}`
+        url: `${MYLETTER_SERVER}/api/my/letter/detail/${letterId}`
       })
         .then((response) => {
           const data = response.data
@@ -54,14 +64,12 @@ const DeskLetterDetail = () => {
           setToUserNickname(data.toUserNickname)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     }
   }, [content])
 
   const goPre = () => {
     navigate(`/desk/${deskUuid}/${page}`)
-    // navigate(-1)
   }
 
   const writeReplyLetter = () => {
@@ -75,6 +83,12 @@ const DeskLetterDetail = () => {
         이전으로
       </div>
       <div className={style.title}>응원의 편지를 확인하세요!</div>
+      <LetterReportModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        isSchool={false}
+        letterId={letterId}
+      />
       <div className={style.letterImgBack}>
         <img
           crossOrigin="anonymous"
@@ -84,6 +98,10 @@ const DeskLetterDetail = () => {
         <div className={style.letter}>
           <div className={style.to}>
             <text className={style.letterPrefix}>To. {toUserNickname}</text>
+            <PiSirenLight
+              className={style.reportLetterIcon}
+              onClick={openModal}
+            />
           </div>
           <div className={style.content}>
             <textarea

@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router';
 import style from './Header.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
+import { LuMenuSquare } from "react-icons/lu";
 import tokenHttp from '../apis/tokenHttp';
+
 
 const Header = () => {
     const navigate = useNavigate();
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const USER_SERVER = process.env.REACT_APP_USER_SERVER;
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [userName, setUserName] = useState(""); // 상태로 userName 관리
@@ -30,7 +32,7 @@ const Header = () => {
 
             tokenHttp({
                 method: "get",
-                url: `${SERVER_URL}/api/users`,
+                url: `${USER_SERVER}/api/users`,
                 headers,
             })
                 .then((response) => {
@@ -69,7 +71,8 @@ const Header = () => {
         <div className={style.header}>
             <Toaster />
             <div onClick={toggleSidebar}>
-                <img src="/assets/Menu.png" className={style.menuIcon} />
+                {/* <img src="/assets/Menu.png" className={style.menuIcon} /> */}
+                <LuMenuSquare className={style.menuIcon2} />
             </div>
             <div className={`${isSidebarOpen ? style.sidebarVisible : style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
@@ -139,6 +142,22 @@ const Header = () => {
                                 사용방법 보러가기</a>
                         </div>
                         <div
+                            style={{
+                                cursor: 'pointer',
+                                padding: '12px',
+                                borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
+                            }}>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScvyEzm2kUGFxv0LljiKvcsnSokxLL76707dX5W76tarq6ALA/viewform"
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'black'
+                                }}
+                            >
+                                버그 리포트</a>
+                        </div>
+                        <div
                             onClick={() => handleLogout('/')} // 로그아웃 버튼 클릭 시
                             style={{
                                 cursor: 'pointer',
@@ -186,6 +205,22 @@ const Header = () => {
                                 }}
                             >
                                 사용방법 보러가기</a>
+                        </div>
+                        <div
+                            style={{
+                                cursor: 'pointer',
+                                padding: '12px',
+                                borderBottom: '1px solid #ccc',
+                                fontFamily: 'omyu_pretty',
+                                fontSize: '20px'
+                            }}>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScvyEzm2kUGFxv0LljiKvcsnSokxLL76707dX5W76tarq6ALA/viewform"
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'black'
+                                }}
+                            >
+                                버그 리포트</a>
                         </div>
                         <div
                             onClick={() => handleLinkClick('/')}
