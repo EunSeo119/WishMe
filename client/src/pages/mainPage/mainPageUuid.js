@@ -36,12 +36,6 @@ const MainPageUuid = () => {
                         crossOrigin="anonymous"
                     ></img>
                 </div>
-                {/* <div
-                    className={styleMain.nologin}
-                    onClick={() => navigate(`/searchSchool`)}
-                >
-                    로그인하지 않고 이용하기
-                </div> */}
             </div>
         </div>
     );
