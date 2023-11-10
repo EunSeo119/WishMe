@@ -13,7 +13,7 @@ const SchoolLetterDetail = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [schoolName, setSchoolName] = useState('')
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   const navigate = useNavigate()
 
@@ -32,10 +32,10 @@ const SchoolLetterDetail = () => {
       // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
-        console.log(data)
-        setSchoolName(data.schoolLetterDetail.schoolName)
-        setContent(data.schoolLetterDetail.content)
-        setNickname(data.schoolLetterDetail.nickname)
+        // console.log(data)
+        setSchoolName(data.schoolName)
+        setContent(data.content)
+        setNickname(data.nickname)
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
