@@ -147,7 +147,6 @@ const ReplyWritePage = () => {
       </div>
       {/*버튼  */}
       <div className={style.btn}>
-        {/* <div className={style.mySchoolBtn} onClick={() => goPre()}> */}
         <div
           className={`${letterColor === 'Y'
             ? style.myBtnYellow

@@ -183,7 +183,6 @@ const DeskPage = () => {
             <div>
               <b>책상</b>
             </div>
-            {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
             <div>
               {isOn ? (
                 <BsToggle2On onClick={handleToggleClick} />
@@ -227,7 +226,6 @@ const DeskPage = () => {
                 className={style.gridItem}
                 onClick={() => handleLetterClick(letter)}
               >
-                {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
               </div>
@@ -248,10 +246,6 @@ const DeskPage = () => {
               <div className={style.cheerUpBtn} onClick={openModal}>
                 내 책상 공유하기
               </div>
-
-              {/* <div className={style.cheerUpBtn} onClick={handleMySchoolClick}>
-                우리 학교 가기
-              </div> */}
             </>
           ) : (
             <>
@@ -274,13 +268,6 @@ const DeskPage = () => {
                   </Link>
                 </>
               )}
-              {/* <Link
-                to={`/desk/${deskUuid}/selectAsset`}
-                className={style.link}
-              >
-                <div className={style.cheerUpBtn}>응원하기</div>
-              </Link> */}
-
               <div className={style.cheerUpBtn3} onClick={handleMyDeskClick}>
                 내 책상 보기
               </div>
