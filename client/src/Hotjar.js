@@ -1,29 +1,18 @@
-import { useEffect } from 'react';
-import { hotjar } from 'react-hotjar';
+import React from 'react';
 
 const Hotjar = () => {
-    // Your Hotjar configuration
-
-    const hjid = process.env.REACT_APP_HOTJAR_ID;
-    const hjsv = 6;
-
-    useEffect(() => {
-        // Initialize Hotjar
-        hotjar.initialize(hjid, hjsv);
-
-        // Identify the user
-        hotjar.identify(hjid, { userProperty: 'value' });
-
-        // Add an event
-        hotjar.event('button-click');
-
-        // Update SPA state
-        hotjar.stateChange('/school/*');
-        hotjar.stateChange('/desk/*');
-        hotjar.stateChange('/developer/1');
-    }, []); // Empty dependency array ensures this effect runs once after the component mounts
-
-    return null; // Hotjar.js doesn't render anything, so return null
+    return (
+        <script>
+            {`(function(h,o,t,j,a,r){
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:3730399,hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
+        </script>
+    );
 };
 
 export default Hotjar;
