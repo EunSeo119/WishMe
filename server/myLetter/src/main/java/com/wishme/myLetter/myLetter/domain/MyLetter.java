@@ -47,8 +47,11 @@ public class MyLetter extends BaseTimeEntity {
     @Column(name = "is_report", nullable = false, columnDefinition = "TINYINT(1) default 0")
     private boolean isReport;
 
+    @Column(name = "is_bad", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private boolean isBad;
+
     @Builder
-    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply) {
+    public MyLetter(Long myLetterSeq, User toUser, Asset asset, String content, String fromUserNickname, Long fromUser, Boolean isPublic, Reply reply, boolean isBad) {
         this.myLetterSeq = myLetterSeq;
         this.toUser = toUser;
         this.asset = asset;
@@ -57,6 +60,7 @@ public class MyLetter extends BaseTimeEntity {
         this.fromUser = fromUser;
         this.isPublic = isPublic;
         this.reply = reply;
+        this.isBad = isBad;
     }
 
     /**
