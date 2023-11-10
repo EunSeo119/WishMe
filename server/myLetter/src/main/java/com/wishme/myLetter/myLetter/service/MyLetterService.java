@@ -98,8 +98,8 @@ public class MyLetterService {
             if(gptResult == "bad") {
                 isBad = true;
             }
-            System.out.println("===gpt===");
-            System.out.println(gptResult);
+//            System.out.println("===gpt===");
+//            System.out.println(gptResult);
         } while(gptResult == "timeout");
 
         AES256 aes256 = new AES256(key);
@@ -153,6 +153,7 @@ public class MyLetterService {
                     .fromUserNickname(letter.getFromUserNickname())
                     .assetImg(myAsset.getAssetImg())
                     .isPublic(letter.getIsPublic())
+                    .isBad(letter.isBad())
                     .build();
 
             myLetterResponseDtoList.add(myLetterResponseDto);
