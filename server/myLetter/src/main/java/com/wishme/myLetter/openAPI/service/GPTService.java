@@ -29,7 +29,7 @@ public class GPTService {
 
         gptCompletionChatRequestDto.setMessage(inputMessage + defaultMessage);
 
-        System.out.println(inputMessage+defaultMessage);
+//        System.out.println(inputMessage+defaultMessage);
 
         ChatCompletionResult chatCompletion = null;
         try {
@@ -44,7 +44,7 @@ public class GPTService {
                 .map(GPTCompletionChatResponseDto.Message::getMessage)
                 .collect(Collectors.toList());
 
-        System.out.println(messageList.stream().filter(Objects::nonNull).collect(Collectors.joining()));
+//        System.out.println(messageList.stream().filter(Objects::nonNull).collect(Collectors.joining()));
 
         String checkLetter = messageList.stream().filter(Objects::nonNull).collect(Collectors.joining());
 

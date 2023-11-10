@@ -18,11 +18,14 @@ public class MyLetterResponseDto {
 
     private Boolean isPublic;
 
+    private Boolean isBad;
+
     @Builder
-    public MyLetterResponseDto(Long myLetterSeq, String fromUserNickname, String assetImg, Boolean isPublic) {
+    public MyLetterResponseDto(Long myLetterSeq, String fromUserNickname, String assetImg, Boolean isPublic, Boolean isBad) {
         this.myLetterSeq = myLetterSeq;
         this.fromUserNickname = fromUserNickname;
         this.assetImg = assetImg;
         this.isPublic = isPublic;
+        this.isBad = isBad;
     }
 }
