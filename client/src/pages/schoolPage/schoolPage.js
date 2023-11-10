@@ -22,7 +22,7 @@ const SchoolPage = () => {
   const [schoolLetter, setSchoolLetter] = useState([])
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL
 
   // 모달
   const [showMainPop, setShowMainPop] = useState(false)
@@ -111,11 +111,8 @@ const SchoolPage = () => {
   }, [letterPage])
 
   useEffect(() => {
-
     axios
-      .get(
-        `${SERVER_URL}/api/school/letter/allByUUID/${schoolUuid}/${page}`
-      )
+      .get(`${SERVER_URL}/api/school/letter/allByUUID/${schoolUuid}/${page}`)
       // .get(
       //   `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
       // )
@@ -181,8 +178,9 @@ const SchoolPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={styleSchool.gridContainer}>
           <div
-            className={`${styleSchool.arrowIcon} ${page === 1 ? styleSchool.disabledArrow : ''
-              }`}
+            className={`${styleSchool.arrowIcon} ${
+              page === 1 ? styleSchool.disabledArrow : ''
+            }`}
             onClick={() => {
               if (page > 1) {
                 changePage(page - 1)
@@ -203,8 +201,9 @@ const SchoolPage = () => {
             ))}
           </div>
           <div
-            className={`${styleSchool.arrowIcon} ${page === totalPage ? styleSchool.disabledArrow : ''
-              }`}
+            className={`${styleSchool.arrowIcon} ${
+              page === totalPage ? styleSchool.disabledArrow : ''
+            }`}
             onClick={() => changePage(page + 1)}
           >
             <IoIosArrowForward />
@@ -240,17 +239,23 @@ const SchoolPage = () => {
       {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
         {/* <div style={{display:'flex', justifyContent:'space-around'}}> */}
-          <div className={styleSchool.mydeskBtn} onClick={() => handleMyDeskClick()}>
-            나도 응원 받기
+        <div
+          className={styleSchool.mydeskBtn}
+          onClick={() => handleMyDeskClick()}
+        >
+          나도 응원 받기
+        </div>
+        <div className={styleSchool.rowButton}>
+          <div
+            className={styleSchool.mySchoolBtn}
+            onClick={() => letterWriteClick(schoolUuid)}
+          >
+            응원하기
           </div>
-          <div className={styleSchool.rowButton}>
-            <div className={styleSchool.mySchoolBtn} onClick={() => letterWriteClick(schoolUuid)}>
-              응원하기
-            </div>
-            <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
-              학교 공유하기
-            </div>
+          <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
+            학교 공유하기
           </div>
+        </div>
         {/* </div> */}
       </div>
     </div>

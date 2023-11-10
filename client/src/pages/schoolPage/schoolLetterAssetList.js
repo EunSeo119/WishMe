@@ -46,8 +46,9 @@ const SchooLetterAssetList = () => {
       // .get(`http://localhost:8082/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
-        setSchoolAssetList(data.schoolAssertList)
-        setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
+        // console.log(data)
+        setSchoolAssetList(data)
+        setTotalPage(Math.ceil(data.length / 12))
       })
       .catch((error) => {
         // console.error('API 요청 중 오류 발생:', error)
