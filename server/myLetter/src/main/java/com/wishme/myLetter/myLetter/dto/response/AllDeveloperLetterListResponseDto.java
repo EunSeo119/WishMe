@@ -15,7 +15,7 @@ import java.util.List;
 public class AllDeveloperLetterListResponseDto {
 
     // 총 편지 수
-    private int totalLetters;
+    private Long totalLetters;
     // 총 페이지 수
     private int totalPages;
     // 페이지 당 편지

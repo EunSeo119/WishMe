@@ -14,7 +14,7 @@ const SchooLetterWritePage = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const { schoolUuid, assetId } = useParams()
-  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER;
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   const navigate = useNavigate()
 
@@ -28,10 +28,12 @@ const SchooLetterWritePage = () => {
           nickname: nickname
         })
         .then((response) => {
+          const data = response.data
+          console.log(data)
+          // alert('응원남기기 완료!')
           navigate(`/school/${schoolUuid}`)
         })
-        .catch((error) => {
-        })
+        .catch((error) => {})
     } else {
       alert('닉네임과 내용을 입력해주세요')
     }
@@ -55,17 +57,14 @@ const SchooLetterWritePage = () => {
   }
 
   const handleNicknameChange = (e) => {
+    const inputText = e.target.value
 
-    const inputText = e.target.value;
-
-    if(inputText.length <= 13){
+    if (inputText.length <= 13) {
       setNickname(e.target.value)
-    }else{
-      alert('닉네임은 13자 이내로 작성해주세요.');
+    } else {
+      alert('닉네임은 13자 이내로 작성해주세요.')
     }
-
   }
-
 
   return (
     <div className={style.body}>

@@ -13,7 +13,7 @@ const SchoolLetterDetail = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [schoolName, setSchoolName] = useState('')
-  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER;
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   const navigate = useNavigate()
 
@@ -31,12 +31,12 @@ const SchoolLetterDetail = () => {
       .get(`${SCHOOL_SERVER}/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
-        setSchoolName(data.schoolLetterDetail.schoolName)
-        setContent(data.schoolLetterDetail.content)
-        setNickname(data.schoolLetterDetail.nickname)
+        // console.log(data)
+        setSchoolName(data.schoolName)
+        setContent(data.content)
+        setNickname(data.nickname)
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
   }, [content])
 
   const goPre = () => {
