@@ -35,7 +35,7 @@ public class GPTService {
         try {
             chatCompletion = openAiService.createChatCompletion(GPTCompletionChatRequestDto.of(gptCompletionChatRequestDto));
         } catch (Exception e) {
-            return "pass-timeout";
+            return "timeout";
         }
 
         GPTCompletionChatResponseDto response = GPTCompletionChatResponseDto.of(chatCompletion);
@@ -49,7 +49,8 @@ public class GPTService {
         String checkLetter = messageList.stream().filter(Objects::nonNull).collect(Collectors.joining());
 
         if(checkLetter.equals("1")) {
-            throw new IllegalArgumentException("부정적인 표현이 사용되었습니다.");
+            return "bad";
+//            throw new IllegalArgumentException("부정적인 표현이 사용되었습니다.");
         }
 
         return "pass";
