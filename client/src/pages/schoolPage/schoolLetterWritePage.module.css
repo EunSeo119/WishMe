@@ -8,8 +8,6 @@ body {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  /* left: 50%;
-  transform: translate(-50%, 0); */
 }
 .schoolName {
   height: 10%;
@@ -17,8 +15,6 @@ body {
   align-items: center;
   position: absolute;
   left: 5%;
-  /* top: 3%; */
-  /* transform: translate(-50%, 0); */
   font-family: 'omyu_pretty';
   font-style: normal;
   font-weight: 300;
@@ -35,14 +31,10 @@ body {
   position: absolute;
   left: 5%;
   top: 5%;
-
-  /* top: 3%; */
-  /* transform: translate(-50%, 0); */
   font-family: 'omyu_pretty';
   font-style: normal;
   font-weight: 600;
   font-size: 35px;
-  /* align-items: center; */
   text-align: center;
   color: #000000;
 }
@@ -57,7 +49,6 @@ nickname {
   height: 4%;
   top: 16%;
   padding: 10px;
-  /* margin: 0 20px 10px; */
   background: #ffffff;
   border: none;
   border-radius: 10px;
@@ -85,17 +76,12 @@ nickname {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
-  /* height: 60%; */
-  /* width: 80vw; */
-  /* height: 50vh; */
 }
 
 .canvas {
   position: absolute;
   top: 10%; /* Canvas의 위치를 조정하지 않음 */
   height: auto;
-  /* left: 0; */
-  /* background-color: #176124; */
   left: 50%;
   transform: translate(-50%, 0);
 }
@@ -119,7 +105,6 @@ nickname {
   background-color: #176124;
   padding: 10px;
   margin: 0 20px 10px;
-  /* width: 100%; */
 }
 .contentTextarea {
   position: absolute;
@@ -135,18 +120,11 @@ nickname {
   width: 80%;
   outline: none;
   font-family: 'omyu_pretty';
-  /* background-color: #176124; */
   margin-left: 10%;
   margin-right: 10%;
   margin-top: 16%;
 }
 
-/* .letterImgBack {
-  top: 26%;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-} */
 .letterImgBack {
   display: flex;
   flex-direction: column;
