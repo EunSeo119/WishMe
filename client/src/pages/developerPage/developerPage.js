@@ -19,7 +19,7 @@ const DeveloperPage = () => {
   const [currentPage, setCurrentPage] = useState(page);
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
 
   // shareURLModal
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -60,7 +60,7 @@ const DeveloperPage = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       tokenHttp({
         method: 'get',
-        url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
+        url: `${MYLETTER_SERVER}/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -93,7 +93,7 @@ const DeveloperPage = () => {
 
     tokenHttp({
       method: 'get',
-      url: `${SERVER_URL}/api/developer/letter/all?page=${currentPage}`,
+      url: `${MYLETTER_SERVER}/api/developer/letter/all?page=${currentPage}`,
       headers
     })
       .then((response) => {
@@ -133,11 +133,6 @@ const DeveloperPage = () => {
           <div
             className={`${style.arrowIcon} ${currentPage === 1 ? style.disabledArrow : style.abledArrow
               }`}
-            // onClick={() => {
-            //   if (currentPage > 1) {
-            //     changePage(currentPage - 1)
-            //   }
-            // }}
             onClick={() => {
               if (currentPage > 1) {
                 changePage(currentPage - 1)
@@ -154,7 +149,6 @@ const DeveloperPage = () => {
                 className={style.gridItem}
                 onClick={() => handleLetterClick(letter)}
               >
-                {/* <img src={`${letter.assetImg}`} /> */}
                 <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
               </div>
@@ -164,7 +158,6 @@ const DeveloperPage = () => {
           <div
             className={`${style.arrowIcon} ${currentPage === totalPage ? style.disabledArrow : style.abledArrow
               }`}
-            // onClick={() => changePage(currentPage + 1)}
             onClick={() => changePage(currentPage + 1)}
           >
             <IoIosArrowForward />
@@ -209,7 +202,6 @@ const DeveloperPage = () => {
         </div>
       </div>
     </div>
-    // </div>
   )
 }
 
