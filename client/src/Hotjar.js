@@ -3,7 +3,8 @@ import { hotjar } from 'react-hotjar';
 
 const Hotjar = () => {
     // Your Hotjar configuration
-    const hjid = `${HOTJAR_ID}`;
+
+    const hjid = process.env.REACT_APP_HOTJAR_ID;
     const hjsv = 6;
 
     useEffect(() => {
