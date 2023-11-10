@@ -15,7 +15,7 @@ const DeskLetterDetail = () => {
   const [content, setContent] = useState('')
   const [canReply, setCanReply] = useState(false)
 
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
 
   const navigate = useNavigate()
 
@@ -36,7 +36,7 @@ const DeskLetterDetail = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       tokenHttp({
         method: 'get',
-        url: `${SERVER_URL}/api/my/letter/detail/${letterId}`,
+        url: `${MYLETTER_SERVER}/api/my/letter/detail/${letterId}`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -50,12 +50,11 @@ const DeskLetterDetail = () => {
           setToUserNickname(data.toUserNickname)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     } else {
       axios({
         method: 'get',
-        url: `${SERVER_URL}/api/my/letter/detail/${letterId}`
+        url: `${MYLETTER_SERVER}/api/my/letter/detail/${letterId}`
       })
         .then((response) => {
           const data = response.data
@@ -65,14 +64,12 @@ const DeskLetterDetail = () => {
           setToUserNickname(data.toUserNickname)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
         })
     }
   }, [content])
 
   const goPre = () => {
     navigate(`/desk/${deskUuid}/${page}`)
-    // navigate(-1)
   }
 
   const writeReplyLetter = () => {

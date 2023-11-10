@@ -8,8 +8,6 @@ body {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    /* left: 50%;
-    transform: translate(-50%, 0); */
 }
 
 .navigation {
@@ -18,8 +16,6 @@ body {
     align-items: center;
     position: absolute;
     left: 5%;
-    /* top: 3%; */
-    /* transform: translate(-50%, 0); */
     font-family: 'omyu_pretty';
     font-style: normal;
     font-weight: 300;
@@ -59,9 +55,7 @@ body {
     font-style: normal;
     font-weight: 300;
     font-size: 35px;
-    /* display: flex; */
     align-items: center;
-    /* text-align: center; */
     color: #000000;
     width: 70%;
 }
@@ -74,7 +68,6 @@ body {
     width: 100%;
     position: absolute;
     height: 50%;
-    /* background-color: #000000; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -111,17 +104,10 @@ body {
     position: relative;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid #ccc; */
     min-height: 90%;
-    /* width: 100%; */
-    /* background: #fff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 15px; */
 }
 
 .gridItem img {
-    /* max-width: 90%;
-    object-fit: contain; */
     max-width: 100%;
     max-height: 100%;
 }
@@ -190,7 +176,6 @@ body {
     background-color: #176124;
     padding: 10px;
     margin: 0 20px 10px;
-    /* width: 100%; */
 }
 
 .nickname {
@@ -198,9 +183,7 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
-    /* color: white; */
     font-size: 25px;
-    /* background-color: rgba(0, 0, 0, 0.5); */
     padding: 4px;
     border-radius: 4px;
     display: flex;
