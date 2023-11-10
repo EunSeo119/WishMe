@@ -45,11 +45,10 @@ const SchooLetterAssetList = () => {
       .get(`${SCHOOL_SERVER}/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
-        setSchoolAssetList(data.schoolAssertList)
-        setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
+        setSchoolAssetList(data)
+        setTotalPage(Math.ceil(data.length / 12))
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
   }, [schoolUuid])
 
   return (
