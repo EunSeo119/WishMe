@@ -49,7 +49,7 @@ const DeskPage = () => {
 
   const handleLetterClick = (letter) => {
     const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-5')
+    const modalOpenDate = new Date('2023-11-11')
 
     if (currentDate < modalOpenDate) {
       // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
