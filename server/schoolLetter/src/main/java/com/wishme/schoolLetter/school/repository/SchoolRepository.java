@@ -1,7 +1,6 @@
 package com.wishme.schoolLetter.school.repository;
 
 import com.wishme.schoolLetter.school.domian.School;
-import org.elasticsearch.search.aggregations.metrics.InternalGeoBounds;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
