@@ -20,33 +20,28 @@ public class DeveloperController {
 
     // API 1. 개발자 편지 작성
     @PostMapping("/write")
-    public ResponseEntity<?> writeDeveloperLetter(Authentication authentication, @RequestBody WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto){
-        try{
-            developerService.writeDeveloperLetter(authentication, writeDeveloperLetterRequestDto);
-            return ResponseEntity.status(HttpStatus.OK).build();
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 작성 실패");
-        }
+    public ResponseEntity<?> writeDeveloperLetter(Authentication authentication, @RequestBody WriteDeveloperLetterRequestDto writeDeveloperLetterRequestDto) throws Exception {
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(developerService.writeDeveloperLetter(authentication, writeDeveloperLetterRequestDto));
+
     }
 
     // API 2. 개발자 책상 확인
+    // 리팩토링 코드
     @GetMapping("/all")
-    public ResponseEntity<?> allDeveloperLetter(Authentication authentication, @RequestParam int page){
-        try{
-            return ResponseEntity.ok(developerService.allDeveloperLetter(authentication, page));
-        }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개발자 편지 전체 조회 실패");
-        }
+    public ResponseEntity<?> allDeveloperLetter(Authentication authentication, @PageableDefault(page = 0, size = 9, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable){
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(developerService.allDeveloperLetter(authentication, pageable));
     }
 
     //API 3. 개발자 편지 상세 조회
     @GetMapping("/one/{myLetterId}")
-    public ResponseEntity<?> oneDeveloperLetter(Authentication authentication, @PathVariable("myLetterId") Long myLetterId){
-        try{
-            return ResponseEntity.ok(developerService.oneDeveloperLetter(authentication, myLetterId));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+    public ResponseEntity<?> oneDeveloperLetter(Authentication authentication, @PathVariable("myLetterId") Long myLetterId) throws Exception {
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(developerService.oneDeveloperLetter(authentication, myLetterId));
     }
 
     /**

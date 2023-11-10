@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
+    const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
     useEffect(() => { }, []);
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
                 // await 학교 편지 신고 로직작성
                 axios({
                     method: "put",
-                    url: `${SERVER_URL}/api/school/letter/report/${letterId}`,
+                    url: `${SCHOOL_SERVER}/api/school/letter/report/${letterId}`,
                 })
                     .then((response) => {
                         alert("학교편지 신고가 완료되었습니다.");
@@ -35,7 +36,7 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
                     // await 개인 편지 신고 로직작성
                     axios({
                         method: "put",
-                        url: `${SERVER_URL}/api/my/letter/report/${letterId}`,
+                        url: `${MYLETTER_SERVER}/api/my/letter/report/${letterId}`,
                         headers: {
                             Authorization: `Bearer ${AccessToken}`,
                             RefreshToken: `${RefreshToken}`
@@ -54,7 +55,6 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
 
             }
         } catch (err) {
-            // console.log(err);
         }
     };
 

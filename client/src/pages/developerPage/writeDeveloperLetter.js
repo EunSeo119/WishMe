@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import style from "./writeDeveloperLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-// import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
+import { IoIosArrowBack } from 'react-icons/io'
 import tokenHttp from '../../apis/tokenHttp';
 
 const WriteDeveloperLetter = () => {
@@ -32,8 +30,6 @@ const WriteDeveloperLetter = () => {
       }
 
     const handleSave = async () => {
-
-        console.log(isPublic);
 
         try {
             const data = {
