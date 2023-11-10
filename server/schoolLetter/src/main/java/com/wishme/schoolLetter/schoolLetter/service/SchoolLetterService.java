@@ -4,7 +4,6 @@ package com.wishme.schoolLetter.schoolLetter.service;
 import com.wishme.schoolLetter.asset.domain.Asset;
 import com.wishme.schoolLetter.asset.repository.AssetRepository;
 import com.wishme.schoolLetter.config.AES256;
-import com.wishme.schoolLetter.config.RSAUtil;
 import com.wishme.schoolLetter.school.domian.School;
 import com.wishme.schoolLetter.school.repository.SchoolRepository;
 import com.wishme.schoolLetter.schoolLetter.domain.SchoolLetter;
@@ -12,10 +11,12 @@ import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteByUuidR
 import com.wishme.schoolLetter.schoolLetter.dto.request.SchoolLetterWriteRequestDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterBoardListResponseDto;
 import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterDetailResponseDto;
+import com.wishme.schoolLetter.schoolLetter.dto.response.SchoolLetterListByPageResponseDto;
 import com.wishme.schoolLetter.schoolLetter.repository.SchoolLetterRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +24,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,46 +46,15 @@ public class SchoolLetterService {
     private final SchoolLetterRepository schoolLetterRepository;
     private final AssetRepository assetRepository;
     private final SchoolRepository schoolRepository;
-    public Map<String, Object> getSchoolLetterList(Integer schoolId, Integer page) {
-
-        Map<String, Object> resultMap = new HashMap<>();
-
-        int pageSize = 12; // 한 페이지당 12개의 학교편지
-        Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
-        Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolSeq(schoolId, pageable);
-        List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
-        List<SchoolLetterBoardListResponseDto> schoolLetterResponseDtoList = new ArrayList<>();
-
-        if (schoolLetterList != null && schoolLetterList.size() > 0) {
-            for (SchoolLetter schoolLetter : schoolLetterList) {
-                schoolLetterResponseDtoList.add(
-                        SchoolLetterBoardListResponseDto.builder()
-                                .schoolLetterSeq(schoolLetter.getSchoolLetterSeq())
-                                .assetSeq(schoolLetter.getAssetSeq().getAssetSeq())
-                                .assetImg(schoolLetter.getAssetSeq().getAssetImg())
-                                .build()
-                );
-            }
-        }
-
-        School school = schoolRepository.findBySchoolSeq(schoolId)
-                .orElseThrow(IllegalArgumentException::new);
-        resultMap.put("schoolLetterList", schoolLetterResponseDtoList);
-        resultMap.put("schoolName", school.getSchoolName());
-        resultMap.put("totalCount", schoolLetterPage.getTotalElements());
-        resultMap.put("totalPage", schoolLetterPage.getTotalPages());
-
-        return resultMap;
-    }
 
 
     public SchoolLetterDetailResponseDto getSchoolLetter(Long schoolLetterId) throws Exception {
 
         SchoolLetter sc = schoolLetterRepository.findBySchoolLetterSeq(schoolLetterId)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new EmptyResultDataAccessException(1));
+
         AES256 aes256 = new AES256(key);
         String decryptContent = aes256.decrypt(sc.getContent());
-
 
         return SchoolLetterDetailResponseDto.builder()
                 .schoolLetterSeq(sc.getSchoolLetterSeq())
@@ -98,30 +66,15 @@ public class SchoolLetterService {
     }
 
 
-    @Transactional
-    public Long writeSchoolLetter(SchoolLetterWriteRequestDto writeDto) {
-
-        School school = schoolRepository.findBySchoolSeq(writeDto.getSchoolSeq())
-                .orElseThrow(IllegalArgumentException::new);
-        Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
-                .orElseThrow(IllegalArgumentException::new);
-
-        SchoolLetter schoolLetter = new SchoolLetter(writeDto, school, asset);
-        schoolLetter = schoolLetterRepository.save(schoolLetter);
-
-        return schoolLetter.getSchoolLetterSeq();
-    }
-
     public List<Asset> getAssetList() {
         char type = 'S';
         return  assetRepository.findByType(type);
     }
 
-    public Map<String, Object> getSchoolLetterListBuSchoolUUID(String schoolUUID, Integer page) {
-        Map<String, Object> resultMap = new HashMap<>();
+    public SchoolLetterListByPageResponseDto getSchoolLetterListBuSchoolUUID(String schoolUUID, Integer page) {
 
-        int pageSize = 12; // 한 페이지당 12개의 학교편지
-        Pageable pageable = PageRequest.of(page-1, pageSize, Sort.by(Sort.Order.desc("createAt")));
+        Pageable pageable = PageRequest.of(page-1, 12, Sort.by(Sort.Order.desc("createAt")));
+
         Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolUuid(schoolUUID, pageable);
         List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
         System.out.println(schoolLetterList.size());
@@ -137,27 +90,32 @@ public class SchoolLetterService {
                                 .build()
                 );
             }
+        }else{
+            throw new EmptyResultDataAccessException(1);
         }
 
         School school = schoolRepository.findByUuid(schoolUUID)
-                .orElseThrow(IllegalArgumentException::new);
-        resultMap.put("schoolLetterList", schoolLetterResponseDtoList);
-        resultMap.put("schoolName", school.getSchoolName());
-        resultMap.put("totalCount", schoolLetterPage.getTotalElements());
-        resultMap.put("totalPage", schoolLetterPage.getTotalPages());
-        resultMap.put("schoolId", school.getSchoolSeq());
+                .orElseThrow(()-> new EmptyResultDataAccessException(1));
 
-        return resultMap;
-
+        return SchoolLetterListByPageResponseDto.builder()
+                .schoolLetterList(schoolLetterResponseDtoList)
+                .schoolName(school.getSchoolName())
+                .totalCount(schoolLetterPage.getTotalElements())
+                .totalPage(schoolLetterPage.getTotalPages())
+                .schoolId(school.getSchoolSeq())
+                .build();
     }
+
 
     @Transactional
     public Long writeSchoolLetterByUuid(SchoolLetterWriteByUuidRequestDto writeDto) throws Exception {
 
         School school = schoolRepository.findByUuid(writeDto.getUuid())
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new EmptyResultDataAccessException(1));
+
+
         Asset asset = assetRepository.findByAssetSeq(writeDto.getAssetSeq())
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(()-> new EmptyResultDataAccessException(1));
 
         AES256 aes256 = new AES256(key);
         String cipherContent = aes256.encrypt(writeDto.getContent());
@@ -167,4 +125,5 @@ public class SchoolLetterService {
 
         return schoolLetter.getSchoolLetterSeq();
     }
+
 }
