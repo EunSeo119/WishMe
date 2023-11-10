@@ -29,13 +29,13 @@ public class GPTService {
 
         gptCompletionChatRequestDto.setMessage(inputMessage + defaultMessage);
 
-        System.out.println(inputMessage+defaultMessage);
+//        System.out.println(inputMessage+defaultMessage);
 
         ChatCompletionResult chatCompletion = null;
         try {
             chatCompletion = openAiService.createChatCompletion(GPTCompletionChatRequestDto.of(gptCompletionChatRequestDto));
         } catch (Exception e) {
-            return "pass-timeout";
+            return "timeout";
         }
 
         GPTCompletionChatResponseDto response = GPTCompletionChatResponseDto.of(chatCompletion);
@@ -44,12 +44,13 @@ public class GPTService {
                 .map(GPTCompletionChatResponseDto.Message::getMessage)
                 .collect(Collectors.toList());
 
-        System.out.println(messageList.stream().filter(Objects::nonNull).collect(Collectors.joining()));
+//        System.out.println(messageList.stream().filter(Objects::nonNull).collect(Collectors.joining()));
 
         String checkLetter = messageList.stream().filter(Objects::nonNull).collect(Collectors.joining());
 
         if(checkLetter.equals("1")) {
-            throw new IllegalArgumentException("부정적인 표현이 사용되었습니다.");
+            return "bad";
+//            throw new IllegalArgumentException("부정적인 표현이 사용되었습니다.");
         }
 
         return "pass";
