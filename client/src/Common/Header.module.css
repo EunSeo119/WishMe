@@ -15,6 +15,10 @@
     height: 30px;
     grid:1;
   }
+
+  .menuIcon2 {
+    font-size: 45px;
+  }
   
   .notIcon {
     margin-right: 20px;
