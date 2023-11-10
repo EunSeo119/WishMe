@@ -87,20 +87,23 @@ public class MyLetterService {
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
 
-//        // GPT로 부정적인 편지 내용 필터링
-//        GPTCompletionChatRequestDto gptCompletionChatRequestDto = null;
-//        gptCompletionChatRequestDto.setMessage(saveMyLetterRequestDto.getContent());
-//        gptService.completionChat(gptCompletionChatRequestDto);
+        String gptResult = null;
+        boolean isBad = false;
+        do {
+            GPTCompletionChatRequestDto gptCompletionChatRequestDto = GPTCompletionChatRequestDto.builder()
+                    .message(saveMyLetterRequestDto.getContent())
+                    .build();
+
+            gptResult = gptService.completionChat(gptCompletionChatRequestDto);
+            if(gptResult == "bad") {
+                isBad = true;
+            }
+//            System.out.println("===gpt===");
+//            System.out.println(gptResult);
+        } while(gptResult == "timeout");
 
         AES256 aes256 = new AES256(key);
         String cipherContent = aes256.encrypt(saveMyLetterRequestDto.getContent());
-
-//
-//        //base64된 공개키를 가져옴
-//        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
-//
-//        //공개키로 암호화
-//        String encryptedContent = RSAUtil.encryptRSA(saveMyLetterRequestDto.getContent(), puKey);
 
         MyLetter myLetter = MyLetter.builder()
                 .toUser(toUser)
@@ -109,6 +112,7 @@ public class MyLetterService {
                 .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
                 .fromUser(fromUserSeq)
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
+                .isBad(isBad)
                 .build();
 
         MyLetter save = myLetterRepository.save(myLetter);
@@ -149,6 +153,7 @@ public class MyLetterService {
                     .fromUserNickname(letter.getFromUserNickname())
                     .assetImg(myAsset.getAssetImg())
                     .isPublic(letter.getIsPublic())
+                    .isBad(letter.isBad())
                     .build();
 
             myLetterResponseDtoList.add(myLetterResponseDto);
