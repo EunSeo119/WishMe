@@ -11,7 +11,7 @@ const DeveloperLetterDetail = () => {
   const [isMine, setIsMine] = useState(false)
   const [canReply, setCanReply] = useState(true)
 
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
 
   const navigate = useNavigate()
 
@@ -22,7 +22,7 @@ const DeveloperLetterDetail = () => {
     if (AccessToken) {
       axios({
         method: 'get',
-        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`,
+        url: `${MYLETTER_SERVER}/api/developer/letter/one/${letterId}`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -40,7 +40,7 @@ const DeveloperLetterDetail = () => {
     }else {
       axios({
         method: 'get',
-        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`
+        url: `${MYLETTER_SERVER}/api/developer/letter/one/${letterId}`
       })
       .then((response) => {
         const data = response.data

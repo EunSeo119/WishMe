@@ -62,7 +62,6 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
 
     return (
         <div className={style.Modalmodal}>
-            {/* <div className={style.Modalmodal}> */}
             <div className={style.Modalclose} onClick={onClose}>
                 <IoIosClose />
             </div>
@@ -81,7 +80,6 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
                     신고하기
                 </div>
             </div>
-            {/* </div> */}
         </div>
     );
 }
