@@ -3,7 +3,6 @@ import axios from 'axios'
 import styleSchool from './schoolPage.module.css' // CSS 모듈을 import
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from 'react-icons/io' // IoIosArrowForward를 import
@@ -22,7 +21,8 @@ const SchoolPage = () => {
   const [schoolLetter, setSchoolLetter] = useState([])
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   // 모달
   const [showMainPop, setShowMainPop] = useState(false)
@@ -81,23 +81,20 @@ const SchoolPage = () => {
     const AccessToken = localStorage.getItem('AccessToken')
     const RefreshToken = localStorage.getItem('RefreshToken')
     if (AccessToken) {
-      // alert('내 책상으로 이동')
       // AccessToken이 있으면 내 책상 페이지로 이동
       tokenHttp({
         method: 'get',
-        url: `${SERVER_URL}/api/my/letter/loginUserUuid`,
+        url: `${MYLETTER_SERVER}/api/my/letter/loginUserUuid`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
         }
       })
-        // .get(`http://localhost:8080/api/my/letter/all/${userUuid}?page=${page}`)
         .then((response) => {
           const data = response.data
           navigate(`/desk/${data.loginUserUuid}`)
         })
         .catch((error) => {
-          // console.error('API 요청 중 오류 발생:', error)
           navigate(`/`)
         })
     } else {
@@ -112,13 +109,9 @@ const SchoolPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${SERVER_URL}/api/school/letter/allByUUID/${schoolUuid}/${page}`)
-      // .get(
-      //   `http://localhost:8082/api/school/letter/allByUUID/${schoolUuid}/${page}`
-      // )
+      .get(`${SCHOOL_SERVER}/api/school/letter/allByUUID/${schoolUuid}/${page}`)
       .then((response) => {
         const data = response.data
-        // console.log(data)
         setSchoolName(data.schoolName)
         setTotalCount(data.totalCount)
         setSchoolLetter(data.schoolLetterList)
@@ -127,9 +120,7 @@ const SchoolPage = () => {
         localStorage.setItem('schoolUuid', schoolUuid)
         setTotalPage(data.totalPage)
       })
-      .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
-      })
+      .catch((error) => {})
   }, [page])
 
   return (
@@ -152,7 +143,6 @@ const SchoolPage = () => {
           <div>
             <b>책상</b>
           </div>
-          {/* <div>{isOn ? <BsToggleOn onClick={handleToggleClick} /> : <BsToggleOff onClick={handleToggleClick} />}</div> */}
           <div>
             {isOn ? (
               <BsToggle2Off onClick={handleToggleClick} />
@@ -216,7 +206,6 @@ const SchoolPage = () => {
         <div>
           {isNextDateModalOpen && (
             <div className={styleSchool.Modalmodal}>
-              {/* <div className={style.header}> */}
               <div
                 className={styleSchool.Modalclose}
                 onClick={closeNextDateModal}
@@ -236,9 +225,7 @@ const SchoolPage = () => {
           )}
         </div>
       </div>
-      {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
-        {/* <div style={{display:'flex', justifyContent:'space-around'}}> */}
         <div
           className={styleSchool.mydeskBtn}
           onClick={() => handleMyDeskClick()}
@@ -256,7 +243,6 @@ const SchoolPage = () => {
             학교 공유하기
           </div>
         </div>
-        {/* </div> */}
       </div>
     </div>
   )

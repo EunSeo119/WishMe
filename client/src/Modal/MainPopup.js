@@ -12,7 +12,6 @@ export default function MainPopup({ setShowMainPop }) {
     
       return (
         <div className={style.Modalmodal}>
-            {/* <div className={style.Modalmodal}> */}
             <div className={style.Modalclose} onClick={closePop}>
                 <IoIosClose />
             </div>
@@ -35,7 +34,5 @@ export default function MainPopup({ setShowMainPop }) {
             </div>
             <div className={style.link}><a className={style.link} href="https://www.instagram.com/wish_me_1116/" target="_blank" rel="noopener noreferrer" >사용 방법 보러가기</a>
                 </div>
-
-            {/* </div> */}
         </div>      );
     }

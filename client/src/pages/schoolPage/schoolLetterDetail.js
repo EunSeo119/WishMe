@@ -13,7 +13,7 @@ const SchoolLetterDetail = () => {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [schoolName, setSchoolName] = useState('')
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   const navigate = useNavigate()
 
@@ -28,8 +28,7 @@ const SchoolLetterDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`${SERVER_URL}/api/school/letter/one/${letterId}`)
-      // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
+      .get(`${SCHOOL_SERVER}/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
         // console.log(data)
@@ -37,20 +36,11 @@ const SchoolLetterDetail = () => {
         setContent(data.content)
         setNickname(data.nickname)
       })
-      .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
-      })
+      .catch((error) => {})
   }, [content])
 
   const goPre = () => {
     navigate(`/school/${schoolUuid}/${page}`)
-    // navigate(-1)
-  }
-
-  const handleReportClick = () => {
-    // navigate(`/school/${schoolUuid}`)
-    //letterId 이게 편지 아이디요
-    navigate(-1)
   }
 
   return (

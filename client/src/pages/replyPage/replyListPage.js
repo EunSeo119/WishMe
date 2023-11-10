@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from "react"; // useEffect import 추가
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import style from "./replyListPage.module.css";
-import axios from 'axios';  // axios import
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import { useParams } from 'react-router-dom';
 import tokenHttp from "../../apis/tokenHttp";
 
 const ReplyListPage = () => {
     const [selected, setSelected] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
-    const [assetInfo, setAssetInfo] = useState([]); // 상태 초기화 변경
-    const [selectedReplySeq, setSelectedReplySeq] = useState(null); // 선택된 이미지의 assetSeq 값을 저장하는 상태
     const [totalPage, setTotalPage] = useState(1)
     const [ReplyListName, setReplyListName] = useState('test')
     const [totalCount, setTotalCount] = useState(0)
     const [replyLetterList, setReplyLetterList] = useState([])
-    const { deskUuid } = useParams();
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const changePage = (newPage) => {
-        // console.log(totalPage)
         if (newPage >= 1 && newPage <= totalPage) {
             setCurrentPage(newPage)
         }
@@ -38,7 +32,7 @@ const ReplyListPage = () => {
         }
         tokenHttp({
             method: "get",
-            url: `${SERVER_URL}/api/my/reply/all?page=${currentPage}`,
+            url: `${MYLETTER_SERVER}/api/my/reply/all?page=${currentPage}`,
             headers
         })
 
@@ -64,7 +58,6 @@ const ReplyListPage = () => {
     const handleImageClick = (index) => {
         setSelected(index + indexOfFirstItem);
         const selectedReply = replyLetterList[index + indexOfFirstItem];
-        // setSelectedReplySeq(selectedReply.replySeq);
         navigate(`/replyDetailPage/${selectedReply.replySeq}`);
     }
 

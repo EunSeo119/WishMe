@@ -14,7 +14,7 @@ const ReplyDetailPage = () => {
   const [letterId, setLetterId] = useState('')
 
   const [content, setContent] = useState('')
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
   const navigate = useNavigate()
 
   //편지 배경
@@ -43,12 +43,11 @@ const ReplyDetailPage = () => {
     }
     axios({
       method: 'get',
-      url: `${SERVER_URL}/api/my/reply/detail/${replyId}`,
+      url: `${MYLETTER_SERVER}/api/my/reply/detail/${replyId}`,
       headers
     })
       .then((response) => {
         const data = response.data
-        console.log(data)
         setToNickname(data.toUserNickname)
         setContent(data.content)
         setLetterId(data.letterSeq)
@@ -56,7 +55,6 @@ const ReplyDetailPage = () => {
         setColorType(data.color)
       })
       .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
       })
   }, [content])
 
@@ -67,7 +65,6 @@ const ReplyDetailPage = () => {
 
   //내 편지 보러 가기
   const goMyletter = () => {
-    // navigate(`/developerLetterDetail/1/${letterId}`)
     navigate(`/myLetterDetailPage/${letterId}`)
   }
 
