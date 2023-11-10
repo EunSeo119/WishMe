@@ -3,10 +3,10 @@ import "../../fonts/font.css";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
     const navigate = useNavigate();
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-    const REDIRECT_URI = `${SERVER_URL}/kakao/callback`;
+    const REDIRECT_URI = `${MYLETTER_SERVER}/kakao/callback`;
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const kakaoLogin = () => {
