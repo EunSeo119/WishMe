@@ -12,7 +12,7 @@ const WriteDeveloperLetter = () => {
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const WriteDeveloperLetter = () => {
 
             const response = await tokenHttp({
                 method: "post",
-                url: `${SERVER_URL}/api/developer/letter/write`,
+                url: `${MYLETTER_SERVER}/api/developer/letter/write`,
                 headers,
                 data: data
             });

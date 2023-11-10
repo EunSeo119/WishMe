@@ -13,7 +13,7 @@ const MyLetterDetailPage = () => {
   const [content, setContent] = useState('')
   const [isMine, setIsMine] = useState(false)
 
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
 
   const navigate = useNavigate()
 
@@ -25,7 +25,7 @@ const MyLetterDetailPage = () => {
       // AccessToken이 있으면 내 책상 페이지로 이동
       tokenHttp({
         method: 'get',
-        url: `${SERVER_URL}/api/developer/letter/detail/${letterId}`,
+        url: `${MYLETTER_SERVER}/api/developer/letter/detail/${letterId}`,
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           RefreshToken: `${RefreshToken}`
@@ -43,7 +43,7 @@ const MyLetterDetailPage = () => {
     } else {
       axios({
         method: 'get',
-        url: `${SERVER_URL}/api/developer/letter/one/${letterId}`
+        url: `${MYLETTER_SERVER}/api/developer/letter/one/${letterId}`
       })
         .then((response) => {
           const data = response.data
