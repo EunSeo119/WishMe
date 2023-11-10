@@ -7,12 +7,12 @@
 }
 
 .topbox {
-    height: 58%;
+    height: 55%;
     margin: 75px 0;
 }
 
 .bottombox {
-    height: 5%;
+    height: 8%;
 }
 
 .title {
@@ -27,6 +27,14 @@
     font-family: 'Yeongdeok Sea';
     text-align: right;
     padding-right: 25px;
+    margin-bottom: 65px;
+}
+
+.desc {
+    font-family: 'omyu_pretty';
+    text-align: center;
+    line-height: 25px;
+    color: #176124;
 }
 
 .kakao {
@@ -35,11 +43,11 @@
 }
 
 .nologin {
-    margin: 10px 0;
+    margin: 15px 0 20px;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     font-family: 'armata';
-    color: #9F9F9F;
+    color: #8a8a8a;
     text-decoration: underline;
     cursor: pointer;
 }

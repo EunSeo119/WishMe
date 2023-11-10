@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router';
 import style from './Header.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
+import { LuMenuSquare } from "react-icons/lu";
 import tokenHttp from '../apis/tokenHttp';
+
 
 const Header = () => {
     const navigate = useNavigate();
@@ -69,7 +71,8 @@ const Header = () => {
         <div className={style.header}>
             <Toaster />
             <div onClick={toggleSidebar}>
-                <img src="/assets/Menu.png" className={style.menuIcon} />
+                {/* <img src="/assets/Menu.png" className={style.menuIcon} /> */}
+                <LuMenuSquare className={style.menuIcon2} />
             </div>
             <div className={`${isSidebarOpen ? style.sidebarVisible : style.sidebar} ${isSidebarOpen ? style.open : ''}`}>
                 <div className={style.sideName}>
