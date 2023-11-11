@@ -20,6 +20,9 @@ const DeskPage = () => {
   const navigate = useNavigate()
   const USER_SERVER = process.env.REACT_APP_USER_SERVER;
   const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
+  const [isBadLetterModalOpen, setIsBadLetterModalOpen] = useState(false);
+  const [currentLetter, setCurrentLetter] = useState(null); // 현재 선택된 편지 객체를 저장하기 위한 상태
+  const [showBadLetterModal, setShowBadLetterModal] = useState(false);
 
 
   // 학교/책상 토글
@@ -49,17 +52,45 @@ const DeskPage = () => {
 
   const handleLetterClick = (letter) => {
     const currentDate = new Date()
-    const modalOpenDate = new Date('2023-11-11')
+    const modalOpenDate = new Date('2023-11-5')
+    setCurrentLetter(letter)
 
     if (currentDate < modalOpenDate) {
       // 현재 날짜가 2023년 11월 11일 이전이면 모달 열기
       openNextDateModal()
     } else if (letter.isPublic || isMine) {
-      navigate(`/deskLetterDetail/${deskUuid}/${letter.myLetterSeq}/${currentPage}`)
+      if (letter.isBad) {
+        // setCurrentLetter(letter); // 현재 선택된 편지 저장
+        setShowBadLetterModal(true); // 부정적인 편지 모달 열기
+      } else {
+        navigate(`/deskLetterDetail/${deskUuid}/${letter.myLetterSeq}/${currentPage}`)
+      }
     } else {
       openPrivateLetterModal()
     }
   }
+
+  // 부정적인 편지 모달 함수
+  const BadLetterModal = ({ closeBadLetterModal }) => {
+    return (
+      <div className={style.modalOverlay}>
+        <div className={style.modalContent}>
+          <p>해당 편지는 부정적인 내용이 <br />포함되어 있을 수 있습니다.<br />열람하시겠습니까?</p>
+          <div className={style.modalButtons}>
+            <button onClick={closeBadLetterModal} className={style.modalButtonBack}>아니요</button>
+            <button className={style.modalButtonSave} onClick={() => {
+              closeBadLetterModal();
+              navigate(`/deskLetterDetail/${deskUuid}/${currentLetter.myLetterSeq}/${currentPage}`);
+            }}>예</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const closeBadLetterModal = () => {
+    setShowBadLetterModal(false);
+  };
 
   const [isPrivateLetterModal, setIsPrivateLetterModal] = useState(false)
   const openPrivateLetterModal = () => {
@@ -221,6 +252,7 @@ const DeskPage = () => {
 
           <div className={style.gridContainer}>
             {deskLetter.slice(0, 9).map((letter, index) => (
+              // setCurrentLetter(letter)
               <div
                 key={index}
                 className={style.gridItem}
@@ -308,6 +340,12 @@ const DeskPage = () => {
             </div>
           )}
         </div>
+
+        {/* 부정적인 편지 모달 렌더링 */}
+        {showBadLetterModal && (
+          <BadLetterModal closeBadLetterModal={closeBadLetterModal} />
+        )}
+
       </div>
     </div>
     // </div>
