@@ -13,7 +13,6 @@ public class SchoolLetterBoardListResponseDto {
     private String assetImg;
 
     @Builder
-
     public SchoolLetterBoardListResponseDto(Long schoolLetterSeq, Long assetSeq, String assetImg) {
         this.schoolLetterSeq = schoolLetterSeq;
         this.assetSeq = assetSeq;
