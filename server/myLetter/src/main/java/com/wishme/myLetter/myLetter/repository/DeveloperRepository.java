@@ -8,13 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DeveloperRepository extends JpaRepository<MyLetter, Long> {
 
-    // 받는 사람으로 개인편지 조회
-//    List<MyLetter> findByToUser(User user);
-
-    long countByToUser(User toUser);
+    // Page 객체 개발자 편지 전체 조회
+    Optional<Page<MyLetter>> findDeveloperLetterByToUser(User admin, Pageable pageable);
 
 }
