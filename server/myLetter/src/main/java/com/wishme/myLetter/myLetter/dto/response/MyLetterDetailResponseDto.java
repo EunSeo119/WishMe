@@ -22,13 +22,16 @@ public class MyLetterDetailResponseDto {
 
     private Boolean canReply;
 
+    private Boolean isMine;
+
     @Builder
-    public MyLetterDetailResponseDto(Long myLetterSeq, String toUserNickname, String content, Long fromUser, String fromUserNickname, Boolean canReply) {
+    public MyLetterDetailResponseDto(Long myLetterSeq, String toUserNickname, String content, Long fromUser, String fromUserNickname, Boolean canReply, Boolean isMine) {
         this.myLetterSeq = myLetterSeq;
         this.toUserNickname = toUserNickname;
         this.content = content;
         this.fromUser = fromUser;
         this.fromUserNickname = fromUserNickname;
         this.canReply = canReply;
+        this.isMine = isMine;
     }
 }
