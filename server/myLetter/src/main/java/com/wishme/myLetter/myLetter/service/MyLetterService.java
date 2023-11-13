@@ -1,11 +1,10 @@
 package com.wishme.myLetter.myLetter.service;
 
 import com.wishme.myLetter.asset.domain.Asset;
-import com.wishme.myLetter.config.RSAUtil;
+import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.domain.MyLetter;
 import com.wishme.myLetter.myLetter.dto.request.SaveMyLetterRequestDto;
 import com.wishme.myLetter.myLetter.dto.response.*;
-import com.wishme.myLetter.asset.repository.AssetRepository;
 import com.wishme.myLetter.myLetter.repository.MyLetterRepository;
 import com.wishme.myLetter.myLetter.repository.ReplyRepository;
 import com.wishme.myLetter.openAPI.dto.request.GPTCompletionChatRequestDto;
@@ -13,6 +12,7 @@ import com.wishme.myLetter.openAPI.service.GPTService;
 import com.wishme.myLetter.user.domain.User;
 import com.wishme.myLetter.user.repository.UserRepository;
 import com.wishme.myLetter.util.AES256;
+import com.wishme.myLetter.util.BadWordFilterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,8 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,28 +85,36 @@ public class MyLetterService {
         Asset myAsset = assetRepository.findByAssetSeqAndType(saveMyLetterRequestDto.getAssetSeq(), 'M')
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 에셋는 존재하지 않습니다.", 1));
 
-//        // GPT로 부정적인 편지 내용 필터링
-//        GPTCompletionChatRequestDto gptCompletionChatRequestDto = null;
-//        gptCompletionChatRequestDto.setMessage(saveMyLetterRequestDto.getContent());
-//        gptService.completionChat(gptCompletionChatRequestDto);
+        String gptResult = null;
+        boolean isBad = false;
+        do {
+            GPTCompletionChatRequestDto gptCompletionChatRequestDto = GPTCompletionChatRequestDto.builder()
+                    .message(saveMyLetterRequestDto.getContent())
+                    .build();
+
+            gptResult = gptService.completionChat(gptCompletionChatRequestDto);
+            if(gptResult == "bad") {
+                isBad = true;
+            }
+//            System.out.println("===gpt===");
+//            System.out.println(gptResult);
+        } while(gptResult == "timeout");
+
+        BadWordFilterUtil badWordFiltering = new BadWordFilterUtil("♡");
+        String filteringNickname = badWordFiltering.change(saveMyLetterRequestDto.getFromUserNickname());
+        String filteringContent = badWordFiltering.change(saveMyLetterRequestDto.getContent());
 
         AES256 aes256 = new AES256(key);
-        String cipherContent = aes256.encrypt(saveMyLetterRequestDto.getContent());
-
-//
-//        //base64된 공개키를 가져옴
-//        PublicKey puKey = RSAUtil.getPublicKeyFromBase64String(publicKeyBase);
-//
-//        //공개키로 암호화
-//        String encryptedContent = RSAUtil.encryptRSA(saveMyLetterRequestDto.getContent(), puKey);
+        String cipherContent = aes256.encrypt(filteringContent);
 
         MyLetter myLetter = MyLetter.builder()
                 .toUser(toUser)
                 .asset(myAsset)
                 .content(cipherContent)
-                .fromUserNickname(saveMyLetterRequestDto.getFromUserNickname())
+                .fromUserNickname(filteringNickname)
                 .fromUser(fromUserSeq)
                 .isPublic(saveMyLetterRequestDto.getIsPublic())
+                .isBad(isBad)
                 .build();
 
         MyLetter save = myLetterRepository.save(myLetter);
@@ -149,6 +155,7 @@ public class MyLetterService {
                     .fromUserNickname(letter.getFromUserNickname())
                     .assetImg(myAsset.getAssetImg())
                     .isPublic(letter.getIsPublic())
+                    .isBad(letter.isBad())
                     .build();
 
             myLetterResponseDtoList.add(myLetterResponseDto);

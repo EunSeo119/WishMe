@@ -97,7 +97,7 @@ const DeveloperLetterDetail = () => {
               {canReply ? (
                 <div className={style.replyBtn} onClick={() => writeReplyLetter()}>답장하기</div>
               ) : (
-                <div className={style.replyBtn2}>답장하기</div>
+                <div className={style.replyBtn2}>답장완료</div>
               )}
               <div className={style.closeBtn} onClick={() => goPre()}>닫기</div>
             </div>

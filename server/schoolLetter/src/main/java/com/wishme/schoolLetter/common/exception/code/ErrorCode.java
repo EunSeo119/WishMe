@@ -1,4 +1,4 @@
-package com.wishme.myLetter.common.exception.code;
+package com.wishme.schoolLetter.common.exception.code;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -68,16 +68,7 @@ public enum ErrorCode {
 
     NOT_AUTHENTICATED_ERROR(400, "U002", "인가되지 않은 사용자"),
 
-    UNAUTHORIZED_USER_ERROR(400, "M001", "해당 데이터에 접근할 수 없는 사용자"),
-
-    ALREADY_CREATED_ERROR(400, "R001", "이미 답장을 완료한 편지"),
-
-    LETTER_NOT_FOUND_ERROR(404, "D014", "편지를 찾을 수 없습니다."),
-
-    NOT_DEVELOPER_LETTER_ERROR(403, "D015", "개발자 편지가 아닙니다."),
-
-    PRIVATE_LETTER_ERROR(400, "D016", "비공개 편지입니다.");
-
+    UNAUTHORIZED_USER_ERROR(400, "M001", "해당 데이터에 접근할 수 없는 사용자");
 
     /**
      * ******************************* Error Code Constructor ***************************************
