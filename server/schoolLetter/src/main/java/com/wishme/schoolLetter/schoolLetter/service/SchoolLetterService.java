@@ -75,7 +75,9 @@ public class SchoolLetterService {
 
         Pageable pageable = PageRequest.of(page-1, 12, Sort.by(Sort.Order.desc("createAt")));
 
-        Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolUuid(schoolUUID, pageable);
+//        Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findSchoolLettersBySchoolUuid(schoolUUID, pageable);
+        Page<SchoolLetter> schoolLetterPage = schoolLetterRepository.findBySchoolUuidAndIsReport(schoolUUID, false, pageable);
+
         List<SchoolLetter> schoolLetterList =  schoolLetterPage.getContent();
         System.out.println(schoolLetterList.size());
         List<SchoolLetterBoardListResponseDto> schoolLetterResponseDtoList = new ArrayList<>();
