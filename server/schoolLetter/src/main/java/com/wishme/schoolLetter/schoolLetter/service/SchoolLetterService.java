@@ -92,8 +92,6 @@ public class SchoolLetterService {
                                 .build()
                 );
             }
-        }else{
-            throw new EmptyResultDataAccessException(1);
         }
 
         School school = schoolRepository.findByUuid(schoolUUID)
