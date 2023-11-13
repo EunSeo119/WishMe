@@ -32,7 +32,7 @@ const DeskLetterDetail = () => {
     domtoimage
       .toBlob(card, { filter: filter })
       .then((blob) => {
-        saveAs(blob, 'card.png');
+        saveAs(blob, 'wishme.png');
       });
   };
 
@@ -122,15 +122,6 @@ const DeskLetterDetail = () => {
                 id='noDown'
                 onClick={openModal}
               />
-              {isMine ? (
-                <>
-                  <PiDownloadSimple
-                    className={style.downLoadIcon}
-                    id='noDown'
-                    onClick={onDownloadBtn}
-                  />
-                </>
-              ) : (<></>)}
             </div>
             <div className={style.content}>
               <textarea
@@ -140,6 +131,15 @@ const DeskLetterDetail = () => {
               />{' '}
             </div>
             <div className={style.from}>
+              {isMine ? (
+                <>
+                  <PiDownloadSimple
+                    className={style.downLoadIcon}
+                    id='noDown'
+                    onClick={onDownloadBtn}
+                  />
+                </>
+              ) : (<></>)}
               <text className={style.letterSurfix}>From. {nickname}</text>
             </div>{' '}
           </div>
