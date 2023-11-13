@@ -9,6 +9,7 @@ body {
   left: 50%;
   transform: translate(-50%, 0);
 }
+
 .schoolName {
   height: 10%;
   display: flex;
@@ -24,6 +25,7 @@ body {
   text-align: center;
   color: #000000;
 }
+
 .title {
   margin-top: 3%;
   height: 10%;
@@ -49,7 +51,7 @@ body {
 
 .btn {
   position: absolute;
-  top: 88%;
+  top: 85%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -67,13 +69,16 @@ body {
   padding: 10px;
   margin: 0 20px 10px;
 }
+
 .letter {
   width: 80%;
   top: 8%;
   position: absolute;
   display: flex;
   flex-direction: column;
+  transform: translateX(14%);
 }
+
 .content {
   min-height: 38vh;
 }
@@ -116,6 +121,7 @@ body {
   text-align: center;
   color: #000000;
 }
+
 .letterSurfix {
   float: right;
   font-family: 'omyu_pretty';
@@ -125,10 +131,16 @@ body {
   text-align: center;
   color: #000000;
 }
+
 .reportLetterIcon {
   float: right;
   font-size: 25px;
   color: #d91212;
+}
+
+.downLoadIcon {
+  float: right;
+  font-size: 25px;
 }
 
 .closeBtn {
