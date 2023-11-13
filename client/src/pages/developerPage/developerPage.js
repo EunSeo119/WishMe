@@ -93,7 +93,7 @@ const DeveloperPage = () => {
 
     tokenHttp({
       method: 'get',
-      url: `${MYLETTER_SERVER}/api/developer/letter/all?page=${currentPage}-1`,
+      url: `${MYLETTER_SERVER}/api/developer/letter/all?page=${currentPage - 1}`,
       headers
     })
       .then((response) => {
