@@ -20,4 +20,7 @@ public interface SchoolLetterRepository extends JpaRepository<SchoolLetter, Inte
     Page<SchoolLetter> findSchoolLettersBySchoolSeq(@Param("schoolSeq") Integer schoolSeq, Pageable pageable);
 
     Page<SchoolLetter> findSchoolLettersBySchoolUuid(String schoolUUID, Pageable pageable);
+
+    Page<SchoolLetter> findBySchoolUuidAndIsReport(String schoolUUID, boolean isReport, Pageable pageable);
+
 }
