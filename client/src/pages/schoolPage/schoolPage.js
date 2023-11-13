@@ -192,7 +192,9 @@ const SchoolPage = () => {
           </div>
           <div
             className={`${styleSchool.arrowIcon} ${
-              page === totalPage ? styleSchool.disabledArrow : ''
+              page === totalPage || totalPage === 0
+                ? styleSchool.disabledArrow
+                : ''
             }`}
             onClick={() => changePage(page + 1)}
           >
