@@ -198,6 +198,7 @@ public class MyLetterService {
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 편지는 존재하지 않습니다.", 1));
 
         Boolean canReply = false;
+        Boolean isMine = false;
 
         if(authentication == null) {
             // 비공개 편지인데 비회원이 열람하려고 할 때
@@ -211,6 +212,11 @@ public class MyLetterService {
             // 비공개 편지인데 해당 편지의 주인이 아닌 회원이 열람하려고 할 때
             if(!myletter.getIsPublic() && !myletter.getToUser().equals(checkUser)) {
                 throw new RuntimeException("열람할 권한이 없습니다.");
+            }
+
+            // 이 편지가 내 편지 일 때
+            if(myletter.getToUser().equals(checkUser)) {
+                isMine = true;
             }
 
             // 이 편지에 답장이 가능할 때
@@ -233,6 +239,7 @@ public class MyLetterService {
                 .fromUser(myletter.getFromUser())
                 .fromUserNickname(myletter.getFromUserNickname())
                 .canReply(canReply)
+                .isMine(isMine)
                 .build();
     }
 
