@@ -111,7 +111,7 @@ const DeveloperPage = () => {
     <div>
       <div className={style.main}>
         <img
-          src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/background/deskBackground.png"
+          src="/assets/background/deskBackground.png"
           className={style.bg}
           crossOrigin="anonymous"
         />
@@ -149,7 +149,7 @@ const DeveloperPage = () => {
                 className={style.gridItem}
                 onClick={() => handleLetterClick(letter)}
               >
-                <img src={`${letter.assetImg}`} crossOrigin="anonymous" />
+                <img src={`/assets/desk/${letter.assetSeq - 26}.png`} crossOrigin="anonymous" />
                 <p className={style.nickname}>{`${letter.fromUserNickname}`}</p>
               </div>
             ))}
