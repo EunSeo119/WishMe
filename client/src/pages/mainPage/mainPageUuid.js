@@ -22,7 +22,7 @@ const MainPageUuid = () => {
                 <div className={styleMain.title}>
                     Wish Me
                     <img
-                        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/clover.png"
+                        src="/assets/login/clover.png"
                         width="85px"
                         crossOrigin="anonymous"
                     />
@@ -32,7 +32,7 @@ const MainPageUuid = () => {
             <div className={styleMain.bottombox}>
                 <div className={styleMain.kakao} onClick={kakaoLogin}>
                     <img
-                        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/kakao_login_medium_wide.png"
+                        src="/assets/login/kakao_login_medium_wide.png"
                         crossOrigin="anonymous"
                     ></img>
                 </div>
