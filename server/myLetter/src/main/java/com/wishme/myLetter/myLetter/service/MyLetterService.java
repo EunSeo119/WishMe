@@ -156,6 +156,7 @@ public class MyLetterService {
                     .assetImg(myAsset.getAssetImg())
                     .isPublic(letter.getIsPublic())
                     .isBad(letter.isBad())
+                    .assetSeq(letter.getAsset().getAssetSeq())
                     .build();
 
             myLetterResponseDtoList.add(myLetterResponseDto);
