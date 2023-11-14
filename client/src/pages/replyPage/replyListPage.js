@@ -71,13 +71,13 @@ const ReplyListPage = () => {
 
         switch (replySource.color) {
             case 'B':
-                imageUrl = 'https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/blueButton.png';
+                imageUrl = '/assets/letter/blueButton.png';
                 break;
             case 'P':
-                imageUrl = 'https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/pinkButton.png';
+                imageUrl = '/assets/letter/pinkButton.png';
                 break;
             case 'Y':
-                imageUrl = 'https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/letter/yellowButton.png';
+                imageUrl = '/assets/letter/yellowButton.png';
                 break;
             default:
                 imageUrl = replySource.color; // 다른 색상에 대한 기본 URL
