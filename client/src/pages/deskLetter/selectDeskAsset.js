@@ -76,7 +76,7 @@ const SelectDeskAsset = () => {
             className={`${style.gridItem} ${selected === index + indexOfFirstItem ? style.selected : ""}`}
             onClick={() => handleImageClick(index)}
         >
-            <img src={imageSource.assetImg} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
+            <img src={`/assets/desk/${imageSource.assetSeq - 26}.png`} alt={`선물 ${index + 1 + indexOfFirstItem}`} crossOrigin="anonymous" />
         </div>
     ));
 
