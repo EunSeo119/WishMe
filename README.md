@@ -204,11 +204,153 @@
 
 ## 개발환경
 
-개발환경~~
+- AWS
+    - ubuntu - 20.04
+    - nginx - 1.18.0
+    - docker - 24.0.6
+    - docker-compose - 2.21.0
+    - Openjdk - 11.0.20.1
+    - S3
+- BackEnd
+    - Java - 11
+    - springboot - 2.7.17
+- FrontEnd
+    - node - 18.13
+    - nginx - 1.25.3
+- Monitoring
+    - node exporter - 1.6.1
+    - grafana - 9.0.5
+    - prometheus - 2.47.2
+- IDE
+    - VS code
+    - intelliJ IDEA
+- 외부 활용 기능
+    - 카카오 API
+
 
 ## 프로젝트 구조
 
-프로젝트 구조~~
+### Frontend (React)
+
+```
+client
+├── src
+│   ├── apis
+│   │   └── tokenHttp
+│   ├── common
+│   │   └── Header
+│   ├── fonts
+│   ├── Modal
+│   │   ├── letterReportModal
+│   │   ├── shareURLModal
+│   │   └── MainPopup
+│   ├── pages
+│   │   ├── deskLetter
+│   │   ├── deskPage
+│   │   ├── developerPage
+│   │   ├── mainPage
+│   │   ├── deskPage
+│   │   ├── replyPage
+│   │   ├── schoolPage
+│   │   └── searchSchoolPage
+│   ├── APP
+│   ├── Hotjar
+│   ├── reportWebVitals
+│   └── RouteChangeTracker
+├── env
+├── package.json
+```
+
+### Backend (Spring Boot)
+
+```
+user
+├── domain
+│   ├── Asset
+│   ├── Reply
+│   ├── MyLetter
+│   ├── School
+│   ├── SchoolLetter
+│   └── User
+├── school
+│   └── model
+│       └── repository
+├── user
+│   ├── controller
+│   └── model
+│       ├── dto
+│       ├── repository
+│       └── service
+├── util
+│   ├── AES256
+│   ├── kakaoUtil
+│   └── JwtUtil
+```
+
+```
+myLetter
+├── asset
+│   ├── domain
+│   ├── dto
+│   └── repository
+├── myLetter
+│   ├── controller
+│   ├── domain
+│   ├── dto
+│   ├── repository
+│   └── service
+├── openAPI
+│   ├── controller
+│   ├── dto
+│   └── service
+├── school
+│   └── domain
+├── user
+│   ├── controller
+│   ├── domain
+│   ├── dto
+│   ├── repository
+│   └── service
+├── config
+│   ├── AES256
+│   └── repository
+├── common
+│   ├── domain
+│   ├── exception
+│   └── response
+├── util
+│   ├── AES256
+│   ├── BadWordFilter
+│   ├── kakaoUtil
+│   └── JwtUtil
+```
+
+```
+schoolLetter
+├── school
+│   ├── controller
+│   ├── domain
+│   ├── repository
+│   └── service
+├── schoolLetter
+│   ├── controller
+│   ├── domain
+│   ├── dto
+│   ├── repository
+│   └── service
+├── asset
+│   ├── domain
+│   ├── dto
+│   └── repository
+├── config
+│   ├── AES256
+│   └── repository
+├── common
+│   ├── exception
+│   ├── response
+│   └── service
+```
+
 
 ## 와이어프레임
 
