@@ -354,7 +354,7 @@ schoolLetter
 
 ## 와이어프레임
 
-![image.png](./image.png)
+![wireframe](./img/Figma_image.png)
 
 ## ERD
 
