@@ -358,7 +358,7 @@ schoolLetter
 
 ## ERD
 
-사진~~
+![erd](./img/ERD_Wishme.png)
 
 ## 서비스 아키텍쳐
 
