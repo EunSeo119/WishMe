@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DeveloperRepository extends JpaRepository<MyLetter, Long> {
+public interface DeveloperRepository extends JpaRepository<MyLetter, Long>, DeveloperRepositoryCustom {
 
     // Page 객체 개발자 편지 전체 조회
     Optional<Page<MyLetter>> findDeveloperLetterByToUser(User admin, Pageable pageable);
