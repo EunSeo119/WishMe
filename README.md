@@ -354,7 +354,7 @@ schoolLetter
 
 ## 와이어프레임
 
-사진~~
+![image.png](./image.png)
 
 ## ERD
 
