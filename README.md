@@ -419,8 +419,11 @@ schoolLetter
 ## 프로젝트 산출물
 
 ### 요구사항명세서
+![요구사항명세서](./img/demand.png)
 
 ### API 명세서
+![API_1](./img/api1.png)
+![API_2](./img/api2.png)
 
 ## 프로젝트 발표자료
 
