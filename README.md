@@ -445,5 +445,8 @@ schoolLetter
 
 ## 프로젝트 발표자료
 
-발표자료~~
+- [중간발표 Presentation](docs/Wish Me 중간 발표 자료.pdf)
+- [최종발표 Presentation](docs/Wish Me 최종 발표 자료.pdf)
+
+
 
