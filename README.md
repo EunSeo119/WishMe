@@ -54,6 +54,7 @@
 
 성과~~
 
+<br/>
 
 ## 주요기능
 
@@ -98,11 +99,13 @@
 **버그 신고하기**
 - 개발자 책상을 이용하여 편지를 남기거나, 버그 신고하기 메뉴를 통해 오류를 신고할 수 있습니다.
 
+<br/>
 
 ## 서비스 화면
 
 <img src="img/home.jpg" height="700px">
 
+<br/>
 
 ### 개인 책상 
 
@@ -155,6 +158,7 @@
 - 메뉴바의 `답장함 가기`를 통해 받은 답장 목록을 확인할 수 있습니다.
 - 하트 답장을 누르면 받은 답장을 확인할 수 있고, `내 책상 공유하기` 버튼을 누르면 내가 작성한 응원의 편지도 확인할 수 있습니다.
 
+<br/>
 
 ### 학교 칠판
 
@@ -172,6 +176,7 @@
 - `응원 하기`버튼을 통해 응원의 편지를 남갈 수  있습니다. 학교 칠판에 올라갈 응원의 문구를 선택하고 닉네임과 함께 응원의 편지를 작성할 수 있습니다.
 - 학교 편지는 모두에게 공개되는 편지입니다. 부적절한 글에는 신고가 가능합니다.
 
+<br/>
 
 ### 메뉴바
 
@@ -187,7 +192,7 @@
 
 - 메뉴바의 `개발자 책상 가기`로 이동하면 개발자에게 문의하거나 편지를 작성할 수 있습니다. 
 
-
+<br/>
 
 
 ## 기술차별점
@@ -228,6 +233,8 @@
     - 카카오 API
 
 
+<br/>
+
 ## 프로젝트 구조
 
 ### Frontend (React)
@@ -260,6 +267,7 @@ client
 ├── env
 ├── package.json
 ```
+<br/>
 
 ### Backend (Spring Boot)
 
@@ -351,18 +359,24 @@ schoolLetter
 │   └── service
 ```
 
+<br/>
 
 ## 와이어프레임
 
 ![wireframe](./img/Figma_image.png)
+<br/>
 
 ## ERD
 
 ![erd](./img/ERD_Wishme.png)
 
+<br/>
+
 ## 서비스 아키텍쳐
 
 ![architecture](./img/architecture.png)
+
+<br/>
 
 ## 협업 환경
 
@@ -380,6 +394,7 @@ schoolLetter
 - `feature`: 기능 단위 개발을 위한 브랜치로 develop에서 분기하여 개발이 끝나면 각각 베이스 브랜치로 병합됩니다.
 
 
+<br/>
 
 ### Jira로 협업하기
 
@@ -394,6 +409,7 @@ schoolLetter
 
 `번다운 차트`: 스프린트의 목표를 달성하기 위해 남은 시간과 남은 스토리 포인트를 확인해 프로젝트의 진척도를 파악할 수 있는 지표입니다.
 
+<br/>
 
 ### Notion으로 협업하기
 
@@ -405,7 +421,7 @@ schoolLetter
 - `미팅`: 아이디어 회의, 기획 회의, 개발 회의 등을 회의록으로 기록하였습니다.
 - `자료함`: 요구사항 정의서, 기능명세서, API 명세서 등 공유 문서를 기록하여 모두가 동일한 목표를 가지고 개발 할 수 있도록 하였습니다.
 
-
+<br/>
 
 ## 팀원
 
@@ -415,11 +431,13 @@ schoolLetter
 | <img src="https://avatars.githubusercontent.com/u/64001133?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/90086799?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/104357560?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/61938768?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/58421346?v=4" width="100" height="100"> |
 |                                                                               **Full-Stack**                                                                                |                                        **Full-Stack**                                        |                                        **Full-Stack**                                        |                                       **Infra**                                        |                                      **Infra**                                       |                                       
 
+<br/>
 
 ## 프로젝트 산출물
 
 ### 요구사항명세서
 ![요구사항명세서](./img/demand.png)
+<br/>
 
 ### API 명세서
 ![API_1](./img/api1.png)
