@@ -53,8 +53,8 @@
 ## 성과
 
 <p float="left">
-  <img src="img/성과1.png" width="48%" />
-  <img src="img/성과2.png" width="48%" />
+  <img src="img/result1.png" width="48%" />
+  <img src="img/result2.png" width="48%" />
 </p>
 
 - 운영 기간: 약 **2주**(23.11.01 ~ 11.15)
@@ -233,7 +233,7 @@
   - 레코딩
     - Insights에 뜨는 빠른 클릭, 배달 못 한 클릭, 빠른 뒤로 가기 같은 문제 상황을 분석해 볼 수 있는 상황에 대한 모니터링을 해보았습니다.
   - 열지도
-    <img src="img/clarity.PNG" >
+    <p><img src="img/clarity.PNG" ></p>
     - 열지도의 히트맵을 통해 가장 많은 이벤트가 일어나는 부분과 적은 이벤트가 일어나는 부분을 확인해보며 원했던 이벤트가 진행되지 않는 이유를 분석하고 수정 후 반응을 확인했습니다.
     - 위 이미지는 히트맵 분석으로 수정한 UI를 통해 원했던 이벤트를 성공적으로 일으킬 수 있었던 결과물 입니다.
 
@@ -258,7 +258,7 @@
 
 ## 홍보
 
-![SNS](img/홍보.png)
+![SNS](img/promotion.png)
 
 ## 개발환경
 
