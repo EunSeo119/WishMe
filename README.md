@@ -22,6 +22,7 @@
 13. [팀원](#팀원)
 14. [프로젝트 산출물](#프로젝트-산출물)
 15. [프로젝트 발표자료](#프로젝트-발표자료)
+16. [프로젝트 UCC](#프로젝트-UCC)
 
 ## 프로젝트 기획 배경
 
@@ -509,4 +510,7 @@ schoolLetter
 - [최종발표 Presentation](docs/Wish Me 최종 발표 자료.pdf)
 
 
+## 프로젝트 UCC
+
+- [위시미 UCC 보러가기](https://www.youtube.com/watch?v=80YW2Lj9vfk)
 
