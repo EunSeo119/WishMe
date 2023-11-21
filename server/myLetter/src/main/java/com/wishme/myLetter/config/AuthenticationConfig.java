@@ -26,7 +26,7 @@ public class AuthenticationConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/api/users/login", "/api/my/letter/write", "/api/my/letter/assets", "/api/my/letter/all/*", "/api/developer/**").permitAll()
+                .antMatchers("/api/users/login", "/api/my/letter/**", "/api/developer/**", "/api/gpt/chat").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/**").authenticated()

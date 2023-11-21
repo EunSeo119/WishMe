@@ -4,6 +4,7 @@ import axios from 'axios'
 import style from './schoolLetterAssetList.module.css'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SchooLetterAssetList = () => {
   const [schoolAssetList, setSchoolAssetList] = useState([])
@@ -11,6 +12,7 @@ const SchooLetterAssetList = () => {
   const [totalPage, setTotalPage] = useState(1)
   const [selectAsset, setSelectAsset] = useState()
   const [selectedItemIndex, setSelectedItemIndex] = useState(null)
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   const { schoolUuid } = useParams()
   const navigate = useNavigate()
@@ -40,16 +42,13 @@ const SchooLetterAssetList = () => {
 
   useEffect(() => {
     axios
-      .get(`https://wishme.co.kr/api/school/letter/assets`)
-      // .get(`http://localhost:8082/api/school/letter/assets`)
+      .get(`${SCHOOL_SERVER}/api/school/letter/assets`)
       .then((response) => {
         const data = response.data
-        setSchoolAssetList(data.schoolAssertList)
-        setTotalPage(Math.ceil(data.schoolAssertList.length / 12))
+        setSchoolAssetList(data)
+        setTotalPage(Math.ceil(data.length / 12))
       })
-      .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
-      })
+      .catch((error) => {})
   }, [schoolUuid])
 
   return (

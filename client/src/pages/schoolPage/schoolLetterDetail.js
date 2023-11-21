@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack, IoIosArrowForward, IoIosAlert } from 'react-icons/io'
 import { PiSirenLight } from 'react-icons/pi'
 import LetterReportModal from '../../Modal/letterReportModal'
+import tokenHttp from '../../apis/tokenHttp'
+
 const SchoolLetterDetail = () => {
-  const { schoolUuid, letterId } = useParams()
+  const { schoolUuid, letterId, page } = useParams()
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [schoolName, setSchoolName] = useState('')
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
   const navigate = useNavigate()
 
@@ -25,29 +28,19 @@ const SchoolLetterDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`https://wishme.co.kr/api/school/letter/one/${letterId}`)
-      // .get(`http://localhost:8082/api/school/letter/one/${letterId}`)
+      .get(`${SCHOOL_SERVER}/api/school/letter/one/${letterId}`)
       .then((response) => {
         const data = response.data
-        console.log(data)
-        setSchoolName(data.schoolLetterDetail.schoolName)
-        setContent(data.schoolLetterDetail.content)
-        setNickname(data.schoolLetterDetail.nickname)
+        // console.log(data)
+        setSchoolName(data.schoolName)
+        setContent(data.content)
+        setNickname(data.nickname)
       })
-      .catch((error) => {
-        // console.error('API 요청 중 오류 발생:', error)
-      })
+      .catch((error) => {})
   }, [content])
 
   const goPre = () => {
-    // navigate(`/school/${schoolUuid}`)
-    navigate(-1)
-  }
-
-  const handleReportClick = () => {
-    // navigate(`/school/${schoolUuid}`)
-    //letterId 이게 편지 아이디요
-    navigate(-1)
+    navigate(`/school/${schoolUuid}/${page}`)
   }
 
   return (

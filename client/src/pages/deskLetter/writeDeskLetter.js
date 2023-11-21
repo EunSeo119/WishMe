@@ -4,7 +4,8 @@ import axios from 'axios';
 import style from "./writeDeskLetter.module.css";
 import { Link, useNavigate } from "react-router-dom";  // useNavigate import 추가
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-// import { reloadData } from '../deskPage/deskPage'; // 경로에 맞게 수정
+import tokenHttp from '../../apis/tokenHttp';
+import { PulseLoader } from "react-spinners";
 
 const WriteDeskLetter = () => {
     const { assetSeq, deskUuid } = useParams();
@@ -13,13 +14,29 @@ const WriteDeskLetter = () => {
     const [isPublic, setIsPublic] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedButton, setSelectedButton] = useState('public'); // 'public' 또는 'private' 값을 가질 수 있음
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-    // const { deskUuid } = useParams();
+    const [isLoading, setIsLoading] = useState(false);
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
 
     const navigate = useNavigate();
 
+
+    const handleNicknameChange = (e) => {
+
+        const inputText = e.target.value;
+
+        if (inputText.length <= 13) {
+            setNickname(e.target.value)
+        } else {
+            alert('닉네임은 13자 이내로 작성해주세요.');
+        }
+
+    }
+
     const handleSave = async () => {
         try {
+            setShowModal(false);
+            setIsLoading(true);
+
             const data = {
                 assetSeq: Number(assetSeq),
                 fromUserNickname: nickname,
@@ -29,20 +46,23 @@ const WriteDeskLetter = () => {
             };
 
             const AccessToken = localStorage.getItem("AccessToken"); // 토큰 값을 가져오는 코드
+            const RefreshToken = localStorage.getItem("RefreshToken");
             const headers = {};
 
             if (AccessToken) {
                 headers.Authorization = `Bearer ${AccessToken}`;
+                headers.RefreshToken = `${RefreshToken}`;
             }
 
-            const response = await axios({
+            const response = await tokenHttp({
                 method: "post",
-                url: `${SERVER_URL}/api/my/letter/write`,
+                url: `${MYLETTER_SERVER}/api/my/letter/write`,
                 headers,
                 data: data
             });
 
             alert("응원이 성공적으로 등록되었습니다.");
+            setIsLoading(false);
             return response.data; // API 응답 데이터 반환
         } catch (error) {
             alert("응원 등록에 실패했습니다.");
@@ -99,7 +119,7 @@ const WriteDeskLetter = () => {
                     id="nickname"
                     value={nickname}
                     placeholder="닉네임을 입력해주세요."
-                    onChange={e => setNickname(e.target.value)}
+                    onChange={handleNicknameChange}
                 />
             </div>
 
@@ -110,7 +130,8 @@ const WriteDeskLetter = () => {
                 />
                 <textarea
                     className={style.contentTextarea}
-                    placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!"
+                    placeholder="응원의 글을 적어주세요. 11월 11일 공개됩니다!
+                    ※ 부적절한 내용이 포함된 글은 공개되지 않을 수 있습니다."
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />{' '}
@@ -143,6 +164,11 @@ const WriteDeskLetter = () => {
                 <button className={style.submitButton} onClick={handleSubmit}>응원 남기기</button>
             </div>
 
+            {/* 로딩 UI */}
+            {isLoading && (
+                <Loading />
+            )}
+
             {showModal && (
                 <Modal closeModal={closeModal} handleModalConfirm={handleModalConfirm} />
             )}
@@ -161,6 +187,18 @@ const Modal = ({ closeModal, handleModalConfirm }) => {
                         handleModalConfirm();
                     }} >저장</button>
                 </div>
+            </div>
+        </div>
+    );
+};
+
+const Loading = () => {
+    return (
+        <div className={style.modalOverlay}>
+            <div className={style.modalContent} style={{ height: '18vh' }}>
+                <p>편지 내용을 필터링 중입니다. <br />
+                    잠시만 기다려주세요!</p>
+                <PulseLoader color="#176124" />
             </div>
         </div>
     );

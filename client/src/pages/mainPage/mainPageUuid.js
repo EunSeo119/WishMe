@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const MainPageUuid = () => {
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
     const { deskUuid } = useParams();
     const navigate = useNavigate();
     const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-    const REDIRECT_URI = `https://wishme.co.kr/kakao/callback`;
+    const REDIRECT_URI = `${MYLETTER_SERVER}/kakao/callback`;
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const kakaoLogin = () => {
@@ -21,7 +22,7 @@ const MainPageUuid = () => {
                 <div className={styleMain.title}>
                     Wish Me
                     <img
-                        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/clover.png"
+                        src="/assets/login/clover.png"
                         width="85px"
                         crossOrigin="anonymous"
                     />
@@ -31,16 +32,10 @@ const MainPageUuid = () => {
             <div className={styleMain.bottombox}>
                 <div className={styleMain.kakao} onClick={kakaoLogin}>
                     <img
-                        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/kakao_login_medium_wide.png"
+                        src="/assets/login/kakao_login_medium_wide.png"
                         crossOrigin="anonymous"
                     ></img>
                 </div>
-                {/* <div
-                    className={styleMain.nologin}
-                    onClick={() => navigate(`/searchSchool`)}
-                >
-                    로그인하지 않고 이용하기
-                </div> */}
             </div>
         </div>
     );

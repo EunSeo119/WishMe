@@ -16,7 +16,14 @@ import SearchSchoolPage from './pages/searchSchoolPage/searchSchoolPage'
 import DeveloperPage from './pages/developerPage/developerPage'
 import SelectDeveloperAsset from './pages/developerPage/selectDeveloperAsset'
 import WriteDeveloperLetter from './pages/developerPage/writeDeveloperLetter'
+import DeveloperLetterDetail from './pages/developerPage/developerLetterDetail'
+import ReplyListPage from './pages/replyPage/replyListPage'
+import ReplyWritePage from './pages/replyPage/replyWritePage'
+import ReplyDetailPage from './pages/replyPage/replyDetailPage'
+import DeskLetterDetail from './pages/deskLetter/deskLetterDetail'
+import MyLetterDetailPage from './pages/replyPage/myLetterDetailPage'
 import style from './app.module.css'
+
 
 function App() {
   return (
@@ -27,11 +34,11 @@ function App() {
         <Route path="/searchSchool" element={<SearchSchoolPage />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/kakao/callback" element={<KakaoRedirectPage />}></Route>
-        <Route path="/desk/:deskUuid" element={<DeskPage />}></Route>
         <Route
-          path="/desk/:deskUuid/checkLogin"
-          element={<CheckDeskLogin />}
-        />
+          path="/desk/:deskUuid/:letterPage?"
+          element={<DeskPage />}
+        ></Route>
+        <Route path="/desk/:deskUuid/checkLogin" element={<CheckDeskLogin />} />
         <Route
           path="/desk/:deskUuid/selectAsset"
           element={<SelectDeskAsset />}
@@ -40,10 +47,17 @@ function App() {
           path="/desk/:deskUuid/writeLetter/:assetSeq"
           element={<WriteDeskLetter />}
         />
-        {/* 추가 */}
-        <Route path="/school/:schoolUuid" element={<SchoolPage />}></Route>
         <Route
-          path="/schoolLetterDetail/:letterId"
+          path="/deskLetterDetail/:deskUuid/:letterId/:page"
+          element={<DeskLetterDetail />}
+        />
+        {/* 학교 */}
+        <Route
+          path="/school/:schoolUuid/:letterPage?"
+          element={<SchoolPage />}
+        ></Route>
+        <Route
+          path="/schoolLetterDetail/:schoolUuid/:letterId/:page"
           element={<SchooLetterDetaillPage />}
         />
         <Route
@@ -55,7 +69,10 @@ function App() {
           element={<SchooLetterWritePage />}
         />
         {/* 개발자 편지 */}
-        <Route path="/developer" element={<DeveloperPage />}></Route>
+        <Route
+          path="/developer/:letterPage?"
+          element={<DeveloperPage />}
+        ></Route>
         <Route
           path="/developer/selectAsset"
           element={<SelectDeveloperAsset />}
@@ -63,6 +80,18 @@ function App() {
         <Route
           path="/developer/writeLetter/:assetSeq"
           element={<WriteDeveloperLetter />}
+        />
+        <Route
+          path="/developerLetterDetail/:page/:letterId"
+          element={<DeveloperLetterDetail />}
+        />
+        {/* 답장 */}
+        <Route path="/replyList" element={<ReplyListPage />}></Route>
+        <Route path="/replyWritePage/:letterId" element={<ReplyWritePage />} />
+        <Route path="/replyDetailPage/:replyId" element={<ReplyDetailPage />} />
+        <Route
+          path="/myLetterDetailPage/:letterId"
+          element={<MyLetterDetailPage />}
         />
       </Routes>
     </div>

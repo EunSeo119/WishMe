@@ -6,30 +6,55 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL
+    const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
+    const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
-    useEffect(() => {}, []);
+    useEffect(() => { }, []);
     const navigate = useNavigate();
 
     // 페이지 URL 공유하기
     const letterReport = async () => {
         try {
             if (isSchool) {
-                // await 신고로직작성
+                // await 학교 편지 신고 로직작성
                 axios({
                     method: "put",
-                    url: `${SERVER_URL}/api/school/letter/report/${letterId}`,
+                    url: `${SCHOOL_SERVER}/api/school/letter/report/${letterId}`,
                 })
                     .then((response) => {
                         alert("학교편지 신고가 완료되었습니다.");
                         navigate(-1);
                     })
                     .catch((error) => {
-                      alert("학교편지 신고에 실패하였습니다.");
+                        alert("학교편지 신고에 실패하였습니다.");
                     });
+            } else {
+                const AccessToken = localStorage.getItem('AccessToken')
+                const RefreshToken = localStorage.getItem('RefreshToken')
+
+                if (AccessToken) {
+                    // await 개인 편지 신고 로직작성
+                    axios({
+                        method: "put",
+                        url: `${MYLETTER_SERVER}/api/my/letter/report/${letterId}`,
+                        headers: {
+                            Authorization: `Bearer ${AccessToken}`,
+                            RefreshToken: `${RefreshToken}`
+                        }
+                    })
+                        .then((response) => {
+                            alert("개인편지 신고가 완료되었습니다.");
+                            navigate(-1);
+                        })
+                        .catch((error) => {
+                            alert("개인편지 신고에 실패하였습니다.");
+                        });
+                } else {
+                    alert("신고할 권한이 없습니다.");
+                }
+
             }
         } catch (err) {
-            // console.log(err);
         }
     };
 
@@ -37,7 +62,6 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
 
     return (
         <div className={style.Modalmodal}>
-            {/* <div className={style.Modalmodal}> */}
             <div className={style.Modalclose} onClick={onClose}>
                 <IoIosClose />
             </div>
@@ -56,7 +80,6 @@ function LetterReportModal({ isOpen, onClose, isSchool, letterId }) {
                     신고하기
                 </div>
             </div>
-            {/* </div> */}
         </div>
     );
 }

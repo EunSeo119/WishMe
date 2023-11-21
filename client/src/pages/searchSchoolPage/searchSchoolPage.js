@@ -3,13 +3,14 @@ import style from './searchSchoolPage.module.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io'
+import tokenHttp from '../../apis/tokenHttp'
 
 const SearchSchoolPage = () => {
   const [tempSchoolName, setTempSchoolName] = useState('')
   const [userSchoolUuid, setUserSchoolUuid] = useState(0)
   const [schoolList, setSchoolList] = useState([])
   const [selectedIdx, setSelectedIdx] = useState(-1)
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL
+  const USER_SERVER = process.env.REACT_APP_USER_SERVER;
 
   const navigate = useNavigate()
 
@@ -34,15 +35,15 @@ const SearchSchoolPage = () => {
     }
   }
 
-    // 마이페이지로 이동
-    const goMypage = () => {
-        const AccessToken = localStorage.getItem("AccessToken");
-        if(AccessToken){
-            navigate(`/mypage`);
-        }else{
-            alert("로그인 후 이용가능합니다!");
-        }
+  // 마이페이지로 이동
+  const goMypage = () => {
+    const AccessToken = localStorage.getItem('AccessToken')
+    if (AccessToken) {
+      navigate(`/mypage`)
+    } else {
+      alert('로그인 후 이용가능합니다!')
     }
+  }
 
   // 학교 수정
   const changeSchool = (e) => {
@@ -52,9 +53,7 @@ const SearchSchoolPage = () => {
   // 학교 선택
   const selectSchool = (schoolName, schoolUuid, idx) => {
     setTempSchoolName(schoolName)
-    // console.log(schoolUuid);
     setUserSchoolUuid(schoolUuid)
-    // console.log(schoolName);
     setSelectedIdx(idx)
   }
 
@@ -62,17 +61,15 @@ const SearchSchoolPage = () => {
   const searchSchool = () => {
     axios({
       method: 'post',
-      url: `${SERVER_URL}/api/users/search/school`,
+      url: `${USER_SERVER}/api/users/search/school`,
       data: {
         schoolName: tempSchoolName
       }
     })
       .then((res) => {
         setSchoolList(res.data.data)
-        //   console.log(res.data.data);
       })
       .catch((error) => {
-        //   console.log('검색 중 오류 발생: ' + error)
       })
   }
 
