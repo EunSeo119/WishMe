@@ -273,13 +273,19 @@
 - BackEnd
     - Java - 11
     - springboot - 2.7.17
+    - JPA
+- DB
+    - MySQL
 - FrontEnd
     - node - 18.13
     - nginx - 1.25.3
+    - react
 - Monitoring
     - node exporter - 1.6.1
     - grafana - 9.0.5
     - prometheus - 2.47.2
+    - Google Analytics
+    - clarity
 - IDE
     - VS code
     - intelliJ IDEA
