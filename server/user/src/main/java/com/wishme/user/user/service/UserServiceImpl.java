@@ -1,11 +1,11 @@
-package com.wishme.user.user.model.service;
+package com.wishme.user.user.service;
 
-import com.wishme.user.domain.School;
-import com.wishme.user.domain.User;
-import com.wishme.user.school.model.repository.SchoolRepository;
-import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
-import com.wishme.user.user.model.dto.response.SearchSchoolResponseDto;
-import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.school.domain.School;
+import com.wishme.user.user.domain.User;
+import com.wishme.user.school.repository.SchoolRepository;
+import com.wishme.user.user.dto.request.SearchSchoolRequestDto;
+import com.wishme.user.user.dto.response.SearchSchoolResponseDto;
+import com.wishme.user.user.repository.UserRepository;
 import com.wishme.user.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
 
-    @Value("{key.AES256_Key}")
+    @Value("${key.AES256_Key}")
     private String key;
 
-    @Value("{jwt.secret.key}")
+    @Value("${jwt.secret.key}")
     private String secretKey;
 
     @Override

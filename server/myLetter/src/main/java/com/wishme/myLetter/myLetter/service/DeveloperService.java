@@ -91,8 +91,6 @@ public class DeveloperService {
         User admin = userRepository.findByUserSeq(1L)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
-        Integer totalCnt = developerRepository.findTotalCnt(admin);
-
         Page<MyLetter> myLetterPage = developerRepository.findDeveloperLetterByToUser(admin, pageable)
                 .orElseThrow(() -> new CustomException(ErrorCode.LETTER_NOT_FOUND_ERROR));
 

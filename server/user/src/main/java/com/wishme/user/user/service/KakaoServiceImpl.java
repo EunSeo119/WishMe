@@ -1,9 +1,8 @@
-package com.wishme.user.user.model.service;
+package com.wishme.user.user.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wishme.user.domain.User;
-import com.wishme.user.user.model.dto.request.KakaoUserInfoDto;
-import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.user.domain.User;
+import com.wishme.user.user.dto.request.KakaoUserInfoDto;
+import com.wishme.user.user.repository.UserRepository;
 import com.wishme.user.util.AES256;
 import com.wishme.user.util.JwtUtil;
 import com.wishme.user.util.KakaoUtil;
@@ -27,10 +26,10 @@ import java.util.UUID;
 @Slf4j
 public class KakaoServiceImpl implements KakaoService {
 
-    @Value("{jwt.secret.key}")
+    @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Value("{key.AES256_Key}")
+    @Value("${key.AES256_Key}")
     private String key;
 
     private final KakaoUtil kakaoUtil;

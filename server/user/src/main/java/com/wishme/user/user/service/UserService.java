@@ -1,6 +1,6 @@
-package com.wishme.user.user.model.service;
+package com.wishme.user.user.service;
 
-import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
+import com.wishme.user.user.dto.request.SearchSchoolRequestDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.wishme.user.domain;
+package com.wishme.user.school.domain;
 
 import lombok.*;
 

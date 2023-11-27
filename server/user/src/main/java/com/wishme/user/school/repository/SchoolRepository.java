@@ -1,6 +1,6 @@
-package com.wishme.user.school.model.repository;
+package com.wishme.user.school.repository;
 
-import com.wishme.user.domain.School;
+import com.wishme.user.school.domain.School;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;

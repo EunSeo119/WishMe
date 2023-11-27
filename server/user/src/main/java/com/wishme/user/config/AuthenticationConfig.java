@@ -1,6 +1,6 @@
 package com.wishme.user.config;
 
-import com.wishme.user.user.model.service.UserService;
+import com.wishme.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

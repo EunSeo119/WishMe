@@ -1,9 +1,8 @@
 package com.wishme.user.user.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
-import com.wishme.user.user.model.service.KakaoService;
-import com.wishme.user.user.model.service.UserService;
+import com.wishme.user.user.dto.request.SearchSchoolRequestDto;
+import com.wishme.user.user.service.KakaoService;
+import com.wishme.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

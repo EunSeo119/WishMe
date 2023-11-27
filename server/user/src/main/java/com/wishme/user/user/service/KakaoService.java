@@ -1,4 +1,4 @@
-package com.wishme.user.user.model.service;
+package com.wishme.user.user.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;

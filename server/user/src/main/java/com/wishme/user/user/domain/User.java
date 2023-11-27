@@ -1,5 +1,7 @@
-package com.wishme.user.domain;
+package com.wishme.user.user.domain;
 
+import com.wishme.user.common.domain.BaseTimeEntity;
+import com.wishme.user.myLetter.domain.MyLetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
