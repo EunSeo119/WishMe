@@ -105,6 +105,7 @@ public class ReplyService {
         return myReplyListResponseDto;
     }
 
+    @Transactional
     public ReplyDetailResponseDto getReplyDetail(Authentication authentication, Long replySeq) throws Exception{
         Reply reply = replyRepository.findByReplySeq(replySeq)
                 .orElseThrow(() -> new EmptyResultDataAccessException("해당 답장은 존재하지 않습니다.", 1));
@@ -124,6 +125,8 @@ public class ReplyService {
                 .letterSeq(reply.getMyLetter().getMyLetterSeq())
                 .color(reply.getColor())
                 .build();
+
+        reply.updateIsRead();
 
         return replyDetailResponseDto;
     }

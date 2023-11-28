@@ -4,6 +4,7 @@ import com.wishme.user.user.dto.request.SearchSchoolRequestDto;
 import com.wishme.user.user.service.KakaoService;
 import com.wishme.user.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -54,4 +55,12 @@ public class UserController {
 //    public ResponseEntity<?> getAccessTokenByRefreshToken(@RequestHeader("RefreshToken") String refreshToken) {
 //        return userService.getAccessTokenByRefreshToken(refreshToken);
 //    }
+
+    @GetMapping("/noEmail/{userSeq}")
+    public ResponseEntity<?> noEmail(@PathVariable("userSeq") Long userSeq) {
+
+        userService.noEmail(userSeq);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body("");
+    }
 }

@@ -37,6 +37,9 @@ public class User extends BaseTimeEntity {
     @Column(name = "refresh_token")
     private String refreshToken;
 
+    @Column(name = "no_mail", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private Boolean noMail;
+
     @OneToMany(mappedBy = "toUser")
     private List<MyLetter> myLetters = new ArrayList<>();
 
@@ -44,5 +47,9 @@ public class User extends BaseTimeEntity {
         this.email = email;
         this.userNickname = userNickname;
         this.uuid = uuid;
+    }
+
+    public void updateNoEmail() {
+        this.noMail = true;
     }
 }

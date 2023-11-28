@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class AuthenticationConfig {
 
-    @Value("{jwt.secret.key}")
+    @Value("${jwt.secret.key}")
     private String JwtSecretKey;
     private final UserService userService;
 
@@ -28,7 +28,7 @@ public class AuthenticationConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/api/users/login", "/api/users/search/school").permitAll()
+                .antMatchers("/api/users/login", "/api/users/search/school", "/api/users/noEmail/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/api/**").authenticated()

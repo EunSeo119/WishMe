@@ -33,4 +33,7 @@ public class Reply extends BaseTimeEntity {
 
     @Column(name = "from_user_nickname", nullable = false)
     private String fromUserNickname;
+
+    @Column(name = "is_read", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private Boolean isRead;
 }
