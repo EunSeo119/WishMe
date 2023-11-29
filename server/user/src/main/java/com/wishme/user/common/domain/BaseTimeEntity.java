@@ -1,4 +1,4 @@
-package com.wishme.user.domain;
+package com.wishme.user.common.domain;
 
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,15 +1,16 @@
-package com.wishme.user.user.model.service;
+package com.wishme.user.user.service;
 
-import com.wishme.user.domain.School;
-import com.wishme.user.domain.User;
-import com.wishme.user.school.model.repository.SchoolRepository;
-import com.wishme.user.user.model.dto.request.SearchSchoolRequestDto;
-import com.wishme.user.user.model.dto.response.SearchSchoolResponseDto;
-import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.school.domain.School;
+import com.wishme.user.user.domain.User;
+import com.wishme.user.school.repository.SchoolRepository;
+import com.wishme.user.user.dto.request.SearchSchoolRequestDto;
+import com.wishme.user.user.dto.response.SearchSchoolResponseDto;
+import com.wishme.user.user.repository.UserRepository;
 import com.wishme.user.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,24 +25,24 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
 
-    @Value("{key.AES256_Key}")
+    @Value("${key.AES256_Key}")
     private String key;
 
-    @Value("{jwt.secret.key}")
+    @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Override
     public ResponseEntity<?> modifyUserInfo(Map<String, String> request, Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            User user = userRepository.findByUserSeq(userSeq);
+            User user = userRepository.findByUserSeq(userSeq)
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
             String newUserNickname = request.get("userNickname");
             String userSchoolSeq = request.get("userSchoolSeq");
 
@@ -62,13 +63,13 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @Override
     public ResponseEntity<?> registerSchool(Map<String, String> request, Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
         
         try {
-            User user = userRepository.findByUserSeq(userSeq);
+            User user = userRepository.findByUserSeq(userSeq)
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
             String userSchoolSeq = request.get("userSchoolSeq");
 
             user.setUserSchoolSeq(Integer.parseInt(userSchoolSeq));
@@ -84,7 +85,6 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(resultMap, status);     
     }
 
-    @Override
     public ResponseEntity<?> searchSchool(SearchSchoolRequestDto searchSchoolRequestDto) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
@@ -115,13 +115,13 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @Override
     public ResponseEntity<?> getUserInfo(Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status = null;
 
         try {
-            User user = userRepository.findByUserSeq(userSeq);
+            User user = userRepository.findByUserSeq(userSeq)
+                    .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
 
             Map<String, Object> data = new HashMap<>();
             data.put("userNickname", user.getUserNickname());
@@ -148,7 +148,6 @@ public class UserServiceImpl implements UserService {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @Override
     public Map<String, String> getAccessTokenByRefreshToken(String refreshToken) {
         Map<String, String> resultMap = new HashMap<>();
 //        HttpStatus status = null;
@@ -175,6 +174,13 @@ public class UserServiceImpl implements UserService {
 
 //        return new ResponseEntity<>(resultMap, status);
         return resultMap;
+    }
+
+    @Transactional
+    public void noEmail(Long userSeq) {
+        User user = userRepository.findByUserSeq(userSeq)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
+        user.updateNoEmail();
     }
 
 }

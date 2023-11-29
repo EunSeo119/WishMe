@@ -3,7 +3,7 @@ package com.wishme.user.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wishme.user.user.model.dto.request.KakaoUserInfoDto;
+import com.wishme.user.user.dto.request.KakaoUserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
