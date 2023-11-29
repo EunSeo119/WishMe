@@ -1,5 +1,8 @@
-package com.wishme.user.domain;
+package com.wishme.user.myLetter.domain;
 
+import com.wishme.user.common.domain.BaseTimeEntity;
+import com.wishme.user.myLetter.domain.MyLetter;
+import com.wishme.user.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,4 +33,7 @@ public class Reply extends BaseTimeEntity {
 
     @Column(name = "from_user_nickname", nullable = false)
     private String fromUserNickname;
+
+    @Column(name = "is_read", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private Boolean isRead;
 }

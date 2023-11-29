@@ -1,4 +1,4 @@
-package com.wishme.user.user.model.dto.request;
+package com.wishme.user.user.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

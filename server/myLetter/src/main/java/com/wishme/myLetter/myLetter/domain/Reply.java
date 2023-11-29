@@ -41,6 +41,9 @@ public class Reply extends BaseTimeEntity {
     @Column(name = "letter_color", nullable = false)
     private char color;
 
+    @Column(name = "is_read", nullable = false, columnDefinition = "TINYINT(1) default 0")
+    private Boolean isRead;
+
     @Builder
     public Reply(Long replySeq, MyLetter myLetter, User toUser, String content, String fromUserNickname, char color, User fromUser) {
         this.replySeq = replySeq;
@@ -50,6 +53,10 @@ public class Reply extends BaseTimeEntity {
         this.fromUserNickname = fromUserNickname;
         this.color = color;
         this.fromUser = fromUser;
+    }
+
+    public void updateIsRead() {
+        this.isRead = true;
     }
 }
 
