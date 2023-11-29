@@ -40,7 +40,8 @@ public class AlarmService {
         String message = "<html><body>";
         message += "<h3 style='color: #333;'>저희 Wish Me는 11월 30일 서비스를 종료하게 되었습니다.</h3>";
         message += "<p style='color: #666;'>받으신 편지를 보관하고 싶으신 분들은 <a href='https://wishme.co.kr/'>Wish Me</a>에서 제공하는 편지 다운로드 기능을 이용하여 다운받아 주세요!</p>";
-        message += "<p style='color: #888;'><a href='http://localhost:8081/api/users/noEmail/"+user.getUserSeq()+"'>다시 보지 않기</a></p>";
+        message += "<p style='color: #666;'>저희 서비스를 사랑해주셔서 감사했습니다!</p>";
+        message += "<p style='color: #888;'><a href='https://k9b105.p.ssafy.io/api/users/noEmail/"+user.getUserSeq()+"'>다시 보지 않기</a></p>";
         message += "</body></html>";
         MailContentDto mailContentDto = MailContentDto.builder()
                 .address(decryptEmail)

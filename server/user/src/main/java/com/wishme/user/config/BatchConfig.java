@@ -25,11 +25,9 @@ import java.util.List;
 @ComponentScan(basePackages={"org.springframework.batch.core.configuration.annotation"})
 public class BatchConfig {
 
-    @Autowired
-    public JobBuilderFactory jobBuilderFactory;
+    public final JobBuilderFactory jobBuilderFactory;
 
-    @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    public final StepBuilderFactory stepBuilderFactory;
 
     private final UserRepository userRepository;
 
@@ -40,7 +38,6 @@ public class BatchConfig {
 
         Job job = jobBuilderFactory.get("job")
                 .start(startStep())
-//                .next(nextStep())
                 .next(lastStep())
                 .build();
 
