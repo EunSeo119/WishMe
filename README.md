@@ -506,8 +506,8 @@ schoolLetter
 
 ## 프로젝트 발표자료
 
-- [중간발표 Presentation](docs/Wish Me 중간 발표 자료.pdf)
-- [최종발표 Presentation](docs/Wish Me 최종 발표 자료.pdf)
+- [중간발표 Presentation](docs/Wish_Me_중간_발표_자료.pdf)
+- [최종발표 Presentation](docs/Wish_Me_최종_발표_자료.pdf)
 
 
 ## 프로젝트 UCC
