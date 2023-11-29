@@ -1,9 +1,8 @@
 package com.wishme.user.config;
 
-import com.wishme.user.user.model.service.UserService;
+import com.wishme.user.user.service.UserService;
 import com.wishme.user.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

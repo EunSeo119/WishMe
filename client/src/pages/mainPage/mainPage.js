@@ -19,22 +19,22 @@ const MainPage = () => {
                 <div className={styleMain.title}>
                     Wish Me
                     <img
-                        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/clover.png"
+                        src="/assets/login/clover.png"
                         width="85px"
                         crossOrigin="anonymous"
                     />
                 </div>
                 <div className={styleMain.subTitle}>나의 행운을 빌어줘</div>
                 <div className={styleMain.desc}>
-                    개인 책상에 온 편지는 <b>11월 11일</b>부터 확인 가능해요! <br/>
-                    편지 Open 후, 답장도 주고 받을 수 있어요. <br/>
+                    개인 책상에 온 편지는 <b>11월 11일</b>부터 확인 가능해요! <br />
+                    편지 Open 후, 답장도 주고 받을 수 있어요. <br />
                     학교 편지는 항상 Open 되어 있어요 :)
                 </div>
             </div>
             <div className={styleMain.bottombox}>
                 <div className={styleMain.kakao} onClick={kakaoLogin}>
                     <img
-                        src="https://wishme-bichnali.s3.ap-northeast-2.amazonaws.com/login/kakao_login_medium_wide.png"
+                        src="/assets/login/kakao_login_medium_wide.png"
                         crossOrigin="anonymous"
                     ></img>
                 </div>

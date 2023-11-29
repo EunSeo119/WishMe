@@ -21,10 +21,9 @@ const SchoolPage = () => {
   const [schoolLetter, setSchoolLetter] = useState([])
   const [totalPage, setTotalPage] = useState(1)
   const navigate = useNavigate()
-  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER;
-  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER;
+  const MYLETTER_SERVER = process.env.REACT_APP_MYLETTER_SERVER
+  const SCHOOL_SERVER = process.env.REACT_APP_SCHOOL_SERVER
 
-  
   // 모달
   const [showMainPop, setShowMainPop] = useState(false)
   // 기본 세팅 값은 false
@@ -109,11 +108,8 @@ const SchoolPage = () => {
   }, [letterPage])
 
   useEffect(() => {
-
     axios
-      .get(
-        `${SCHOOL_SERVER}/api/school/letter/allByUUID/${schoolUuid}/${page}`
-      )
+      .get(`${SCHOOL_SERVER}/api/school/letter/allByUUID/${schoolUuid}/${page}`)
       .then((response) => {
         const data = response.data
         setSchoolName(data.schoolName)
@@ -124,8 +120,7 @@ const SchoolPage = () => {
         localStorage.setItem('schoolUuid', schoolUuid)
         setTotalPage(data.totalPage)
       })
-      .catch((error) => {
-      })
+      .catch((error) => {})
   }, [page])
 
   return (
@@ -173,8 +168,9 @@ const SchoolPage = () => {
         {/* 편지 에셋 목록 */}
         <div className={styleSchool.gridContainer}>
           <div
-            className={`${styleSchool.arrowIcon} ${page === 1 ? styleSchool.disabledArrow : ''
-              }`}
+            className={`${styleSchool.arrowIcon} ${
+              page === 1 ? styleSchool.disabledArrow : ''
+            }`}
             onClick={() => {
               if (page > 1) {
                 changePage(page - 1)
@@ -195,8 +191,11 @@ const SchoolPage = () => {
             ))}
           </div>
           <div
-            className={`${styleSchool.arrowIcon} ${page === totalPage ? styleSchool.disabledArrow : ''
-              }`}
+            className={`${styleSchool.arrowIcon} ${
+              page === totalPage || totalPage === 0
+                ? styleSchool.disabledArrow
+                : ''
+            }`}
             onClick={() => changePage(page + 1)}
           >
             <IoIosArrowForward />
@@ -228,19 +227,24 @@ const SchoolPage = () => {
           )}
         </div>
       </div>
-      {/* 편지 에셋 목록 */}
       <div className={styleSchool.btn}>
-          <div className={styleSchool.mydeskBtn} onClick={() => handleMyDeskClick()}>
-            나도 응원 받기
+        <div
+          className={styleSchool.mydeskBtn}
+          onClick={() => handleMyDeskClick()}
+        >
+          나도 응원 받기
+        </div>
+        <div className={styleSchool.rowButton}>
+          <div
+            className={styleSchool.mySchoolBtn}
+            onClick={() => letterWriteClick(schoolUuid)}
+          >
+            응원하기
           </div>
-          <div className={styleSchool.rowButton}>
-            <div className={styleSchool.mySchoolBtn} onClick={() => letterWriteClick(schoolUuid)}>
-              응원하기
-            </div>
-            <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
-              학교 공유하기
-            </div>
+          <div className={styleSchool.mySchoolBtnHalfShare} onClick={openModal}>
+            학교 공유하기
           </div>
+        </div>
       </div>
     </div>
   )
