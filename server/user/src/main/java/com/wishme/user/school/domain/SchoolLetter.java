@@ -1,13 +1,14 @@
-package com.wishme.user.domain;
+package com.wishme.user.school.domain;
 
 
+import com.wishme.user.asset.domain.Asset;
+import com.wishme.user.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

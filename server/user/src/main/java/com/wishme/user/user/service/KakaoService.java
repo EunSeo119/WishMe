@@ -1,15 +1,15 @@
-package com.wishme.user.user.model.service;
+package com.wishme.user.user.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wishme.user.domain.User;
-import com.wishme.user.user.model.dto.request.KakaoUserInfoDto;
-import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.user.domain.User;
+import com.wishme.user.user.dto.request.KakaoUserInfoDto;
+import com.wishme.user.user.repository.UserRepository;
 import com.wishme.user.util.AES256;
 import com.wishme.user.util.JwtUtil;
 import com.wishme.user.util.KakaoUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,18 +25,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class KakaoServiceImpl implements KakaoService {
+public class KakaoService {
 
-    @Value("{jwt.secret.key}")
+    @Value("${jwt.secret.key}")
     private String secretKey;
 
-    @Value("{key.AES256_Key}")
+    @Value("${key.AES256_Key}")
     private String key;
 
     private final KakaoUtil kakaoUtil;
     private final UserRepository userRepository;
 
-    @Override
     public ResponseEntity<?> login(String code, HttpServletResponse response) throws Exception {
 
         // 1. 인가 코드로 액세스 토큰 요청
@@ -50,7 +49,8 @@ public class KakaoServiceImpl implements KakaoService {
         String cipherEmail = aes256.encrypt(email); // email AES256 암호화
 
         // 3. 카카오 ID로 회원가입 처리
-        User user = userRepository.findByEmail(cipherEmail);
+        User user = userRepository.findByEmail(cipherEmail)
+                .orElseThrow(() -> new EmptyResultDataAccessException("해당 유저는 존재하지 않습니다.", 1));
         if (user == null) {
             // 회원가입
 //            String userNickname = kakaoUserInfoDto.getNickname();

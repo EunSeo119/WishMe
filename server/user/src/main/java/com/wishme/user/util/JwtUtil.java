@@ -1,9 +1,7 @@
 package com.wishme.user.util;
 
-import com.wishme.user.domain.User;
-import com.wishme.user.user.model.repository.UserRepository;
+import com.wishme.user.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;

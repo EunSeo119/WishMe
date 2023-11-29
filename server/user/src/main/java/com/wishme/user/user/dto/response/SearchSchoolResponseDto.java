@@ -1,4 +1,4 @@
-package com.wishme.user.user.model.dto.response;
+package com.wishme.user.user.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
